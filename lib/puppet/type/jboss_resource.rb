@@ -45,7 +45,7 @@ Puppet::Type.newtype(:jboss_resource) do
   end
 
   def server_reference
-    catalog.resource(self[:server].to_s)
+    catalog.resource("Jboss_admin::Server[#{self[:server]}]")
   end
 
   autorequire(:resource) do
@@ -54,5 +54,9 @@ Puppet::Type.newtype(:jboss_resource) do
     raise "Could not parse resource path #{value(:address)}, autorequire will fail" unless resource_path
 
     PathGenerator.ancestors resource_path
+  end
+
+  autorequire(:anchor) do
+    ["Jboss_admin::Server[#{self[:server]}] End"]
   end
 end

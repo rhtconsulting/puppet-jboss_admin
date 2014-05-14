@@ -20,7 +20,7 @@ Puppet::Type.newtype(:jboss_exec) do
   end
 
   def server_reference
-    catalog.resource(self[:server].to_s)
+    catalog.resource("Jboss_admin::Server[#{self[:server]}]")
   end
 
   newproperty(:executed, :boolean => true) do
@@ -76,4 +76,7 @@ Puppet::Type.newtype(:jboss_exec) do
     command_dependencies | onlyif_dependencies | unless_dependencies
   end
 
+  autorequire(:anchor) do
+    ["Jboss_admin::Server[#{self[:server]}] End"]
+  end
 end

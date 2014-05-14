@@ -107,7 +107,7 @@ jboss_admin::datasource{'/subsystem=datasources/data-source=ExampleDS':
   jta            => true,
   user_name      => sa,
   password       => sa,
-  server         => Jboss_admin::Server['main']
+  server         => main
 }
 ```
 
@@ -128,13 +128,13 @@ jboss_resource {'/subsystem=datasources/data-source=ExampleDS':
     'user-name'      => 'sa',
     'password'       => 'sa'
   },
-  server => Jboss_admin::Server['main']
+  server => main
 }
 
 jboss_exec {'Enable Data Source':
   command => '/subsystem=datasources/data-source=ExampleDS:enable',
   unless  => '(result == true) of /subsystem=datasources/data-source=ExampleDS:read-attribute(name=enabled)',
-  server  => Jboss_admin::Server['main']
+  server  => main
 }
 ```
 

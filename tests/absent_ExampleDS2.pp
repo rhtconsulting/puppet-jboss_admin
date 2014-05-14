@@ -4,6 +4,6 @@ jboss_admin::server {'main':
 
 jboss_admin::datasource{'ExampleDS':
   ensure         => absent,
-  server         => Jboss_admin::Server['main']
+  server         => main
 }
 

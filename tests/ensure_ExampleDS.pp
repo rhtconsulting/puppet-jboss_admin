@@ -12,5 +12,5 @@ jboss_resource {'/subsystem=datasources/data-source=ExampleDS':
     'user-name'      => 'sa',
     'password'       => 'sa'
   },
-  server => Jboss_admin::Server['main']
+  server => main
 }

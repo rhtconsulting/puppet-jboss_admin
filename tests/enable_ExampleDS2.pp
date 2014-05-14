@@ -11,6 +11,6 @@ jboss_admin::datasource{'ExampleDS':
   jta            => true,
   user_name      => sa,
   password       => sa,
-  server         => Jboss_admin::Server['main']
+  server         => main
 }
 
