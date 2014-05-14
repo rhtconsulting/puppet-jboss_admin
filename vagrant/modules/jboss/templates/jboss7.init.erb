@@ -1,0 +1,191 @@
+#!/usr/bin/env bash
+# File Managed by Puppet
+<% if @operatingsystem == 'RedHat' or @operatingsystem == 'CentOS' or @operatingsystem == 'Scientific' %>
+# jboss        Startup script for JBoss
+#
+# chkconfig: - 80 20
+# description: Jboss is an Application Server
+
+. /etc/init.d/functions
+
+<% elsif @operatingsystem == 'Debian' or @operatingsystem == 'Ubuntu' or @operatingsystem == 'Mint' %>
+# Poor man alternatives to RedHat init functions
+success () {
+  echo "OK"
+}
+
+failure () {
+  echo "FAILURE"
+}
+<% end %>
+### BEGIN INIT INFO
+# Provides:          jboss
+# Required-Start:    $local_fs $remote_fs $network 
+# Required-Stop:     $local_fs $remote_fs $network 
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop jboss service
+### END INIT INFO
+
+# define where jboss is - this is the directory containing directories log, bin, conf etc
+JBOSS_HOME=${JBOSS_HOME:-"<%= scope.lookupvar('jboss::real_jboss_dir') %>"}
+
+# define the user under which jboss will run, or use 'RUNASIS' to run as the current user
+JBOSS_USER=${JBOSS_USER:-"<%= scope.lookupvar('jboss::process_user') %>"}
+
+# make sure java is in your path
+JAVAPTH=${JAVAPTH:-"/usr/local/jdk/bin"}
+
+# if JBOSS_HOST specified, use -b to bind jboss services to that address
+JBOSS_BIND_ADDR=${JBOSS_HOST:-"-b <%= scope.lookupvar('jboss::bindaddr') %>"}
+JBOSS_BIND_ADDR_ADMIN_CONSOLE=${JBOSS_HOST:-"-bmanagement <%= scope.lookupvar('jboss::bindaddr_admin_console') %>"}
+
+# configuration to use
+JBOSS_CONFIG=${JBOSS_CONFIG:-"<%= scope.lookupvar('jboss::real_mode') %>.xml"}
+
+# define the script to use to start jboss
+JBOSS_SCRIPT="$JBOSS_HOME/bin/<%= scope.lookupvar('jboss::real_mode') %>.sh $JBOSS_BIND_ADDR $JBOSS_BIND_ADDR_ADMIN_CONSOLE"
+
+# Pid file
+JBOSS_PIDFILE=<%= scope.lookupvar('jboss::pid_file') %>
+
+# Startup and Shutdown times
+if [ -z "$STARTUP_WAIT" ]; then
+  STARTUP_WAIT=30
+fi
+
+if [ -z "$SHUTDOWN_WAIT" ]; then
+  SHUTDOWN_WAIT=30
+fi
+
+if [ "$JBOSS_USER" = "RUNASIS" ]; then
+  SUBIT=""
+else
+  SUBIT="su - $JBOSS_USER -c "
+fi
+
+if [ -z "$JBOSS_CONSOLE_LOG" ]; then
+  JBOSS_CONSOLE_LOG=<%= scope.lookupvar('jboss::log_dir') %>/console.log
+fi
+
+if [ -z "`echo $PATH | grep $JAVAPTH`" ]; then
+  export PATH=$PATH:$JAVAPTH
+fi
+
+if [ ! -d "$JBOSS_HOME" ]; then
+  echo JBOSS_HOME does not exist as a valid directory : $JBOSS_HOME
+  exit 1
+fi
+
+
+status () {
+  if [ -f $JBOSS_PIDFILE ]; then
+    read ppid < $JBOSS_PIDFILE
+    if [ `ps --pid $ppid 2> /dev/null | grep -c $ppid 2> /dev/null` -eq '1' ]; then
+      success
+      echo "$prog is running (pid $ppid)"
+      return 0
+    else
+      failure
+      echo "$prog dead but pid file exists ($JBOSS_PIDFILE) "
+      return 1
+    fi
+  fi
+  echo "$prog is not running"
+  return 3
+}
+
+start () {
+  echo -n "Starting $prog: "
+  if [ -f $JBOSS_PIDFILE ]; then
+    read ppid < $JBOSS_PIDFILE
+    if [ `ps --pid $ppid 2> /dev/null | grep -c $ppid 2> /dev/null` -eq '1' ]; then
+      echo -n "$prog is already running"
+      # failure
+      echo
+      return 1 
+    else
+      rm -f $JBOSS_PIDFILE
+    fi
+  fi
+  mkdir -p $(dirname $JBOSS_CONSOLE_LOG)
+  cat /dev/null > $JBOSS_CONSOLE_LOG
+
+  mkdir -p $(dirname $JBOSS_PIDFILE)
+  chown $JBOSS_USER $(dirname $JBOSS_PIDFILE) || true
+  #$CMD_PREFIX JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT 2>&1 > $JBOSS_CONSOLE_LOG &
+  #$CMD_PREFIX JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT &
+
+  if [ ! -z "$JBOSS_USER" ]; then
+    if [ -x /etc/rc.d/init.d/functions ]; then
+      daemon --user $JBOSS_USER LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT -c $JBOSS_CONFIG 2>&1 > $JBOSS_CONSOLE_LOG &
+    else
+      su - $JBOSS_USER -c "LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT -c $JBOSS_CONFIG" 2>&1 > $JBOSS_CONSOLE_LOG &
+    fi
+  fi
+
+  count=0
+  launched=false
+
+  until [ $count -gt $STARTUP_WAIT ]
+  do
+    grep 'JBoss AS.*started in' $JBOSS_CONSOLE_LOG > /dev/null 
+    if [ $? -eq 0 ] ; then
+      launched=true
+      break
+    fi 
+    sleep 1
+    let count=$count+1;
+  done
+  
+  success
+  echo
+  return 0
+
+}
+
+stop () {
+  echo -n $"Stopping Jboss: "
+  count=0;
+
+  if [ -f $JBOSS_PIDFILE ]; then
+    read kpid < $JBOSS_PIDFILE
+    let kwait=$SHUTDOWN_WAIT
+
+    # Try issuing SIGTERM
+
+    kill -15 $kpid
+    until [ `ps --pid $kpid 2> /dev/null | grep -c $kpid 2> /dev/null` -eq '0' ] || [ $count -gt $kwait ]
+    do
+      sleep 1
+      let count=$count+1;
+    done
+
+    if [ $count -gt $kwait ]; then
+      kill -9 $kpid
+    fi
+  fi
+  rm -f $JBOSS_PIDFILE && rm -f $LOCKFILE
+  success
+  echo
+}
+
+case "$1" in
+start)
+    start
+    ;;
+stop)
+    stop
+    ;;
+restart)
+    stop
+    sleep 15
+    start
+    ;;
+status)
+    status
+    ;;
+*)
+    echo "usage: $0 (start|stop|restart|status|help)"
+esac
+

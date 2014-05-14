@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="<%= @namespace %>">
+  <resources>
+    <resource-root path="<%= @jar_name %>"/>
+  </resources>
+  <dependencies>
+  <% @dependencies.each do |dep| -%>
+    <module name="<%= dep %>"/>
+  <% end -%>
+  </dependencies>
+</module>

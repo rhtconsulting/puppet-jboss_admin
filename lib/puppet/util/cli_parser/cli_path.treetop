@@ -1,0 +1,29 @@
+grammar CliPath
+  rule path
+    segments:('/' segment)+ {
+      def value
+        segments.elements.collect { |node| node.segment.value }
+      end
+    } 
+  end
+
+  rule segment
+    type '=' type_name {
+      def value
+        {type.text_value => type_name.text_value}
+      end
+    }
+  end
+
+  rule type
+    identifier
+  end
+
+  rule type_name
+    identifier
+  end
+
+  rule identifier
+    [a-zA-Z\-]+
+  end
+end

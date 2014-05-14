@@ -1,0 +1,102 @@
+grammar CliCondition
+  include CliCommand
+
+
+  rule statement
+    logical_expression space 'of' space command {
+      def value
+        [logical_expression.value, command.value]
+      end
+    }
+  end
+
+  rule logical_expression
+    head:(expr:comparison_expression/ '(' space? expr:logical_expression space? ')') tail:(space logical_operator space logical_expression)* {
+      def value
+        head_expr = head.expr.value
+        tail.elements.inject(head_expr) do |result, node| 
+          node.logical_operation.value result, node.logical_expression.value
+        end
+      end
+    }
+  end
+
+  rule comparison_expression
+    accessor space? comparison_operator space? rhs:value {
+      def value
+        lambda { |hash| 
+          lhs = accessor.text_value.split('.').inject(hash) {|result, key| (result || {})[key]} 
+          comparison_operator.compare lhs, rhs.value
+        }
+      end
+    }
+  end
+
+  rule accessor
+    [a-zA-Z]+ ('.' [a-zA-Z])* 
+  end
+
+  rule comparison_operator
+     '<=' {
+       def compare(lhs, rhs)
+         lhs.to_i <= rhs.to_i
+       end
+     }
+
+     / '>=' {
+       def compare(lhs, rhs)
+         lhs.to_i >= rhs.to_i
+       end
+     }
+
+     / '>' {
+       def compare(lhs, rhs)
+         lhs.to_i > rhs.to_i
+       end
+     }
+
+     / '<' {
+       def compare(lhs, rhs)
+         lhs.to_i < rhs.to_i
+       end
+     }
+
+     / '==' {
+       def compare(lhs, rhs)
+         lhs.to_s == rhs.to_s
+       end
+     }
+
+     / '!=' {
+       def compare(lhs, rhs)
+         lhs.to_s != rhs.to_s
+       end
+     }
+  end
+
+  rule logical_operator
+    '&&' {
+       def value(left, right)
+         lambda {|hash| left.call(hash) && right.call(hash)}
+       end
+    }
+    / '||' {
+      def value(left, right)
+        lambda {|hash| left.call(hash) || right.call(hash)}
+      end
+    }
+  end
+
+  rule value
+    [a-zA-Z0-9]+ {
+      def value
+        text_value
+      end
+    }
+  end
+
+  rule space
+    [ ]+
+  end
+
+end

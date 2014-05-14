@@ -1,0 +1,24 @@
+grammar CliCommand
+  include CliPath
+
+  rule command
+    path ':' method arguments:('(' arguments ')')?  {
+      def value
+        result = [path.value, method.text_value]
+        if arguments
+         result += [arguments.text_value]
+        end
+
+        result
+      end
+    }
+  end
+
+  rule arguments
+    [^)]*
+  end
+
+  rule method
+    identifier
+  end
+end
