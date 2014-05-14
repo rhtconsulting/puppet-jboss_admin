@@ -39,11 +39,9 @@ specific to a single resource.
 
 Currently there are two plumbing types on which all porcelain types are built:
 
-* jboss_resource
-  Ensures that a specific resource path is present or absent, and that all 
+* jboss_resource: Ensures that a specific resource path is present or absent, and that all 
   attributes have the specified values. Non-specified attributes are ignored.
-* jboss_exec
-  Executes the specified command within the Jboss CLI. Executing the command
+* jboss_exec: Executes the specified command within the Jboss CLI. Executing the command
   can be made conditional based on the result of another command. This support
   is not dependent on a specific version if EAP/Wildfly.
 
@@ -81,8 +79,8 @@ created.
 An explicit dependency must be declared when two resources that are not an
 ancestor and child are dependent.
 
-How to User
------------
+How to Use
+----------
 
 Following are some brief examples of using this modules types. Refer to each
 types documentation for more details.
@@ -95,7 +93,7 @@ using the porcelain types when possible.
 
 ###Porcelain Types###
 
-~~~
+```Puppet
 jboss_admin::server {'main':
   base_path => '/opt/jboss'
 }
@@ -111,11 +109,11 @@ jboss_admin::datasource{'/subsystem=datasources/data-source=ExampleDS':
   password       => sa,
   server         => Jboss_admin::Server['main']
 }
-~~~
+```
 
 ###Plumbing Types###
 
-~~~
+```Puppet
 jboss_admin::server {'main':
   base_path => '/opt/jboss'
 }
@@ -138,7 +136,7 @@ jboss_exec {'Enable Data Source':
   unless  => '(result == true) of /subsystem=datasources/data-source=ExampleDS:read-attribute(name=enabled)',
   server  => Jboss_admin::Server['main']
 }
-~~~
+```
 
 
 Developer Setup
