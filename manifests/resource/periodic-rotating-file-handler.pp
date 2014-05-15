@@ -7,25 +7,25 @@
 # [*filter*]
 #   Defines a simple filter type.
 #
-# [*formatter*]
-#   Defines a formatter.
-#
-# [*append*]
-#   Specify whether to append to the target file.
-#
 # [*file*]
 #   The file description consisting of the path and optional relative to path.
 #
 # [*encoding*]
 #   The character encoding used by this Handler.
 #
-# [*suffix*]
-#   Set the suffix string.  The string is in a format which can be understood by java.text.SimpleDateFormat. The period of the rotation is automatically calculated based on the suffix.
+# [*formatter*]
+#   Defines a formatter.
+#
+# [*append*]
+#   Specify whether to append to the target file.
 #
 # [*level*]
 #   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
 #
-# [*name*]
+# [*suffix*]
+#   Set the suffix string.  The string is in a format which can be understood by java.text.SimpleDateFormat. The period of the rotation is automatically calculated based on the suffix.
+#
+# [*_name*]
 #   The handler's name.
 #
 # [*autoflush*]
@@ -35,13 +35,13 @@
 define jboss_admin::resource::periodic-rotating-file-handler (
   $server,
   $filter                         = undef,
-  $formatter                      = undef,
-  $append                         = undef,
   $file                           = undef,
   $encoding                       = undef,
-  $suffix                         = undef,
+  $formatter                      = undef,
+  $append                         = undef,
   $level                          = undef,
-  $name                           = undef,
+  $suffix                         = undef,
+  $_name                          = undef,
   $autoflush                      = undef,
   $ensure                         = present,
   $path                           = $name
@@ -52,13 +52,13 @@ define jboss_admin::resource::periodic-rotating-file-handler (
 
     $raw_options = { 
       'filter'                       => $filter,
-      'formatter'                    => $formatter,
-      'append'                       => $append,
       'file'                         => $file,
       'encoding'                     => $encoding,
-      'suffix'                       => $suffix,
+      'formatter'                    => $formatter,
+      'append'                       => $append,
       'level'                        => $level,
-      'name'                         => $name,
+      'suffix'                       => $suffix,
+      'name'                         => $_name,
       'autoflush'                    => $autoflush,
     }
     $options = delete_undef_values($raw_options)

@@ -7,6 +7,9 @@
 # [*port*]
 #   Deprecated -- use 'socket-binding'. The port on which the server's socket for HTTP management communication should be opened. Must be 'undefined' if the 'socket-binding' attribute is set.
 #
+# [*security_realm*]
+#   The security realm to use for the HTTP management interface.
+#
 # [*socket_binding*]
 #   The name of the socket binding configuration to use for the HTTP management interface's socket.
 #
@@ -22,19 +25,16 @@
 # [*secure_socket_binding*]
 #   The name of the socket binding configuration to use for the HTTPS management interface's socket.
 #
-# [*security_realm*]
-#   The security realm to use for the HTTP management interface.
-#
 #
 define jboss_admin::resource::management-interface_http-interface (
   $server,
   $port                           = undef,
+  $security_realm                 = undef,
   $socket_binding                 = undef,
   $interface                      = undef,
   $console_enabled                = undef,
   $secure_port                    = undef,
   $secure_socket_binding          = undef,
-  $security_realm                 = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -50,12 +50,12 @@ define jboss_admin::resource::management-interface_http-interface (
 
     $raw_options = { 
       'port'                         => $port,
+      'security-realm'               => $security_realm,
       'socket-binding'               => $socket_binding,
       'interface'                    => $interface,
       'console-enabled'              => $console_enabled,
       'secure-port'                  => $secure_port,
       'secure-socket-binding'        => $secure_socket_binding,
-      'security-realm'               => $security_realm,
     }
     $options = delete_undef_values($raw_options)
 

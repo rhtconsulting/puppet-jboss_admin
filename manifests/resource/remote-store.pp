@@ -4,6 +4,15 @@
 #
 # === Parameters
 #
+# [*singleton*]
+#   If true, the singleton store cache store is enabled. SingletonStore is a delegating cache store used for situations when only one instance in a cluster should interact with the underlying store.
+#
+# [*shared*]
+#   This setting should be set to true when multiple cache instances share the same cache store (e.g., multiple nodes in a cluster using a JDBC-based CacheStore pointing to the same, shared database.) Setting this to true avoids multiple cache instances writing the same modification multiple times. If enabled, only the node where the modification originated will write to the cache store. If disabled, each individual cache reacts to a potential remote update by storing the data to the cache store.
+#
+# [*cache*]
+#   The name of the remote cache to use for this remote store.
+#
 # [*tcp_no_delay*]
 #   A TCP_NODELAY value for remote cache communication.
 #
@@ -12,9 +21,6 @@
 #
 # [*fetch_state*]
 #   If true, fetch persistent state when joining a cluster. If multiple cache stores are chained, only one of them can have this property enabled.
-#
-# [*cache*]
-#   The name of the remote cache to use for this remote store.
 #
 # [*socket_timeout*]
 #   A socket timeout for remote cache communication.
@@ -28,25 +34,19 @@
 # [*purge*]
 #   If true, purges this cache store when it starts up.
 #
-# [*singleton*]
-#   If true, the singleton store cache store is enabled. SingletonStore is a delegating cache store used for situations when only one instance in a cluster should interact with the underlying store.
-#
-# [*shared*]
-#   This setting should be set to true when multiple cache instances share the same cache store (e.g., multiple nodes in a cluster using a JDBC-based CacheStore pointing to the same, shared database.) Setting this to true avoids multiple cache instances writing the same modification multiple times. If enabled, only the node where the modification originated will write to the cache store. If disabled, each individual cache reacts to a potential remote update by storing the data to the cache store.
-#
 #
 define jboss_admin::resource::remote-store (
   $server,
+  $singleton                      = undef,
+  $shared                         = undef,
+  $cache                          = undef,
   $tcp_no_delay                   = undef,
   $preload                        = undef,
   $fetch_state                    = undef,
-  $cache                          = undef,
   $socket_timeout                 = undef,
   $passivation                    = undef,
   $remote_servers                 = undef,
   $purge                          = undef,
-  $singleton                      = undef,
-  $shared                         = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -55,16 +55,16 @@ define jboss_admin::resource::remote-store (
   
 
     $raw_options = { 
+      'singleton'                    => $singleton,
+      'shared'                       => $shared,
+      'cache'                        => $cache,
       'tcp-no-delay'                 => $tcp_no_delay,
       'preload'                      => $preload,
       'fetch-state'                  => $fetch_state,
-      'cache'                        => $cache,
       'socket-timeout'               => $socket_timeout,
       'passivation'                  => $passivation,
       'remote-servers'               => $remote_servers,
       'purge'                        => $purge,
-      'singleton'                    => $singleton,
-      'shared'                       => $shared,
     }
     $options = delete_undef_values($raw_options)
 

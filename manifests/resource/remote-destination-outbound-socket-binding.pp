@@ -7,6 +7,9 @@
 # [*port*]
 #   The port number of the remote destination to which the outbound socket should connect.
 #
+# [*source_interface*]
+#   The name of the interface which will be used for the source address of the outbound socket.
+#
 # [*source_port*]
 #   The port number which will be used as the source port of the outbound socket.
 #
@@ -16,17 +19,14 @@
 # [*host*]
 #   The host name or the IP address of the remote destination to which this outbound socket will connect.
 #
-# [*source_interface*]
-#   The name of the interface which will be used for the source address of the outbound socket.
-#
 #
 define jboss_admin::resource::remote-destination-outbound-socket-binding (
   $server,
   $port                           = undef,
+  $source_interface               = undef,
   $source_port                    = undef,
   $fixed_source_port              = undef,
   $host                           = undef,
-  $source_interface               = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -42,10 +42,10 @@ define jboss_admin::resource::remote-destination-outbound-socket-binding (
 
     $raw_options = { 
       'port'                         => $port,
+      'source-interface'             => $source_interface,
       'source-port'                  => $source_port,
       'fixed-source-port'            => $fixed_source_port,
       'host'                         => $host,
-      'source-interface'             => $source_interface,
     }
     $options = delete_undef_values($raw_options)
 

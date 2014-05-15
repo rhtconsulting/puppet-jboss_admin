@@ -4,11 +4,14 @@
 #
 # === Parameters
 #
-# [*binding_type*]
-#   The type of binding to create, may be simple, lookup or object-factory
-#
 # [*type*]
 #   The type of the value to bind for simple bindings, this must be a primitive type
+#
+# [*module*]
+#   The module to load the object factory from for object factory bindings
+#
+# [*binding_type*]
+#   The type of binding to create, may be simple, lookup or object-factory
 #
 # [*value*]
 #   The value to bind for simple bindings
@@ -19,18 +22,15 @@
 # [*lookup*]
 #   The entry to lookup in JNDI for lookup bindings
 #
-# [*module*]
-#   The module to load the object factory from for object factory bindings
-#
 #
 define jboss_admin::resource::binding (
   $server,
-  $binding_type                   = undef,
   $type                           = undef,
+  $module                         = undef,
+  $binding_type                   = undef,
   $value                          = undef,
   $class                          = undef,
   $lookup                         = undef,
-  $module                         = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -39,12 +39,12 @@ define jboss_admin::resource::binding (
   
 
     $raw_options = { 
-      'binding-type'                 => $binding_type,
       'type'                         => $type,
+      'module'                       => $module,
+      'binding-type'                 => $binding_type,
       'value'                        => $value,
       'class'                        => $class,
       'lookup'                       => $lookup,
-      'module'                       => $module,
     }
     $options = delete_undef_values($raw_options)
 

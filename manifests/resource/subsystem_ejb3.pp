@@ -4,6 +4,12 @@
 #
 # === Parameters
 #
+# [*default_resource_adapter_name*]
+#   Name of the default resource adapter name that will be used by MDBs, unless overridden at the deployment or bean level
+#
+# [*in_vm_remote_interface_invocation_pass_by_value*]
+#   If set to false, the parameters to invocations on remote interface of an EJB, will be passed by reference. Else, the parameters will be passed by value.
+#
 # [*default_stateful_bean_access_timeout*]
 #   The default access timeout for stateful beans
 #
@@ -28,15 +34,11 @@
 # [*default_entity_bean_optimistic_locking*]
 #   If set to true entity beans will use optimistic locking by default
 #
-# [*default_resource_adapter_name*]
-#   Name of the default resource adapter name that will be used by MDBs, unless overridden at the deployment or bean level
-#
-# [*in_vm_remote_interface_invocation_pass_by_value*]
-#   If set to false, the parameters to invocations on remote interface of an EJB, will be passed by reference. Else, the parameters will be passed by value.
-#
 #
 define jboss_admin::resource::subsystem_ejb3 (
   $server,
+  $default_resource_adapter_name  = undef,
+  $in_vm_remote_interface_invocation_pass_by_value = undef,
   $default_stateful_bean_access_timeout = undef,
   $default_clustered_sfsb_cache   = undef,
   $default_slsb_instance_pool     = undef,
@@ -45,8 +47,6 @@ define jboss_admin::resource::subsystem_ejb3 (
   $default_mdb_instance_pool      = undef,
   $default_sfsb_cache             = undef,
   $default_entity_bean_optimistic_locking = undef,
-  $default_resource_adapter_name  = undef,
-  $in_vm_remote_interface_invocation_pass_by_value = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -55,6 +55,8 @@ define jboss_admin::resource::subsystem_ejb3 (
   
 
     $raw_options = { 
+      'default-resource-adapter-name' => $default_resource_adapter_name,
+      'in-vm-remote-interface-invocation-pass-by-value' => $in_vm_remote_interface_invocation_pass_by_value,
       'default-stateful-bean-access-timeout' => $default_stateful_bean_access_timeout,
       'default-clustered-sfsb-cache' => $default_clustered_sfsb_cache,
       'default-slsb-instance-pool'   => $default_slsb_instance_pool,
@@ -63,8 +65,6 @@ define jboss_admin::resource::subsystem_ejb3 (
       'default-mdb-instance-pool'    => $default_mdb_instance_pool,
       'default-sfsb-cache'           => $default_sfsb_cache,
       'default-entity-bean-optimistic-locking' => $default_entity_bean_optimistic_locking,
-      'default-resource-adapter-name' => $default_resource_adapter_name,
-      'in-vm-remote-interface-invocation-pass-by-value' => $in_vm_remote_interface_invocation_pass_by_value,
     }
     $options = delete_undef_values($raw_options)
 

@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*thread_contention_monitoring_supported*]
+#   Whether the Java virtual machine supports thread contention monitoring.
+#
 # [*thread_cpu_time_supported*]
 #   Whether the Java virtual machine implementation supports CPU time measurement for any thread.
 #
@@ -28,12 +31,10 @@
 # [*object_name*]
 #   String representation the object name of this platform managed object.
 #
-# [*thread_contention_monitoring_supported*]
-#   Whether the Java virtual machine supports thread contention monitoring.
-#
 #
 define jboss_admin::resource::type_threading (
   $server,
+  $thread_contention_monitoring_supported = undef,
   $thread_cpu_time_supported      = undef,
   $current_thread_cpu_time_supported = undef,
   $thread_contention_monitoring_enabled = undef,
@@ -42,7 +43,6 @@ define jboss_admin::resource::type_threading (
   $synchronizer_usage_supported   = undef,
   $all_thread_ids                 = undef,
   $object_name                    = undef,
-  $thread_contention_monitoring_supported = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -51,6 +51,7 @@ define jboss_admin::resource::type_threading (
   
 
     $raw_options = { 
+      'thread-contention-monitoring-supported' => $thread_contention_monitoring_supported,
       'thread-cpu-time-supported'    => $thread_cpu_time_supported,
       'current-thread-cpu-time-supported' => $current_thread_cpu_time_supported,
       'thread-contention-monitoring-enabled' => $thread_contention_monitoring_enabled,
@@ -59,7 +60,6 @@ define jboss_admin::resource::type_threading (
       'synchronizer-usage-supported' => $synchronizer_usage_supported,
       'all-thread-ids'               => $all_thread_ids,
       'object-name'                  => $object_name,
-      'thread-contention-monitoring-supported' => $thread_contention_monitoring_supported,
     }
     $options = delete_undef_values($raw_options)
 

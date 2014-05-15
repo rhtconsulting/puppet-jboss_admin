@@ -4,6 +4,15 @@
 #
 # === Parameters
 #
+# [*data_dir*]
+#   The data directory.
+#
+# [*initial_running_mode*]
+#   The current running mode of the server. Either LIVE (normal operations) or ADMIN_ONLY.  An ADMIN_ONLY server will start any configured management interfaces and accept management requests, but will not start services used for handling end user requests.
+#
+# [*modules_dir*]
+#   The directory where modules are found.
+#
 # [*node_name*]
 #   The name of the server node.
 #
@@ -46,18 +55,12 @@
 # [*host_name*]
 #   The host name.
 #
-# [*data_dir*]
-#   The data directory.
-#
-# [*initial_running_mode*]
-#   The current running mode of the server. Either LIVE (normal operations) or ADMIN_ONLY.  An ADMIN_ONLY server will start any configured management interfaces and accept management requests, but will not start services used for handling end user requests.
-#
-# [*modules_dir*]
-#   The directory where modules are found.
-#
 #
 define jboss_admin::resource::core-service_server-environment (
   $server,
+  $data_dir                       = undef,
+  $initial_running_mode           = undef,
+  $modules_dir                    = undef,
   $node_name                      = undef,
   $ext_dirs                       = undef,
   $qualified_host_name            = undef,
@@ -72,9 +75,6 @@ define jboss_admin::resource::core-service_server-environment (
   $launch_type                    = undef,
   $config_file                    = undef,
   $host_name                      = undef,
-  $data_dir                       = undef,
-  $initial_running_mode           = undef,
-  $modules_dir                    = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -83,6 +83,9 @@ define jboss_admin::resource::core-service_server-environment (
   
 
     $raw_options = { 
+      'data-dir'                     => $data_dir,
+      'initial-running-mode'         => $initial_running_mode,
+      'modules-dir'                  => $modules_dir,
       'node-name'                    => $node_name,
       'ext-dirs'                     => $ext_dirs,
       'qualified-host-name'          => $qualified_host_name,
@@ -97,9 +100,6 @@ define jboss_admin::resource::core-service_server-environment (
       'launch-type'                  => $launch_type,
       'config-file'                  => $config_file,
       'host-name'                    => $host_name,
-      'data-dir'                     => $data_dir,
-      'initial-running-mode'         => $initial_running_mode,
-      'modules-dir'                  => $modules_dir,
     }
     $options = delete_undef_values($raw_options)
 

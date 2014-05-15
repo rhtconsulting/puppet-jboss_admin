@@ -4,6 +4,36 @@
 #
 # === Parameters
 #
+# [*max_pool_size*]
+#   The max-pool-size element specifies the maximum number of connections for a pool. No more connections will be created in each sub-pool
+#
+# [*security_application*]
+#   Indicates that app supplied parameters (such as from getConnection(user, pw)) are used to distinguish connections in the pool
+#
+# [*use_try_lock*]
+#   Any configured timeout for internal locks on the resource adapter objects in seconds
+#
+# [*background_validation*]
+#   An element to specify that connections should be validated on a background thread versus being validated prior to use. Changing this value requires a server restart
+#
+# [*no_recovery*]
+#   Specifies if the connection pool should be excluded from recovery
+#
+# [*enabled*]
+#   Specifies if the resource adapter should be enabled
+#
+# [*allocation_retry*]
+#   The allocation retry element indicates the number of times that allocating a connection should be tried before throwing an exception
+#
+# [*recovery_username*]
+#   The user name used for recovery
+#
+# [*pad_xid*]
+#   Should the Xid be padded
+#
+# [*interleaving*]
+#   An element to enable interleaving for XA connections
+#
 # [*min_pool_size*]
 #   The min-pool-size element specifies the minimum number of connections for a pool
 #
@@ -73,39 +103,19 @@
 # [*no_tx_separate_pool*]
 #   Oracle does not like XA connections getting used both inside and outside a JTA transaction. To workaround the problem you can create separate sub-pools for the different contexts
 #
-# [*max_pool_size*]
-#   The max-pool-size element specifies the maximum number of connections for a pool. No more connections will be created in each sub-pool
-#
-# [*security_application*]
-#   Indicates that app supplied parameters (such as from getConnection(user, pw)) are used to distinguish connections in the pool
-#
-# [*use_try_lock*]
-#   Any configured timeout for internal locks on the resource adapter objects in seconds
-#
-# [*background_validation*]
-#   An element to specify that connections should be validated on a background thread versus being validated prior to use. Changing this value requires a server restart
-#
-# [*no_recovery*]
-#   Specifies if the connection pool should be excluded from recovery
-#
-# [*enabled*]
-#   Specifies if the resource adapter should be enabled
-#
-# [*allocation_retry*]
-#   The allocation retry element indicates the number of times that allocating a connection should be tried before throwing an exception
-#
-# [*recovery_username*]
-#   The user name used for recovery
-#
-# [*pad_xid*]
-#   Should the Xid be padded
-#
-# [*interleaving*]
-#   An element to enable interleaving for XA connections
-#
 #
 define jboss_admin::resource::connection-definitions (
   $server,
+  $max_pool_size                  = undef,
+  $security_application           = undef,
+  $use_try_lock                   = undef,
+  $background_validation          = undef,
+  $no_recovery                    = undef,
+  $enabled                        = undef,
+  $allocation_retry               = undef,
+  $recovery_username              = undef,
+  $pad_xid                        = undef,
+  $interleaving                   = undef,
   $min_pool_size                  = undef,
   $use_fast_fail                  = undef,
   $allocation_retry_wait_millis   = undef,
@@ -129,36 +139,36 @@ define jboss_admin::resource::connection-definitions (
   $jndi_name                      = undef,
   $use_ccm                        = undef,
   $no_tx_separate_pool            = undef,
-  $max_pool_size                  = undef,
-  $security_application           = undef,
-  $use_try_lock                   = undef,
-  $background_validation          = undef,
-  $no_recovery                    = undef,
-  $enabled                        = undef,
-  $allocation_retry               = undef,
-  $recovery_username              = undef,
-  $pad_xid                        = undef,
-  $interleaving                   = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
   if $ensure == present {
 
-    if $min_pool_size != undef and !is_integer($min_pool_size) { 
-      fail('The attribute min_pool_size is not an integer') 
-    }
-    if $xa_resource_timeout != undef and !is_integer($xa_resource_timeout) { 
-      fail('The attribute xa_resource_timeout is not an integer') 
-    }
     if $max_pool_size != undef and !is_integer($max_pool_size) { 
       fail('The attribute max_pool_size is not an integer') 
     }
     if $allocation_retry != undef and !is_integer($allocation_retry) { 
       fail('The attribute allocation_retry is not an integer') 
     }
+    if $min_pool_size != undef and !is_integer($min_pool_size) { 
+      fail('The attribute min_pool_size is not an integer') 
+    }
+    if $xa_resource_timeout != undef and !is_integer($xa_resource_timeout) { 
+      fail('The attribute xa_resource_timeout is not an integer') 
+    }
   
 
     $raw_options = { 
+      'max-pool-size'                => $max_pool_size,
+      'security-application'         => $security_application,
+      'use-try-lock'                 => $use_try_lock,
+      'background-validation'        => $background_validation,
+      'no-recovery'                  => $no_recovery,
+      'enabled'                      => $enabled,
+      'allocation-retry'             => $allocation_retry,
+      'recovery-username'            => $recovery_username,
+      'pad-xid'                      => $pad_xid,
+      'interleaving'                 => $interleaving,
       'min-pool-size'                => $min_pool_size,
       'use-fast-fail'                => $use_fast_fail,
       'allocation-retry-wait-millis' => $allocation_retry_wait_millis,
@@ -182,16 +192,6 @@ define jboss_admin::resource::connection-definitions (
       'jndi-name'                    => $jndi_name,
       'use-ccm'                      => $use_ccm,
       'no-tx-separate-pool'          => $no_tx_separate_pool,
-      'max-pool-size'                => $max_pool_size,
-      'security-application'         => $security_application,
-      'use-try-lock'                 => $use_try_lock,
-      'background-validation'        => $background_validation,
-      'no-recovery'                  => $no_recovery,
-      'enabled'                      => $enabled,
-      'allocation-retry'             => $allocation_retry,
-      'recovery-username'            => $recovery_username,
-      'pad-xid'                      => $pad_xid,
-      'interleaving'                 => $interleaving,
     }
     $options = delete_undef_values($raw_options)
 

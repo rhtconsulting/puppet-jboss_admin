@@ -24,6 +24,6 @@ grammar CliPath
   end
 
   rule identifier
-    [a-zA-Z\-]+
+    [a-zA-Z_\.\-]+
   end
 end

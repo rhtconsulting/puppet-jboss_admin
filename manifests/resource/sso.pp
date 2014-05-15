@@ -4,25 +4,25 @@
 #
 # === Parameters
 #
-# [*domain*]
-#   The cookie domain that will be used.
-#
-# [*cache_name*]
-#   Name of the cache to use in the cache container.
-#
 # [*cache_container*]
 #   Enables clustered SSO using the specified clustered cache container.
 #
 # [*reauthenticate*]
 #   Enables reauthentication with the realm when using SSO.
 #
+# [*domain*]
+#   The cookie domain that will be used.
+#
+# [*cache_name*]
+#   Name of the cache to use in the cache container.
+#
 #
 define jboss_admin::resource::sso (
   $server,
-  $domain                         = undef,
-  $cache_name                     = undef,
   $cache_container                = undef,
   $reauthenticate                 = undef,
+  $domain                         = undef,
+  $cache_name                     = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -31,10 +31,10 @@ define jboss_admin::resource::sso (
   
 
     $raw_options = { 
-      'domain'                       => $domain,
-      'cache-name'                   => $cache_name,
       'cache-container'              => $cache_container,
       'reauthenticate'               => $reauthenticate,
+      'domain'                       => $domain,
+      'cache-name'                   => $cache_name,
     }
     $options = delete_undef_values($raw_options)
 

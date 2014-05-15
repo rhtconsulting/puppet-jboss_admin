@@ -4,47 +4,47 @@
 #
 # === Parameters
 #
-# [*context*]
-#   Webservice endpoint context.
-#
 # [*type*]
 #   Webservice endpoint type.
-#
-# [*class*]
-#   Webservice endpoint class.
-#
-# [*name*]
-#   Webservice endpoint name.
 #
 # [*wsdl_url*]
 #   Webservice endpoint WSDL URL.
 #
+# [*context*]
+#   Webservice endpoint context.
+#
+# [*class*]
+#   Webservice endpoint class.
+#
+# [*_name*]
+#   Webservice endpoint name.
+#
 #
 define jboss_admin::resource::endpoint (
   $server,
-  $context                        = undef,
   $type                           = undef,
-  $class                          = undef,
-  $name                           = undef,
   $wsdl_url                       = undef,
+  $context                        = undef,
+  $class                          = undef,
+  $_name                          = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
   if $ensure == present {
 
-    if $context == undef { fail('The attribute context is undefined but required') }
     if $type == undef { fail('The attribute type is undefined but required') }
-    if $class == undef { fail('The attribute class is undefined but required') }
-    if $name == undef { fail('The attribute name is undefined but required') }
     if $wsdl_url == undef { fail('The attribute wsdl_url is undefined but required') }
+    if $context == undef { fail('The attribute context is undefined but required') }
+    if $class == undef { fail('The attribute class is undefined but required') }
+    if $_name == undef { fail('The attribute _name is undefined but required') }
   
 
     $raw_options = { 
-      'context'                      => $context,
       'type'                         => $type,
-      'class'                        => $class,
-      'name'                         => $name,
       'wsdl-url'                     => $wsdl_url,
+      'context'                      => $context,
+      'class'                        => $class,
+      'name'                         => $_name,
     }
     $options = delete_undef_values($raw_options)
 

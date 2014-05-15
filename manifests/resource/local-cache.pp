@@ -4,11 +4,11 @@
 #
 # === Parameters
 #
-# [*batching*]
-#   If enabled, the invocation batching API will be made available for this cache.
-#
 # [*start*]
 #   The cache start mode, which can be EAGER (immediate start) or LAZY (on-demand start).
+#
+# [*batching*]
+#   If enabled, the invocation batching API will be made available for this cache.
 #
 # [*indexing*]
 #   If enabled, entries will be indexed when they are added to the cache. Indexes will be updated as entries change or are removed.
@@ -19,8 +19,8 @@
 #
 define jboss_admin::resource::local-cache (
   $server,
-  $batching                       = undef,
   $start                          = undef,
+  $batching                       = undef,
   $indexing                       = undef,
   $jndi_name                      = undef,
   $ensure                         = present,
@@ -31,8 +31,8 @@ define jboss_admin::resource::local-cache (
   
 
     $raw_options = { 
-      'batching'                     => $batching,
       'start'                        => $start,
+      'batching'                     => $batching,
       'indexing'                     => $indexing,
       'jndi-name'                    => $jndi_name,
     }

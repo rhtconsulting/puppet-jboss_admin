@@ -10,19 +10,19 @@
 # [*default_web_module*]
 #   The web module deployment name that will be mapped as the root webapp.
 #
+# [*_name*]
+#   A unique virtual host name
+#
 # [*alias*]
 #   The virtual server aliases
-#
-# [*name*]
-#   A unique virtual host name
 #
 #
 define jboss_admin::resource::virtual-server (
   $server,
   $enable_welcome_root            = undef,
   $default_web_module             = undef,
+  $_name                          = undef,
   $alias                          = undef,
-  $name                           = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -33,8 +33,8 @@ define jboss_admin::resource::virtual-server (
     $raw_options = { 
       'enable-welcome-root'          => $enable_welcome_root,
       'default-web-module'           => $default_web_module,
+      'name'                         => $_name,
       'alias'                        => $alias,
-      'name'                         => $name,
     }
     $options = delete_undef_values($raw_options)
 

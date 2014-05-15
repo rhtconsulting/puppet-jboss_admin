@@ -12,11 +12,11 @@
 	%f - emit the factory sequence number
 	%i - emit the thread ID.
 #
+# [*_name*]
+#   The name of the created thread factory.
+#
 # [*group_name*]
 #   Specifies the name of a  thread group to create for this thread factory.
-#
-# [*name*]
-#   The name of the created thread factory.
 #
 # [*priority*]
 #   May be used to specify the thread priority of created threads.
@@ -25,8 +25,8 @@
 define jboss_admin::resource::thread-factory (
   $server,
   $thread_name_pattern            = undef,
+  $_name                          = undef,
   $group_name                     = undef,
-  $name                           = undef,
   $priority                       = undef,
   $ensure                         = present,
   $path                           = $name
@@ -40,8 +40,8 @@ define jboss_admin::resource::thread-factory (
 
     $raw_options = { 
       'thread-name-pattern'          => $thread_name_pattern,
+      'name'                         => $_name,
       'group-name'                   => $group_name,
-      'name'                         => $name,
       'priority'                     => $priority,
     }
     $options = delete_undef_values($raw_options)

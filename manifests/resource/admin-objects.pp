@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*enabled*]
+#   Specifies if the resource adapter should be enabled
+#
 # [*class_name*]
 #   Specifies the fully qualified class name of a managed connection factory or admin object
 #
@@ -13,16 +16,13 @@
 # [*jndi_name*]
 #   Specifies the JNDI name for the connection factory or admin object
 #
-# [*enabled*]
-#   Specifies if the resource adapter should be enabled
-#
 #
 define jboss_admin::resource::admin-objects (
   $server,
+  $enabled                        = undef,
   $class_name                     = undef,
   $use_java_context               = undef,
   $jndi_name                      = undef,
-  $enabled                        = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -31,10 +31,10 @@ define jboss_admin::resource::admin-objects (
   
 
     $raw_options = { 
+      'enabled'                      => $enabled,
       'class-name'                   => $class_name,
       'use-java-context'             => $use_java_context,
       'jndi-name'                    => $jndi_name,
-      'enabled'                      => $enabled,
     }
     $options = delete_undef_values($raw_options)
 

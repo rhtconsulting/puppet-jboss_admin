@@ -7,11 +7,11 @@
 # [*startlevel*]
 #   The bundle's start level.
 #
-# [*symbolic_name*]
-#   The bundle symbolic name.
-#
 # [*version*]
 #   The bundle version.
+#
+# [*symbolic_name*]
+#   The bundle symbolic name.
 #
 # [*id*]
 #   The bundle ID.
@@ -20,8 +20,8 @@
 define jboss_admin::resource::bundle (
   $server,
   $startlevel                     = undef,
-  $symbolic_name                  = undef,
   $version                        = undef,
+  $symbolic_name                  = undef,
   $id                             = undef,
   $ensure                         = present,
   $path                           = $name
@@ -35,8 +35,8 @@ define jboss_admin::resource::bundle (
 
     $raw_options = { 
       'startlevel'                   => $startlevel,
-      'symbolic-name'                => $symbolic_name,
       'version'                      => $version,
+      'symbolic-name'                => $symbolic_name,
       'id'                           => $id,
     }
     $options = delete_undef_values($raw_options)

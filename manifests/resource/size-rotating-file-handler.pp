@@ -7,29 +7,29 @@
 # [*filter*]
 #   Defines a simple filter type.
 #
-# [*formatter*]
-#   Defines a formatter.
-#
-# [*append*]
-#   Specify whether to append to the target file.
-#
 # [*file*]
 #   The file description consisting of the path and optional relative to path.
 #
 # [*encoding*]
 #   The character encoding used by this Handler.
 #
-# [*rotate_size*]
-#   The size at which to rotate the log file.
+# [*formatter*]
+#   Defines a formatter.
+#
+# [*append*]
+#   Specify whether to append to the target file.
 #
 # [*level*]
 #   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
 #
+# [*rotate_size*]
+#   The size at which to rotate the log file.
+#
+# [*_name*]
+#   The handler's name.
+#
 # [*max_backup_index*]
 #   The maximum number of backups to keep.
-#
-# [*name*]
-#   The handler's name.
 #
 # [*autoflush*]
 #   Automatically flush after each write.
@@ -38,14 +38,14 @@
 define jboss_admin::resource::size-rotating-file-handler (
   $server,
   $filter                         = undef,
-  $formatter                      = undef,
-  $append                         = undef,
   $file                           = undef,
   $encoding                       = undef,
-  $rotate_size                    = undef,
+  $formatter                      = undef,
+  $append                         = undef,
   $level                          = undef,
+  $rotate_size                    = undef,
+  $_name                          = undef,
   $max_backup_index               = undef,
-  $name                           = undef,
   $autoflush                      = undef,
   $ensure                         = present,
   $path                           = $name
@@ -59,14 +59,14 @@ define jboss_admin::resource::size-rotating-file-handler (
 
     $raw_options = { 
       'filter'                       => $filter,
-      'formatter'                    => $formatter,
-      'append'                       => $append,
       'file'                         => $file,
       'encoding'                     => $encoding,
-      'rotate-size'                  => $rotate_size,
+      'formatter'                    => $formatter,
+      'append'                       => $append,
       'level'                        => $level,
+      'rotate-size'                  => $rotate_size,
+      'name'                         => $_name,
       'max-backup-index'             => $max_backup_index,
-      'name'                         => $name,
       'autoflush'                    => $autoflush,
     }
     $options = delete_undef_values($raw_options)

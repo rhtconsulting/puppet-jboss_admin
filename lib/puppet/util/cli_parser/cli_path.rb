@@ -189,11 +189,11 @@ module CliPath
 
     s0, i0 = [], index
     loop do
-      if has_terminal?(@regexps[gr = '\A[a-zA-Z\\-]'] ||= Regexp.new(gr), :regexp, index)
+      if has_terminal?(@regexps[gr = '\A[a-zA-Z_\\.\\-]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
-        terminal_parse_failure('[a-zA-Z\\-]')
+        terminal_parse_failure('[a-zA-Z_\\.\\-]')
         r1 = nil
       end
       if r1

@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*management_minor_version*]
+#   The minor version of the JBoss AS management interface that is provided by this server.
+#
 # [*release_version*]
 #   The version of the JBoss Application Server release this server is running.
 #
@@ -25,6 +28,9 @@
 # [*process_type*]
 #   The type of process represented by this root resource. Always has a value of "Server" for a server resource.
 #
+# [*_name*]
+#   The name of this server. If not set, defaults to the runtime value of InetAddress.getLocalHost().getHostName().
+#
 # [*product_version*]
 #   The version of the JBoss AS based product release that is being run by this server.
 #
@@ -34,18 +40,13 @@
 # [*namespaces*]
 #   Map of namespaces used in the configuration XML document, where keys are namespace prefixes and values are schema URIs.
 #
-# [*name*]
-#   The name of this server. If not set, defaults to the runtime value of InetAddress.getLocalHost().getHostName().
-#
 # [*management_major_version*]
 #   The major version of the JBoss AS management interface that is provided by this server.
-#
-# [*management_minor_version*]
-#   The minor version of the JBoss AS management interface that is provided by this server.
 #
 #
 define jboss_admin::resource::root_resource (
   $server,
+  $management_minor_version       = undef,
   $release_version                = undef,
   $profile_name                   = undef,
   $release_codename               = undef,
@@ -53,17 +54,20 @@ define jboss_admin::resource::root_resource (
   $server_state                   = undef,
   $product_name                   = undef,
   $process_type                   = undef,
+  $_name                          = undef,
   $product_version                = undef,
   $launch_type                    = undef,
   $namespaces                     = undef,
-  $name                           = undef,
   $management_major_version       = undef,
-  $management_minor_version       = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
   if $ensure == present {
 
+    if $management_minor_version == undef { fail('The attribute management_minor_version is undefined but required') }
+    if $management_minor_version != undef and !is_integer($management_minor_version) { 
+      fail('The attribute management_minor_version is not an integer') 
+    }
     if $release_version == undef { fail('The attribute release_version is undefined but required') }
     if $profile_name == undef { fail('The attribute profile_name is undefined but required') }
     if $release_codename == undef { fail('The attribute release_codename is undefined but required') }
@@ -76,13 +80,10 @@ define jboss_admin::resource::root_resource (
     if $management_major_version != undef and !is_integer($management_major_version) { 
       fail('The attribute management_major_version is not an integer') 
     }
-    if $management_minor_version == undef { fail('The attribute management_minor_version is undefined but required') }
-    if $management_minor_version != undef and !is_integer($management_minor_version) { 
-      fail('The attribute management_minor_version is not an integer') 
-    }
   
 
     $raw_options = { 
+      'management-minor-version'     => $management_minor_version,
       'release-version'              => $release_version,
       'profile-name'                 => $profile_name,
       'release-codename'             => $release_codename,
@@ -90,12 +91,11 @@ define jboss_admin::resource::root_resource (
       'server-state'                 => $server_state,
       'product-name'                 => $product_name,
       'process-type'                 => $process_type,
+      'name'                         => $_name,
       'product-version'              => $product_version,
       'launch-type'                  => $launch_type,
       'namespaces'                   => $namespaces,
-      'name'                         => $name,
       'management-major-version'     => $management_major_version,
-      'management-minor-version'     => $management_minor_version,
     }
     $options = delete_undef_values($raw_options)
 

@@ -4,6 +4,15 @@
 #
 # === Parameters
 #
+# [*scratch_dir*]
+#   Specify a different work directory.
+#
+# [*source_vm*]
+#   Source VM level for compilation.
+#
+# [*target_vm*]
+#   Target VM level for compilation.
+#
 # [*display_source_fragment*]
 #   When a runtime error occurs, attempts to display corresponding JSP source fragment.
 #
@@ -28,6 +37,9 @@
 # [*java_encoding*]
 #   Specify the encoding used for Java sources.
 #
+# [*development*]
+#   Enable the development mode, which gives more information when an error occurs.
+#
 # [*check_interval*]
 #   Check interval for JSP updates using a background thread.
 #
@@ -36,9 +48,6 @@
 #
 # [*tag_pooling*]
 #   Enable tag pooling.
-#
-# [*development*]
-#   Enable the development mode, which gives more information when an error occurs.
 #
 # [*modification_test_interval*]
 #   Minimum amount of time between two tests for updates, in seconds.
@@ -52,18 +61,12 @@
 # [*disabled*]
 #   Enable the JSP container.
 #
-# [*scratch_dir*]
-#   Specify a different work directory.
-#
-# [*source_vm*]
-#   Source VM level for compilation.
-#
-# [*target_vm*]
-#   Target VM level for compilation.
-#
 #
 define jboss_admin::resource::configuration_jsp-configuration (
   $server,
+  $scratch_dir                    = undef,
+  $source_vm                      = undef,
+  $target_vm                      = undef,
   $display_source_fragment        = undef,
   $smap                           = undef,
   $keep_generated                 = undef,
@@ -72,17 +75,14 @@ define jboss_admin::resource::configuration_jsp-configuration (
   $recompile_on_fail              = undef,
   $dump_smap                      = undef,
   $java_encoding                  = undef,
+  $development                    = undef,
   $check_interval                 = undef,
   $mapped_file                    = undef,
   $tag_pooling                    = undef,
-  $development                    = undef,
   $modification_test_interval     = undef,
   $trim_spaces                    = undef,
   $generate_strings_as_char_arrays = undef,
   $disabled                       = undef,
-  $scratch_dir                    = undef,
-  $source_vm                      = undef,
-  $target_vm                      = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -97,6 +97,9 @@ define jboss_admin::resource::configuration_jsp-configuration (
   
 
     $raw_options = { 
+      'scratch-dir'                  => $scratch_dir,
+      'source-vm'                    => $source_vm,
+      'target-vm'                    => $target_vm,
       'display-source-fragment'      => $display_source_fragment,
       'smap'                         => $smap,
       'keep-generated'               => $keep_generated,
@@ -105,17 +108,14 @@ define jboss_admin::resource::configuration_jsp-configuration (
       'recompile-on-fail'            => $recompile_on_fail,
       'dump-smap'                    => $dump_smap,
       'java-encoding'                => $java_encoding,
+      'development'                  => $development,
       'check-interval'               => $check_interval,
       'mapped-file'                  => $mapped_file,
       'tag-pooling'                  => $tag_pooling,
-      'development'                  => $development,
       'modification-test-interval'   => $modification_test_interval,
       'trim-spaces'                  => $trim_spaces,
       'generate-strings-as-char-arrays' => $generate_strings_as_char_arrays,
       'disabled'                     => $disabled,
-      'scratch-dir'                  => $scratch_dir,
-      'source-vm'                    => $source_vm,
-      'target-vm'                    => $target_vm,
     }
     $options = delete_undef_values($raw_options)
 

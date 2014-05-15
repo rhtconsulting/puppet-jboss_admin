@@ -7,10 +7,15 @@ module Puppet::Util::CliExecution
   end
 
   def convert_ints_to_strings(value)
-    return value.to_s unless value.is_a?(TrueClass) || value.is_a?(FalseClass) || value.is_a?(Hash) || value.nil?
-    return value unless value.is_a? Hash
+    return value.to_s unless value.is_a?(TrueClass) || value.is_a?(FalseClass) || value.is_a?(Hash) || value.is_a?(Array) || value.nil?
 
-    value.each { |k, v| value[k] = convert_ints_to_strings(v) }
+    if value.is_a? Hash
+      value.each { |k, v| value[k] = convert_ints_to_strings(v) }
+    elsif value.is_a? Array
+      value.collect { |v| convert_ints_to_strings v }
+    else
+      value
+    end
   end
 
   def execute_cli(server, command, failonfail = true)

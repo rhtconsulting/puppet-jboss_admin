@@ -4,13 +4,13 @@
 #
 # === Parameters
 #
-# [*name*]
+# [*_name*]
 #   The BufferPoolMXBean platform MBeans, organized by the value of the 'name' property in the MBean's ObjectName.
 #
 #
 define jboss_admin::resource::type_buffer-pool (
   $server,
-  $name                           = undef,
+  $_name                          = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -19,7 +19,7 @@ define jboss_admin::resource::type_buffer-pool (
   
 
     $raw_options = { 
-      'name'                         => $name,
+      'name'                         => $_name,
     }
     $options = delete_undef_values($raw_options)
 

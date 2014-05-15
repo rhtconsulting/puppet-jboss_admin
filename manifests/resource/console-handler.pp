@@ -7,34 +7,34 @@
 # [*filter*]
 #   Defines a simple filter type.
 #
-# [*formatter*]
-#   Defines a formatter.
-#
 # [*encoding*]
 #   The character encoding used by this Handler.
+#
+# [*target*]
+#   Defines the target of the console handler. The value can either be SYSTEM_OUT or SYSTEM_ERR.
+#
+# [*formatter*]
+#   Defines a formatter.
 #
 # [*level*]
 #   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
 #
-# [*name*]
+# [*_name*]
 #   The handler's name.
 #
 # [*autoflush*]
 #   Automatically flush after each write.
 #
-# [*target*]
-#   Defines the target of the console handler. The value can either be SYSTEM_OUT or SYSTEM_ERR.
-#
 #
 define jboss_admin::resource::console-handler (
   $server,
   $filter                         = undef,
-  $formatter                      = undef,
   $encoding                       = undef,
-  $level                          = undef,
-  $name                           = undef,
-  $autoflush                      = undef,
   $target                         = undef,
+  $formatter                      = undef,
+  $level                          = undef,
+  $_name                          = undef,
+  $autoflush                      = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -44,12 +44,12 @@ define jboss_admin::resource::console-handler (
 
     $raw_options = { 
       'filter'                       => $filter,
-      'formatter'                    => $formatter,
       'encoding'                     => $encoding,
-      'level'                        => $level,
-      'name'                         => $name,
-      'autoflush'                    => $autoflush,
       'target'                       => $target,
+      'formatter'                    => $formatter,
+      'level'                        => $level,
+      'name'                         => $_name,
+      'autoflush'                    => $autoflush,
     }
     $options = delete_undef_values($raw_options)
 

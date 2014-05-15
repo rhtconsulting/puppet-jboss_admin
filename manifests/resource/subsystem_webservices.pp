@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*wsdl_secure_port*]
+#   The secure port that will be used for rewriting the SOAP address. If absent the port will be identified by querying the list of installed connectors.
+#
 # [*modify_wsdl_address*]
 #   Whether the soap address can be modified.
 #
@@ -13,34 +16,31 @@
 # [*wsdl_port*]
 #   The non-secure port that will be used for rewriting the SOAP address. If absent the port will be identified by querying the list of installed connectors.
 #
-# [*wsdl_secure_port*]
-#   The secure port that will be used for rewriting the SOAP address. If absent the port will be identified by querying the list of installed connectors.
-#
 #
 define jboss_admin::resource::subsystem_webservices (
   $server,
+  $wsdl_secure_port               = undef,
   $modify_wsdl_address            = undef,
   $wsdl_host                      = undef,
   $wsdl_port                      = undef,
-  $wsdl_secure_port               = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
   if $ensure == present {
 
-    if $wsdl_port != undef and !is_integer($wsdl_port) { 
-      fail('The attribute wsdl_port is not an integer') 
-    }
     if $wsdl_secure_port != undef and !is_integer($wsdl_secure_port) { 
       fail('The attribute wsdl_secure_port is not an integer') 
+    }
+    if $wsdl_port != undef and !is_integer($wsdl_port) { 
+      fail('The attribute wsdl_port is not an integer') 
     }
   
 
     $raw_options = { 
+      'wsdl-secure-port'             => $wsdl_secure_port,
       'modify-wsdl-address'          => $modify_wsdl_address,
       'wsdl-host'                    => $wsdl_host,
       'wsdl-port'                    => $wsdl_port,
-      'wsdl-secure-port'             => $wsdl_secure_port,
     }
     $options = delete_undef_values($raw_options)
 

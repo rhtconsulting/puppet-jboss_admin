@@ -4,11 +4,11 @@
 #
 # === Parameters
 #
-# [*outbound_socket_binding_ref*]
-#   Outbound Socket binding to POP3 server
-#
 # [*password*]
 #   Password to authenticate on server
+#
+# [*outbound_socket_binding_ref*]
+#   Outbound Socket binding to POP3 server
 #
 # [*ssl*]
 #   Does server requires SSL?
@@ -19,8 +19,8 @@
 #
 define jboss_admin::resource::server_pop3 (
   $server,
-  $outbound_socket_binding_ref    = undef,
   $password                       = undef,
+  $outbound_socket_binding_ref    = undef,
   $ssl                            = undef,
   $username                       = undef,
   $ensure                         = present,
@@ -31,8 +31,8 @@ define jboss_admin::resource::server_pop3 (
   
 
     $raw_options = { 
-      'outbound-socket-binding-ref'  => $outbound_socket_binding_ref,
       'password'                     => $password,
+      'outbound-socket-binding-ref'  => $outbound_socket_binding_ref,
       'ssl'                          => $ssl,
       'username'                     => $username,
     }

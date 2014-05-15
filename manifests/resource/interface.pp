@@ -4,6 +4,15 @@
 #
 # === Parameters
 #
+# [*link_local_address*]
+#   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether or not the address is link-local. An 'undefined' or 'false' value means this attribute is not relevant to the IP address selection.
+#
+# [*nic*]
+#   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether its network interface has the given name. The name of a network interface (e.g. eth0, eth1, lo). An 'undefined' value means this attribute is not relevant to the IP address selection.
+#
+# [*point_to_point*]
+#   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether or not its network interface is a point-to-point interface. An 'undefined' or 'false' value means this attribute is not relevant to the IP address selection
+#
 # [*up*]
 #   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether its network interface is currently up. An 'undefined' or 'false' value means this attribute is not relevant to the IP address selection
 #
@@ -37,14 +46,14 @@
 # [*subnet_match*]
 #   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether or it the address fits in the given subnet definition. Value is a network IP address and the number of bits in the address' network prefix, written in "slash notation"; e.g. "192.168.0.0/16". An 'undefined' value means this attribute is not relevant to the IP address selection.
 #
+# [*_name*]
+#   The name of the interface.
+#
 # [*not*]
 #   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be that the IP address *does not* meet any of a nested set of criteria. The value of the attribute is a set of criteria (e.g. 'loopback') whose normal meaning is reversed. An 'undefined' value means this attribute is not relevant to the IP address selection.
 #
 # [*inet_address*]
 #   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether or not the address matches the given value. Value is either a IP address in IPv6 or IPv4 dotted decimal notation, or a hostname that can be resolved to an IP address. An 'undefined' value means this attribute is not relevant to the IP address selection.
-#
-# [*name*]
-#   The name of the interface.
 #
 # [*multicast*]
 #   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether or not its network interface supports multicast.  An 'undefined' or 'false' value means this attribute is not relevant to the IP address selection.
@@ -52,18 +61,12 @@
 # [*nic_match*]
 #   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether its network interface has a name that matches the given regular expression. Value is a regular expression against which the names of the network interfaces available on the machine can be matched to find an acceptable interface. An 'undefined' value means this attribute is not relevant to the IP address selection.
 #
-# [*link_local_address*]
-#   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether or not the address is link-local. An 'undefined' or 'false' value means this attribute is not relevant to the IP address selection.
-#
-# [*nic*]
-#   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether its network interface has the given name. The name of a network interface (e.g. eth0, eth1, lo). An 'undefined' value means this attribute is not relevant to the IP address selection.
-#
-# [*point_to_point*]
-#   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether or not its network interface is a point-to-point interface. An 'undefined' or 'false' value means this attribute is not relevant to the IP address selection
-#
 #
 define jboss_admin::resource::interface (
   $server,
+  $link_local_address             = undef,
+  $nic                            = undef,
+  $point_to_point                 = undef,
   $up                             = undef,
   $any_address                    = undef,
   $public_address                 = undef,
@@ -75,14 +78,11 @@ define jboss_admin::resource::interface (
   $any                            = undef,
   $any_ipv6_address               = undef,
   $subnet_match                   = undef,
+  $_name                          = undef,
   $not                            = undef,
   $inet_address                   = undef,
-  $name                           = undef,
   $multicast                      = undef,
   $nic_match                      = undef,
-  $link_local_address             = undef,
-  $nic                            = undef,
-  $point_to_point                 = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -91,6 +91,9 @@ define jboss_admin::resource::interface (
   
 
     $raw_options = { 
+      'link-local-address'           => $link_local_address,
+      'nic'                          => $nic,
+      'point-to-point'               => $point_to_point,
       'up'                           => $up,
       'any-address'                  => $any_address,
       'public-address'               => $public_address,
@@ -102,14 +105,11 @@ define jboss_admin::resource::interface (
       'any'                          => $any,
       'any-ipv6-address'             => $any_ipv6_address,
       'subnet-match'                 => $subnet_match,
+      'name'                         => $_name,
       'not'                          => $not,
       'inet-address'                 => $inet_address,
-      'name'                         => $name,
       'multicast'                    => $multicast,
       'nic-match'                    => $nic_match,
-      'link-local-address'           => $link_local_address,
-      'nic'                          => $nic,
-      'point-to-point'               => $point_to_point,
     }
     $options = delete_undef_values($raw_options)
 

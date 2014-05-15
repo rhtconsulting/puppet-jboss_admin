@@ -4,6 +4,15 @@
 #
 # === Parameters
 #
+# [*truststore_type*]
+#   Type of the truststore, There are various types of keystores available, including "PKCS12" and Sun's "JKS."
+#
+# [*ca_certificate_password*]
+#   Certificate password.
+#
+# [*password*]
+#   Password.
+#
 # [*certificate_key_file*]
 #   Key file for the certificate.
 #
@@ -12,9 +21,6 @@
 #
 # [*key_alias*]
 #   The key alias.
-#
-# [*password*]
-#   Password.
 #
 # [*verify_client*]
 #   Enable client certificate verification.
@@ -37,28 +43,24 @@
 # [*cipher_suite*]
 #   The allowed cipher suite.
 #
+# [*_name*]
+#   The configuration name.
+#
 # [*ca_revocation_url*]
 #   Certificate authority revocation list.
 #
 # [*certificate_file*]
 #   Server certificate file.
 #
-# [*name*]
-#   The configuration name.
-#
-# [*truststore_type*]
-#   Type of the truststore, There are various types of keystores available, including "PKCS12" and Sun's "JKS."
-#
-# [*ca_certificate_password*]
-#   Certificate password.
-#
 #
 define jboss_admin::resource::ssl (
   $server,
+  $truststore_type                = undef,
+  $ca_certificate_password        = undef,
+  $password                       = undef,
   $certificate_key_file           = undef,
   $ca_certificate_file            = undef,
   $key_alias                      = undef,
-  $password                       = undef,
   $verify_client                  = undef,
   $session_cache_size             = undef,
   $verify_depth                   = undef,
@@ -66,11 +68,9 @@ define jboss_admin::resource::ssl (
   $session_timeout                = undef,
   $protocol                       = undef,
   $cipher_suite                   = undef,
+  $_name                          = undef,
   $ca_revocation_url              = undef,
   $certificate_file               = undef,
-  $name                           = undef,
-  $truststore_type                = undef,
-  $ca_certificate_password        = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -88,10 +88,12 @@ define jboss_admin::resource::ssl (
   
 
     $raw_options = { 
+      'truststore-type'              => $truststore_type,
+      'ca-certificate-password'      => $ca_certificate_password,
+      'password'                     => $password,
       'certificate-key-file'         => $certificate_key_file,
       'ca-certificate-file'          => $ca_certificate_file,
       'key-alias'                    => $key_alias,
-      'password'                     => $password,
       'verify-client'                => $verify_client,
       'session-cache-size'           => $session_cache_size,
       'verify-depth'                 => $verify_depth,
@@ -99,11 +101,9 @@ define jboss_admin::resource::ssl (
       'session-timeout'              => $session_timeout,
       'protocol'                     => $protocol,
       'cipher-suite'                 => $cipher_suite,
+      'name'                         => $_name,
       'ca-revocation-url'            => $ca_revocation_url,
       'certificate-file'             => $certificate_file,
-      'name'                         => $name,
-      'truststore-type'              => $truststore_type,
-      'ca-certificate-password'      => $ca_certificate_password,
     }
     $options = delete_undef_values($raw_options)
 

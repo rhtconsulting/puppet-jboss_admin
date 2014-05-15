@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*max_size*]
+#   The maximum number of beans this cache should store before forcing old beans to passivate
+#
 # [*idle_timeout_unit*]
 #   The unit of idle-timeout
 #
@@ -22,19 +25,16 @@
 # [*subdirectory_count*]
 #   
 #
-# [*max_size*]
-#   The maximum number of beans this cache should store before forcing old beans to passivate
-#
 #
 define jboss_admin::resource::file-passivation-store (
   $server,
+  $max_size                       = undef,
   $idle_timeout_unit              = undef,
   $idle_timeout                   = undef,
   $groups_path                    = undef,
   $relative_to                    = undef,
   $sessions_path                  = undef,
   $subdirectory_count             = undef,
-  $max_size                       = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -46,13 +46,13 @@ define jboss_admin::resource::file-passivation-store (
   
 
     $raw_options = { 
+      'max-size'                     => $max_size,
       'idle-timeout-unit'            => $idle_timeout_unit,
       'idle-timeout'                 => $idle_timeout,
       'groups-path'                  => $groups_path,
       'relative-to'                  => $relative_to,
       'sessions-path'                => $sessions_path,
       'subdirectory-count'           => $subdirectory_count,
-      'max-size'                     => $max_size,
     }
     $options = delete_undef_values($raw_options)
 

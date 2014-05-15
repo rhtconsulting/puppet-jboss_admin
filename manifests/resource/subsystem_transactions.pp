@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*enable_tsm_status*]
+#   Whether the transaction status manager (TSM) service, needed for out of process recovery, should be provided or not..
+#
 # [*socket_binding*]
 #   Used to reference the correct socket binding to use for the recovery environment.
 #
@@ -34,6 +37,9 @@
 # [*object_store_path*]
 #   Denotes a relative or absolute filesystem path denoting where the transaction manager object store should store data. By default the value is treated as relative to the path denoted by the "relative-to" attribute.
 #
+# [*path*]
+#   Denotes a relative or absolute filesystem path denoting where the transaction manager core should store data. By default the value is treated as relative to the path denoted by the "relative-to" attribute.
+#
 # [*node_identifier*]
 #   Used to set the node identifier on the core environment.
 #
@@ -43,15 +49,10 @@
 # [*process_id_socket_max_ports*]
 #   The maximum number of ports to search for an open port if the transaction manager should use a socket-based process id. If the port specified by the socket binding referenced in 'process-id-socket-binding' is occupied, the next higher port will be tried until an open port is found or the number of ports specified by this attribute have been tried. Will be 'undefined' if 'process-id-uuid' is 'true'.
 #
-# [*path*]
-#   Denotes a relative or absolute filesystem path denoting where the transaction manager core should store data. By default the value is treated as relative to the path denoted by the "relative-to" attribute.
-#
-# [*enable_tsm_status*]
-#   Whether the transaction status manager (TSM) service, needed for out of process recovery, should be provided or not..
-#
 #
 define jboss_admin::resource::subsystem_transactions (
   $server,
+  $enable_tsm_status              = undef,
   $socket_binding                 = undef,
   $object_store_relative_to       = undef,
   $recovery_listener              = undef,
@@ -62,11 +63,10 @@ define jboss_admin::resource::subsystem_transactions (
   $status_socket_binding          = undef,
   $jts                            = undef,
   $object_store_path              = undef,
+  $path                           = undef,
   $node_identifier                = undef,
   $process_id_uuid                = undef,
   $process_id_socket_max_ports    = undef,
-  $path                           = undef,
-  $enable_tsm_status              = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -81,6 +81,7 @@ define jboss_admin::resource::subsystem_transactions (
   
 
     $raw_options = { 
+      'enable-tsm-status'            => $enable_tsm_status,
       'socket-binding'               => $socket_binding,
       'object-store-relative-to'     => $object_store_relative_to,
       'recovery-listener'            => $recovery_listener,
@@ -91,11 +92,10 @@ define jboss_admin::resource::subsystem_transactions (
       'status-socket-binding'        => $status_socket_binding,
       'jts'                          => $jts,
       'object-store-path'            => $object_store_path,
+      'path'                         => $path,
       'node-identifier'              => $node_identifier,
       'process-id-uuid'              => $process_id_uuid,
       'process-id-socket-max-ports'  => $process_id_socket_max_ports,
-      'path'                         => $path,
-      'enable-tsm-status'            => $enable_tsm_status,
     }
     $options = delete_undef_values($raw_options)
 

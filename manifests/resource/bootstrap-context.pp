@@ -7,14 +7,14 @@
 # [*workmanager*]
 #   The WorkManager instance for the BootstrapContext
 #
-# [*name*]
+# [*_name*]
 #   The name of the BootstrapContext
 #
 #
 define jboss_admin::resource::bootstrap-context (
   $server,
   $workmanager                    = undef,
-  $name                           = undef,
+  $_name                          = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -24,7 +24,7 @@ define jboss_admin::resource::bootstrap-context (
 
     $raw_options = { 
       'workmanager'                  => $workmanager,
-      'name'                         => $name,
+      'name'                         => $_name,
     }
     $options = delete_undef_values($raw_options)
 

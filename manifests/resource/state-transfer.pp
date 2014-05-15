@@ -4,21 +4,21 @@
 #
 # === Parameters
 #
+# [*enabled*]
+#   If enabled, this will cause the cache to ask neighboring caches for state when it starts up, so the cache starts 'warm', although it will impact startup time.
+#
 # [*timeout*]
 #   The maximum amount of time (ms) to wait for state from neighboring caches, before throwing an exception and aborting startup.
 #
 # [*chunk_size*]
 #   The size, in bytes, in which to batch the transfer of cache entries.
 #
-# [*enabled*]
-#   If enabled, this will cause the cache to ask neighboring caches for state when it starts up, so the cache starts 'warm', although it will impact startup time.
-#
 #
 define jboss_admin::resource::state-transfer (
   $server,
+  $enabled                        = undef,
   $timeout                        = undef,
   $chunk_size                     = undef,
-  $enabled                        = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -30,9 +30,9 @@ define jboss_admin::resource::state-transfer (
   
 
     $raw_options = { 
+      'enabled'                      => $enabled,
       'timeout'                      => $timeout,
       'chunk-size'                   => $chunk_size,
-      'enabled'                      => $enabled,
     }
     $options = delete_undef_values($raw_options)
 

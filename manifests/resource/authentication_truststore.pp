@@ -4,21 +4,21 @@
 #
 # === Parameters
 #
+# [*keystore_password*]
+#   The password to open the keystore.
+#
 # [*keystore_path*]
 #   The path of the keystore.
 #
 # [*keystore_relative_to*]
 #   The name of another previously named path, or of one of the standard paths provided by the system. If 'relative-to' is provided, the value of the 'path' attribute is treated as relative to the path specified by this attribute.
 #
-# [*keystore_password*]
-#   The password to open the keystore.
-#
 #
 define jboss_admin::resource::authentication_truststore (
   $server,
+  $keystore_password              = undef,
   $keystore_path                  = undef,
   $keystore_relative_to           = undef,
-  $keystore_password              = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -27,9 +27,9 @@ define jboss_admin::resource::authentication_truststore (
   
 
     $raw_options = { 
+      'keystore-password'            => $keystore_password,
       'keystore-path'                => $keystore_path,
       'keystore-relative-to'         => $keystore_relative_to,
-      'keystore-password'            => $keystore_password,
     }
     $options = delete_undef_values($raw_options)
 

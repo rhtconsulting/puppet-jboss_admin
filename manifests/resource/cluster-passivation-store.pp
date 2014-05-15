@@ -4,6 +4,12 @@
 #
 # === Parameters
 #
+# [*cache_container*]
+#   The name of the cache container used for the bean and client-mappings caches
+#
+# [*max_size*]
+#   The maximum number of beans this cache should store before forcing old beans to passivate
+#
 # [*client_mappings_cache*]
 #   The name of the cache used to store client-mappings of the EJB remoting connector's socket-bindings
 #
@@ -19,22 +25,16 @@
 # [*passivate_events_on_replicate*]
 #   Indicates whether replication should trigger passivation events on the bean
 #
-# [*cache_container*]
-#   The name of the cache container used for the bean and client-mappings caches
-#
-# [*max_size*]
-#   The maximum number of beans this cache should store before forcing old beans to passivate
-#
 #
 define jboss_admin::resource::cluster-passivation-store (
   $server,
+  $cache_container                = undef,
+  $max_size                       = undef,
   $client_mappings_cache          = undef,
   $idle_timeout_unit              = undef,
   $idle_timeout                   = undef,
   $bean_cache                     = undef,
   $passivate_events_on_replicate  = undef,
-  $cache_container                = undef,
-  $max_size                       = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -46,13 +46,13 @@ define jboss_admin::resource::cluster-passivation-store (
   
 
     $raw_options = { 
+      'cache-container'              => $cache_container,
+      'max-size'                     => $max_size,
       'client-mappings-cache'        => $client_mappings_cache,
       'idle-timeout-unit'            => $idle_timeout_unit,
       'idle-timeout'                 => $idle_timeout,
       'bean-cache'                   => $bean_cache,
       'passivate-events-on-replicate' => $passivate_events_on_replicate,
-      'cache-container'              => $cache_container,
-      'max-size'                     => $max_size,
     }
     $options = delete_undef_values($raw_options)
 

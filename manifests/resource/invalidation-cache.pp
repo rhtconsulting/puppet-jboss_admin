@@ -4,14 +4,14 @@
 #
 # === Parameters
 #
+# [*start*]
+#   The cache start mode, which can be EAGER (immediate start) or LAZY (on-demand start).
+#
 # [*batching*]
 #   If enabled, the invocation batching API will be made available for this cache.
 #
 # [*async_marshalling*]
 #   If enabled, this will cause marshalling of entries to be performed asynchronously.
-#
-# [*start*]
-#   The cache start mode, which can be EAGER (immediate start) or LAZY (on-demand start).
 #
 # [*indexing*]
 #   If enabled, entries will be indexed when they are added to the cache. Indexes will be updated as entries change or are removed.
@@ -22,27 +22,27 @@
 # [*queue_flush_interval*]
 #   In ASYNC mode, this attribute controls how often the asynchronous thread used to flush the replication queue runs. This should be a positive integer which represents thread wakeup time in milliseconds.
 #
+# [*mode*]
+#   Sets the clustered cache mode, ASYNC for asynchronous operation, or SYNC for synchronous operation.
+#
 # [*remote_timeout*]
 #   In SYNC mode, the timeout (in ms) used to wait for an acknowledgment when making a remote call, after which the call is aborted and an exception is thrown.
 #
 # [*jndi_name*]
 #   The jndi-name to which to bind this cache instance.
 #
-# [*mode*]
-#   Sets the clustered cache mode, ASYNC for asynchronous operation, or SYNC for synchronous operation.
-#
 #
 define jboss_admin::resource::invalidation-cache (
   $server,
+  $start                          = undef,
   $batching                       = undef,
   $async_marshalling              = undef,
-  $start                          = undef,
   $indexing                       = undef,
   $queue_size                     = undef,
   $queue_flush_interval           = undef,
+  $mode                           = undef,
   $remote_timeout                 = undef,
   $jndi_name                      = undef,
-  $mode                           = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -54,15 +54,15 @@ define jboss_admin::resource::invalidation-cache (
   
 
     $raw_options = { 
+      'start'                        => $start,
       'batching'                     => $batching,
       'async-marshalling'            => $async_marshalling,
-      'start'                        => $start,
       'indexing'                     => $indexing,
       'queue-size'                   => $queue_size,
       'queue-flush-interval'         => $queue_flush_interval,
+      'mode'                         => $mode,
       'remote-timeout'               => $remote_timeout,
       'jndi-name'                    => $jndi_name,
-      'mode'                         => $mode,
     }
     $options = delete_undef_values($raw_options)
 

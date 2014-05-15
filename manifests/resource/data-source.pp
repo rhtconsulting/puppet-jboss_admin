@@ -4,8 +4,41 @@
 #
 # === Parameters
 #
+# [*max_pool_size*]
+#   The max-pool-size element specifies the maximum number of connections for a pool. No more connections will be created in each sub-pool
+#
+# [*reauth_plugin_class_name*]
+#   The fully qualified class name of the reauthentication plugin implementation
+#
+# [*use_try_lock*]
+#   Any configured timeout for internal locks on the resource adapter objects in seconds
+#
+# [*background_validation*]
+#   An element to specify that connections should be validated on a background thread versus being validated prior to use. Changing this value can be done only on disabled datasource,  requires a server restart otherwise.
+#
+# [*datasource_class*]
+#   The fully qualified name of the JDBC datasource class
+#
+# [*driver_name*]
+#   Defines the JDBC driver the datasource should use. It is a symbolic name matching the the name of installed driver. In case the driver is deployed as jar, the name is the name of deployment unit
+#
+# [*allocation_retry*]
+#   The allocation retry element indicates the number of times that allocating a connection should be tried before throwing an exception
+#
+# [*stale_connection_checker_class_name*]
+#   An org.jboss.jca.adapters.jdbc.StaleConnectionChecker that provides an isStaleConnection(SQLException) method which if it returns true will wrap the exception in an org.jboss.jca.adapters.jdbc.StaleConnectionException
+#
+# [*spy*]
+#   Enable spying of SQL statements
+#
+# [*enabled*]
+#   Specifies if the datasource should be enabled
+#
 # [*min_pool_size*]
 #   The min-pool-size element specifies the minimum number of connections for a pool
+#
+# [*password*]
+#   Specifies the password used when creating a new connection
 #
 # [*reauth_plugin_properties*]
 #   The properties for the reauthentication plugin
@@ -27,9 +60,6 @@
 #
 # [*pool_prefill*]
 #   Should the pool be prefilled. Changing this value can be done only on disabled datasource, requires a server restart otherwise.
-#
-# [*password*]
-#   Specifies the password used when creating a new connection
 #
 # [*flush_strategy*]
 #   Specifies how the pool should be flush in case of an error. Valid values are: FailingConnectionOnly (default), IdleConnections and EntirePool
@@ -109,40 +139,21 @@
 # [*use_ccm*]
 #   Enable the use of a cached connection manager
 #
-# [*max_pool_size*]
-#   The max-pool-size element specifies the maximum number of connections for a pool. No more connections will be created in each sub-pool
-#
-# [*reauth_plugin_class_name*]
-#   The fully qualified class name of the reauthentication plugin implementation
-#
-# [*use_try_lock*]
-#   Any configured timeout for internal locks on the resource adapter objects in seconds
-#
-# [*background_validation*]
-#   An element to specify that connections should be validated on a background thread versus being validated prior to use. Changing this value can be done only on disabled datasource,  requires a server restart otherwise.
-#
-# [*datasource_class*]
-#   The fully qualified name of the JDBC datasource class
-#
-# [*driver_name*]
-#   Defines the JDBC driver the datasource should use. It is a symbolic name matching the the name of installed driver. In case the driver is deployed as jar, the name is the name of deployment unit
-#
-# [*allocation_retry*]
-#   The allocation retry element indicates the number of times that allocating a connection should be tried before throwing an exception
-#
-# [*stale_connection_checker_class_name*]
-#   An org.jboss.jca.adapters.jdbc.StaleConnectionChecker that provides an isStaleConnection(SQLException) method which if it returns true will wrap the exception in an org.jboss.jca.adapters.jdbc.StaleConnectionException
-#
-# [*spy*]
-#   Enable spying of SQL statements
-#
-# [*enabled*]
-#   Specifies if the datasource should be enabled
-#
 #
 define jboss_admin::resource::data-source (
   $server,
+  $max_pool_size                  = undef,
+  $reauth_plugin_class_name       = undef,
+  $use_try_lock                   = undef,
+  $background_validation          = undef,
+  $datasource_class               = undef,
+  $driver_name                    = undef,
+  $allocation_retry               = undef,
+  $stale_connection_checker_class_name = undef,
+  $spy                            = undef,
+  $enabled                        = undef,
   $min_pool_size                  = undef,
+  $password                       = undef,
   $reauth_plugin_properties       = undef,
   $set_tx_query_timeout           = undef,
   $use_fast_fail                  = undef,
@@ -150,7 +161,6 @@ define jboss_admin::resource::data-source (
   $allocation_retry_wait_millis   = undef,
   $stale_connection_checker_properties = undef,
   $pool_prefill                   = undef,
-  $password                       = undef,
   $flush_strategy                 = undef,
   $transaction_isolation          = undef,
   $validate_on_match              = undef,
@@ -177,26 +187,11 @@ define jboss_admin::resource::data-source (
   $track_statements               = undef,
   $exception_sorter_properties    = undef,
   $use_ccm                        = undef,
-  $max_pool_size                  = undef,
-  $reauth_plugin_class_name       = undef,
-  $use_try_lock                   = undef,
-  $background_validation          = undef,
-  $datasource_class               = undef,
-  $driver_name                    = undef,
-  $allocation_retry               = undef,
-  $stale_connection_checker_class_name = undef,
-  $spy                            = undef,
-  $enabled                        = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
   if $ensure == present {
 
-    if $min_pool_size != undef and !is_integer($min_pool_size) { 
-      fail('The attribute min_pool_size is not an integer') 
-    }
-    if $connection_url == undef { fail('The attribute connection_url is undefined but required') }
-    if $jndi_name == undef { fail('The attribute jndi_name is undefined but required') }
     if $max_pool_size != undef and !is_integer($max_pool_size) { 
       fail('The attribute max_pool_size is not an integer') 
     }
@@ -204,10 +199,25 @@ define jboss_admin::resource::data-source (
     if $allocation_retry != undef and !is_integer($allocation_retry) { 
       fail('The attribute allocation_retry is not an integer') 
     }
+    if $min_pool_size != undef and !is_integer($min_pool_size) { 
+      fail('The attribute min_pool_size is not an integer') 
+    }
+    if $connection_url == undef { fail('The attribute connection_url is undefined but required') }
+    if $jndi_name == undef { fail('The attribute jndi_name is undefined but required') }
   
 
     $raw_options = { 
+      'max-pool-size'                => $max_pool_size,
+      'reauth-plugin-class-name'     => $reauth_plugin_class_name,
+      'use-try-lock'                 => $use_try_lock,
+      'background-validation'        => $background_validation,
+      'datasource-class'             => $datasource_class,
+      'driver-name'                  => $driver_name,
+      'allocation-retry'             => $allocation_retry,
+      'stale-connection-checker-class-name' => $stale_connection_checker_class_name,
+      'spy'                          => $spy,
       'min-pool-size'                => $min_pool_size,
+      'password'                     => $password,
       'reauth-plugin-properties'     => $reauth_plugin_properties,
       'set-tx-query-timeout'         => $set_tx_query_timeout,
       'use-fast-fail'                => $use_fast_fail,
@@ -215,7 +225,6 @@ define jboss_admin::resource::data-source (
       'allocation-retry-wait-millis' => $allocation_retry_wait_millis,
       'stale-connection-checker-properties' => $stale_connection_checker_properties,
       'pool-prefill'                 => $pool_prefill,
-      'password'                     => $password,
       'flush-strategy'               => $flush_strategy,
       'transaction-isolation'        => $transaction_isolation,
       'validate-on-match'            => $validate_on_match,
@@ -242,15 +251,6 @@ define jboss_admin::resource::data-source (
       'track-statements'             => $track_statements,
       'exception-sorter-properties'  => $exception_sorter_properties,
       'use-ccm'                      => $use_ccm,
-      'max-pool-size'                => $max_pool_size,
-      'reauth-plugin-class-name'     => $reauth_plugin_class_name,
-      'use-try-lock'                 => $use_try_lock,
-      'background-validation'        => $background_validation,
-      'datasource-class'             => $datasource_class,
-      'driver-name'                  => $driver_name,
-      'allocation-retry'             => $allocation_retry,
-      'stale-connection-checker-class-name' => $stale_connection_checker_class_name,
-      'spy'                          => $spy,
     }
     $options = delete_undef_values($raw_options)
 

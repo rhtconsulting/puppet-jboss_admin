@@ -4,21 +4,21 @@
 #
 # === Parameters
 #
-# [*fail_on_warn*]
-#   Should an archive validation warning report fail the deployment
-#
 # [*enabled*]
 #   Specify whether archive validation is enabled
 #
 # [*fail_on_error*]
 #   Should an archive validation error report fail the deployment
 #
+# [*fail_on_warn*]
+#   Should an archive validation warning report fail the deployment
+#
 #
 define jboss_admin::resource::archive-validation (
   $server,
-  $fail_on_warn                   = undef,
   $enabled                        = undef,
   $fail_on_error                  = undef,
+  $fail_on_warn                   = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -27,9 +27,9 @@ define jboss_admin::resource::archive-validation (
   
 
     $raw_options = { 
-      'fail-on-warn'                 => $fail_on_warn,
       'enabled'                      => $enabled,
       'fail-on-error'                => $fail_on_error,
+      'fail-on-warn'                 => $fail_on_warn,
     }
     $options = delete_undef_values($raw_options)
 

@@ -7,18 +7,18 @@
 # [*port_offset*]
 #   Increment to apply to the base port values defined in the socket bindings to derive the runtime values to use on this server.
 #
+# [*_name*]
+#   The name of the socket binding group.
+#
 # [*default_interface*]
 #   Name of an interface that should be used as the interface for any sockets that do not explicitly declare one.
-#
-# [*name*]
-#   The name of the socket binding group.
 #
 #
 define jboss_admin::resource::socket-binding-group (
   $server,
   $port_offset                    = undef,
+  $_name                          = undef,
   $default_interface              = undef,
-  $name                           = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -31,8 +31,8 @@ define jboss_admin::resource::socket-binding-group (
 
     $raw_options = { 
       'port-offset'                  => $port_offset,
+      'name'                         => $_name,
       'default-interface'            => $default_interface,
-      'name'                         => $name,
     }
     $options = delete_undef_values($raw_options)
 

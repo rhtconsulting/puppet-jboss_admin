@@ -7,7 +7,7 @@
 # [*relative_to*]
 #   The name of another previously named path, or of one of the standard paths provided by the system. If 'relative-to' is provided, the value of the 'path' attribute is treated as relative to the path specified by this attribute. The standard paths provided by the system include:<ul><li>jboss.home - the root directory of the JBoss AS distribution</li><li>user.home - user's home directory</li><li>user.dir - user's current working directory</li><li>java.home - java installation directory</li><li>jboss.server.base.dir - root directory for an individual server instance</li><li>jboss.server.data.dir - directory the server will use for persistent data file storage</li><li>jboss.server.log.dir - directory the server will use for log file storage</li><li>jboss.server.tmp.dir - directory the server will use for temporary file storage</li><li>jboss.domain.servers.dir - directory under which a host controller will create the working area for individual server instances</li></ul>
 #
-# [*name*]
+# [*_name*]
 #   The name of the path. Cannot be one of the standard fixed paths provided by the system: <ul><li>jboss.home - the root directory of the JBoss AS distribution</li><li>user.home - user's home directory</li><li>user.dir - user's current working directory</li><li>java.home - java installation directory</li><li>jboss.server.base.dir - root directory for an individual server instance</li></ul> Note that the system provides other standard paths that can be overridden by declaring them in the configuration file. See the 'relative-to' attribute documentation for a complete list of standard paths.
 #
 # [*path*]
@@ -17,20 +17,20 @@
 define jboss_admin::resource::path (
   $server,
   $relative_to                    = undef,
-  $name                           = undef,
+  $_name                          = undef,
   $path                           = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
   if $ensure == present {
 
-    if $name == undef { fail('The attribute name is undefined but required') }
+    if $_name == undef { fail('The attribute _name is undefined but required') }
     if $path == undef { fail('The attribute path is undefined but required') }
   
 
     $raw_options = { 
       'relative-to'                  => $relative_to,
-      'name'                         => $name,
+      'name'                         => $_name,
       'path'                         => $path,
     }
     $options = delete_undef_values($raw_options)

@@ -4,6 +4,15 @@
 #
 # === Parameters
 #
+# [*client_auth*]
+#   Boolean attribute to indicate if client's certificates should also be authenticated on the server side.
+#
+# [*client_alias*]
+#   Preferred alias to use when the KeyManager chooses the client alias.
+#
+# [*key_manager*]
+#   JSEE Key Manager factory
+#
 # [*cipher_suites*]
 #   Comma separated list of cipher suites to enable on SSLSockets.
 #
@@ -28,18 +37,12 @@
 # [*server_alias*]
 #   Preferred alias to use when the KeyManager chooses the server alias.
 #
-# [*client_auth*]
-#   Boolean attribute to indicate if client's certificates should also be authenticated on the server side.
-#
-# [*client_alias*]
-#   Preferred alias to use when the KeyManager chooses the client alias.
-#
-# [*key_manager*]
-#   JSEE Key Manager factory
-#
 #
 define jboss_admin::resource::jsse (
   $server,
+  $client_auth                    = undef,
+  $client_alias                   = undef,
+  $key_manager                    = undef,
   $cipher_suites                  = undef,
   $truststore                     = undef,
   $service_auth_token             = undef,
@@ -48,9 +51,6 @@ define jboss_admin::resource::jsse (
   $trust_manager                  = undef,
   $keystore                       = undef,
   $server_alias                   = undef,
-  $client_auth                    = undef,
-  $client_alias                   = undef,
-  $key_manager                    = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -59,6 +59,9 @@ define jboss_admin::resource::jsse (
   
 
     $raw_options = { 
+      'client-auth'                  => $client_auth,
+      'client-alias'                 => $client_alias,
+      'key-manager'                  => $key_manager,
       'cipher-suites'                => $cipher_suites,
       'truststore'                   => $truststore,
       'service-auth-token'           => $service_auth_token,
@@ -67,9 +70,6 @@ define jboss_admin::resource::jsse (
       'trust-manager'                => $trust_manager,
       'keystore'                     => $keystore,
       'server-alias'                 => $server_alias,
-      'client-auth'                  => $client_auth,
-      'client-alias'                 => $client_alias,
-      'key-manager'                  => $key_manager,
     }
     $options = delete_undef_values($raw_options)
 

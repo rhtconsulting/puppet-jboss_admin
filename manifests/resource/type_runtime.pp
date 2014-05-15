@@ -4,6 +4,12 @@
 #
 # === Parameters
 #
+# [*spec_name*]
+#   The Java virtual machine specification name. If a security manager is installed and it does not allow access to system property "java.vm.specification.name", then a "read-attribute" operation reading this attribute will fail, and the value for this attribute in the result for the "read-resource" operation will be "undefined".
+#
+# [*boot_class_path_supported*]
+#   Whether the Java virtual machine supports the boot class path mechanism used by the bootstrap class loader to search for class files.
+#
 # [*spec_vendor*]
 #   The Java virtual machine specification vendor. If a security manager is installed and it does not allow access to system property "java.vm.specification.vendor", then a "read-attribute" operation reading this attribute will fail, and the value for this attribute in the result for the "read-resource" operation will be "undefined".
 #
@@ -28,6 +34,9 @@
 # [*start_time*]
 #   The start time of the Java virtual machine in milliseconds.
 #
+# [*_name*]
+#   The name representing the running Java virtual machine.
+#
 # [*class_path*]
 #   The Java class path that is used by the system class loader to search for class files. If a security manager is installed and it does not allow access to system property "java.class.path", then a "read-attribute" operation reading this attribute will fail, and the value for this attribute in the result for the "read-resource" operation will be "undefined".
 #
@@ -40,21 +49,14 @@
 # [*object_name*]
 #   String representation the object name of this platform managed object.
 #
-# [*name*]
-#   The name representing the running Java virtual machine.
-#
 # [*library_path*]
 #   The Java library path. If a security manager is installed and it does not allow access to system property "java.library.path", then a "read-attribute" operation reading this attribute will fail, and the value for this attribute in the result for the "read-resource" operation will be "undefined".
-#
-# [*spec_name*]
-#   The Java virtual machine specification name. If a security manager is installed and it does not allow access to system property "java.vm.specification.name", then a "read-attribute" operation reading this attribute will fail, and the value for this attribute in the result for the "read-resource" operation will be "undefined".
-#
-# [*boot_class_path_supported*]
-#   Whether the Java virtual machine supports the boot class path mechanism used by the bootstrap class loader to search for class files.
 #
 #
 define jboss_admin::resource::type_runtime (
   $server,
+  $spec_name                      = undef,
+  $boot_class_path_supported      = undef,
   $spec_vendor                    = undef,
   $boot_class_path                = undef,
   $spec_version                   = undef,
@@ -63,14 +65,12 @@ define jboss_admin::resource::type_runtime (
   $management_spec_version        = undef,
   $vm_vendor                      = undef,
   $start_time                     = undef,
+  $_name                          = undef,
   $class_path                     = undef,
   $vm_version                     = undef,
   $system_properties              = undef,
   $object_name                    = undef,
-  $name                           = undef,
   $library_path                   = undef,
-  $spec_name                      = undef,
-  $boot_class_path_supported      = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -79,6 +79,8 @@ define jboss_admin::resource::type_runtime (
   
 
     $raw_options = { 
+      'spec-name'                    => $spec_name,
+      'boot-class-path-supported'    => $boot_class_path_supported,
       'spec-vendor'                  => $spec_vendor,
       'boot-class-path'              => $boot_class_path,
       'spec-version'                 => $spec_version,
@@ -87,14 +89,12 @@ define jboss_admin::resource::type_runtime (
       'management-spec-version'      => $management_spec_version,
       'vm-vendor'                    => $vm_vendor,
       'start-time'                   => $start_time,
+      'name'                         => $_name,
       'class-path'                   => $class_path,
       'vm-version'                   => $vm_version,
       'system-properties'            => $system_properties,
       'object-name'                  => $object_name,
-      'name'                         => $name,
       'library-path'                 => $library_path,
-      'spec-name'                    => $spec_name,
-      'boot-class-path-supported'    => $boot_class_path_supported,
     }
     $options = delete_undef_values($raw_options)
 

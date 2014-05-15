@@ -22,7 +22,7 @@
 # [*multicast_address*]
 #   Multicast address on which the socket should receive multicast traffic. If unspecified, the socket will not be configured to receive multicast.
 #
-# [*name*]
+# [*_name*]
 #   The name of the socket. Services which need to access the socket configuration information will find it using this name.
 #
 #
@@ -34,7 +34,7 @@ define jboss_admin::resource::socket-binding (
   $interface                      = undef,
   $client_mappings                = undef,
   $multicast_address              = undef,
-  $name                           = undef,
+  $_name                          = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -55,7 +55,7 @@ define jboss_admin::resource::socket-binding (
       'interface'                    => $interface,
       'client-mappings'              => $client_mappings,
       'multicast-address'            => $multicast_address,
-      'name'                         => $name,
+      'name'                         => $_name,
     }
     $options = delete_undef_values($raw_options)
 

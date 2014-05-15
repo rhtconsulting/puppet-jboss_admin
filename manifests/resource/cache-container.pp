@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*replication_queue_executor*]
+#   The executor used for asynchronous cache operations
+#
 # [*default_cache*]
 #   The default infinispan cache
 #
@@ -22,19 +25,16 @@
 # [*eviction_executor*]
 #   The scheduled executor used for eviction
 #
-# [*replication_queue_executor*]
-#   The executor used for asynchronous cache operations
-#
 #
 define jboss_admin::resource::cache-container (
   $server,
+  $replication_queue_executor     = undef,
   $default_cache                  = undef,
   $start                          = undef,
   $aliases                        = undef,
   $listener_executor              = undef,
   $jndi_name                      = undef,
   $eviction_executor              = undef,
-  $replication_queue_executor     = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -43,13 +43,13 @@ define jboss_admin::resource::cache-container (
   
 
     $raw_options = { 
+      'replication-queue-executor'   => $replication_queue_executor,
       'default-cache'                => $default_cache,
       'start'                        => $start,
       'aliases'                      => $aliases,
       'listener-executor'            => $listener_executor,
       'jndi-name'                    => $jndi_name,
       'eviction-executor'            => $eviction_executor,
-      'replication-queue-executor'   => $replication_queue_executor,
     }
     $options = delete_undef_values($raw_options)
 

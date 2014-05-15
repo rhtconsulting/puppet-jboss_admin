@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*auto_deploy_zipped*]
+#   Controls whether zipped deployment content should be automatically deployed by the scanner without requiring the user to add a .dodeploy marker file.
+#
 # [*deployment_timeout*]
 #   Timeout, in seconds, a deployment is allows to execute before being canceled.  The default is 60 seconds.
 #
@@ -19,26 +22,23 @@
 # [*scan_enabled*]
 #   Flag indicating that all scanning (including initial scanning at startup) should be disabled.
 #
-# [*scan_interval*]
-#   Periodic interval, in milliseconds, at which the repository should be scanned for changes. A value of less than 1 indicates the repository should only be scanned at initial startup.
-#
 # [*path*]
 #   The actual filesystem path to be scanned. Treated as an absolute path, unless the 'relative-to' attribute is specified, in which case the value is treated as relative to that path.
 #
-# [*auto_deploy_zipped*]
-#   Controls whether zipped deployment content should be automatically deployed by the scanner without requiring the user to add a .dodeploy marker file.
+# [*scan_interval*]
+#   Periodic interval, in milliseconds, at which the repository should be scanned for changes. A value of less than 1 indicates the repository should only be scanned at initial startup.
 #
 #
 define jboss_admin::resource::scanner (
   $server,
+  $auto_deploy_zipped             = undef,
   $deployment_timeout             = undef,
   $auto_deploy_exploded           = undef,
   $auto_deploy_xml                = undef,
   $relative_to                    = undef,
   $scan_enabled                   = undef,
-  $scan_interval                  = undef,
   $path                           = undef,
-  $auto_deploy_zipped             = undef,
+  $scan_interval                  = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -50,14 +50,14 @@ define jboss_admin::resource::scanner (
   
 
     $raw_options = { 
+      'auto-deploy-zipped'           => $auto_deploy_zipped,
       'deployment-timeout'           => $deployment_timeout,
       'auto-deploy-exploded'         => $auto_deploy_exploded,
       'auto-deploy-xml'              => $auto_deploy_xml,
       'relative-to'                  => $relative_to,
       'scan-enabled'                 => $scan_enabled,
-      'scan-interval'                => $scan_interval,
       'path'                         => $path,
-      'auto-deploy-zipped'           => $auto_deploy_zipped,
+      'scan-interval'                => $scan_interval,
     }
     $options = delete_undef_values($raw_options)
 

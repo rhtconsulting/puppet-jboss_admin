@@ -4,21 +4,21 @@
 #
 # === Parameters
 #
+# [*max_pool_size*]
+#   The maximum number of bean instances that the pool can hold at a given point in time
+#
 # [*timeout*]
 #   The maximum amount of time to wait for a bean instance to be available from the pool
 #
 # [*timeout_unit*]
 #   The instance acquisition timeout unit
 #
-# [*max_pool_size*]
-#   The maximum number of bean instances that the pool can hold at a given point in time
-#
 #
 define jboss_admin::resource::strict-max-bean-instance-pool (
   $server,
+  $max_pool_size                  = undef,
   $timeout                        = undef,
   $timeout_unit                   = undef,
-  $max_pool_size                  = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -30,9 +30,9 @@ define jboss_admin::resource::strict-max-bean-instance-pool (
   
 
     $raw_options = { 
+      'max-pool-size'                => $max_pool_size,
       'timeout'                      => $timeout,
       'timeout-unit'                 => $timeout_unit,
-      'max-pool-size'                => $max_pool_size,
     }
     $options = delete_undef_values($raw_options)
 

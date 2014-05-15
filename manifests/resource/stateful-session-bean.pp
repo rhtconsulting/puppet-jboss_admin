@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*component_class_name*]
+#   The component's class name.
+#
 # [*declared_roles*]
 #   The roles declared (via @DeclareRoles) on this EJB component.
 #
@@ -13,16 +16,13 @@
 # [*security_domain*]
 #   The security domain for this EJB component.
 #
-# [*component_class_name*]
-#   The component's class name.
-#
 #
 define jboss_admin::resource::stateful-session-bean (
   $server,
+  $component_class_name           = undef,
   $declared_roles                 = undef,
   $run_as_role                    = undef,
   $security_domain                = undef,
-  $component_class_name           = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -31,10 +31,10 @@ define jboss_admin::resource::stateful-session-bean (
   
 
     $raw_options = { 
+      'component-class-name'         => $component_class_name,
       'declared-roles'               => $declared_roles,
       'run-as-role'                  => $run_as_role,
       'security-domain'              => $security_domain,
-      'component-class-name'         => $component_class_name,
     }
     $options = delete_undef_values($raw_options)
 

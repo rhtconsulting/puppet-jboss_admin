@@ -23,6 +23,7 @@ def name_type(type, value)
 end
 
 def puppet_name(attribute_name)
+  attribute_name = "_" + attribute_name.to_s if [:title, :name].include? attribute_name 
   attribute_name.to_s.gsub /-/, '_'
 end
 

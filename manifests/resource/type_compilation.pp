@@ -7,7 +7,7 @@
 # [*compilation_time_monitoring_supported*]
 #   Whether the Java virtual machine supports the monitoring of compilation time.
 #
-# [*name*]
+# [*_name*]
 #   The name of the Just-in-time (JIT) compiler.
 #
 # [*object_name*]
@@ -17,7 +17,7 @@
 define jboss_admin::resource::type_compilation (
   $server,
   $compilation_time_monitoring_supported = undef,
-  $name                           = undef,
+  $_name                          = undef,
   $object_name                    = undef,
   $ensure                         = present,
   $path                           = $name
@@ -28,7 +28,7 @@ define jboss_admin::resource::type_compilation (
 
     $raw_options = { 
       'compilation-time-monitoring-supported' => $compilation_time_monitoring_supported,
-      'name'                         => $name,
+      'name'                         => $_name,
       'object-name'                  => $object_name,
     }
     $options = delete_undef_values($raw_options)

@@ -4,17 +4,17 @@
 #
 # === Parameters
 #
-# [*vault_option*]
-#   Security Vault option.
-#
 # [*code*]
 #   Fully Qualified Name of the Security Vault Implementation.
+#
+# [*vault_option*]
+#   Security Vault option.
 #
 #
 define jboss_admin::resource::core-service_vault (
   $server,
-  $vault_option                   = undef,
   $code                           = undef,
+  $vault_option                   = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -23,8 +23,8 @@ define jboss_admin::resource::core-service_vault (
   
 
     $raw_options = { 
-      'vault-option'                 => $vault_option,
       'code'                         => $code,
+      'vault-option'                 => $vault_option,
     }
     $options = delete_undef_values($raw_options)
 
