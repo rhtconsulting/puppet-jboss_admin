@@ -66,12 +66,7 @@ module CliPath
         break
       end
     end
-    if s1.empty?
-      @index = i1
-      r1 = nil
-    else
-      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
-    end
+    r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
     s0 << r1
     if s0.last
       r0 = instantiate_node(SyntaxNode,input, i0...index, s0)

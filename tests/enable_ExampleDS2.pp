@@ -7,7 +7,7 @@ jboss_admin::datasource{'ExampleDS':
   enabled        => true,
   connection_url => 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1',
   driver_name    => h2,
-  jndi_name      => 'java:jboss/datasources/ExampleDS2',
+  jndi_name      => 'java:jboss/datasources/ExampleDS',
   jta            => true,
   user_name      => sa,
   password       => sa,

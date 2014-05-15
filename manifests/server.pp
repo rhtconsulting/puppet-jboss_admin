@@ -18,4 +18,6 @@ define jboss_admin::server (
   $management_port = 9999,
 ) {
   anchor{ "Jboss_admin::Server[${name}] End": }
+
+  jboss_admin::cleanup {$name: }
 }

@@ -22,16 +22,22 @@ class CliParser
     @condition_parser ||= CliConditionParser.new
   end
 
+  def parse(parser, input)
+    result = parser.parse input
+    raise parser.failure_reason if !result
+    result.value
+  end
+
   def parse_path(input)
-    path_parser.parse(input).value
+    parse path_parser, input
   end
 
   def parse_command(input)
-    command_parser.parse(input).value
+    parse command_parser, input
   end
 
   def parse_condition(input)
-    condition_parser.parse(input).value
+    parse condition_parser, input
   end
 
 end

@@ -1,6 +1,6 @@
 grammar CliPath
   rule path
-    segments:('/' segment)+ {
+    segments:('/' segment)* {
       def value
         segments.elements.collect { |node| node.segment.value }
       end

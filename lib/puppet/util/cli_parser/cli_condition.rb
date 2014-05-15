@@ -363,11 +363,11 @@ module CliCondition
     i0, s0 = index, []
     s1, i1 = [], index
     loop do
-      if has_terminal?(@regexps[gr = '\A[a-zA-Z]'] ||= Regexp.new(gr), :regexp, index)
+      if has_terminal?(@regexps[gr = '\A[a-zA-Z-]'] ||= Regexp.new(gr), :regexp, index)
         r2 = true
         @index += 1
       else
-        terminal_parse_failure('[a-zA-Z]')
+        terminal_parse_failure('[a-zA-Z-]')
         r2 = nil
       end
       if r2
@@ -396,12 +396,26 @@ module CliCondition
         end
         s4 << r5
         if r5
-          if has_terminal?(@regexps[gr = '\A[a-zA-Z]'] ||= Regexp.new(gr), :regexp, index)
-            r6 = true
-            @index += 1
-          else
-            terminal_parse_failure('[a-zA-Z]')
+          s6, i6 = [], index
+          loop do
+            if has_terminal?(@regexps[gr = '\A[a-zA-Z-]'] ||= Regexp.new(gr), :regexp, index)
+              r7 = true
+              @index += 1
+            else
+              terminal_parse_failure('[a-zA-Z-]')
+              r7 = nil
+            end
+            if r7
+              s6 << r7
+            else
+              break
+            end
+          end
+          if s6.empty?
+            @index = i6
             r6 = nil
+          else
+            r6 = instantiate_node(SyntaxNode,input, i6...index, s6)
           end
           s4 << r6
         end
@@ -645,11 +659,11 @@ module CliCondition
 
     s0, i0 = [], index
     loop do
-      if has_terminal?(@regexps[gr = '\A[a-zA-Z0-9]'] ||= Regexp.new(gr), :regexp, index)
+      if has_terminal?(@regexps[gr = '\A[a-zA-Z0-9-]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
-        terminal_parse_failure('[a-zA-Z0-9]')
+        terminal_parse_failure('[a-zA-Z0-9-]')
         r1 = nil
       end
       if r1
