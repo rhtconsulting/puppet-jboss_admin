@@ -48,12 +48,12 @@ Currently there are two plumbing types on which all porcelain types are built:
 There are currently over 100 porcelain types. For example, here are a few
 porcelain types:
 
-* access-log_configuration
-* acl_classic
+* access-log
+* acl
 * admin-objects
-* archive-validation_archive-validation
+* archive-validation
 * async-handler
-* audit_classic
+* audit
 * authentication_classic
 * authentication_jaas
 * authentication_jaspi
@@ -98,7 +98,7 @@ jboss_admin::server {'main':
   base_path => '/opt/jboss'
 }
 
-jboss_admin::datasource{'/subsystem=datasources/data-source=ExampleDS':
+jboss_admin::resource::datasource{'/subsystem=datasources/data-source=ExampleDS':
   ensure         => present,
   enabled        => true,
   connection_url => 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1',

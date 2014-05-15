@@ -35,9 +35,15 @@ def collect_types(root, name, node)
   }] +
   if node[:children]
     node[:children].collect {|key, type| 
-      type[:'model-description'].collect{|value_key, value_node| 
-        collect_types("#{root}/#{key}=#{value_key}", name_type(key, value_key), value_node) 
-      }.flatten 
+      if type[:'model-description'].count == 1 && ![:authorization, :connector].include?(key)
+        type[:'model-description'].collect{|value_key, value_node| 
+          collect_types("#{root}/#{key}=#{value_key}", name_type(key, "*"), value_node) 
+        }.flatten 
+      else
+        type[:'model-description'].collect{|value_key, value_node| 
+          collect_types("#{root}/#{key}=#{value_key}", name_type(key, value_key), value_node) 
+        }.flatten 
+      end
     }.flatten
   else
     []
@@ -68,7 +74,14 @@ types_with_write = all_types.select{|t| read_write_attributes(t).count > 0 }
 types_by_name = Hash.new([])
 types_with_write.each { |t| types_by_name[t[:name]] += [t] }
 
-mismatched_types = types_by_name.select{|name, types| types.collect {|t| t[:attributes] }.uniq.count != 1}
+mismatched_types = types_by_name.select{|name, types| 
+  attributes = types.collect {|t| t[:attributes].keys }
+  result = attributes.uniq.count != 1
+  puts (attributes.uniq.inspect) if result
+  result
+}
+puts mismatched_types.collect{|name, _| name}.inspect
+
 types_to_generate = types_with_write.delete_if {|type| mismatched_types.any? {|name, _| type[:name] == name}}
 types_to_generate.each do |type|
   type[:all_attributes] = type[:attributes].clone

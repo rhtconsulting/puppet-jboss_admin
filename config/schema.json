@@ -10355,7 +10355,7 @@
                             },
                             "connector" : {
                                 "description" : "The remoting connectors.",
-                                "model-description" : {"*" : {
+                                "model-description" : {"remoting" : {
                                     "description" : "The configuration of a Remoting connector.",
                                     "attributes" : {
                                         "authentication-provider" : {
@@ -34090,7 +34090,7 @@
                             },
                             "connector" : {
                                 "description" : "A web connector.",
-                                "model-description" : {"*" : {
+                                "model-description" : {"web" : {
                                     "description" : "A web connector.",
                                     "attributes" : {
                                         "bytesSent" : {

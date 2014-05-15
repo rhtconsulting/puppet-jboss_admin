@@ -10,7 +10,7 @@
 #
 <% end -%>
 #
-define jboss_admin::<%= type[:name] %> (
+define jboss_admin::resource::<%= type[:name] %> (
   $server,
 <% type[:attributes].each_key do |attr| -%>
   $<%= (puppet_name attr).to_s.ljust 30 %> = undef,
@@ -26,16 +26,18 @@ define jboss_admin::<%= type[:name] %> (
     if $<%= puppet_name attr %> == undef { fail('The attribute <%= puppet_name attr %> is undefined but required') }
 <% end -%>
 <% if attribute[:type][:'TYPE_MODEL_VALUE'] == 'INT' -%>
-    if $<%= puppet_name attr %> != undef && !is_integer($<%= puppet_name attr %>) { 
+    if $<%= puppet_name attr %> != undef and !is_integer($<%= puppet_name attr %>) { 
       fail('The attribute <%= puppet_name attr %> is not an integer') 
     }
 <% end -%>
 <% end -%>  
 
     $raw_options = { 
-<% type[:attributes].each_key do |attr_name| -%>
+<% type[:attributes].each_key do |attr_name| 
+  unless attr_name.to_s == 'enabled' && ['data-source', 'xa-data-source'].include?(type[:name].to_s)-%>
       <%= "'#{attr_name}'".ljust 30 %> => $<%= puppet_name attr_name %>,
-<% end -%>
+<% end
+end -%>
     }
     $options = delete_undef_values($raw_options)
 
@@ -44,6 +46,23 @@ define jboss_admin::<%= type[:name] %> (
       server  => $server,
       options => $options
     }
+
+<% if ['data-source', 'xa-data-source'].include?(type[:name].to_s)-%>
+    if $enabled {
+      jboss_exec {"Enable Data Source ${name}":
+        command => "${name}:enable",
+        unless  => "(result == true) of ${name}:read-attribute(name=enabled)",
+        server  => $server
+      }
+    }
+    else {
+      jboss_exec {"Disable Data Source ${name}":
+        command => "${name}:disable",
+        onlyif  => "(result == true) of ${name}:read-attribute(name=enabled)",
+        server  => $server
+      }
+    }
+<% end -%>
 
   }
 
