@@ -52,7 +52,7 @@ Puppet::Type.newtype(:jboss_exec) do
     end
   end
 
-  autorequire(:resource) do
+  autorequire(:jboss_resource) do
     parser = CliParser.new
     resource_path = parser.parse_command value(:command)
     raise "Could not parse command #{value(:command)}, autorequire will fail" unless resource_path

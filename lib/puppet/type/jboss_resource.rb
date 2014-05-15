@@ -48,7 +48,7 @@ Puppet::Type.newtype(:jboss_resource) do
     catalog.resource("Jboss_admin::Server[#{self[:server]}]")
   end
 
-  autorequire(:resource) do
+  autorequire(:jboss_resource) do
     parser = CliParser.new
     resource_path = parser.parse_path value(:address)
     raise "Could not parse resource path #{value(:address)}, autorequire will fail" unless resource_path

@@ -24,7 +24,7 @@ class CliParser
 
   def parse(parser, input)
     result = parser.parse input
-    raise parser.failure_reason if !result
+    raise "#{parser.failure_reason}: #{input}" if !result
     result.value
   end
 
