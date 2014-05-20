@@ -21,20 +21,20 @@ class profile::demosite (
   
   maven { 'mysql-connector':
     path        => '/tmp/mysql-connector-java-5.1.29.jar',
-	  groupid     => mysql,
-	  artifactid  => mysql-connector-java,
-	  version     => '5.1.29',
-	  packaging   => jar,
-	  require     => Class['maven::maven']
-	}
-	
-	package { "java-1.7.0-openjdk-devel" :
-	  ensure => installed
-	}
-	-> class { 'jboss':
-	  install => 'source',
-	  version => '7'
-	}
+    groupid     => mysql,
+    artifactid  => mysql-connector-java,
+    version     => '5.1.29',
+    packaging   => jar,
+    require     => Class['maven::maven']
+  }
+  
+  package { "java-1.7.0-openjdk-devel" :
+    ensure => installed
+  }
+  -> class { 'jboss':
+    install => 'source',
+    version => '7'
+  }
   -> jboss_admin::server{ 'standalone':
     base_path => '/opt/jboss'
   }
