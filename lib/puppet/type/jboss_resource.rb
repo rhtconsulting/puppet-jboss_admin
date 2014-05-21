@@ -23,7 +23,10 @@ Puppet::Type.newtype(:jboss_resource) do
     end
 
     def insync?(is)
-      (should.to_a - is.to_a).empty?
+      should_undefined_keys = should.select{ |key, value| value == 'undefined'}.collect{ |key, value| key}
+
+      return false if should_undefined_keys.any?{|key, value| is[key]} 
+      (should.select{ |key, value| value != 'undefined' }.to_a - is.to_a).empty?
     end
 
     #def is_to_s(is)
