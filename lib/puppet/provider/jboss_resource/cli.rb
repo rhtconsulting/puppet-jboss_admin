@@ -62,12 +62,9 @@ Puppet::Type.type(:jboss_resource).provide(:cli) do
         format_command resource[:address], 'write-attribute', {'name' => attribute, 'value' => value}
       }
 
-      results = execute_cli get_server(resource), commands
-      [results].flatten.select{ |result| result['outcome'] != 'success' }.each do |result|
-        raise "Failed setting attribute, #{result['failure-description']}"
-      end
+      result = execute_cli get_server(resource), commands, false, true
+      raise "Failed setting attribute, #{result['failure-description']}" unless result['outcome'] == 'success'  
     end
-
     
   end
 end

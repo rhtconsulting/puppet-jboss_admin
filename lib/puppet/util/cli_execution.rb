@@ -18,26 +18,32 @@ module Puppet::Util::CliExecution
     end
   end
 
-  def execute_cli(server, command, failonfail = true)
+  def execute_cli(server, command, failonfail = true, batch = false)
     cli_path = "#{server['base_path']}/bin/jboss-cli.sh"
     command_file = Tempfile.new 'clicommands'
     command_file.chmod 0644
+    command_file.write "batch\n" if batch
     command_file.write command if command.is_a? String
     command_file.write command.join("\n") if command.is_a? Array
+    command_file.write "\nrun-batch\n" if batch
     command_file.close
 
     delete_nil = Proc.new { |k, v| v.kind_of?(Hash) ? (v.delete_if(&delete_nil); nil) : v.nil? }
 
-    FileUtils.copy command_file.path, '/tmp/cli_backup'
-    output = execute [cli_path, '--connect', '--file=' + command_file.path], {:failonfail => failonfail, :combine => true, :uid => 502}
-    command_file.unlink
-    json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/=>/, ':').gsub(/\}\n\{/m, "},{").gsub(/\n/, '') + ']'
-    parsed_output = JSON.parse(json_string)
-    parsed_output = parsed_output.collect {|o| o.delete_if &delete_nil}
-    parsed_output = parsed_output.collect {|o| convert_ints_to_strings o }
+    output = execute [cli_path, '--connect', '--file=' + command_file.path], {:failonfail => failonfail, :combine => true}
 
-    return parsed_output.first if parsed_output.count == 1
-    parsed_output
+    if batch
+      return {'outcome' => 'success'} if output =~ /The batch executed successfully/
+      return {'outcome' => 'failure', 'failure-description' => output.lines.to_a.last}
+    else
+      json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/=>/, ':').gsub(/: expression/, ': ').gsub(/\}\n\{/m, "},{").gsub(/\n/, '') + ']'
+      parsed_output = JSON.parse(json_string)
+      parsed_output = parsed_output.collect {|o| o.delete_if &delete_nil}
+      parsed_output = parsed_output.collect {|o| convert_ints_to_strings o }
+
+      return parsed_output.first if parsed_output.count == 1
+      parsed_output
+    end
   end
 
   def format_value(value)
