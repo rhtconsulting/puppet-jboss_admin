@@ -17,6 +17,13 @@ Puppet::Type.newtype(:jboss_exec) do
   end
 
   newparam(:onlyif) do
+    desc "If specified, the command is only executed when this evaluates to true"
+  end
+
+  newparam(:refreshonly) do
+    desc "If true, this command will only be executed when refreshed"
+    defaultto false
+    newvalues true, false
   end
 
   def server_reference
@@ -27,28 +34,40 @@ Puppet::Type.newtype(:jboss_exec) do
     defaultto true
 
     def retrieve
-      parser = CliParser.new
-      if resource[:onlyif]
-        check = parser.parse_condition resource[:onlyif]
-        check_command = PathGenerator.format_command check[1][0], check[1][1], check[1][2]
-        data = provider.execute_command check_command
-        result = check[0].call data
-
-        return true if !result
-      end
-      if resource[:unless]
-        check = parser.parse_condition resource[:unless]
-        check_command = PathGenerator.format_command check[1][0], check[1][1], check[1][2]
-        data = provider.execute_command check_command
-        result = check[0].call data
-
-        return true if result
-      end
-      false
+      not @resource.should_execute?
     end
 
     def sync
       provider.execute_command(resource[:command])
+    end
+  end
+
+  def should_execute?(refreshing=false)
+    return false if self[:refreshonly] && !refreshing
+
+    parser = CliParser.new
+    if self[:onlyif]
+      check = parser.parse_condition self[:onlyif]
+      check_command = PathGenerator.format_command check[1][0], check[1][1], check[1][2]
+      data = provider.execute_command check_command
+      result = check[0].call data
+
+      return false if !result
+    end
+    if self[:unless]
+      check = parser.parse_condition self[:unless]
+      check_command = PathGenerator.format_command check[1][0], check[1][1], check[1][2]
+      data = provider.execute_command check_command
+      result = check[0].call data
+
+      return false if result
+    end
+    true
+  end
+
+  def refresh
+    if should_execute? true
+      self.property(:executed).sync
     end
   end
 
