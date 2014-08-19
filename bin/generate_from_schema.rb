@@ -18,12 +18,14 @@ manifest_template_text = IO.read('manifest.erb')
 manifest_template = ERB.new(manifest_template_text, safe_mode = nil, trim_mode = '-')
 
 def name_type(type, value)
-  return type.to_s if value.to_s == '*'
-  "#{type}_#{value}"
+  converted_type = type.to_s.gsub /-/, '_'
+  return converted_type if value.to_s == '*'
+  converted_value = value.to_s.gsub /-/, '_'
+  "#{converted_type}_#{converted_value}"
 end
 
 def puppet_name(attribute_name)
-  attribute_name = "_" + attribute_name.to_s if [:title, :name].include? attribute_name 
+  attribute_name = "resource_" + attribute_name.to_s if [:title, :name].include? attribute_name 
   attribute_name.to_s.gsub /-/, '_'
 end
 

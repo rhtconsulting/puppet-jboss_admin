@@ -13,11 +13,11 @@
 # [*persistent*]
 #   Boolean indicating whether the existence of the deployment should be recorded in the persistent server configuration. Only relevant to a standalone mode server. Default is 'true'. A deployment managed by a deployment scanner would have this set to 'false' to ensure the deployment is only deployed at server start if the scanner again detects the deployment.
 #
+# [*resource_name*]
+#   Unique identifier of the deployment. Must be unique across all deployments.
+#
 # [*content*]
 #   List of pieces of content that comprise the deployment.
-#
-# [*_name*]
-#   Unique identifier of the deployment. Must be unique across all deployments.
 #
 #
 define jboss_admin::resource::deployment (
@@ -25,8 +25,8 @@ define jboss_admin::resource::deployment (
   $enabled                        = undef,
   $runtime_name                   = undef,
   $persistent                     = undef,
+  $resource_name                  = undef,
   $content                        = undef,
-  $_name                          = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -35,16 +35,16 @@ define jboss_admin::resource::deployment (
     if $enabled == undef { fail('The attribute enabled is undefined but required') }
     if $runtime_name == undef { fail('The attribute runtime_name is undefined but required') }
     if $persistent == undef { fail('The attribute persistent is undefined but required') }
+    if $resource_name == undef { fail('The attribute resource_name is undefined but required') }
     if $content == undef { fail('The attribute content is undefined but required') }
-    if $_name == undef { fail('The attribute _name is undefined but required') }
   
 
     $raw_options = { 
       'enabled'                      => $enabled,
       'runtime-name'                 => $runtime_name,
       'persistent'                   => $persistent,
+      'name'                         => $resource_name,
       'content'                      => $content,
-      'name'                         => $_name,
     }
     $options = delete_undef_values($raw_options)
 

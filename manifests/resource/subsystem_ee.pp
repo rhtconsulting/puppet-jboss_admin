@@ -4,17 +4,17 @@
 #
 # === Parameters
 #
-# [*global_modules*]
-#   A list of modules that should be made available to all deployments.
-#
 # [*ear_subdeployments_isolated*]
 #   Flag indicating whether each of the subdeployments within a .ear can access classes belonging to another subdeployment within the same .ear. A value of false means the subdeployments can see classes belonging to other subdeployments within the .ear.
+#
+# [*global_modules*]
+#   A list of modules that should be made available to all deployments.
 #
 #
 define jboss_admin::resource::subsystem_ee (
   $server,
-  $global_modules                 = undef,
   $ear_subdeployments_isolated    = undef,
+  $global_modules                 = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -23,8 +23,8 @@ define jboss_admin::resource::subsystem_ee (
   
 
     $raw_options = { 
-      'global-modules'               => $global_modules,
       'ear-subdeployments-isolated'  => $ear_subdeployments_isolated,
+      'global-modules'               => $global_modules,
     }
     $options = delete_undef_values($raw_options)
 

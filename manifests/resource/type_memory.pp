@@ -4,17 +4,17 @@
 #
 # === Parameters
 #
-# [*verbose*]
-#   Whether verbose output for the memory system is enabled.
-#
 # [*object_name*]
 #   String representation the object name of this platform managed object.
+#
+# [*verbose*]
+#   Whether verbose output for the memory system is enabled.
 #
 #
 define jboss_admin::resource::type_memory (
   $server,
-  $verbose                        = undef,
   $object_name                    = undef,
+  $verbose                        = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -23,8 +23,8 @@ define jboss_admin::resource::type_memory (
   
 
     $raw_options = { 
-      'verbose'                      => $verbose,
       'object-name'                  => $object_name,
+      'verbose'                      => $verbose,
     }
     $options = delete_undef_values($raw_options)
 

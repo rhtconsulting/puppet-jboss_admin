@@ -53,14 +53,14 @@ class profile::demosite (
     dependencies  => ['javax.api', 'javax.transaction.api'],
     require       => Maven['mysql-connector']
   }
-  -> jboss_admin::resource::jdbc-driver{ '/subsystem=datasources/jdbc-driver=mysql':
+  -> jboss_admin::resource::jdbc_driver{ '/subsystem=datasources/jdbc-driver=mysql':
     ensure                          => present,
     server                          => standalone,
     driver_name                     => mysql,
     driver_module_name              => 'com.mysql',
     driver_xa_datasource_class_name => 'com.mysql.jdbc.jdbc2.optional.MysqlXADataSource',
   }
-  -> jboss_admin::resource::data-source { '/subsystem=datasources/data-source=MySqlDS':
+  -> jboss_admin::resource::data_source { '/subsystem=datasources/data-source=MySqlDS':
     ensure         => present,
     server         => standalone,
     jndi_name      => 'java:jboss/datasources/MySqlDS',

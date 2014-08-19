@@ -4,17 +4,17 @@
 #
 # === Parameters
 #
-# [*welcome_file*]
-#   A welcome files declaration.
-#
 # [*mime_mapping*]
 #   A mime-mapping definition.
+#
+# [*welcome_file*]
+#   A welcome files declaration.
 #
 #
 define jboss_admin::resource::configuration_container (
   $server,
-  $welcome_file                   = undef,
   $mime_mapping                   = undef,
+  $welcome_file                   = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -23,8 +23,8 @@ define jboss_admin::resource::configuration_container (
   
 
     $raw_options = { 
-      'welcome-file'                 => $welcome_file,
       'mime-mapping'                 => $mime_mapping,
+      'welcome-file'                 => $welcome_file,
     }
     $options = delete_undef_values($raw_options)
 

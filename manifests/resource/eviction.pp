@@ -4,17 +4,17 @@
 #
 # === Parameters
 #
-# [*max_entries*]
-#   Maximum number of entries in a cache instance. If selected value is not a power of two the actual value will default to the least power of two larger than selected value. -1 means no limit.
-#
 # [*strategy*]
 #   Sets the cache eviction strategy. Available options are 'UNORDERED', 'FIFO', 'LRU', 'LIRS' and 'NONE' (to disable eviction).
+#
+# [*max_entries*]
+#   Maximum number of entries in a cache instance. If selected value is not a power of two the actual value will default to the least power of two larger than selected value. -1 means no limit.
 #
 #
 define jboss_admin::resource::eviction (
   $server,
-  $max_entries                    = undef,
   $strategy                       = undef,
+  $max_entries                    = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -26,8 +26,8 @@ define jboss_admin::resource::eviction (
   
 
     $raw_options = { 
-      'max-entries'                  => $max_entries,
       'strategy'                     => $strategy,
+      'max-entries'                  => $max_entries,
     }
     $options = delete_undef_values($raw_options)
 

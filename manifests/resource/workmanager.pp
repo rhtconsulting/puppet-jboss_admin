@@ -4,13 +4,13 @@
 #
 # === Parameters
 #
-# [*_name*]
+# [*resource_name*]
 #   The name of the WorkManager
 #
 #
 define jboss_admin::resource::workmanager (
   $server,
-  $_name                          = undef,
+  $resource_name                  = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -19,7 +19,7 @@ define jboss_admin::resource::workmanager (
   
 
     $raw_options = { 
-      'name'                         => $_name,
+      'name'                         => $resource_name,
     }
     $options = delete_undef_values($raw_options)
 

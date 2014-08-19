@@ -4,21 +4,21 @@
 #
 # === Parameters
 #
+# [*native*]
+#   Add the native initialization listener to the web container.
+#
 # [*default_virtual_server*]
 #   The web container's default virtual server.
 #
 # [*instance_id*]
 #   Set the identifier for this server instance.
 #
-# [*native*]
-#   Add the native initialization listener to the web container.
-#
 #
 define jboss_admin::resource::subsystem_web (
   $server,
+  $native                         = undef,
   $default_virtual_server         = undef,
   $instance_id                    = undef,
-  $native                         = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -27,9 +27,9 @@ define jboss_admin::resource::subsystem_web (
   
 
     $raw_options = { 
+      'native'                       => $native,
       'default-virtual-server'       => $default_virtual_server,
       'instance-id'                  => $instance_id,
-      'native'                       => $native,
     }
     $options = delete_undef_values($raw_options)
 

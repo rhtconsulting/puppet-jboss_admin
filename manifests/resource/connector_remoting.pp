@@ -4,21 +4,21 @@
 #
 # === Parameters
 #
+# [*authentication_provider*]
+#   The "authentication-provider" element contains the name of the authentication provider to use for incoming connections.
+#
 # [*security_realm*]
 #   The associated security realm to use for authentication for this connector.
 #
 # [*socket_binding*]
 #   The name (or names) of the socket binding(s) to attach to.
 #
-# [*authentication_provider*]
-#   The "authentication-provider" element contains the name of the authentication provider to use for incoming connections.
-#
 #
 define jboss_admin::resource::connector_remoting (
   $server,
+  $authentication_provider        = undef,
   $security_realm                 = undef,
   $socket_binding                 = undef,
-  $authentication_provider        = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -27,9 +27,9 @@ define jboss_admin::resource::connector_remoting (
   
 
     $raw_options = { 
+      'authentication-provider'      => $authentication_provider,
       'security-realm'               => $security_realm,
       'socket-binding'               => $socket_binding,
-      'authentication-provider'      => $authentication_provider,
     }
     $options = delete_undef_values($raw_options)
 

@@ -1,11 +1,11 @@
 # == Defines jboss_admin::property
 #
-# Endpoint configuration property
+# Properties supported by the underlying provider. The property name is inferred from the last element of the properties address.
 #
 # === Parameters
 #
 # [*value*]
-#   "Endpoint configuration property value
+#   The property value.
 #
 #
 define jboss_admin::resource::property (

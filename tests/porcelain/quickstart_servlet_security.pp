@@ -2,7 +2,7 @@ jboss_admin::server{ 'example':
   base_path => '/opt/jboss'
 }
 
-jboss_admin::resource::security-domain { '/subsystem=security/security-domain=servlet-security-quickstart':
+jboss_admin::resource::security_domain { '/subsystem=security/security-domain=servlet-security-quickstart':
   cache_type => 'default',
   server     => example
 }
