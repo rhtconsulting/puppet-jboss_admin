@@ -10,6 +10,9 @@
 # [*declared_roles*]
 #   The roles declared (via @DeclareRoles) on this EJB component.
 #
+# [*delivery_active*]
+#   Indicates whether messages are delivered to this message-driven bean.
+#
 # [*pool_available_count*]
 #   The number of available (i.e. not in use) instances in the pool.
 #
@@ -42,6 +45,7 @@ define jboss_admin::resource::message_driven_bean (
   $server,
   $component_class_name           = undef,
   $declared_roles                 = undef,
+  $delivery_active                = undef,
   $pool_available_count           = undef,
   $pool_create_count              = undef,
   $pool_current_size              = undef,
@@ -76,6 +80,7 @@ define jboss_admin::resource::message_driven_bean (
     $raw_options = { 
       'component-class-name'         => $component_class_name,
       'declared-roles'               => $declared_roles,
+      'delivery-active'              => $delivery_active,
       'pool-available-count'         => $pool_available_count,
       'pool-create-count'            => $pool_create_count,
       'pool-current-size'            => $pool_current_size,

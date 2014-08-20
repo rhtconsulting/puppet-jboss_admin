@@ -5,7 +5,7 @@
 # === Parameters
 #
 # [*debug*]
-#   Enables javamail debugging
+#   Enables JavaMail debugging
 #
 # [*from*]
 #   From address that is used as default from, if not set when sending

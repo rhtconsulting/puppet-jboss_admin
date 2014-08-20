@@ -1,6 +1,6 @@
 # == Defines jboss_admin::remote_store
 #
-# The cache store configuration.
+# The cache remote store configuration.
 #
 # === Parameters
 #

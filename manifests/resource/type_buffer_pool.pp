@@ -1,11 +1,11 @@
 # == Defines jboss_admin::type_buffer_pool
 #
-# Parent resource for the resources providing the management interface for the Java virtual machine's buffer pools.
+# The management interface for a buffer pool, for example a pool of direct or mapped buffers.
 #
 # === Parameters
 #
 # [*resource_name*]
-#   The BufferPoolMXBean platform MBeans, organized by the value of the 'name' property in the MBean's ObjectName.
+#   The name representing this buffer pool.
 #
 #
 define jboss_admin::resource::type_buffer_pool (

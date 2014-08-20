@@ -5,10 +5,10 @@
 # === Parameters
 #
 # [*locking*]
-#   The locking mode for this cache, one of OPTIMISTIC or PESSIMISTIC.
+#   The locking configuration of the cache.
 #
 # [*mode*]
-#   Sets the cache transaction mode to one of NONE, NON_XA, NON_DURABLE_XA, FULL_XA.
+#   Sets the clustered cache mode, ASYNC for asynchronous operation, or SYNC for synchronous operation.
 #
 # [*stop_timeout*]
 #   If there are any ongoing transactions when a cache is stopped, Infinispan waits for ongoing remote and local transactions to finish. The amount of time to wait for is defined by the cache stop timeout.

@@ -10,6 +10,9 @@
 # [*allocation_retry_wait_millis*]
 #   The allocation retry wait millis element specifies the amount of time, in milliseconds, to wait between retrying to allocate a connection
 #
+# [*allow_multiple_users*]
+#   Specifies if multiple users will access the datasource through the getConnection(user, password) method and hence if the internal pool type should account for that
+#
 # [*background_validation*]
 #   An element to specify that connections should be validated on a background thread versus being validated prior to use. Changing this value can be done only on disabled datasource,  requires a server restart otherwise.
 #
@@ -45,9 +48,6 @@
 #
 # [*jndi_name*]
 #   Specifies the JNDI name for the datasource
-#
-# [*jta*]
-#   Enable JTA integration
 #
 # [*max_pool_size*]
 #   The max-pool-size element specifies the maximum number of connections for a pool. No more connections will be created in each sub-pool
@@ -124,6 +124,9 @@
 # [*stale_connection_checker_properties*]
 #   The stale connection checker properties
 #
+# [*statistics_enabled*]
+#   define if runtime statistics is enabled or not
+#
 # [*track_statements*]
 #   Whether to check for unclosed statements when a connection is returned to the pool, result sets are closed, a statement is closed or return to the prepared statement cache. Valid values are: "false" - do not track statements, "true" - track statements and result sets and warn when they are not closed, "nowarn" - track statements but do not warn about them being unclosed
 #
@@ -174,6 +177,7 @@ define jboss_admin::resource::xa_data_source (
   $server,
   $allocation_retry               = undef,
   $allocation_retry_wait_millis   = undef,
+  $allow_multiple_users           = undef,
   $background_validation          = undef,
   $background_validation_millis   = undef,
   $blocking_timeout_wait_millis   = undef,
@@ -186,7 +190,6 @@ define jboss_admin::resource::xa_data_source (
   $idle_timeout_minutes           = undef,
   $interleaving                   = undef,
   $jndi_name                      = undef,
-  $jta                            = undef,
   $max_pool_size                  = undef,
   $min_pool_size                  = undef,
   $new_connection_sql             = undef,
@@ -212,6 +215,7 @@ define jboss_admin::resource::xa_data_source (
   $spy                            = undef,
   $stale_connection_checker_class_name = undef,
   $stale_connection_checker_properties = undef,
+  $statistics_enabled             = undef,
   $track_statements               = undef,
   $transaction_isolation          = undef,
   $url_delimiter                  = undef,
@@ -235,8 +239,6 @@ define jboss_admin::resource::xa_data_source (
     if $allocation_retry != undef and !is_integer($allocation_retry) { 
       fail('The attribute allocation_retry is not an integer') 
     }
-    if $driver_name == undef { fail('The attribute driver_name is undefined but required') }
-    if $jndi_name == undef { fail('The attribute jndi_name is undefined but required') }
     if $max_pool_size != undef and !is_integer($max_pool_size) { 
       fail('The attribute max_pool_size is not an integer') 
     }
@@ -251,6 +253,7 @@ define jboss_admin::resource::xa_data_source (
     $raw_options = { 
       'allocation-retry'             => $allocation_retry,
       'allocation-retry-wait-millis' => $allocation_retry_wait_millis,
+      'allow-multiple-users'         => $allow_multiple_users,
       'background-validation'        => $background_validation,
       'background-validation-millis' => $background_validation_millis,
       'blocking-timeout-wait-millis' => $blocking_timeout_wait_millis,
@@ -263,7 +266,6 @@ define jboss_admin::resource::xa_data_source (
       'idle-timeout-minutes'         => $idle_timeout_minutes,
       'interleaving'                 => $interleaving,
       'jndi-name'                    => $jndi_name,
-      'jta'                          => $jta,
       'max-pool-size'                => $max_pool_size,
       'min-pool-size'                => $min_pool_size,
       'new-connection-sql'           => $new_connection_sql,
@@ -289,6 +291,7 @@ define jboss_admin::resource::xa_data_source (
       'spy'                          => $spy,
       'stale-connection-checker-class-name' => $stale_connection_checker_class_name,
       'stale-connection-checker-properties' => $stale_connection_checker_properties,
+      'statistics-enabled'           => $statistics_enabled,
       'track-statements'             => $track_statements,
       'transaction-isolation'        => $transaction_isolation,
       'url-delimiter'                => $url_delimiter,

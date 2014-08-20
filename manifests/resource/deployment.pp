@@ -32,11 +32,6 @@ define jboss_admin::resource::deployment (
 ) {
   if $ensure == present {
 
-    if $content == undef { fail('The attribute content is undefined but required') }
-    if $enabled == undef { fail('The attribute enabled is undefined but required') }
-    if $resource_name == undef { fail('The attribute resource_name is undefined but required') }
-    if $persistent == undef { fail('The attribute persistent is undefined but required') }
-    if $runtime_name == undef { fail('The attribute runtime_name is undefined but required') }
   
 
     $raw_options = { 

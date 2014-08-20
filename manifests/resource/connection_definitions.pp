@@ -1,107 +1,107 @@
 # == Defines jboss_admin::connection_definitions
 #
-# connection-definitions
+# Specifies a connection definition.
 #
 # === Parameters
 #
 # [*allocation_retry*]
-#   The allocation retry element indicates the number of times that allocating a connection should be tried before throwing an exception
+#   The allocation retry element indicates the number of times that allocating a connection should be tried before throwing an exception.
 #
 # [*allocation_retry_wait_millis*]
-#   The allocation retry wait millis element specifies the amount of time, in milliseconds, to wait between retrying to allocate a connection
+#   The allocation retry wait millis element specifies the amount of time, in milliseconds, to wait between retrying to allocate a connection.
 #
 # [*background_validation*]
-#   An element to specify that connections should be validated on a background thread versus being validated prior to use. Changing this value requires a server restart
+#   An element to specify that connections should be validated on a background thread versus being validated prior to use. Changing this value requires a server restart.
 #
 # [*background_validation_millis*]
-#   The background-validation-millis element specifies the amount of time, in milliseconds, that background validation will run. Changing this value requires a server restart
+#   The background-validation-millis element specifies the amount of time, in milliseconds, that background validation will run. Changing this value requires a server restart.
 #
 # [*blocking_timeout_wait_millis*]
-#   The blocking-timeout-millis element specifies the maximum time, in milliseconds, to block while waiting for a connection before throwing an exception. Note that this blocks only while waiting for locking a connection, and will never throw an exception if creating a new connection takes an inordinately long time
+#   The blocking-timeout-millis element specifies the maximum time, in milliseconds, to block while waiting for a connection before throwing an exception. Note that this blocks only while waiting for locking a connection, and will never throw an exception if creating a new connection takes an inordinately long time.
 #
 # [*class_name*]
-#   Specifies the fully qualified class name of a managed connection factory or admin object
+#   Specifies the fully qualified class name of a managed connection factory or admin object.
 #
 # [*enabled*]
-#   Specifies if the resource adapter should be enabled
+#   Specifies if the resource adapter should be enabled.
 #
 # [*flush_strategy*]
-#   Specifies how the pool should be flush in case of an error. Valid values are: FailingConnectionOnly (default), IdleConnections and EntirePool
+#   Specifies how the pool should be flush in case of an error. Valid values are: FailingConnectionOnly (default), IdleConnections and EntirePool.
 #
 # [*idle_timeout_minutes*]
-#   The idle-timeout-minutes elements specifies the maximum time, in minutes, a connection may be idle before being closed. The actual maximum time depends also on the IdleRemover scan time, which is half of the smallest idle-timeout-minutes value of any pool. Changing this value requires a server restart.
+#   The idle-timeout-minutes elements specifies the maximum time, in minutes, a connection may be idle before being closed. The actual maximum time depends also on the IdleRemover scan time, which is half of the smallest idle-timeout-minutes value of any pool. Changing this value requires a server restart..
 #
 # [*interleaving*]
-#   An element to enable interleaving for XA connections
+#   An element to enable interleaving for XA connections.
 #
 # [*jndi_name*]
-#   Specifies the JNDI name for the connection factory or admin object
+#   Specifies the JNDI name for the connection factory.
 #
 # [*max_pool_size*]
-#   The max-pool-size element specifies the maximum number of connections for a pool. No more connections will be created in each sub-pool
+#   The max-pool-size element specifies the maximum number of connections for a pool. No more connections will be created in each sub-pool.
 #
 # [*min_pool_size*]
-#   The min-pool-size element specifies the minimum number of connections for a pool
+#   The min-pool-size element specifies the minimum number of connections for a pool.
 #
 # [*no_recovery*]
-#   Specifies if the connection pool should be excluded from recovery
+#   Specifies if the connection pool should be excluded from recovery.
 #
 # [*no_tx_separate_pool*]
-#   Oracle does not like XA connections getting used both inside and outside a JTA transaction. To workaround the problem you can create separate sub-pools for the different contexts
+#   Oracle does not like XA connections getting used both inside and outside a JTA transaction. To workaround the problem you can create separate sub-pools for the different contexts.
 #
 # [*pad_xid*]
-#   Should the Xid be padded
+#   Should the Xid be padded.
 #
 # [*pool_prefill*]
-#   Should the pool be prefilled. Changing this value requires a server restart
+#   Should the pool be prefilled. Changing this value requires a server restart.
 #
 # [*pool_use_strict_min*]
-#   Specifies if the min-pool-size should be considered strictly
+#   Specifies if the min-pool-size should be considered strictly.
 #
 # [*recovery_password*]
-#   The password used for recovery
+#   The password used for recovery.
 #
 # [*recovery_plugin_class_name*]
-#   The fully qualified class name of the recovery plugin implementation
+#   The fully qualified class name of the recovery plugin implementation.
 #
 # [*recovery_plugin_properties*]
-#   The properties for the recovery plugin
+#   The properties for the recovery plugin.
 #
 # [*recovery_security_domain*]
-#   The security domain used for recovery
+#   The security domain used for recovery.
 #
 # [*recovery_username*]
-#   The user name used for recovery
+#   The user name used for recovery.
 #
 # [*same_rm_override*]
-#   The is-same-rm-override element allows one to unconditionally set whether the javax.transaction.xa.XAResource.isSameRM(XAResource) returns true or false
+#   The is-same-rm-override element allows one to unconditionally set whether the javax.transaction.xa.XAResource.isSameRM(XAResource) returns true or false.
 #
 # [*security_application*]
-#   Indicates that app supplied parameters (such as from getConnection(user, pw)) are used to distinguish connections in the pool
+#   Indicates that app supplied parameters (such as from getConnection(user, pw)) are used to distinguish connections in the pool.
 #
 # [*security_domain*]
-#   Specifies the security domain which defines the javax.security.auth.Subject that are used to distinguish connections in the pool
+#   Specifies the security domain which defines the javax.security.auth.Subject that are used to distinguish connections in the pool.
 #
 # [*security_domain_and_application*]
-#   Indicates that either app supplied parameters (such as from getConnection(user, pw)) or Subject (from security domain) are used to distinguish connections in the pool
+#   Indicates that either app supplied parameters (such as from getConnection(user, pw)) or Subject (from security domain) are used to distinguish connections in the pool.
 #
 # [*use_ccm*]
-#   Enable the use of a cached connection manager
+#   Enable the use of a cached connection manager.
 #
 # [*use_fast_fail*]
-#   Whether to fail a connection allocation on the first try if it is invalid (true) or keep trying until the pool is exhausted of all potential connections (false)
+#   Whether to fail a connection allocation on the first try if it is invalid (true) or keep trying until the pool is exhausted of all potential connections (false).
 #
 # [*use_java_context*]
-#   Setting this to false will bind the object into global JNDI
+#   Setting this to false will bind the object into global JNDI.
 #
 # [*use_try_lock*]
-#   Any configured timeout for internal locks on the resource adapter objects in seconds
+#   Any configured timeout for internal locks on the resource adapter objects in seconds.
 #
 # [*wrap_xa_resource*]
-#   Should the XAResource instances be wrapped in a org.jboss.tm.XAResourceWrapper instance
+#   Should the XAResource instances be wrapped in a org.jboss.tm.XAResourceWrapper instance.
 #
 # [*xa_resource_timeout*]
-#   The value is passed to XAResource.setTransactionTimeout(), in seconds. Default is zero
+#   The value is passed to XAResource.setTransactionTimeout(), in seconds. Default is zero.
 #
 #
 define jboss_admin::resource::connection_definitions (

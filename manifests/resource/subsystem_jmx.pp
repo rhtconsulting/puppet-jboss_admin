@@ -4,12 +4,16 @@
 #
 # === Parameters
 #
+# [*non_core_mbean_sensitivity*]
+#   Whether or not core MBeans, i.e. mbeans not coming from the model controller, should be considered sensitive.
+#
 # [*show_model*]
-#   Set to 'true' to include MBeans for the model controller resources
+#   Alias for the existance of the 'resolved' model controller jmx facade. When writing, if set to 'true' it will add the 'resolved' model controller jmx facade resource with the default domain name.
 #
 #
 define jboss_admin::resource::subsystem_jmx (
   $server,
+  $non_core_mbean_sensitivity     = undef,
   $show_model                     = undef,
   $ensure                         = present,
   $path                           = $name
@@ -19,6 +23,7 @@ define jboss_admin::resource::subsystem_jmx (
   
 
     $raw_options = { 
+      'non-core-mbean-sensitivity'   => $non_core_mbean_sensitivity,
       'show-model'                   => $show_model,
     }
     $options = delete_undef_values($raw_options)

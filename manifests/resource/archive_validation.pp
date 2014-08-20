@@ -1,6 +1,6 @@
 # == Defines jboss_admin::archive_validation
 #
-# jca.archive-validation
+# Archive validation for resource adapters
 #
 # === Parameters
 #

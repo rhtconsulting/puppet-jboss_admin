@@ -10,6 +10,9 @@
 # [*management_major_version*]
 #   The major version of the JBoss AS management interface that is provided by this server.
 #
+# [*management_micro_version*]
+#   The micro version of the JBoss AS management interface that is provided by this server.
+#
 # [*management_minor_version*]
 #   The minor version of the JBoss AS management interface that is provided by this server.
 #
@@ -37,6 +40,9 @@
 # [*release_version*]
 #   The version of the JBoss Application Server release this server is running.
 #
+# [*running_mode*]
+#   The current running mode of the server. Either NORMAL (normal operations) or ADMIN_ONLY.  An ADMIN_ONLY server will start any configured management interfaces and accept management requests, but will not start services used for handling end user requests.
+#
 # [*schema_locations*]
 #   Map of locations of XML schemas used in the configuration XML document, where keys are schema URIs and values are locations where the schema can be found.
 #
@@ -48,6 +54,7 @@ define jboss_admin::resource::root_resource (
   $server,
   $launch_type                    = undef,
   $management_major_version       = undef,
+  $management_micro_version       = undef,
   $management_minor_version       = undef,
   $resource_name                  = undef,
   $namespaces                     = undef,
@@ -57,6 +64,7 @@ define jboss_admin::resource::root_resource (
   $profile_name                   = undef,
   $release_codename               = undef,
   $release_version                = undef,
+  $running_mode                   = undef,
   $schema_locations               = undef,
   $server_state                   = undef,
   $ensure                         = present,
@@ -64,27 +72,21 @@ define jboss_admin::resource::root_resource (
 ) {
   if $ensure == present {
 
-    if $launch_type == undef { fail('The attribute launch_type is undefined but required') }
-    if $management_major_version == undef { fail('The attribute management_major_version is undefined but required') }
     if $management_major_version != undef and !is_integer($management_major_version) { 
       fail('The attribute management_major_version is not an integer') 
     }
-    if $management_minor_version == undef { fail('The attribute management_minor_version is undefined but required') }
+    if $management_micro_version != undef and !is_integer($management_micro_version) { 
+      fail('The attribute management_micro_version is not an integer') 
+    }
     if $management_minor_version != undef and !is_integer($management_minor_version) { 
       fail('The attribute management_minor_version is not an integer') 
     }
-    if $process_type == undef { fail('The attribute process_type is undefined but required') }
-    if $product_name == undef { fail('The attribute product_name is undefined but required') }
-    if $product_version == undef { fail('The attribute product_version is undefined but required') }
-    if $profile_name == undef { fail('The attribute profile_name is undefined but required') }
-    if $release_codename == undef { fail('The attribute release_codename is undefined but required') }
-    if $release_version == undef { fail('The attribute release_version is undefined but required') }
-    if $server_state == undef { fail('The attribute server_state is undefined but required') }
   
 
     $raw_options = { 
       'launch-type'                  => $launch_type,
       'management-major-version'     => $management_major_version,
+      'management-micro-version'     => $management_micro_version,
       'management-minor-version'     => $management_minor_version,
       'name'                         => $resource_name,
       'namespaces'                   => $namespaces,
@@ -94,6 +96,7 @@ define jboss_admin::resource::root_resource (
       'profile-name'                 => $profile_name,
       'release-codename'             => $release_codename,
       'release-version'              => $release_version,
+      'running-mode'                 => $running_mode,
       'schema-locations'             => $schema_locations,
       'server-state'                 => $server_state,
     }

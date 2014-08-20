@@ -1,6 +1,6 @@
 # == Defines jboss_admin::binary_keyed_jdbc_store
 #
-# The cache store configuration.
+# The binary keyed cache JDBC store configuration.
 #
 # === Parameters
 #

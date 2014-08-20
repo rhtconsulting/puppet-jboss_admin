@@ -13,6 +13,9 @@
 # [*indexing*]
 #   If enabled, entries will be indexed when they are added to the cache. Indexes will be updated as entries change or are removed.
 #
+# [*indexing_properties*]
+#   Properties to control indexing behaviour
+#
 # [*jndi_name*]
 #   The jndi-name to which to bind this cache instance.
 #
@@ -21,6 +24,9 @@
 #
 # [*mode*]
 #   Sets the clustered cache mode, ASYNC for asynchronous operation, or SYNC for synchronous operation.
+#
+# [*module*]
+#   The module whose class loader should be used when building this cache's configuration.
 #
 # [*owners*]
 #   Number of cluster-wide replicas for each cache entry.
@@ -34,11 +40,17 @@
 # [*remote_timeout*]
 #   In SYNC mode, the timeout (in ms) used to wait for an acknowledgment when making a remote call, after which the call is aborted and an exception is thrown.
 #
+# [*segments*]
+#   Controls the number of hash space segments which is the granularity for key distribution in the cluster. Value must be strictly positive.
+#
 # [*start*]
 #   The cache start mode, which can be EAGER (immediate start) or LAZY (on-demand start).
 #
+# [*statistics_enabled*]
+#   If enabled, statistics will be collected for this cache
+#
 # [*virtual_nodes*]
-#   Controls the number of virtual nodes per "real" node. If numVirtualNodes is 1, then virtual nodes are disabled. The topology aware consistent hash must be used if you wish to take advantage of virtual nodes. A default of 1 is used.
+#   Deprecated. Has no effect.
 #
 #
 define jboss_admin::resource::distributed_cache (
@@ -46,14 +58,18 @@ define jboss_admin::resource::distributed_cache (
   $async_marshalling              = undef,
   $batching                       = undef,
   $indexing                       = undef,
+  $indexing_properties            = undef,
   $jndi_name                      = undef,
   $l1_lifespan                    = undef,
   $mode                           = undef,
+  $module                         = undef,
   $owners                         = undef,
   $queue_flush_interval           = undef,
   $queue_size                     = undef,
   $remote_timeout                 = undef,
+  $segments                       = undef,
   $start                          = undef,
+  $statistics_enabled             = undef,
   $virtual_nodes                  = undef,
   $ensure                         = present,
   $path                           = $name
@@ -66,6 +82,9 @@ define jboss_admin::resource::distributed_cache (
     if $queue_size != undef and !is_integer($queue_size) { 
       fail('The attribute queue_size is not an integer') 
     }
+    if $segments != undef and !is_integer($segments) { 
+      fail('The attribute segments is not an integer') 
+    }
     if $virtual_nodes != undef and !is_integer($virtual_nodes) { 
       fail('The attribute virtual_nodes is not an integer') 
     }
@@ -75,14 +94,18 @@ define jboss_admin::resource::distributed_cache (
       'async-marshalling'            => $async_marshalling,
       'batching'                     => $batching,
       'indexing'                     => $indexing,
+      'indexing-properties'          => $indexing_properties,
       'jndi-name'                    => $jndi_name,
       'l1-lifespan'                  => $l1_lifespan,
       'mode'                         => $mode,
+      'module'                       => $module,
       'owners'                       => $owners,
       'queue-flush-interval'         => $queue_flush_interval,
       'queue-size'                   => $queue_size,
       'remote-timeout'               => $remote_timeout,
+      'segments'                     => $segments,
       'start'                        => $start,
+      'statistics-enabled'           => $statistics_enabled,
       'virtual-nodes'                => $virtual_nodes,
     }
     $options = delete_undef_values($raw_options)

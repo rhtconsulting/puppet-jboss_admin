@@ -1,6 +1,6 @@
 # == Defines jboss_admin::long_running_threads
 #
-# A thread pool executor with a bounded queue where threads submittings tasks may block. Such a thread pool has a core and maximum size and a specified queue length.  When a task is submitted, if the number of running threads is less than the core size, a new thread is created.  Otherwise, if there is room in the queue, the task is enqueued. Otherwise, if the number of running threads is less than the maximum size, a new thread is created. Otherwise, the caller blocks until room becomes available in the queue.
+# A thread pool executor with a bounded queue where threads submittings tasks will not block. Such a thread pool has a core and maximum size and a specified queue length.  When a task is submitted, if the number of running threads is less than the core size, a new thread is created.  Otherwise, if there is room in the queue, the task is enqueued. Otherwise, if the number of running threads is less than the maximum size, a new thread is created. Otherwise, the task is handed off to the designated handoff executor, if one is specified.  Otherwise, the task is discarded.
 #
 # === Parameters
 #
@@ -9,6 +9,9 @@
 #
 # [*core_threads*]
 #   The core thread pool size which is smaller than the maximum pool size. If undefined, the core thread pool size is the same as the maximum thread pool size.
+#
+# [*handoff_executor*]
+#   An executor to delegate tasks to in the event that a task cannot be accepted. If not specified, tasks that cannot be accepted will be silently discarded.
 #
 # [*keepalive_time*]
 #   Used to specify the amount of time that pool threads should be kept running when idle; if not specified, threads will run until the executor is shut down.
@@ -30,6 +33,7 @@ define jboss_admin::resource::long_running_threads (
   $server,
   $allow_core_timeout             = undef,
   $core_threads                   = undef,
+  $handoff_executor               = undef,
   $keepalive_time                 = undef,
   $max_threads                    = undef,
   $resource_name                  = undef,
@@ -54,6 +58,7 @@ define jboss_admin::resource::long_running_threads (
     $raw_options = { 
       'allow-core-timeout'           => $allow_core_timeout,
       'core-threads'                 => $core_threads,
+      'handoff-executor'             => $handoff_executor,
       'keepalive-time'               => $keepalive_time,
       'max-threads'                  => $max_threads,
       'name'                         => $resource_name,

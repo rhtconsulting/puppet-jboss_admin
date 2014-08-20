@@ -1,6 +1,6 @@
 # == Defines jboss_admin::cached_connection_manager
 #
-# jca.cached-connection-manager
+# Cached connection manager for resource adapters
 #
 # === Parameters
 #

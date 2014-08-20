@@ -13,11 +13,17 @@
 # [*indexing*]
 #   If enabled, entries will be indexed when they are added to the cache. Indexes will be updated as entries change or are removed.
 #
+# [*indexing_properties*]
+#   Properties to control indexing behaviour
+#
 # [*jndi_name*]
 #   The jndi-name to which to bind this cache instance.
 #
 # [*mode*]
 #   Sets the clustered cache mode, ASYNC for asynchronous operation, or SYNC for synchronous operation.
+#
+# [*module*]
+#   The module whose class loader should be used when building this cache's configuration.
 #
 # [*queue_flush_interval*]
 #   In ASYNC mode, this attribute controls how often the asynchronous thread used to flush the replication queue runs. This should be a positive integer which represents thread wakeup time in milliseconds.
@@ -31,18 +37,24 @@
 # [*start*]
 #   The cache start mode, which can be EAGER (immediate start) or LAZY (on-demand start).
 #
+# [*statistics_enabled*]
+#   If enabled, statistics will be collected for this cache
+#
 #
 define jboss_admin::resource::replicated_cache (
   $server,
   $async_marshalling              = undef,
   $batching                       = undef,
   $indexing                       = undef,
+  $indexing_properties            = undef,
   $jndi_name                      = undef,
   $mode                           = undef,
+  $module                         = undef,
   $queue_flush_interval           = undef,
   $queue_size                     = undef,
   $remote_timeout                 = undef,
   $start                          = undef,
+  $statistics_enabled             = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -57,12 +69,15 @@ define jboss_admin::resource::replicated_cache (
       'async-marshalling'            => $async_marshalling,
       'batching'                     => $batching,
       'indexing'                     => $indexing,
+      'indexing-properties'          => $indexing_properties,
       'jndi-name'                    => $jndi_name,
       'mode'                         => $mode,
+      'module'                       => $module,
       'queue-flush-interval'         => $queue_flush_interval,
       'queue-size'                   => $queue_size,
       'remote-timeout'               => $remote_timeout,
       'start'                        => $start,
+      'statistics-enabled'           => $statistics_enabled,
     }
     $options = delete_undef_values($raw_options)
 

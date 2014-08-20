@@ -7,14 +7,18 @@
 # [*code*]
 #   Fully Qualified Name of the Security Vault Implementation.
 #
-# [*vault_option*]
-#   Security Vault option.
+# [*module*]
+#   The name of the module to load up the vault implementation from.
+#
+# [*vault_options*]
+#   Security Vault options.
 #
 #
 define jboss_admin::resource::core_service_vault (
   $server,
   $code                           = undef,
-  $vault_option                   = undef,
+  $module                         = undef,
+  $vault_options                  = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -24,7 +28,8 @@ define jboss_admin::resource::core_service_vault (
 
     $raw_options = { 
       'code'                         => $code,
-      'vault-option'                 => $vault_option,
+      'module'                       => $module,
+      'vault-options'                => $vault_options,
     }
     $options = delete_undef_values($raw_options)
 

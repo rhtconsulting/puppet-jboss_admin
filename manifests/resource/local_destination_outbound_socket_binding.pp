@@ -1,6 +1,6 @@
 # == Defines jboss_admin::local_destination_outbound_socket_binding
 #
-# Configuration information for a, local destination, outbound socket binding.
+# Configuration information for a local destination outbound socket binding.
 #
 # === Parameters
 #

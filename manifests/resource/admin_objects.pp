@@ -1,20 +1,20 @@
 # == Defines jboss_admin::admin_objects
 #
-# admin-objects
+# Specifies an administration object.
 #
 # === Parameters
 #
 # [*class_name*]
-#   Specifies the fully qualified class name of a managed connection factory or admin object
+#   Specifies the fully qualified class name of an administration object.
 #
 # [*enabled*]
-#   Specifies if the resource adapter should be enabled
+#   Specifies if the administration object should be enabled.
 #
 # [*jndi_name*]
-#   Specifies the JNDI name for the connection factory or admin object
+#   Specifies the JNDI name for the administration object.
 #
 # [*use_java_context*]
-#   Setting this to false will bind the object into global JNDI
+#   Setting this to false will bind the object into global JNDI.
 #
 #
 define jboss_admin::resource::admin_objects (

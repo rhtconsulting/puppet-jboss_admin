@@ -4,12 +4,16 @@
 #
 # === Parameters
 #
+# [*assign_groups*]
+#   Map the roles loaded by JAAS to groups.
+#
 # [*resource_name*]
 #   The name of the JAAS configuration to use.
 #
 #
 define jboss_admin::resource::authentication_jaas (
   $server,
+  $assign_groups                  = undef,
   $resource_name                  = undef,
   $ensure                         = present,
   $path                           = $name
@@ -19,6 +23,7 @@ define jboss_admin::resource::authentication_jaas (
   
 
     $raw_options = { 
+      'assign-groups'                => $assign_groups,
       'name'                         => $resource_name,
     }
     $options = delete_undef_values($raw_options)

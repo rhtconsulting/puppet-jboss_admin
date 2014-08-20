@@ -1,6 +1,6 @@
 # == Defines jboss_admin::xa_datasource_properties
 #
-# value
+# List of xa-datasource-property
 #
 # === Parameters
 #

@@ -1,6 +1,6 @@
 # == Defines jboss_admin::subsystem_transactions
 #
-# The configuration of the transactions subsystem.
+# The configuration of the transaction subsystem.
 #
 # === Parameters
 #
@@ -13,8 +13,32 @@
 # [*enable_tsm_status*]
 #   Whether the transaction status manager (TSM) service, needed for out of process recovery, should be provided or not..
 #
+# [*hornetq_store_enable_async_io*]
+#   Whether AsyncIO should be enabled for the HornetQ journal store. Default is false. The server should be restarted for this setting to take effect.
+#
+# [*jdbc_action_store_drop_table*]
+#   Configure if jdbc action store should drop tables. Default is false. The server should be restarted for this setting to take effect.
+#
+# [*jdbc_action_store_table_prefix*]
+#   Optional prefix for table used to write transcation logs in configured jdbc action store. The server should be restarted for this setting to take effect.
+#
+# [*jdbc_communication_store_drop_table*]
+#   Configure if jdbc communication store should drop tables. Default is false. The server should be restarted for this setting to take effect.
+#
+# [*jdbc_communication_store_table_prefix*]
+#   Optional prefix for table used to write transcation logs in configured jdbc communication store. The server should be restarted for this setting to take effect.
+#
+# [*jdbc_state_store_drop_table*]
+#   Configure if jdbc state store should drop tables. Default is false. The server should be restarted for this setting to take effect.
+#
+# [*jdbc_state_store_table_prefix*]
+#   Optional prefix for table used to write transcation logs in configured jdbc state store. The server should be restarted for this setting to take effect.
+#
+# [*jdbc_store_datasource*]
+#   Jndi name of non-XA datasource used. Datasource sghould be define in datasources subsystem. The server should be restarted for this setting to take effect.
+#
 # [*jts*]
-#   If true this enables the Java Transaction Service
+#   If true this enables the Java Transaction Service. NOTE: use of JTS requires configuration of the JacORB subsystem.
 #
 # [*node_identifier*]
 #   Used to set the node identifier on the core environment.
@@ -49,12 +73,26 @@
 # [*status_socket_binding*]
 #   Used to reference the correct socket binding to use for the transaction status manager.
 #
+# [*use_hornetq_store*]
+#   Use the HornetQ journal store for writing transaction logs. Set to true to enable and to false to use the default log store type. The default log store is normally one file system file per transaction log. The server should be restarted for this setting to take effect. It's alternative to jdbc based store.
+#
+# [*use_jdbc_store*]
+#   Use the jdbc store for writing transaction logs. Set to true to enable and to false to use the default log store type. The default log store is normally one file system file per transaction log. The server should be restarted for this setting to take effect. It's alternative to Horneq based store
+#
 #
 define jboss_admin::resource::subsystem_transactions (
   $server,
   $default_timeout                = undef,
   $enable_statistics              = undef,
   $enable_tsm_status              = undef,
+  $hornetq_store_enable_async_io  = undef,
+  $jdbc_action_store_drop_table   = undef,
+  $jdbc_action_store_table_prefix = undef,
+  $jdbc_communication_store_drop_table = undef,
+  $jdbc_communication_store_table_prefix = undef,
+  $jdbc_state_store_drop_table    = undef,
+  $jdbc_state_store_table_prefix  = undef,
+  $jdbc_store_datasource          = undef,
   $jts                            = undef,
   $node_identifier                = undef,
   $object_store_path              = undef,
@@ -67,6 +105,8 @@ define jboss_admin::resource::subsystem_transactions (
   $relative_to                    = undef,
   $socket_binding                 = undef,
   $status_socket_binding          = undef,
+  $use_hornetq_store              = undef,
+  $use_jdbc_store                 = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -84,6 +124,14 @@ define jboss_admin::resource::subsystem_transactions (
       'default-timeout'              => $default_timeout,
       'enable-statistics'            => $enable_statistics,
       'enable-tsm-status'            => $enable_tsm_status,
+      'hornetq-store-enable-async-io' => $hornetq_store_enable_async_io,
+      'jdbc-action-store-drop-table' => $jdbc_action_store_drop_table,
+      'jdbc-action-store-table-prefix' => $jdbc_action_store_table_prefix,
+      'jdbc-communication-store-drop-table' => $jdbc_communication_store_drop_table,
+      'jdbc-communication-store-table-prefix' => $jdbc_communication_store_table_prefix,
+      'jdbc-state-store-drop-table'  => $jdbc_state_store_drop_table,
+      'jdbc-state-store-table-prefix' => $jdbc_state_store_table_prefix,
+      'jdbc-store-datasource'        => $jdbc_store_datasource,
       'jts'                          => $jts,
       'node-identifier'              => $node_identifier,
       'object-store-path'            => $object_store_path,
@@ -96,6 +144,8 @@ define jboss_admin::resource::subsystem_transactions (
       'relative-to'                  => $relative_to,
       'socket-binding'               => $socket_binding,
       'status-socket-binding'        => $status_socket_binding,
+      'use-hornetq-store'            => $use_hornetq_store,
+      'use-jdbc-store'               => $use_jdbc_store,
     }
     $options = delete_undef_values($raw_options)
 

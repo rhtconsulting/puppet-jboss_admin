@@ -1,6 +1,6 @@
 # == Defines jboss_admin::mixed_keyed_jdbc_store
 #
-# The cache store configuration.
+# The mixed keyed cache JDBC store configuration.
 #
 # === Parameters
 #

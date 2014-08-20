@@ -14,16 +14,22 @@
 #   The scheduled executor used for eviction
 #
 # [*jndi_name*]
-#   The jndi name to which to bind this cache container
+#   The jndi-name to which to bind this cache instance.
 #
 # [*listener_executor*]
 #   The executor used for the replication queue
+#
+# [*module*]
+#   The module whose class loader should be used when building this cache's configuration.
 #
 # [*replication_queue_executor*]
 #   The executor used for asynchronous cache operations
 #
 # [*start*]
-#   The cache container start mode, which can be EAGER (immediate start) or LAZY (on-demand start).
+#   The cache start mode, which can be EAGER (immediate start) or LAZY (on-demand start).
+#
+# [*statistics_enabled*]
+#   If enabled, statistics will be collected for this cache
 #
 #
 define jboss_admin::resource::cache_container (
@@ -33,8 +39,10 @@ define jboss_admin::resource::cache_container (
   $eviction_executor              = undef,
   $jndi_name                      = undef,
   $listener_executor              = undef,
+  $module                         = undef,
   $replication_queue_executor     = undef,
   $start                          = undef,
+  $statistics_enabled             = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -48,8 +56,10 @@ define jboss_admin::resource::cache_container (
       'eviction-executor'            => $eviction_executor,
       'jndi-name'                    => $jndi_name,
       'listener-executor'            => $listener_executor,
+      'module'                       => $module,
       'replication-queue-executor'   => $replication_queue_executor,
       'start'                        => $start,
+      'statistics-enabled'           => $statistics_enabled,
     }
     $options = delete_undef_values($raw_options)
 

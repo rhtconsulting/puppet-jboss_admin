@@ -1,6 +1,6 @@
 # == Defines jboss_admin::workmanager
 #
-# jca.workmanager
+# WorkManager for resource adapters
 #
 # === Parameters
 #

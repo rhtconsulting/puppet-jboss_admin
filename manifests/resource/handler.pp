@@ -16,7 +16,6 @@ define jboss_admin::resource::handler (
 ) {
   if $ensure == present {
 
-    if $class == undef { fail('The attribute class is undefined but required') }
   
 
     $raw_options = { 

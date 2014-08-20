@@ -1,11 +1,11 @@
 # == Defines jboss_admin::property
 #
-# Properties supported by the underlying provider. The property name is inferred from the last element of the properties address.
+# A property within a security realm resource.
 #
 # === Parameters
 #
 # [*value*]
-#   The property value.
+#   The optional value of the property.
 #
 #
 define jboss_admin::resource::property (

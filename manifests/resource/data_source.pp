@@ -10,6 +10,9 @@
 # [*allocation_retry_wait_millis*]
 #   The allocation retry wait millis element specifies the amount of time, in milliseconds, to wait between retrying to allocate a connection
 #
+# [*allow_multiple_users*]
+#   Specifies if multiple users will access the datasource through the getConnection(user, password) method and hence if the internal pool type should account for that
+#
 # [*background_validation*]
 #   An element to specify that connections should be validated on a background thread versus being validated prior to use. Changing this value can be done only on disabled datasource,  requires a server restart otherwise.
 #
@@ -21,6 +24,9 @@
 #
 # [*check_valid_connection_sql*]
 #   Specify an SQL statement to check validity of a pool connection. This may be called when managed connection is obtained from the pool
+#
+# [*connectable*]
+#   Enable the use of CMR. This feature means that a local resource can reliably participate in an XA transaction.
 #
 # [*connection_url*]
 #   The JDBC driver connection URL
@@ -103,6 +109,9 @@
 # [*stale_connection_checker_properties*]
 #   The stale connection checker properties
 #
+# [*statistics_enabled*]
+#   define if runtime statistics is enabled or not
+#
 # [*track_statements*]
 #   Whether to check for unclosed statements when a connection is returned to the pool, result sets are closed, a statement is closed or return to the prepared statement cache. Valid values are: "false" - do not track statements, "true" - track statements and result sets and warn when they are not closed, "nowarn" - track statements but do not warn about them being unclosed
 #
@@ -144,10 +153,12 @@ define jboss_admin::resource::data_source (
   $server,
   $allocation_retry               = undef,
   $allocation_retry_wait_millis   = undef,
+  $allow_multiple_users           = undef,
   $background_validation          = undef,
   $background_validation_millis   = undef,
   $blocking_timeout_wait_millis   = undef,
   $check_valid_connection_sql     = undef,
+  $connectable                    = undef,
   $connection_url                 = undef,
   $datasource_class               = undef,
   $driver_class                   = undef,
@@ -175,6 +186,7 @@ define jboss_admin::resource::data_source (
   $spy                            = undef,
   $stale_connection_checker_class_name = undef,
   $stale_connection_checker_properties = undef,
+  $statistics_enabled             = undef,
   $track_statements               = undef,
   $transaction_isolation          = undef,
   $url_delimiter                  = undef,
@@ -195,9 +207,6 @@ define jboss_admin::resource::data_source (
     if $allocation_retry != undef and !is_integer($allocation_retry) { 
       fail('The attribute allocation_retry is not an integer') 
     }
-    if $connection_url == undef { fail('The attribute connection_url is undefined but required') }
-    if $driver_name == undef { fail('The attribute driver_name is undefined but required') }
-    if $jndi_name == undef { fail('The attribute jndi_name is undefined but required') }
     if $max_pool_size != undef and !is_integer($max_pool_size) { 
       fail('The attribute max_pool_size is not an integer') 
     }
@@ -209,10 +218,12 @@ define jboss_admin::resource::data_source (
     $raw_options = { 
       'allocation-retry'             => $allocation_retry,
       'allocation-retry-wait-millis' => $allocation_retry_wait_millis,
+      'allow-multiple-users'         => $allow_multiple_users,
       'background-validation'        => $background_validation,
       'background-validation-millis' => $background_validation_millis,
       'blocking-timeout-wait-millis' => $blocking_timeout_wait_millis,
       'check-valid-connection-sql'   => $check_valid_connection_sql,
+      'connectable'                  => $connectable,
       'connection-url'               => $connection_url,
       'datasource-class'             => $datasource_class,
       'driver-class'                 => $driver_class,
@@ -240,6 +251,7 @@ define jboss_admin::resource::data_source (
       'spy'                          => $spy,
       'stale-connection-checker-class-name' => $stale_connection_checker_class_name,
       'stale-connection-checker-properties' => $stale_connection_checker_properties,
+      'statistics-enabled'           => $statistics_enabled,
       'track-statements'             => $track_statements,
       'transaction-isolation'        => $transaction_isolation,
       'url-delimiter'                => $url_delimiter,

@@ -1,6 +1,6 @@
 # == Defines jboss_admin::bootstrap_context
 #
-# jca.bootstrap-context
+# Bootstrap context for resource adapters
 #
 # === Parameters
 #

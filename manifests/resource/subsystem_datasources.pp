@@ -16,7 +16,6 @@ define jboss_admin::resource::subsystem_datasources (
 ) {
   if $ensure == present {
 
-    if $installed_drivers == undef { fail('The attribute installed_drivers is undefined but required') }
   
 
     $raw_options = { 

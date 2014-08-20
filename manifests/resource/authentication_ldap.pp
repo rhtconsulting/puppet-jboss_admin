@@ -7,6 +7,9 @@
 # [*advanced_filter*]
 #   The fully defined filter to be used to search for the user based on their entered user ID. The filter should contain a variable in the form {0} - this will be replaced with the username supplied by the user.
 #
+# [*allow_empty_passwords*]
+#   Should empty passwords be accepted from the user being authenticated.
+#
 # [*base_dn*]
 #   The base distinguished name to commence the search for the user.
 #
@@ -26,6 +29,7 @@
 define jboss_admin::resource::authentication_ldap (
   $server,
   $advanced_filter                = undef,
+  $allow_empty_passwords          = undef,
   $base_dn                        = undef,
   $connection                     = undef,
   $recursive                      = undef,
@@ -40,6 +44,7 @@ define jboss_admin::resource::authentication_ldap (
 
     $raw_options = { 
       'advanced-filter'              => $advanced_filter,
+      'allow-empty-passwords'        => $allow_empty_passwords,
       'base-dn'                      => $base_dn,
       'connection'                   => $connection,
       'recursive'                    => $recursive,

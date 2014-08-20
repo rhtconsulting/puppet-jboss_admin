@@ -1,11 +1,11 @@
 # == Defines jboss_admin::config_properties
 #
-# config-properties
+# A custom defined config property.
 #
 # === Parameters
 #
 # [*value*]
-#   Custom defined config property value
+#   Custom defined config property value.
 #
 #
 define jboss_admin::resource::config_properties (

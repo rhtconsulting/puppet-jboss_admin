@@ -5,16 +5,16 @@
 # === Parameters
 #
 # [*auto_deploy_exploded*]
-#   Controls whether zipped deployment content should be automatically deployed by the scanner without requiring the user to add a .dodeploy marker file. Setting this to 'true' is not recommended for anything but basic development scenarios,  as there is no way to ensure that deployment will not occur in the middle of changes to the content.
+#   Allows the automatic deployment of exploded content without requiring a .dodeploy marker file. Recommended for only basic development scenarios to prevent exploded application deployment from occuring during changes by the developer or operating system.
 #
 # [*auto_deploy_xml*]
-#   Controls whether XML deployment content should be automatically deployed by the scanner without requiring the user to add a .dodeploy marker file.
+#   Allows automatic deployment of XML content without requiring a .dodeploy marker file.
 #
 # [*auto_deploy_zipped*]
-#   Controls whether zipped deployment content should be automatically deployed by the scanner without requiring the user to add a .dodeploy marker file.
+#   Allows automatic deployment of zipped content without requiring a .dodeploy marker file.
 #
 # [*deployment_timeout*]
-#   Timeout, in seconds, a deployment is allows to execute before being canceled.  The default is 60 seconds.
+#   The time value in seconds for the deployment scanner to allow a deployment attempt before being cancelled.
 #
 # [*path*]
 #   The actual filesystem path to be scanned. Treated as an absolute path, unless the 'relative-to' attribute is specified, in which case the value is treated as relative to that path.

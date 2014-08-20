@@ -1,6 +1,6 @@
 # == Defines jboss_admin::file_store
 #
-# The cache store configuration.
+# The cache file store configuration.
 #
 # === Parameters
 #

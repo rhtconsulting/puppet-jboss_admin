@@ -1,0 +1,48 @@
+# == Defines jboss_admin::channel_creation_options
+#
+# The options that will be used during the EJB remote channel creation
+#
+# === Parameters
+#
+# [*type*]
+#   The type of the channel creation option
+#
+# [*value*]
+#   The value for the EJB remote channel creation option
+#
+#
+define jboss_admin::resource::channel_creation_options (
+  $server,
+  $type                           = undef,
+  $value                          = undef,
+  $ensure                         = present,
+  $path                           = $name
+) {
+  if $ensure == present {
+
+  
+
+    $raw_options = { 
+      'type'                         => $type,
+      'value'                        => $value,
+    }
+    $options = delete_undef_values($raw_options)
+
+    jboss_resource { $path:
+      ensure  => $ensure,
+      server  => $server,
+      options => $options
+    }
+
+
+  }
+
+  if $ensure == absent {
+    jboss_resource { $path:
+      ensure => $ensure,
+      server => $server
+    }
+  }
+
+
+}

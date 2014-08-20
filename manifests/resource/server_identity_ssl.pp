@@ -4,11 +4,20 @@
 #
 # === Parameters
 #
+# [*alias*]
+#   The alias of the entry to use from the keystore.
+#
+# [*key_password*]
+#   The password to obtain the key from the keystore.
+#
 # [*keystore_password*]
 #   The password to open the keystore.
 #
 # [*keystore_path*]
-#   The path of the keystore.
+#   The path of the keystore, will be ignored if the keystore-provider is anything other than JKS.
+#
+# [*keystore_provider*]
+#   The provider for loading the keystore, defaults to JKS.
 #
 # [*keystore_relative_to*]
 #   The name of another previously named path, or of one of the standard paths provided by the system. If 'relative-to' is provided, the value of the 'path' attribute is treated as relative to the path specified by this attribute.
@@ -19,8 +28,11 @@
 #
 define jboss_admin::resource::server_identity_ssl (
   $server,
+  $alias                          = undef,
+  $key_password                   = undef,
   $keystore_password              = undef,
   $keystore_path                  = undef,
+  $keystore_provider              = undef,
   $keystore_relative_to           = undef,
   $protocol                       = undef,
   $ensure                         = present,
@@ -31,8 +43,11 @@ define jboss_admin::resource::server_identity_ssl (
   
 
     $raw_options = { 
+      'alias'                        => $alias,
+      'key-password'                 => $key_password,
       'keystore-password'            => $keystore_password,
       'keystore-path'                => $keystore_path,
+      'keystore-provider'            => $keystore_provider,
       'keystore-relative-to'         => $keystore_relative_to,
       'protocol'                     => $protocol,
     }

@@ -1,6 +1,6 @@
 # == Defines jboss_admin::bean_validation
 #
-# jca.bean-validation
+# Bean validation (JSR-303) for resource adapters
 #
 # === Parameters
 #

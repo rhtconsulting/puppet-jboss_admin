@@ -1,0 +1,58 @@
+# == Defines jboss_admin::access_authorization
+#
+# The access control definitions defining the access management restrictions.
+#
+# === Parameters
+#
+# [*all_role_names*]
+#   The official names of all roles supported by the current management access control provider. This includes any standard roles as well as any user-defined roles.
+#
+# [*permission_combination_policy*]
+#   The policy for combining access control permissions when the authorization policy grants the user more than one type of permission for a given action. In the standard role based authorization policy, this would occur when a user maps to multiple roles. The 'permissive' policy means if any of the permissions allow the action, the action is allowed. The 'rejecting' policy means the existence of multiple permissions should result in an error.
+#
+# [*provider*]
+#   The provider to use for management access control decisions.
+#
+# [*standard_role_names*]
+#   The official names of the standard roles supported by the current management access control provider.
+#
+#
+define jboss_admin::resource::access_authorization (
+  $server,
+  $all_role_names                 = undef,
+  $permission_combination_policy  = undef,
+  $provider                       = undef,
+  $standard_role_names            = undef,
+  $ensure                         = present,
+  $path                           = $name
+) {
+  if $ensure == present {
+
+  
+
+    $raw_options = { 
+      'all-role-names'               => $all_role_names,
+      'permission-combination-policy' => $permission_combination_policy,
+      'provider'                     => $provider,
+      'standard-role-names'          => $standard_role_names,
+    }
+    $options = delete_undef_values($raw_options)
+
+    jboss_resource { $path:
+      ensure  => $ensure,
+      server  => $server,
+      options => $options
+    }
+
+
+  }
+
+  if $ensure == absent {
+    jboss_resource { $path:
+      ensure => $ensure,
+      server => $server
+    }
+  }
+
+
+}

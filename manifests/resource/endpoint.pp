@@ -1,6 +1,6 @@
 # == Defines jboss_admin::endpoint
 #
-# Webservice endpoint.
+# WS endpoint
 #
 # === Parameters
 #
@@ -32,11 +32,6 @@ define jboss_admin::resource::endpoint (
 ) {
   if $ensure == present {
 
-    if $class == undef { fail('The attribute class is undefined but required') }
-    if $context == undef { fail('The attribute context is undefined but required') }
-    if $resource_name == undef { fail('The attribute resource_name is undefined but required') }
-    if $type == undef { fail('The attribute type is undefined but required') }
-    if $wsdl_url == undef { fail('The attribute wsdl_url is undefined but required') }
   
 
     $raw_options = { 

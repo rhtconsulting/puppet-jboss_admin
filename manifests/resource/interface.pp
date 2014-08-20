@@ -1,6 +1,6 @@
 # == Defines jboss_admin::interface
 #
-# A named network interface, along with required criteria for determining the IP address to associate with that interface.
+# Interface definition
 #
 # === Parameters
 #
@@ -49,6 +49,9 @@
 # [*public_address*]
 #   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether or not it is a publicly routable address. An 'undefined' or 'false' value means this attribute is not relevant to the IP address selection
 #
+# [*resolved_address*]
+#   Attribute showing the resolved ip address for this interface.
+#
 # [*site_local_address*]
 #   Attribute indicating that part of the selection criteria for choosing an IP address for this interface should be whether or it is a site-local address. An 'undefined' or 'false' value means this attribute is not relevant to the IP address selection
 #
@@ -79,6 +82,7 @@ define jboss_admin::resource::interface (
   $not                            = undef,
   $point_to_point                 = undef,
   $public_address                 = undef,
+  $resolved_address               = undef,
   $site_local_address             = undef,
   $subnet_match                   = undef,
   $up                             = undef,
@@ -106,6 +110,7 @@ define jboss_admin::resource::interface (
       'not'                          => $not,
       'point-to-point'               => $point_to_point,
       'public-address'               => $public_address,
+      'resolved-address'             => $resolved_address,
       'site-local-address'           => $site_local_address,
       'subnet-match'                 => $subnet_match,
       'up'                           => $up,

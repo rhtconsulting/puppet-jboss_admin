@@ -25,7 +25,7 @@ define jboss_admin::resource::<%= type[:name] %> (
 <% if attribute[:required] -%>
     if $<%= puppet_name attr %> == undef { fail('The attribute <%= puppet_name attr %> is undefined but required') }
 <% end -%>
-<% if attribute[:type][:'TYPE_MODEL_VALUE'] == 'INT' -%>
+<% if !attribute[:type].nil? && attribute[:type][:'TYPE_MODEL_VALUE'] == 'INT' -%>
     if $<%= puppet_name attr %> != undef and !is_integer($<%= puppet_name attr %>) { 
       fail('The attribute <%= puppet_name attr %> is not an integer') 
     }

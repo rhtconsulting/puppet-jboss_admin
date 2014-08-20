@@ -1,6 +1,6 @@
 # == Defines jboss_admin::string_keyed_jdbc_store
 #
-# The cache store configuration.
+# The string keyed cache JDBC store configuration.
 #
 # === Parameters
 #

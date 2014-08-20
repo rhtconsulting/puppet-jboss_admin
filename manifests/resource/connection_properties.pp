@@ -1,6 +1,6 @@
 # == Defines jboss_admin::connection_properties
 #
-# value
+# The connection-properties element allows you to pass in arbitrary connection properties to the Driver.connect(url, props) method
 #
 # === Parameters
 #

@@ -7,6 +7,9 @@
 # [*management_major_version*]
 #   Major version of the subsystem's management interface. May be undefined if the subsystem does not currently provide a versioned management interface.
 #
+# [*management_micro_version*]
+#   Micro version of the subsystem's management interface. May be undefined if the subsystem does not currently provide a versioned management interface.
+#
 # [*management_minor_version*]
 #   Minor version of the subsystem's management interface. May be undefined if the subsystem does not currently provide a versioned management interface.
 #
@@ -17,6 +20,7 @@
 define jboss_admin::resource::subsystem (
   $server,
   $management_major_version       = undef,
+  $management_micro_version       = undef,
   $management_minor_version       = undef,
   $xml_namespaces                 = undef,
   $ensure                         = present,
@@ -27,6 +31,9 @@ define jboss_admin::resource::subsystem (
     if $management_major_version != undef and !is_integer($management_major_version) { 
       fail('The attribute management_major_version is not an integer') 
     }
+    if $management_micro_version != undef and !is_integer($management_micro_version) { 
+      fail('The attribute management_micro_version is not an integer') 
+    }
     if $management_minor_version != undef and !is_integer($management_minor_version) { 
       fail('The attribute management_minor_version is not an integer') 
     }
@@ -34,6 +41,7 @@ define jboss_admin::resource::subsystem (
 
     $raw_options = { 
       'management-major-version'     => $management_major_version,
+      'management-micro-version'     => $management_micro_version,
       'management-minor-version'     => $management_minor_version,
       'xml-namespaces'               => $xml_namespaces,
     }

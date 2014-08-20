@@ -5,10 +5,16 @@
 # === Parameters
 #
 # [*binding_type*]
-#   The type of binding to create, may be simple, lookup or object-factory
+#   The type of binding to create, may be simple, lookup, external-context or object-factory
+#
+# [*cache*]
+#   If the external context should be cached
 #
 # [*class*]
 #   The object factory class name for object factory bindings
+#
+# [*environment*]
+#   The environment to use on object factory instance retrieval
 #
 # [*lookup*]
 #   The entry to lookup in JNDI for lookup bindings
@@ -26,7 +32,9 @@
 define jboss_admin::resource::binding (
   $server,
   $binding_type                   = undef,
+  $cache                          = undef,
   $class                          = undef,
+  $environment                    = undef,
   $lookup                         = undef,
   $module                         = undef,
   $type                           = undef,
@@ -40,7 +48,9 @@ define jboss_admin::resource::binding (
 
     $raw_options = { 
       'binding-type'                 => $binding_type,
+      'cache'                        => $cache,
       'class'                        => $class,
+      'environment'                  => $environment,
       'lookup'                       => $lookup,
       'module'                       => $module,
       'type'                         => $type,
