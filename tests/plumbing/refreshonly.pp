@@ -12,6 +12,8 @@ notify { 'Generating notification': }
 ~> jboss_exec { 'Should Execute':
   command     => ':read-resource',
   refreshonly => true,
-  server      => main
+  server      => main,
+  loglevel    => info,
+  logoutput   => true
 }
 

@@ -26,6 +26,13 @@ Puppet::Type.newtype(:jboss_exec) do
     newvalues true, false
   end
 
+  newparam(:logoutput) do
+    desc 'Whether to log command output in addition to logging the exit code. Defaults to `on_failure`, which only logs the output when the command has an exit code that does not match any value specified by the returns attribute. As with any resource type, the log level can be controlled with the loglevel metaparameter.'
+
+    defaultto :on_failure
+    newvalues true, false, :on_failure
+  end
+
   def server_reference
     catalog.resource("Jboss_admin::Server[#{self[:server]}]")
   end
@@ -38,7 +45,13 @@ Puppet::Type.newtype(:jboss_exec) do
     end
 
     def sync
-      provider.execute_command(resource[:command])
+      output = provider.execute_command(resource[:command])
+      if (resource[:logoutput] == :true || (output['outcome'] == 'failed' && resource[:logoutput] == :on_failure))
+        self.send(@resource[:loglevel], output.inspect)
+      end
+      if output['outcome'] == 'failed'
+        self.fail("Error executing CLI command `#{resource[:command]}`: #{output['failure-description']}") 
+      end
     end
   end
 
