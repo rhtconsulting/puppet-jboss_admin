@@ -4,17 +4,14 @@
 #
 # === Parameters
 #
-# [*filter*]
-#   Defines a simple filter type.
+# [*autoflush*]
+#   Automatically flush after each write.
 #
 # [*encoding*]
 #   The character encoding used by this Handler.
 #
-# [*autoflush*]
-#   Automatically flush after each write.
-#
-# [*target*]
-#   Defines the target of the console handler. The value can either be SYSTEM_OUT or SYSTEM_ERR.
+# [*filter*]
+#   Defines a simple filter type.
 #
 # [*formatter*]
 #   Defines a formatter.
@@ -25,16 +22,19 @@
 # [*resource_name*]
 #   The handler's name.
 #
+# [*target*]
+#   Defines the target of the console handler. The value can either be SYSTEM_OUT or SYSTEM_ERR.
+#
 #
 define jboss_admin::resource::console_handler (
   $server,
-  $filter                         = undef,
-  $encoding                       = undef,
   $autoflush                      = undef,
-  $target                         = undef,
+  $encoding                       = undef,
+  $filter                         = undef,
   $formatter                      = undef,
   $level                          = undef,
   $resource_name                  = undef,
+  $target                         = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -43,13 +43,13 @@ define jboss_admin::resource::console_handler (
   
 
     $raw_options = { 
-      'filter'                       => $filter,
-      'encoding'                     => $encoding,
       'autoflush'                    => $autoflush,
-      'target'                       => $target,
+      'encoding'                     => $encoding,
+      'filter'                       => $filter,
       'formatter'                    => $formatter,
       'level'                        => $level,
       'name'                         => $resource_name,
+      'target'                       => $target,
     }
     $options = delete_undef_values($raw_options)
 

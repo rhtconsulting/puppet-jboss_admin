@@ -7,12 +7,6 @@
 # [*filter*]
 #   Defines a simple filter type.
 #
-# [*overflow_action*]
-#   Specify what action to take when the overflowing.  The valid options are 'block' and 'discard'
-#
-# [*queue_length*]
-#   The queue length to use before flushing writing
-#
 # [*formatter*]
 #   Defines a formatter.
 #
@@ -22,6 +16,12 @@
 # [*resource_name*]
 #   The handler's name.
 #
+# [*overflow_action*]
+#   Specify what action to take when the overflowing.  The valid options are 'block' and 'discard'
+#
+# [*queue_length*]
+#   The queue length to use before flushing writing
+#
 # [*subhandlers*]
 #   The Handlers associated with this async handler.
 #
@@ -29,11 +29,11 @@
 define jboss_admin::resource::async_handler (
   $server,
   $filter                         = undef,
-  $overflow_action                = undef,
-  $queue_length                   = undef,
   $formatter                      = undef,
   $level                          = undef,
   $resource_name                  = undef,
+  $overflow_action                = undef,
+  $queue_length                   = undef,
   $subhandlers                    = undef,
   $ensure                         = present,
   $path                           = $name
@@ -47,11 +47,11 @@ define jboss_admin::resource::async_handler (
 
     $raw_options = { 
       'filter'                       => $filter,
-      'overflow-action'              => $overflow_action,
-      'queue-length'                 => $queue_length,
       'formatter'                    => $formatter,
       'level'                        => $level,
       'name'                         => $resource_name,
+      'overflow-action'              => $overflow_action,
+      'queue-length'                 => $queue_length,
       'subhandlers'                  => $subhandlers,
     }
     $options = delete_undef_values($raw_options)

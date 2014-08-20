@@ -4,14 +4,6 @@
 #
 # === Parameters
 #
-# [*thread_name_pattern*]
-#   The template used to create names for threads.  The following patterns may be used:
-	%% - emit a percent sign
-	%t - emit the per-factory thread sequence number
-	%g - emit the global thread sequence number
-	%f - emit the factory sequence number
-	%i - emit the thread ID.
-#
 # [*group_name*]
 #   Specifies the name of a  thread group to create for this thread factory.
 #
@@ -21,13 +13,21 @@
 # [*priority*]
 #   May be used to specify the thread priority of created threads.
 #
+# [*thread_name_pattern*]
+#   The template used to create names for threads.  The following patterns may be used:
+	%% - emit a percent sign
+	%t - emit the per-factory thread sequence number
+	%g - emit the global thread sequence number
+	%f - emit the factory sequence number
+	%i - emit the thread ID.
+#
 #
 define jboss_admin::resource::thread_factory (
   $server,
-  $thread_name_pattern            = undef,
   $group_name                     = undef,
   $resource_name                  = undef,
   $priority                       = undef,
+  $thread_name_pattern            = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -39,10 +39,10 @@ define jboss_admin::resource::thread_factory (
   
 
     $raw_options = { 
-      'thread-name-pattern'          => $thread_name_pattern,
       'group-name'                   => $group_name,
       'name'                         => $resource_name,
       'priority'                     => $priority,
+      'thread-name-pattern'          => $thread_name_pattern,
     }
     $options = delete_undef_values($raw_options)
 

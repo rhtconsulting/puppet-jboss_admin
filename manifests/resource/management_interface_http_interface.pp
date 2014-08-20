@@ -4,6 +4,12 @@
 #
 # === Parameters
 #
+# [*console_enabled*]
+#   Flag that indicates admin console is enabled
+#
+# [*interface*]
+#   Deprecated -- use 'socket-binding'. The network interface on which the server's socket for HTTP management communication should be opened. Must be 'undefined' if the 'socket-binding' or 'secure-socket-binding' attribute is set.
+#
 # [*port*]
 #   Deprecated -- use 'socket-binding'. The port on which the server's socket for HTTP management communication should be opened. Must be 'undefined' if the 'socket-binding' attribute is set.
 #
@@ -19,22 +25,16 @@
 # [*socket_binding*]
 #   The name of the socket binding configuration to use for the HTTP management interface's socket.
 #
-# [*interface*]
-#   Deprecated -- use 'socket-binding'. The network interface on which the server's socket for HTTP management communication should be opened. Must be 'undefined' if the 'socket-binding' or 'secure-socket-binding' attribute is set.
-#
-# [*console_enabled*]
-#   Flag that indicates admin console is enabled
-#
 #
 define jboss_admin::resource::management_interface_http_interface (
   $server,
+  $console_enabled                = undef,
+  $interface                      = undef,
   $port                           = undef,
   $secure_port                    = undef,
   $secure_socket_binding          = undef,
   $security_realm                 = undef,
   $socket_binding                 = undef,
-  $interface                      = undef,
-  $console_enabled                = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -49,13 +49,13 @@ define jboss_admin::resource::management_interface_http_interface (
   
 
     $raw_options = { 
+      'console-enabled'              => $console_enabled,
+      'interface'                    => $interface,
       'port'                         => $port,
       'secure-port'                  => $secure_port,
       'secure-socket-binding'        => $secure_socket_binding,
       'security-realm'               => $security_realm,
       'socket-binding'               => $socket_binding,
-      'interface'                    => $interface,
-      'console-enabled'              => $console_enabled,
     }
     $options = delete_undef_values($raw_options)
 

@@ -4,14 +4,14 @@
 #
 # === Parameters
 #
+# [*extended*]
+#   Enable extended pattern, with more options.
+#
 # [*pattern*]
 #   The access log pattern.
 #
 # [*prefix*]
 #   Prefix for the log file name.
-#
-# [*extended*]
-#   Enable extended pattern, with more options.
 #
 # [*resolve_hosts*]
 #   Host resolution.
@@ -22,9 +22,9 @@
 #
 define jboss_admin::resource::access_log (
   $server,
+  $extended                       = undef,
   $pattern                        = undef,
   $prefix                         = undef,
-  $extended                       = undef,
   $resolve_hosts                  = undef,
   $rotate                         = undef,
   $ensure                         = present,
@@ -35,9 +35,9 @@ define jboss_admin::resource::access_log (
   
 
     $raw_options = { 
+      'extended'                     => $extended,
       'pattern'                      => $pattern,
       'prefix'                       => $prefix,
-      'extended'                     => $extended,
       'resolve-hosts'                => $resolve_hosts,
       'rotate'                       => $rotate,
     }

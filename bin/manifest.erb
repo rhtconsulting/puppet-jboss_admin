@@ -4,7 +4,7 @@
 #
 # === Parameters
 #
-<% type[:attributes].each_key do |attr| -%>
+<% type[:attributes].each_key.sort.each do |attr| -%>
 # [*<%= puppet_name attr %>*]
 #   <%= type[:attributes][attr][:description] %>
 #
@@ -12,7 +12,7 @@
 #
 define jboss_admin::resource::<%= type[:name] %> (
   $server,
-<% type[:attributes].each_key do |attr| -%>
+<% type[:attributes].each_key.sort.each do |attr| -%>
   $<%= (puppet_name attr).to_s.ljust 30 %> = undef,
 <% end -%>
   $ensure                         = present,
@@ -20,7 +20,7 @@ define jboss_admin::resource::<%= type[:name] %> (
 ) {
   if $ensure == present {
 
-<% type[:attributes].each_key do |attr| -%>
+<% type[:attributes].each_key.sort.each do |attr| -%>
 <% attribute = type[:attributes][attr] -%>
 <% if attribute[:required] -%>
     if $<%= puppet_name attr %> == undef { fail('The attribute <%= puppet_name attr %> is undefined but required') }
@@ -33,7 +33,7 @@ define jboss_admin::resource::<%= type[:name] %> (
 <% end -%>  
 
     $raw_options = { 
-<% type[:attributes].each_key do |attr_name| 
+<% type[:attributes].each_key.sort.each do |attr_name| 
   unless attr_name.to_s == 'enabled' && ['data-source', 'xa-data-source'].include?(type[:name].to_s)-%>
       <%= "'#{attr_name}'".ljust 30 %> => $<%= puppet_name attr_name %>,
 <% end

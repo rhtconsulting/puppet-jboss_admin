@@ -4,37 +4,37 @@
 #
 # === Parameters
 #
-# [*rack*]
-#   A rack identifier for the transport
-#
-# [*machine*]
-#   A machine identifier for the transport
-#
 # [*cluster*]
 #   The name of the group communication cluster
-#
-# [*lock_timeout*]
-#   The timeout for locks for the transport
 #
 # [*executor*]
 #   The executor to use for the transport
 #
-# [*stack*]
-#   The jgroups stack to use for the transport
+# [*lock_timeout*]
+#   The timeout for locks for the transport
+#
+# [*machine*]
+#   A machine identifier for the transport
+#
+# [*rack*]
+#   A rack identifier for the transport
 #
 # [*site*]
 #   A site identifier for the transport
 #
+# [*stack*]
+#   The jgroups stack to use for the transport
+#
 #
 define jboss_admin::resource::transport (
   $server,
-  $rack                           = undef,
-  $machine                        = undef,
   $cluster                        = undef,
-  $lock_timeout                   = undef,
   $executor                       = undef,
-  $stack                          = undef,
+  $lock_timeout                   = undef,
+  $machine                        = undef,
+  $rack                           = undef,
   $site                           = undef,
+  $stack                          = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -43,13 +43,13 @@ define jboss_admin::resource::transport (
   
 
     $raw_options = { 
-      'rack'                         => $rack,
-      'machine'                      => $machine,
       'cluster'                      => $cluster,
-      'lock-timeout'                 => $lock_timeout,
       'executor'                     => $executor,
-      'stack'                        => $stack,
+      'lock-timeout'                 => $lock_timeout,
+      'machine'                      => $machine,
+      'rack'                         => $rack,
       'site'                         => $site,
+      'stack'                        => $stack,
     }
     $options = delete_undef_values($raw_options)
 

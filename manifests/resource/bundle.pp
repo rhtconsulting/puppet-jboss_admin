@@ -4,25 +4,25 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The bundle version.
+# [*id*]
+#   The bundle ID.
 #
 # [*startlevel*]
 #   The bundle's start level.
 #
-# [*id*]
-#   The bundle ID.
-#
 # [*symbolic_name*]
 #   The bundle symbolic name.
+#
+# [*version*]
+#   The bundle version.
 #
 #
 define jboss_admin::resource::bundle (
   $server,
-  $version                        = undef,
-  $startlevel                     = undef,
   $id                             = undef,
+  $startlevel                     = undef,
   $symbolic_name                  = undef,
+  $version                        = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -34,10 +34,10 @@ define jboss_admin::resource::bundle (
   
 
     $raw_options = { 
-      'version'                      => $version,
-      'startlevel'                   => $startlevel,
       'id'                           => $id,
+      'startlevel'                   => $startlevel,
       'symbolic-name'                => $symbolic_name,
+      'version'                      => $version,
     }
     $options = delete_undef_values($raw_options)
 

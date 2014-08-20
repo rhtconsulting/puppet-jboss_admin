@@ -4,17 +4,17 @@
 #
 # === Parameters
 #
-# [*relative_to*]
-#   The folder the path is relative to.
-#
 # [*path*]
 #   The relative folder path.
+#
+# [*relative_to*]
+#   The folder the path is relative to.
 #
 #
 define jboss_admin::resource::directory (
   $server,
-  $relative_to                    = undef,
   $path                           = undef,
+  $relative_to                    = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -23,8 +23,8 @@ define jboss_admin::resource::directory (
   
 
     $raw_options = { 
-      'relative-to'                  => $relative_to,
       'path'                         => $path,
+      'relative-to'                  => $relative_to,
     }
     $options = delete_undef_values($raw_options)
 

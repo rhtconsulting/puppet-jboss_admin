@@ -4,49 +4,49 @@
 #
 # === Parameters
 #
-# [*filter*]
-#   Defines a simple filter type.
-#
-# [*file*]
-#   The file description consisting of the path and optional relative to path.
-#
-# [*rotate_size*]
-#   The size at which to rotate the log file.
-#
-# [*encoding*]
-#   The character encoding used by this Handler.
-#
-# [*max_backup_index*]
-#   The maximum number of backups to keep.
+# [*append*]
+#   Specify whether to append to the target file.
 #
 # [*autoflush*]
 #   Automatically flush after each write.
 #
+# [*encoding*]
+#   The character encoding used by this Handler.
+#
+# [*file*]
+#   The file description consisting of the path and optional relative to path.
+#
+# [*filter*]
+#   Defines a simple filter type.
+#
 # [*formatter*]
 #   Defines a formatter.
-#
-# [*append*]
-#   Specify whether to append to the target file.
 #
 # [*level*]
 #   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
 #
+# [*max_backup_index*]
+#   The maximum number of backups to keep.
+#
 # [*resource_name*]
 #   The handler's name.
+#
+# [*rotate_size*]
+#   The size at which to rotate the log file.
 #
 #
 define jboss_admin::resource::size_rotating_file_handler (
   $server,
-  $filter                         = undef,
-  $file                           = undef,
-  $rotate_size                    = undef,
-  $encoding                       = undef,
-  $max_backup_index               = undef,
-  $autoflush                      = undef,
-  $formatter                      = undef,
   $append                         = undef,
+  $autoflush                      = undef,
+  $encoding                       = undef,
+  $file                           = undef,
+  $filter                         = undef,
+  $formatter                      = undef,
   $level                          = undef,
+  $max_backup_index               = undef,
   $resource_name                  = undef,
+  $rotate_size                    = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -58,16 +58,16 @@ define jboss_admin::resource::size_rotating_file_handler (
   
 
     $raw_options = { 
-      'filter'                       => $filter,
-      'file'                         => $file,
-      'rotate-size'                  => $rotate_size,
-      'encoding'                     => $encoding,
-      'max-backup-index'             => $max_backup_index,
-      'autoflush'                    => $autoflush,
-      'formatter'                    => $formatter,
       'append'                       => $append,
+      'autoflush'                    => $autoflush,
+      'encoding'                     => $encoding,
+      'file'                         => $file,
+      'filter'                       => $filter,
+      'formatter'                    => $formatter,
       'level'                        => $level,
+      'max-backup-index'             => $max_backup_index,
       'name'                         => $resource_name,
+      'rotate-size'                  => $rotate_size,
     }
     $options = delete_undef_values($raw_options)
 

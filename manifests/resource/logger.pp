@@ -4,17 +4,17 @@
 #
 # === Parameters
 #
-# [*filter*]
-#   Defines a simple filter type.
-#
 # [*category*]
 #   Specifies the category for the logger.
 #
-# [*level*]
-#   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
+# [*filter*]
+#   Defines a simple filter type.
 #
 # [*handlers*]
 #   The Handlers associated with this Logger.
+#
+# [*level*]
+#   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
 #
 # [*use_parent_handlers*]
 #   Specifies whether or not this logger should send its output to it's parent Logger.
@@ -22,10 +22,10 @@
 #
 define jboss_admin::resource::logger (
   $server,
-  $filter                         = undef,
   $category                       = undef,
-  $level                          = undef,
+  $filter                         = undef,
   $handlers                       = undef,
+  $level                          = undef,
   $use_parent_handlers            = undef,
   $ensure                         = present,
   $path                           = $name
@@ -35,10 +35,10 @@ define jboss_admin::resource::logger (
   
 
     $raw_options = { 
-      'filter'                       => $filter,
       'category'                     => $category,
-      'level'                        => $level,
+      'filter'                       => $filter,
       'handlers'                     => $handlers,
+      'level'                        => $level,
       'use-parent-handlers'          => $use_parent_handlers,
     }
     $options = delete_undef_values($raw_options)

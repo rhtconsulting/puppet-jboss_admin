@@ -4,23 +4,23 @@
 #
 # === Parameters
 #
-# [*filter*]
-#   Defines a simple filter type.
-#
-# [*file*]
-#   The file description consisting of the path and optional relative to path.
-#
-# [*encoding*]
-#   The character encoding used by this Handler.
+# [*append*]
+#   Specify whether to append to the target file.
 #
 # [*autoflush*]
 #   Automatically flush after each write.
 #
+# [*encoding*]
+#   The character encoding used by this Handler.
+#
+# [*file*]
+#   The file description consisting of the path and optional relative to path.
+#
+# [*filter*]
+#   Defines a simple filter type.
+#
 # [*formatter*]
 #   Defines a formatter.
-#
-# [*append*]
-#   Specify whether to append to the target file.
 #
 # [*level*]
 #   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
@@ -31,12 +31,12 @@
 #
 define jboss_admin::resource::file_handler (
   $server,
-  $filter                         = undef,
-  $file                           = undef,
-  $encoding                       = undef,
-  $autoflush                      = undef,
-  $formatter                      = undef,
   $append                         = undef,
+  $autoflush                      = undef,
+  $encoding                       = undef,
+  $file                           = undef,
+  $filter                         = undef,
+  $formatter                      = undef,
   $level                          = undef,
   $resource_name                  = undef,
   $ensure                         = present,
@@ -47,12 +47,12 @@ define jboss_admin::resource::file_handler (
   
 
     $raw_options = { 
-      'filter'                       => $filter,
-      'file'                         => $file,
-      'encoding'                     => $encoding,
-      'autoflush'                    => $autoflush,
-      'formatter'                    => $formatter,
       'append'                       => $append,
+      'autoflush'                    => $autoflush,
+      'encoding'                     => $encoding,
+      'file'                         => $file,
+      'filter'                       => $filter,
+      'formatter'                    => $formatter,
       'level'                        => $level,
       'name'                         => $resource_name,
     }

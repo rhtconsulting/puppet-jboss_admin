@@ -4,9 +4,6 @@
 #
 # === Parameters
 #
-# [*protocol*]
-#   The protocol to use when creating the SSLContext.
-#
 # [*keystore_password*]
 #   The password to open the keystore.
 #
@@ -16,13 +13,16 @@
 # [*keystore_relative_to*]
 #   The name of another previously named path, or of one of the standard paths provided by the system. If 'relative-to' is provided, the value of the 'path' attribute is treated as relative to the path specified by this attribute.
 #
+# [*protocol*]
+#   The protocol to use when creating the SSLContext.
+#
 #
 define jboss_admin::resource::server_identity_ssl (
   $server,
-  $protocol                       = undef,
   $keystore_password              = undef,
   $keystore_path                  = undef,
   $keystore_relative_to           = undef,
+  $protocol                       = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -31,10 +31,10 @@ define jboss_admin::resource::server_identity_ssl (
   
 
     $raw_options = { 
-      'protocol'                     => $protocol,
       'keystore-password'            => $keystore_password,
       'keystore-path'                => $keystore_path,
       'keystore-relative-to'         => $keystore_relative_to,
+      'protocol'                     => $protocol,
     }
     $options = delete_undef_values($raw_options)
 

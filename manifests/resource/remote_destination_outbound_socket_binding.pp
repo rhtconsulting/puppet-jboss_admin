@@ -4,6 +4,12 @@
 #
 # === Parameters
 #
+# [*fixed_source_port*]
+#   Whether the port value should remain fixed even if numeric offsets are applied to the other outbound sockets in the socket group.
+#
+# [*host*]
+#   The host name or the IP address of the remote destination to which this outbound socket will connect.
+#
 # [*port*]
 #   The port number of the remote destination to which the outbound socket should connect.
 #
@@ -13,20 +19,14 @@
 # [*source_port*]
 #   The port number which will be used as the source port of the outbound socket.
 #
-# [*host*]
-#   The host name or the IP address of the remote destination to which this outbound socket will connect.
-#
-# [*fixed_source_port*]
-#   Whether the port value should remain fixed even if numeric offsets are applied to the other outbound sockets in the socket group.
-#
 #
 define jboss_admin::resource::remote_destination_outbound_socket_binding (
   $server,
+  $fixed_source_port              = undef,
+  $host                           = undef,
   $port                           = undef,
   $source_interface               = undef,
   $source_port                    = undef,
-  $host                           = undef,
-  $fixed_source_port              = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -41,11 +41,11 @@ define jboss_admin::resource::remote_destination_outbound_socket_binding (
   
 
     $raw_options = { 
+      'fixed-source-port'            => $fixed_source_port,
+      'host'                         => $host,
       'port'                         => $port,
       'source-interface'             => $source_interface,
       'source-port'                  => $source_port,
-      'host'                         => $host,
-      'fixed-source-port'            => $fixed_source_port,
     }
     $options = delete_undef_values($raw_options)
 

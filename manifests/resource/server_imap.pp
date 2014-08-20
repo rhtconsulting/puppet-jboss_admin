@@ -4,25 +4,25 @@
 #
 # === Parameters
 #
-# [*password*]
-#   Password to authenticate on server
-#
-# [*username*]
-#   Username to authenticate on server
-#
 # [*outbound_socket_binding_ref*]
 #   Outbound Socket binding to POP3 server
+#
+# [*password*]
+#   Password to authenticate on server
 #
 # [*ssl*]
 #   Does server requires SSL?
 #
+# [*username*]
+#   Username to authenticate on server
+#
 #
 define jboss_admin::resource::server_imap (
   $server,
-  $password                       = undef,
-  $username                       = undef,
   $outbound_socket_binding_ref    = undef,
+  $password                       = undef,
   $ssl                            = undef,
+  $username                       = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -31,10 +31,10 @@ define jboss_admin::resource::server_imap (
   
 
     $raw_options = { 
-      'password'                     => $password,
-      'username'                     => $username,
       'outbound-socket-binding-ref'  => $outbound_socket_binding_ref,
+      'password'                     => $password,
       'ssl'                          => $ssl,
+      'username'                     => $username,
     }
     $options = delete_undef_values($raw_options)
 

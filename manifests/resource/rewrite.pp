@@ -4,21 +4,21 @@
 #
 # === Parameters
 #
+# [*flags*]
+#   Option flags for this rewrite rule.
+#
 # [*pattern*]
 #   The pattern that will be matched.
 #
 # [*substitution*]
 #   The string that will replace the original URL or vhost.
 #
-# [*flags*]
-#   Option flags for this rewrite rule.
-#
 #
 define jboss_admin::resource::rewrite (
   $server,
+  $flags                          = undef,
   $pattern                        = undef,
   $substitution                   = undef,
-  $flags                          = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -27,9 +27,9 @@ define jboss_admin::resource::rewrite (
   
 
     $raw_options = { 
+      'flags'                        => $flags,
       'pattern'                      => $pattern,
       'substitution'                 => $substitution,
-      'flags'                        => $flags,
     }
     $options = delete_undef_values($raw_options)
 

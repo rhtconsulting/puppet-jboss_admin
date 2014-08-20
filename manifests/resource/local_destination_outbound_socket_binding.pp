@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*fixed_source_port*]
+#   Whether the port value should remain fixed even if numeric offsets are applied to the other outbound sockets in the socket group.
+#
 # [*socket_binding_ref*]
 #   The name of the local socket-binding which will be used to determine the port to which this outbound socket connects.
 #
@@ -13,16 +16,13 @@
 # [*source_port*]
 #   The port number which will be used as the source port of the outbound socket.
 #
-# [*fixed_source_port*]
-#   Whether the port value should remain fixed even if numeric offsets are applied to the other outbound sockets in the socket group.
-#
 #
 define jboss_admin::resource::local_destination_outbound_socket_binding (
   $server,
+  $fixed_source_port              = undef,
   $socket_binding_ref             = undef,
   $source_interface               = undef,
   $source_port                    = undef,
-  $fixed_source_port              = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -34,10 +34,10 @@ define jboss_admin::resource::local_destination_outbound_socket_binding (
   
 
     $raw_options = { 
+      'fixed-source-port'            => $fixed_source_port,
       'socket-binding-ref'           => $socket_binding_ref,
       'source-interface'             => $source_interface,
       'source-port'                  => $source_port,
-      'fixed-source-port'            => $fixed_source_port,
     }
     $options = delete_undef_values($raw_options)
 

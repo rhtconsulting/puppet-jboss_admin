@@ -3,6 +3,7 @@
 require 'optparse'
 require 'json'
 require 'erb'
+require 'backports/1.9.1/symbol/comparison'
 
 options = {}
 OptionParser.new do |opts|

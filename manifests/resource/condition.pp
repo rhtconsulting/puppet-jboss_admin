@@ -4,11 +4,11 @@
 #
 # === Parameters
 #
-# [*pattern*]
-#   The pattern to match.
-#
 # [*flags*]
 #   Option flags for this condition.
+#
+# [*pattern*]
+#   The pattern to match.
 #
 # [*test*]
 #   Test pattern for the condition.
@@ -16,8 +16,8 @@
 #
 define jboss_admin::resource::condition (
   $server,
-  $pattern                        = undef,
   $flags                          = undef,
+  $pattern                        = undef,
   $test                           = undef,
   $ensure                         = present,
   $path                           = $name
@@ -27,8 +27,8 @@ define jboss_admin::resource::condition (
   
 
     $raw_options = { 
-      'pattern'                      => $pattern,
       'flags'                        => $flags,
+      'pattern'                      => $pattern,
       'test'                         => $test,
     }
     $options = delete_undef_values($raw_options)

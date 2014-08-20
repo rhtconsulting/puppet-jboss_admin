@@ -4,14 +4,17 @@
 #
 # === Parameters
 #
-# [*max_depth*]
-#   Maximum recursion for PROPFIND.
+# [*disabled*]
+#   Disables the default Servlet mapping.
+#
+# [*file_encoding*]
+#   Force a file encoding.
 #
 # [*listings*]
 #   Enable folder listings.
 #
-# [*sendfile*]
-#   Enable sendfile if possible, for files bigger than the specified byte size.
+# [*max_depth*]
+#   Maximum recursion for PROPFIND.
 #
 # [*read_only*]
 #   Allow write HTTP methods (PUT, DELETE).
@@ -19,11 +22,8 @@
 # [*secret*]
 #   Secret for WebDAV locking operations.
 #
-# [*disabled*]
-#   Disables the default Servlet mapping.
-#
-# [*file_encoding*]
-#   Force a file encoding.
+# [*sendfile*]
+#   Enable sendfile if possible, for files bigger than the specified byte size.
 #
 # [*webdav*]
 #   Enable WebDAV functionality.
@@ -31,13 +31,13 @@
 #
 define jboss_admin::resource::configuration_static_resources (
   $server,
-  $max_depth                      = undef,
-  $listings                       = undef,
-  $sendfile                       = undef,
-  $read_only                      = undef,
-  $secret                         = undef,
   $disabled                       = undef,
   $file_encoding                  = undef,
+  $listings                       = undef,
+  $max_depth                      = undef,
+  $read_only                      = undef,
+  $secret                         = undef,
+  $sendfile                       = undef,
   $webdav                         = undef,
   $ensure                         = present,
   $path                           = $name
@@ -53,13 +53,13 @@ define jboss_admin::resource::configuration_static_resources (
   
 
     $raw_options = { 
-      'max-depth'                    => $max_depth,
-      'listings'                     => $listings,
-      'sendfile'                     => $sendfile,
-      'read-only'                    => $read_only,
-      'secret'                       => $secret,
       'disabled'                     => $disabled,
       'file-encoding'                => $file_encoding,
+      'listings'                     => $listings,
+      'max-depth'                    => $max_depth,
+      'read-only'                    => $read_only,
+      'secret'                       => $secret,
+      'sendfile'                     => $sendfile,
       'webdav'                       => $webdav,
     }
     $options = delete_undef_values($raw_options)

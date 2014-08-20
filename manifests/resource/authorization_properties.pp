@@ -4,17 +4,17 @@
 #
 # === Parameters
 #
-# [*relative_to*]
-#   The name of another previously named path, or of one of the standard paths provided by the system. If 'relative-to' is provided, the value of the 'path' attribute is treated as relative to the path specified by this attribute.
-#
 # [*path*]
 #   The path of the properties file containing the users roles.
+#
+# [*relative_to*]
+#   The name of another previously named path, or of one of the standard paths provided by the system. If 'relative-to' is provided, the value of the 'path' attribute is treated as relative to the path specified by this attribute.
 #
 #
 define jboss_admin::resource::authorization_properties (
   $server,
-  $relative_to                    = undef,
   $path                           = undef,
+  $relative_to                    = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -23,8 +23,8 @@ define jboss_admin::resource::authorization_properties (
   
 
     $raw_options = { 
-      'relative-to'                  => $relative_to,
       'path'                         => $path,
+      'relative-to'                  => $relative_to,
     }
     $options = delete_undef_values($raw_options)
 

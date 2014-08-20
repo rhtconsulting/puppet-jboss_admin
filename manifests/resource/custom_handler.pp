@@ -4,20 +4,14 @@
 #
 # === Parameters
 #
-# [*filter*]
-#   Defines a simple filter type.
+# [*class*]
+#   The logging handler class to be used.
 #
 # [*encoding*]
 #   The character encoding used by this Handler.
 #
-# [*class*]
-#   The logging handler class to be used.
-#
-# [*properties*]
-#   Defines the properties used for the logging handler. All properties must be accessible via a setter method.
-#
-# [*module*]
-#   The module that the logging handler depends on.
+# [*filter*]
+#   Defines a simple filter type.
 #
 # [*formatter*]
 #   Defines a formatter.
@@ -25,20 +19,26 @@
 # [*level*]
 #   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
 #
+# [*module*]
+#   The module that the logging handler depends on.
+#
 # [*resource_name*]
 #   The handler's name.
+#
+# [*properties*]
+#   Defines the properties used for the logging handler. All properties must be accessible via a setter method.
 #
 #
 define jboss_admin::resource::custom_handler (
   $server,
-  $filter                         = undef,
-  $encoding                       = undef,
   $class                          = undef,
-  $properties                     = undef,
-  $module                         = undef,
+  $encoding                       = undef,
+  $filter                         = undef,
   $formatter                      = undef,
   $level                          = undef,
+  $module                         = undef,
   $resource_name                  = undef,
+  $properties                     = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -47,14 +47,14 @@ define jboss_admin::resource::custom_handler (
   
 
     $raw_options = { 
-      'filter'                       => $filter,
-      'encoding'                     => $encoding,
       'class'                        => $class,
-      'properties'                   => $properties,
-      'module'                       => $module,
+      'encoding'                     => $encoding,
+      'filter'                       => $filter,
       'formatter'                    => $formatter,
       'level'                        => $level,
+      'module'                       => $module,
       'name'                         => $resource_name,
+      'properties'                   => $properties,
     }
     $options = delete_undef_values($raw_options)
 

@@ -7,11 +7,11 @@
 # [*alias*]
 #   The virtual server aliases
 #
-# [*enable_welcome_root*]
-#   Whether or not the bundled welcome directory is used as the root web context.
-#
 # [*default_web_module*]
 #   The web module deployment name that will be mapped as the root webapp.
+#
+# [*enable_welcome_root*]
+#   Whether or not the bundled welcome directory is used as the root web context.
 #
 # [*resource_name*]
 #   A unique virtual host name
@@ -20,8 +20,8 @@
 define jboss_admin::resource::virtual_server (
   $server,
   $alias                          = undef,
-  $enable_welcome_root            = undef,
   $default_web_module             = undef,
+  $enable_welcome_root            = undef,
   $resource_name                  = undef,
   $ensure                         = present,
   $path                           = $name
@@ -32,8 +32,8 @@ define jboss_admin::resource::virtual_server (
 
     $raw_options = { 
       'alias'                        => $alias,
-      'enable-welcome-root'          => $enable_welcome_root,
       'default-web-module'           => $default_web_module,
+      'enable-welcome-root'          => $enable_welcome_root,
       'name'                         => $resource_name,
     }
     $options = delete_undef_values($raw_options)

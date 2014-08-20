@@ -10,19 +10,19 @@
 # [*search_credential*]
 #   The credential to use when connecting to perform a search.
 #
-# [*url*]
-#   The URL to use to connect to the LDAP server.
-#
 # [*search_dn*]
 #   The distinguished name to use when connecting to the LDAP server to perform searches.
+#
+# [*url*]
+#   The URL to use to connect to the LDAP server.
 #
 #
 define jboss_admin::resource::ldap_connection (
   $server,
   $initial_context_factory        = undef,
   $search_credential              = undef,
-  $url                            = undef,
   $search_dn                      = undef,
+  $url                            = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -33,8 +33,8 @@ define jboss_admin::resource::ldap_connection (
     $raw_options = { 
       'initial-context-factory'      => $initial_context_factory,
       'search-credential'            => $search_credential,
-      'url'                          => $url,
       'search-dn'                    => $search_dn,
+      'url'                          => $url,
     }
     $options = delete_undef_values($raw_options)
 

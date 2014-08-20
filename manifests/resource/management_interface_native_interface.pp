@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*interface*]
+#   Deprecated -- use 'socket-binding'. The network interface on which the server's socket for native management communication should be opened. Must be 'undefined' if the 'socket-binding' attribute is set.
+#
 # [*port*]
 #   Deprecated -- use 'socket-binding'. The port on which the server's socket for native management communication should be opened. Must be 'undefined' if the 'socket-binding' attribute is set.
 #
@@ -13,16 +16,13 @@
 # [*socket_binding*]
 #   The name of the socket binding configuration to use for the native management interface's socket.
 #
-# [*interface*]
-#   Deprecated -- use 'socket-binding'. The network interface on which the server's socket for native management communication should be opened. Must be 'undefined' if the 'socket-binding' attribute is set.
-#
 #
 define jboss_admin::resource::management_interface_native_interface (
   $server,
+  $interface                      = undef,
   $port                           = undef,
   $security_realm                 = undef,
   $socket_binding                 = undef,
-  $interface                      = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -34,10 +34,10 @@ define jboss_admin::resource::management_interface_native_interface (
   
 
     $raw_options = { 
+      'interface'                    => $interface,
       'port'                         => $port,
       'security-realm'               => $security_realm,
       'socket-binding'               => $socket_binding,
-      'interface'                    => $interface,
     }
     $options = delete_undef_values($raw_options)
 

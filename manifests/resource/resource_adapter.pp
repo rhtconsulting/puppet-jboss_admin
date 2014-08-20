@@ -4,14 +4,14 @@
 #
 # === Parameters
 #
-# [*bootstrap_context*]
-#   Specifies the unique name of the bootstrap context that should be used
+# [*archive*]
+#   Specifies the resource adapter archive
 #
 # [*beanvalidationgroups*]
 #   Specifies the bean validation groups that should be used
 #
-# [*archive*]
-#   Specifies the resource adapter archive
+# [*bootstrap_context*]
+#   Specifies the unique name of the bootstrap context that should be used
 #
 # [*transaction_support*]
 #   Specifies the transaction support level of the resource adapter
@@ -19,9 +19,9 @@
 #
 define jboss_admin::resource::resource_adapter (
   $server,
-  $bootstrap_context              = undef,
-  $beanvalidationgroups           = undef,
   $archive                        = undef,
+  $beanvalidationgroups           = undef,
+  $bootstrap_context              = undef,
   $transaction_support            = undef,
   $ensure                         = present,
   $path                           = $name
@@ -33,9 +33,9 @@ define jboss_admin::resource::resource_adapter (
   
 
     $raw_options = { 
-      'bootstrap-context'            => $bootstrap_context,
-      'beanvalidationgroups'         => $beanvalidationgroups,
       'archive'                      => $archive,
+      'beanvalidationgroups'         => $beanvalidationgroups,
+      'bootstrap-context'            => $bootstrap_context,
       'transaction-support'          => $transaction_support,
     }
     $options = delete_undef_values($raw_options)

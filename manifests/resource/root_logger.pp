@@ -7,18 +7,18 @@
 # [*filter*]
 #   Defines a simple filter type.
 #
-# [*level*]
-#   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
-#
 # [*handlers*]
 #   The Handlers associated with this Logger.
+#
+# [*level*]
+#   The log level specifying which message levels will be logged by this. Message levels lower than this value will be discarded.
 #
 #
 define jboss_admin::resource::root_logger (
   $server,
   $filter                         = undef,
-  $level                          = undef,
   $handlers                       = undef,
+  $level                          = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -28,8 +28,8 @@ define jboss_admin::resource::root_logger (
 
     $raw_options = { 
       'filter'                       => $filter,
-      'level'                        => $level,
       'handlers'                     => $handlers,
+      'level'                        => $level,
     }
     $options = delete_undef_values($raw_options)
 

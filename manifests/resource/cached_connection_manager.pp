@@ -4,21 +4,21 @@
 #
 # === Parameters
 #
-# [*install*]
-#   Enable/disable the cached connection manager valve and interceptor
+# [*debug*]
+#   Enable/disable debug information logging
 #
 # [*error*]
 #   Enable/disable error information logging
 #
-# [*debug*]
-#   Enable/disable debug information logging
+# [*install*]
+#   Enable/disable the cached connection manager valve and interceptor
 #
 #
 define jboss_admin::resource::cached_connection_manager (
   $server,
-  $install                        = undef,
-  $error                          = undef,
   $debug                          = undef,
+  $error                          = undef,
+  $install                        = undef,
   $ensure                         = present,
   $path                           = $name
 ) {
@@ -27,9 +27,9 @@ define jboss_admin::resource::cached_connection_manager (
   
 
     $raw_options = { 
-      'install'                      => $install,
-      'error'                        => $error,
       'debug'                        => $debug,
+      'error'                        => $error,
+      'install'                      => $install,
     }
     $options = delete_undef_values($raw_options)
 
