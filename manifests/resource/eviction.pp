@@ -23,6 +23,12 @@ define jboss_admin::resource::eviction (
     if $max_entries != undef and !is_integer($max_entries) { 
       fail('The attribute max_entries is not an integer') 
     }
+    if $strategy != undef and !is_string($strategy) { 
+      fail('The attribute strategy is not a string') 
+    }
+    if $strategy != undef and !($strategy in ['NONE','UNORDERED','FIFO','LRU','LIRS']) {
+      fail("The attribute strategy is not an allowed value: 'NONE','UNORDERED','FIFO','LRU','LIRS'")
+    }
   
 
     $raw_options = { 

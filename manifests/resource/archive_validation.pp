@@ -24,6 +24,15 @@ define jboss_admin::resource::archive_validation (
 ) {
   if $ensure == present {
 
+    if $enabled != undef and !is_bool($enabled) { 
+      fail('The attribute enabled is not a boolean') 
+    }
+    if $fail_on_error != undef and !is_bool($fail_on_error) { 
+      fail('The attribute fail_on_error is not a boolean') 
+    }
+    if $fail_on_warn != undef and !is_bool($fail_on_warn) { 
+      fail('The attribute fail_on_warn is not a boolean') 
+    }
   
 
     $raw_options = { 

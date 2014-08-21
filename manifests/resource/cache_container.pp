@@ -48,6 +48,36 @@ define jboss_admin::resource::cache_container (
 ) {
   if $ensure == present {
 
+    if $aliases != undef and !is_array($aliases) { 
+      fail('The attribute aliases is not an array') 
+    }
+    if $default_cache != undef and !is_string($default_cache) { 
+      fail('The attribute default_cache is not a string') 
+    }
+    if $eviction_executor != undef and !is_string($eviction_executor) { 
+      fail('The attribute eviction_executor is not a string') 
+    }
+    if $jndi_name != undef and !is_string($jndi_name) { 
+      fail('The attribute jndi_name is not a string') 
+    }
+    if $listener_executor != undef and !is_string($listener_executor) { 
+      fail('The attribute listener_executor is not a string') 
+    }
+    if $module != undef and !is_string($module) { 
+      fail('The attribute module is not a string') 
+    }
+    if $replication_queue_executor != undef and !is_string($replication_queue_executor) { 
+      fail('The attribute replication_queue_executor is not a string') 
+    }
+    if $start != undef and !is_string($start) { 
+      fail('The attribute start is not a string') 
+    }
+    if $start != undef and !($start in ['EAGER','LAZY']) {
+      fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
+    }
+    if $statistics_enabled != undef and !is_bool($statistics_enabled) { 
+      fail('The attribute statistics_enabled is not a boolean') 
+    }
   
 
     $raw_options = { 

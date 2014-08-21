@@ -48,6 +48,39 @@ define jboss_admin::resource::group_search_group_to_principal (
 ) {
   if $ensure == present {
 
+    if $base_dn != undef and !is_string($base_dn) { 
+      fail('The attribute base_dn is not a string') 
+    }
+    if $group_dn_attribute != undef and !is_string($group_dn_attribute) { 
+      fail('The attribute group_dn_attribute is not a string') 
+    }
+    if $group_name != undef and !is_string($group_name) { 
+      fail('The attribute group_name is not a string') 
+    }
+    if $group_name != undef and !($group_name in ['DISTINGUISHED_NAME','SIMPLE']) {
+      fail("The attribute group_name is not an allowed value: 'DISTINGUISHED_NAME','SIMPLE'")
+    }
+    if $group_name_attribute != undef and !is_string($group_name_attribute) { 
+      fail('The attribute group_name_attribute is not a string') 
+    }
+    if $iterative != undef and !is_bool($iterative) { 
+      fail('The attribute iterative is not a boolean') 
+    }
+    if $prefer_original_connection != undef and !is_bool($prefer_original_connection) { 
+      fail('The attribute prefer_original_connection is not a boolean') 
+    }
+    if $principal_attribute != undef and !is_string($principal_attribute) { 
+      fail('The attribute principal_attribute is not a string') 
+    }
+    if $recursive != undef and !is_bool($recursive) { 
+      fail('The attribute recursive is not a boolean') 
+    }
+    if $search_by != undef and !is_string($search_by) { 
+      fail('The attribute search_by is not a string') 
+    }
+    if $search_by != undef and !($search_by in ['DISTINGUISHED_NAME','SIMPLE']) {
+      fail("The attribute search_by is not an allowed value: 'DISTINGUISHED_NAME','SIMPLE'")
+    }
   
 
     $raw_options = { 

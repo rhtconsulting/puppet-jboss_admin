@@ -16,6 +16,9 @@ define jboss_admin::resource::authentication_jaspi (
 ) {
   if $ensure == present {
 
+    if $auth_modules != undef and !is_array($auth_modules) { 
+      fail('The attribute auth_modules is not an array') 
+    }
   
 
     $raw_options = { 

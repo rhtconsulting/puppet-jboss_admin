@@ -24,6 +24,15 @@ define jboss_admin::resource::type_compilation (
 ) {
   if $ensure == present {
 
+    if $compilation_time_monitoring_supported != undef and !is_bool($compilation_time_monitoring_supported) { 
+      fail('The attribute compilation_time_monitoring_supported is not a boolean') 
+    }
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
+    if $object_name != undef and !is_string($object_name) { 
+      fail('The attribute object_name is not a string') 
+    }
   
 
     $raw_options = { 

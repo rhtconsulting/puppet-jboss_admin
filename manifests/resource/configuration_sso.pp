@@ -28,6 +28,18 @@ define jboss_admin::resource::configuration_sso (
 ) {
   if $ensure == present {
 
+    if $cache_container != undef and !is_string($cache_container) { 
+      fail('The attribute cache_container is not a string') 
+    }
+    if $cache_name != undef and !is_string($cache_name) { 
+      fail('The attribute cache_name is not a string') 
+    }
+    if $domain != undef and !is_string($domain) { 
+      fail('The attribute domain is not a string') 
+    }
+    if $reauthenticate != undef and !is_bool($reauthenticate) { 
+      fail('The attribute reauthenticate is not a boolean') 
+    }
   
 
     $raw_options = { 

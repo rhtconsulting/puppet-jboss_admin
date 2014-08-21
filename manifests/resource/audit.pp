@@ -16,6 +16,9 @@ define jboss_admin::resource::audit (
 ) {
   if $ensure == present {
 
+    if $provider_modules != undef and !is_array($provider_modules) { 
+      fail('The attribute provider_modules is not an array') 
+    }
   
 
     $raw_options = { 

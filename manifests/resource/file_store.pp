@@ -44,6 +44,30 @@ define jboss_admin::resource::file_store (
 ) {
   if $ensure == present {
 
+    if $fetch_state != undef and !is_bool($fetch_state) { 
+      fail('The attribute fetch_state is not a boolean') 
+    }
+    if $passivation != undef and !is_bool($passivation) { 
+      fail('The attribute passivation is not a boolean') 
+    }
+    if $path != undef and !is_string($path) { 
+      fail('The attribute path is not a string') 
+    }
+    if $preload != undef and !is_bool($preload) { 
+      fail('The attribute preload is not a boolean') 
+    }
+    if $purge != undef and !is_bool($purge) { 
+      fail('The attribute purge is not a boolean') 
+    }
+    if $relative_to != undef and !is_string($relative_to) { 
+      fail('The attribute relative_to is not a string') 
+    }
+    if $shared != undef and !is_bool($shared) { 
+      fail('The attribute shared is not a boolean') 
+    }
+    if $singleton != undef and !is_bool($singleton) { 
+      fail('The attribute singleton is not a boolean') 
+    }
   
 
     $raw_options = { 

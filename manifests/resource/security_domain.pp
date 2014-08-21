@@ -16,6 +16,9 @@ define jboss_admin::resource::security_domain (
 ) {
   if $ensure == present {
 
+    if $cache_type != undef and !is_string($cache_type) { 
+      fail('The attribute cache_type is not a string') 
+    }
   
 
     $raw_options = { 

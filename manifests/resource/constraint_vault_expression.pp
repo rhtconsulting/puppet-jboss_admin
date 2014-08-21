@@ -28,6 +28,18 @@ define jboss_admin::resource::constraint_vault_expression (
 ) {
   if $ensure == present {
 
+    if $configured_requires_read != undef and !is_bool($configured_requires_read) { 
+      fail('The attribute configured_requires_read is not a boolean') 
+    }
+    if $configured_requires_write != undef and !is_bool($configured_requires_write) { 
+      fail('The attribute configured_requires_write is not a boolean') 
+    }
+    if $default_requires_read != undef and !is_bool($default_requires_read) { 
+      fail('The attribute default_requires_read is not a boolean') 
+    }
+    if $default_requires_write != undef and !is_bool($default_requires_write) { 
+      fail('The attribute default_requires_write is not a boolean') 
+    }
   
 
     $raw_options = { 

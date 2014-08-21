@@ -16,6 +16,9 @@ define jboss_admin::resource::subsystem_jgroups (
 ) {
   if $ensure == present {
 
+    if $default_stack != undef and !is_string($default_stack) { 
+      fail('The attribute default_stack is not a string') 
+    }
   
 
     $raw_options = { 

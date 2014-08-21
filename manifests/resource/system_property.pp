@@ -16,6 +16,9 @@ define jboss_admin::resource::system_property (
 ) {
   if $ensure == present {
 
+    if $value != undef and !is_string($value) { 
+      fail('The attribute value is not a string') 
+    }
   
 
     $raw_options = { 

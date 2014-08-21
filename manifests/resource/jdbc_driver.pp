@@ -56,11 +56,38 @@ define jboss_admin::resource::jdbc_driver (
 ) {
   if $ensure == present {
 
+    if $deployment_name != undef and !is_string($deployment_name) { 
+      fail('The attribute deployment_name is not a string') 
+    }
+    if $driver_class_name != undef and !is_string($driver_class_name) { 
+      fail('The attribute driver_class_name is not a string') 
+    }
+    if $driver_datasource_class_name != undef and !is_string($driver_datasource_class_name) { 
+      fail('The attribute driver_datasource_class_name is not a string') 
+    }
     if $driver_major_version != undef and !is_integer($driver_major_version) { 
       fail('The attribute driver_major_version is not an integer') 
     }
     if $driver_minor_version != undef and !is_integer($driver_minor_version) { 
       fail('The attribute driver_minor_version is not an integer') 
+    }
+    if $driver_module_name != undef and !is_string($driver_module_name) { 
+      fail('The attribute driver_module_name is not a string') 
+    }
+    if $driver_name != undef and !is_string($driver_name) { 
+      fail('The attribute driver_name is not a string') 
+    }
+    if $driver_xa_datasource_class_name != undef and !is_string($driver_xa_datasource_class_name) { 
+      fail('The attribute driver_xa_datasource_class_name is not a string') 
+    }
+    if $jdbc_compliant != undef and !is_bool($jdbc_compliant) { 
+      fail('The attribute jdbc_compliant is not a boolean') 
+    }
+    if $module_slot != undef and !is_string($module_slot) { 
+      fail('The attribute module_slot is not a string') 
+    }
+    if $xa_datasource_class != undef and !is_string($xa_datasource_class) { 
+      fail('The attribute xa_datasource_class is not a string') 
     }
   
 

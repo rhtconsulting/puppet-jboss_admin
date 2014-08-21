@@ -16,6 +16,9 @@ define jboss_admin::resource::remoting_connector (
 ) {
   if $ensure == present {
 
+    if $use_management_endpoint != undef and !is_bool($use_management_endpoint) { 
+      fail('The attribute use_management_endpoint is not a boolean') 
+    }
   
 
     $raw_options = { 

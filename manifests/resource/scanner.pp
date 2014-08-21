@@ -44,6 +44,27 @@ define jboss_admin::resource::scanner (
 ) {
   if $ensure == present {
 
+    if $auto_deploy_exploded != undef and !is_bool($auto_deploy_exploded) { 
+      fail('The attribute auto_deploy_exploded is not a boolean') 
+    }
+    if $auto_deploy_xml != undef and !is_bool($auto_deploy_xml) { 
+      fail('The attribute auto_deploy_xml is not a boolean') 
+    }
+    if $auto_deploy_zipped != undef and !is_bool($auto_deploy_zipped) { 
+      fail('The attribute auto_deploy_zipped is not a boolean') 
+    }
+    if $deployment_timeout != undef and !is_integer($deployment_timeout) { 
+      fail('The attribute deployment_timeout is not an integer') 
+    }
+    if $path != undef and !is_string($path) { 
+      fail('The attribute path is not a string') 
+    }
+    if $relative_to != undef and !is_string($relative_to) { 
+      fail('The attribute relative_to is not a string') 
+    }
+    if $scan_enabled != undef and !is_bool($scan_enabled) { 
+      fail('The attribute scan_enabled is not a boolean') 
+    }
     if $scan_interval != undef and !is_integer($scan_interval) { 
       fail('The attribute scan_interval is not an integer') 
     }

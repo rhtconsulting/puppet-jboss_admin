@@ -16,6 +16,9 @@ define jboss_admin::resource::user (
 ) {
   if $ensure == present {
 
+    if $password != undef and !is_string($password) { 
+      fail('The attribute password is not a string') 
+    }
   
 
     $raw_options = { 

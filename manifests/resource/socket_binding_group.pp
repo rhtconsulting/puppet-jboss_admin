@@ -24,6 +24,12 @@ define jboss_admin::resource::socket_binding_group (
 ) {
   if $ensure == present {
 
+    if $default_interface != undef and !is_string($default_interface) { 
+      fail('The attribute default_interface is not a string') 
+    }
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
     if $port_offset != undef and !is_integer($port_offset) { 
       fail('The attribute port_offset is not an integer') 
     }

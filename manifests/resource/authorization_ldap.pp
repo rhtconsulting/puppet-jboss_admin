@@ -16,6 +16,9 @@ define jboss_admin::resource::authorization_ldap (
 ) {
   if $ensure == present {
 
+    if $connection != undef and !is_string($connection) { 
+      fail('The attribute connection is not a string') 
+    }
   
 
     $raw_options = { 

@@ -32,6 +32,21 @@ define jboss_admin::resource::subsystem_ee (
 ) {
   if $ensure == present {
 
+    if $annotation_property_replacement != undef and !is_bool($annotation_property_replacement) { 
+      fail('The attribute annotation_property_replacement is not a boolean') 
+    }
+    if $ear_subdeployments_isolated != undef and !is_bool($ear_subdeployments_isolated) { 
+      fail('The attribute ear_subdeployments_isolated is not a boolean') 
+    }
+    if $global_modules != undef and !is_array($global_modules) { 
+      fail('The attribute global_modules is not an array') 
+    }
+    if $jboss_descriptor_property_replacement != undef and !is_bool($jboss_descriptor_property_replacement) { 
+      fail('The attribute jboss_descriptor_property_replacement is not a boolean') 
+    }
+    if $spec_descriptor_property_replacement != undef and !is_bool($spec_descriptor_property_replacement) { 
+      fail('The attribute spec_descriptor_property_replacement is not a boolean') 
+    }
   
 
     $raw_options = { 

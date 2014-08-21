@@ -16,6 +16,9 @@ define jboss_admin::resource::login_module_stack (
 ) {
   if $ensure == present {
 
+    if $login_modules != undef and !is_array($login_modules) { 
+      fail('The attribute login_modules is not an array') 
+    }
   
 
     $raw_options = { 

@@ -24,6 +24,12 @@ define jboss_admin::resource::custom_formatter (
 ) {
   if $ensure == present {
 
+    if $class != undef and !is_string($class) { 
+      fail('The attribute class is not a string') 
+    }
+    if $module != undef and !is_string($module) { 
+      fail('The attribute module is not a string') 
+    }
   
 
     $raw_options = { 

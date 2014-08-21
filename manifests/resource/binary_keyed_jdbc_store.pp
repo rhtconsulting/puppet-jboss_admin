@@ -44,6 +44,27 @@ define jboss_admin::resource::binary_keyed_jdbc_store (
 ) {
   if $ensure == present {
 
+    if $datasource != undef and !is_string($datasource) { 
+      fail('The attribute datasource is not a string') 
+    }
+    if $fetch_state != undef and !is_bool($fetch_state) { 
+      fail('The attribute fetch_state is not a boolean') 
+    }
+    if $passivation != undef and !is_bool($passivation) { 
+      fail('The attribute passivation is not a boolean') 
+    }
+    if $preload != undef and !is_bool($preload) { 
+      fail('The attribute preload is not a boolean') 
+    }
+    if $purge != undef and !is_bool($purge) { 
+      fail('The attribute purge is not a boolean') 
+    }
+    if $shared != undef and !is_bool($shared) { 
+      fail('The attribute shared is not a boolean') 
+    }
+    if $singleton != undef and !is_bool($singleton) { 
+      fail('The attribute singleton is not a boolean') 
+    }
   
 
     $raw_options = { 

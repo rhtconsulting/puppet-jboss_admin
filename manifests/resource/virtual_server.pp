@@ -28,6 +28,18 @@ define jboss_admin::resource::virtual_server (
 ) {
   if $ensure == present {
 
+    if $alias != undef and !is_array($alias) { 
+      fail('The attribute alias is not an array') 
+    }
+    if $default_web_module != undef and !is_string($default_web_module) { 
+      fail('The attribute default_web_module is not a string') 
+    }
+    if $enable_welcome_root != undef and !is_bool($enable_welcome_root) { 
+      fail('The attribute enable_welcome_root is not a boolean') 
+    }
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
   
 
     $raw_options = { 

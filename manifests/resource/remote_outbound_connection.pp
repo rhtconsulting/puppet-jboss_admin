@@ -24,6 +24,15 @@ define jboss_admin::resource::remote_outbound_connection (
 ) {
   if $ensure == present {
 
+    if $outbound_socket_binding_ref != undef and !is_string($outbound_socket_binding_ref) { 
+      fail('The attribute outbound_socket_binding_ref is not a string') 
+    }
+    if $security_realm != undef and !is_string($security_realm) { 
+      fail('The attribute security_realm is not a string') 
+    }
+    if $username != undef and !is_string($username) { 
+      fail('The attribute username is not a string') 
+    }
   
 
     $raw_options = { 

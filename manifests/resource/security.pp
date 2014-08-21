@@ -32,6 +32,21 @@ define jboss_admin::resource::security (
 ) {
   if $ensure == present {
 
+    if $include_mechanisms != undef and !is_array($include_mechanisms) { 
+      fail('The attribute include_mechanisms is not an array') 
+    }
+    if $qop != undef and !is_array($qop) { 
+      fail('The attribute qop is not an array') 
+    }
+    if $reuse_session != undef and !is_bool($reuse_session) { 
+      fail('The attribute reuse_session is not a boolean') 
+    }
+    if $server_auth != undef and !is_bool($server_auth) { 
+      fail('The attribute server_auth is not a boolean') 
+    }
+    if $strength != undef and !is_array($strength) { 
+      fail('The attribute strength is not an array') 
+    }
   
 
     $raw_options = { 

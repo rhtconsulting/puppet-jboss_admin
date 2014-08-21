@@ -24,6 +24,15 @@ define jboss_admin::resource::condition (
 ) {
   if $ensure == present {
 
+    if $flags != undef and !is_string($flags) { 
+      fail('The attribute flags is not a string') 
+    }
+    if $pattern != undef and !is_string($pattern) { 
+      fail('The attribute pattern is not a string') 
+    }
+    if $test != undef and !is_string($test) { 
+      fail('The attribute test is not a string') 
+    }
   
 
     $raw_options = { 

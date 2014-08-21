@@ -32,6 +32,21 @@ define jboss_admin::resource::deployment (
 ) {
   if $ensure == present {
 
+    if $content != undef and !is_array($content) { 
+      fail('The attribute content is not an array') 
+    }
+    if $enabled != undef and !is_bool($enabled) { 
+      fail('The attribute enabled is not a boolean') 
+    }
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
+    if $persistent != undef and !is_bool($persistent) { 
+      fail('The attribute persistent is not a boolean') 
+    }
+    if $runtime_name != undef and !is_string($runtime_name) { 
+      fail('The attribute runtime_name is not a string') 
+    }
   
 
     $raw_options = { 

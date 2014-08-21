@@ -20,6 +20,15 @@ define jboss_admin::resource::authentication_plug_in (
 ) {
   if $ensure == present {
 
+    if $mechanism != undef and !is_string($mechanism) { 
+      fail('The attribute mechanism is not a string') 
+    }
+    if $mechanism != undef and !($mechanism in ['DIGEST','PLAIN']) {
+      fail("The attribute mechanism is not an allowed value: 'DIGEST','PLAIN'")
+    }
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
   
 
     $raw_options = { 

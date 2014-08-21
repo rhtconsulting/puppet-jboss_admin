@@ -24,6 +24,15 @@ define jboss_admin::resource::service_timer_service (
 ) {
   if $ensure == present {
 
+    if $path != undef and !is_string($path) { 
+      fail('The attribute path is not a string') 
+    }
+    if $relative_to != undef and !is_string($relative_to) { 
+      fail('The attribute relative_to is not a string') 
+    }
+    if $thread_pool_name != undef and !is_string($thread_pool_name) { 
+      fail('The attribute thread_pool_name is not a string') 
+    }
   
 
     $raw_options = { 

@@ -28,6 +28,15 @@ define jboss_admin::resource::valve (
 ) {
   if $ensure == present {
 
+    if $class_name != undef and !is_string($class_name) { 
+      fail('The attribute class_name is not a string') 
+    }
+    if $enabled != undef and !is_bool($enabled) { 
+      fail('The attribute enabled is not a boolean') 
+    }
+    if $module != undef and !is_string($module) { 
+      fail('The attribute module is not a string') 
+    }
   
 
     $raw_options = { 

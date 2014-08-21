@@ -28,6 +28,15 @@ define jboss_admin::resource::mapping_module (
 ) {
   if $ensure == present {
 
+    if $code != undef and !is_string($code) { 
+      fail('The attribute code is not a string') 
+    }
+    if $module != undef and !is_string($module) { 
+      fail('The attribute module is not a string') 
+    }
+    if $type != undef and !is_string($type) { 
+      fail('The attribute type is not a string') 
+    }
   
 
     $raw_options = { 

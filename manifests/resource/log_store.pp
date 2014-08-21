@@ -16,6 +16,9 @@ define jboss_admin::resource::log_store (
 ) {
   if $ensure == present {
 
+    if $type != undef and !is_string($type) { 
+      fail('The attribute type is not a string') 
+    }
   
 
     $raw_options = { 

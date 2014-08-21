@@ -16,6 +16,9 @@ define jboss_admin::resource::security_realm (
 ) {
   if $ensure == present {
 
+    if $map_groups_to_roles != undef and !is_bool($map_groups_to_roles) { 
+      fail('The attribute map_groups_to_roles is not a boolean') 
+    }
   
 
     $raw_options = { 

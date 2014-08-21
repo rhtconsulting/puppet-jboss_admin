@@ -20,6 +20,12 @@ define jboss_admin::resource::bootstrap_context (
 ) {
   if $ensure == present {
 
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
+    if $workmanager != undef and !is_string($workmanager) { 
+      fail('The attribute workmanager is not a string') 
+    }
   
 
     $raw_options = { 

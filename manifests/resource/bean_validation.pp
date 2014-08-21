@@ -16,6 +16,9 @@ define jboss_admin::resource::bean_validation (
 ) {
   if $ensure == present {
 
+    if $enabled != undef and !is_bool($enabled) { 
+      fail('The attribute enabled is not a boolean') 
+    }
   
 
     $raw_options = { 

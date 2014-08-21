@@ -20,6 +20,12 @@ define jboss_admin::resource::authentication_jaas (
 ) {
   if $ensure == present {
 
+    if $assign_groups != undef and !is_bool($assign_groups) { 
+      fail('The attribute assign_groups is not a boolean') 
+    }
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
   
 
     $raw_options = { 

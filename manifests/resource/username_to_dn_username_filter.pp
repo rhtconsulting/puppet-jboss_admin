@@ -32,6 +32,21 @@ define jboss_admin::resource::username_to_dn_username_filter (
 ) {
   if $ensure == present {
 
+    if $attribute != undef and !is_string($attribute) { 
+      fail('The attribute attribute is not a string') 
+    }
+    if $base_dn != undef and !is_string($base_dn) { 
+      fail('The attribute base_dn is not a string') 
+    }
+    if $force != undef and !is_bool($force) { 
+      fail('The attribute force is not a boolean') 
+    }
+    if $recursive != undef and !is_bool($recursive) { 
+      fail('The attribute recursive is not a boolean') 
+    }
+    if $user_dn_attribute != undef and !is_string($user_dn_attribute) { 
+      fail('The attribute user_dn_attribute is not a string') 
+    }
   
 
     $raw_options = { 

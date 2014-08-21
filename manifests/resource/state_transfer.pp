@@ -27,6 +27,12 @@ define jboss_admin::resource::state_transfer (
     if $chunk_size != undef and !is_integer($chunk_size) { 
       fail('The attribute chunk_size is not an integer') 
     }
+    if $enabled != undef and !is_bool($enabled) { 
+      fail('The attribute enabled is not a boolean') 
+    }
+    if $timeout != undef and !is_integer($timeout) { 
+      fail('The attribute timeout is not an integer') 
+    }
   
 
     $raw_options = { 

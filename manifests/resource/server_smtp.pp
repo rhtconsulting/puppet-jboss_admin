@@ -32,6 +32,21 @@ define jboss_admin::resource::server_smtp (
 ) {
   if $ensure == present {
 
+    if $outbound_socket_binding_ref != undef and !is_string($outbound_socket_binding_ref) { 
+      fail('The attribute outbound_socket_binding_ref is not a string') 
+    }
+    if $password != undef and !is_string($password) { 
+      fail('The attribute password is not a string') 
+    }
+    if $ssl != undef and !is_bool($ssl) { 
+      fail('The attribute ssl is not a boolean') 
+    }
+    if $tls != undef and !is_bool($tls) { 
+      fail('The attribute tls is not a boolean') 
+    }
+    if $username != undef and !is_string($username) { 
+      fail('The attribute username is not a string') 
+    }
   
 
     $raw_options = { 

@@ -44,6 +44,30 @@ define jboss_admin::resource::binding (
 ) {
   if $ensure == present {
 
+    if $binding_type != undef and !is_string($binding_type) { 
+      fail('The attribute binding_type is not a string') 
+    }
+    if $binding_type != undef and !($binding_type in ['simple','object-factory','lookup','external-context']) {
+      fail("The attribute binding_type is not an allowed value: 'simple','object-factory','lookup','external-context'")
+    }
+    if $cache != undef and !is_bool($cache) { 
+      fail('The attribute cache is not a boolean') 
+    }
+    if $class != undef and !is_string($class) { 
+      fail('The attribute class is not a string') 
+    }
+    if $lookup != undef and !is_string($lookup) { 
+      fail('The attribute lookup is not a string') 
+    }
+    if $module != undef and !is_string($module) { 
+      fail('The attribute module is not a string') 
+    }
+    if $type != undef and !is_string($type) { 
+      fail('The attribute type is not a string') 
+    }
+    if $value != undef and !is_string($value) { 
+      fail('The attribute value is not a string') 
+    }
   
 
     $raw_options = { 

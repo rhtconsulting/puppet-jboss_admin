@@ -80,6 +80,60 @@ define jboss_admin::resource::core_service_server_environment (
 ) {
   if $ensure == present {
 
+    if $base_dir != undef and !is_string($base_dir) { 
+      fail('The attribute base_dir is not a string') 
+    }
+    if $config_dir != undef and !is_string($config_dir) { 
+      fail('The attribute config_dir is not a string') 
+    }
+    if $config_file != undef and !is_string($config_file) { 
+      fail('The attribute config_file is not a string') 
+    }
+    if $content_dir != undef and !is_string($content_dir) { 
+      fail('The attribute content_dir is not a string') 
+    }
+    if $data_dir != undef and !is_string($data_dir) { 
+      fail('The attribute data_dir is not a string') 
+    }
+    if $deploy_dir != undef and !is_string($deploy_dir) { 
+      fail('The attribute deploy_dir is not a string') 
+    }
+    if $ext_dirs != undef and !is_string($ext_dirs) { 
+      fail('The attribute ext_dirs is not a string') 
+    }
+    if $home_dir != undef and !is_string($home_dir) { 
+      fail('The attribute home_dir is not a string') 
+    }
+    if $host_name != undef and !is_string($host_name) { 
+      fail('The attribute host_name is not a string') 
+    }
+    if $initial_running_mode != undef and !is_string($initial_running_mode) { 
+      fail('The attribute initial_running_mode is not a string') 
+    }
+    if $initial_running_mode != undef and !($initial_running_mode in ['NORMAL','ADMIN_ONLY']) {
+      fail("The attribute initial_running_mode is not an allowed value: 'NORMAL','ADMIN_ONLY'")
+    }
+    if $launch_type != undef and !is_string($launch_type) { 
+      fail('The attribute launch_type is not a string') 
+    }
+    if $log_dir != undef and !is_string($log_dir) { 
+      fail('The attribute log_dir is not a string') 
+    }
+    if $modules_dir != undef and !is_string($modules_dir) { 
+      fail('The attribute modules_dir is not a string') 
+    }
+    if $node_name != undef and !is_string($node_name) { 
+      fail('The attribute node_name is not a string') 
+    }
+    if $qualified_host_name != undef and !is_string($qualified_host_name) { 
+      fail('The attribute qualified_host_name is not a string') 
+    }
+    if $server_name != undef and !is_string($server_name) { 
+      fail('The attribute server_name is not a string') 
+    }
+    if $temp_dir != undef and !is_string($temp_dir) { 
+      fail('The attribute temp_dir is not a string') 
+    }
   
 
     $raw_options = { 

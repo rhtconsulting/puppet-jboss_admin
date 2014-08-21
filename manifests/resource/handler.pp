@@ -16,6 +16,9 @@ define jboss_admin::resource::handler (
 ) {
   if $ensure == present {
 
+    if $class != undef and !is_string($class) { 
+      fail('The attribute class is not a string') 
+    }
   
 
     $raw_options = { 

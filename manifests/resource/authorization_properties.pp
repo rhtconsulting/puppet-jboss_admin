@@ -20,6 +20,12 @@ define jboss_admin::resource::authorization_properties (
 ) {
   if $ensure == present {
 
+    if $path != undef and !is_string($path) { 
+      fail('The attribute path is not a string') 
+    }
+    if $relative_to != undef and !is_string($relative_to) { 
+      fail('The attribute relative_to is not a string') 
+    }
   
 
     $raw_options = { 

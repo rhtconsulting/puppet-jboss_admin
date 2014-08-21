@@ -16,6 +16,9 @@ define jboss_admin::resource::authorization_classic (
 ) {
   if $ensure == present {
 
+    if $policy_modules != undef and !is_array($policy_modules) { 
+      fail('The attribute policy_modules is not an array') 
+    }
   
 
     $raw_options = { 

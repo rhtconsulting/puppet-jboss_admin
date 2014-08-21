@@ -24,6 +24,15 @@ define jboss_admin::resource::authentication_properties (
 ) {
   if $ensure == present {
 
+    if $path != undef and !is_string($path) { 
+      fail('The attribute path is not a string') 
+    }
+    if $plain_text != undef and !is_bool($plain_text) { 
+      fail('The attribute plain_text is not a boolean') 
+    }
+    if $relative_to != undef and !is_string($relative_to) { 
+      fail('The attribute relative_to is not a string') 
+    }
   
 
     $raw_options = { 

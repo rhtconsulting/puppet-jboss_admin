@@ -16,6 +16,9 @@ define jboss_admin::resource::role_mapping (
 ) {
   if $ensure == present {
 
+    if $include_all != undef and !is_bool($include_all) { 
+      fail('The attribute include_all is not a boolean') 
+    }
   
 
     $raw_options = { 

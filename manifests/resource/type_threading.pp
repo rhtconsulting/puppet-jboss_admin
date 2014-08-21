@@ -48,6 +48,33 @@ define jboss_admin::resource::type_threading (
 ) {
   if $ensure == present {
 
+    if $all_thread_ids != undef and !is_array($all_thread_ids) { 
+      fail('The attribute all_thread_ids is not an array') 
+    }
+    if $current_thread_cpu_time_supported != undef and !is_bool($current_thread_cpu_time_supported) { 
+      fail('The attribute current_thread_cpu_time_supported is not a boolean') 
+    }
+    if $object_monitor_usage_supported != undef and !is_bool($object_monitor_usage_supported) { 
+      fail('The attribute object_monitor_usage_supported is not a boolean') 
+    }
+    if $object_name != undef and !is_string($object_name) { 
+      fail('The attribute object_name is not a string') 
+    }
+    if $synchronizer_usage_supported != undef and !is_bool($synchronizer_usage_supported) { 
+      fail('The attribute synchronizer_usage_supported is not a boolean') 
+    }
+    if $thread_contention_monitoring_enabled != undef and !is_bool($thread_contention_monitoring_enabled) { 
+      fail('The attribute thread_contention_monitoring_enabled is not a boolean') 
+    }
+    if $thread_contention_monitoring_supported != undef and !is_bool($thread_contention_monitoring_supported) { 
+      fail('The attribute thread_contention_monitoring_supported is not a boolean') 
+    }
+    if $thread_cpu_time_enabled != undef and !is_bool($thread_cpu_time_enabled) { 
+      fail('The attribute thread_cpu_time_enabled is not a boolean') 
+    }
+    if $thread_cpu_time_supported != undef and !is_bool($thread_cpu_time_supported) { 
+      fail('The attribute thread_cpu_time_supported is not a boolean') 
+    }
   
 
     $raw_options = { 

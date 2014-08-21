@@ -16,6 +16,9 @@ define jboss_admin::resource::subsystem_security (
 ) {
   if $ensure == present {
 
+    if $deep_copy_subject_mode != undef and !is_bool($deep_copy_subject_mode) { 
+      fail('The attribute deep_copy_subject_mode is not a boolean') 
+    }
   
 
     $raw_options = { 

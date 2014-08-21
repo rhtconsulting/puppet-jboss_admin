@@ -40,6 +40,27 @@ define jboss_admin::resource::server_identity_ssl (
 ) {
   if $ensure == present {
 
+    if $alias != undef and !is_string($alias) { 
+      fail('The attribute alias is not a string') 
+    }
+    if $key_password != undef and !is_string($key_password) { 
+      fail('The attribute key_password is not a string') 
+    }
+    if $keystore_password != undef and !is_string($keystore_password) { 
+      fail('The attribute keystore_password is not a string') 
+    }
+    if $keystore_path != undef and !is_string($keystore_path) { 
+      fail('The attribute keystore_path is not a string') 
+    }
+    if $keystore_provider != undef and !is_string($keystore_provider) { 
+      fail('The attribute keystore_provider is not a string') 
+    }
+    if $keystore_relative_to != undef and !is_string($keystore_relative_to) { 
+      fail('The attribute keystore_relative_to is not a string') 
+    }
+    if $protocol != undef and !is_string($protocol) { 
+      fail('The attribute protocol is not a string') 
+    }
   
 
     $raw_options = { 

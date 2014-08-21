@@ -24,6 +24,15 @@ define jboss_admin::resource::mail_session (
 ) {
   if $ensure == present {
 
+    if $debug != undef and !is_bool($debug) { 
+      fail('The attribute debug is not a boolean') 
+    }
+    if $from != undef and !is_string($from) { 
+      fail('The attribute from is not a string') 
+    }
+    if $jndi_name != undef and !is_string($jndi_name) { 
+      fail('The attribute jndi_name is not a string') 
+    }
   
 
     $raw_options = { 

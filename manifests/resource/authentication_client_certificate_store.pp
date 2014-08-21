@@ -28,6 +28,18 @@ define jboss_admin::resource::authentication_client_certificate_store (
 ) {
   if $ensure == present {
 
+    if $key_password != undef and !is_string($key_password) { 
+      fail('The attribute key_password is not a string') 
+    }
+    if $keystore_password != undef and !is_string($keystore_password) { 
+      fail('The attribute keystore_password is not a string') 
+    }
+    if $keystore_path != undef and !is_string($keystore_path) { 
+      fail('The attribute keystore_path is not a string') 
+    }
+    if $keystore_relative_to != undef and !is_string($keystore_relative_to) { 
+      fail('The attribute keystore_relative_to is not a string') 
+    }
   
 
     $raw_options = { 

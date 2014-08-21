@@ -28,6 +28,15 @@ define jboss_admin::resource::local_destination_outbound_socket_binding (
 ) {
   if $ensure == present {
 
+    if $fixed_source_port != undef and !is_bool($fixed_source_port) { 
+      fail('The attribute fixed_source_port is not a boolean') 
+    }
+    if $socket_binding_ref != undef and !is_string($socket_binding_ref) { 
+      fail('The attribute socket_binding_ref is not a string') 
+    }
+    if $source_interface != undef and !is_string($source_interface) { 
+      fail('The attribute source_interface is not a string') 
+    }
     if $source_port != undef and !is_integer($source_port) { 
       fail('The attribute source_port is not an integer') 
     }

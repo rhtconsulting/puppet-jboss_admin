@@ -28,6 +28,18 @@ define jboss_admin::resource::acl_module (
 ) {
   if $ensure == present {
 
+    if $code != undef and !is_string($code) { 
+      fail('The attribute code is not a string') 
+    }
+    if $flag != undef and !is_string($flag) { 
+      fail('The attribute flag is not a string') 
+    }
+    if $flag != undef and !($flag in ['required','requisite','sufficient','optional']) {
+      fail("The attribute flag is not an allowed value: 'required','requisite','sufficient','optional'")
+    }
+    if $module != undef and !is_string($module) { 
+      fail('The attribute module is not a string') 
+    }
   
 
     $raw_options = { 

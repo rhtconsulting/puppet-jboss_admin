@@ -28,6 +28,18 @@ define jboss_admin::resource::admin_objects (
 ) {
   if $ensure == present {
 
+    if $class_name != undef and !is_string($class_name) { 
+      fail('The attribute class_name is not a string') 
+    }
+    if $enabled != undef and !is_bool($enabled) { 
+      fail('The attribute enabled is not a boolean') 
+    }
+    if $jndi_name != undef and !is_string($jndi_name) { 
+      fail('The attribute jndi_name is not a string') 
+    }
+    if $use_java_context != undef and !is_bool($use_java_context) { 
+      fail('The attribute use_java_context is not a boolean') 
+    }
   
 
     $raw_options = { 

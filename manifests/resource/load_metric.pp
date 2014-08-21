@@ -28,6 +28,12 @@ define jboss_admin::resource::load_metric (
 ) {
   if $ensure == present {
 
+    if $type != undef and !is_string($type) { 
+      fail('The attribute type is not a string') 
+    }
+    if $type != undef and !($type in ['cpu','mem','heap','sessions','receive-traffic','send-traffic','requests','busyness']) {
+      fail("The attribute type is not an allowed value: 'cpu','mem','heap','sessions','receive-traffic','send-traffic','requests','busyness'")
+    }
     if $weight != undef and !is_integer($weight) { 
       fail('The attribute weight is not an integer') 
     }

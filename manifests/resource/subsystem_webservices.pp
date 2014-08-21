@@ -28,6 +28,12 @@ define jboss_admin::resource::subsystem_webservices (
 ) {
   if $ensure == present {
 
+    if $modify_wsdl_address != undef and !is_bool($modify_wsdl_address) { 
+      fail('The attribute modify_wsdl_address is not a boolean') 
+    }
+    if $wsdl_host != undef and !is_string($wsdl_host) { 
+      fail('The attribute wsdl_host is not a string') 
+    }
     if $wsdl_port != undef and !is_integer($wsdl_port) { 
       fail('The attribute wsdl_port is not an integer') 
     }

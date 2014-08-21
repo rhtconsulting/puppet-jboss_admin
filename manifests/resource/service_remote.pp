@@ -20,6 +20,12 @@ define jboss_admin::resource::service_remote (
 ) {
   if $ensure == present {
 
+    if $connector_ref != undef and !is_string($connector_ref) { 
+      fail('The attribute connector_ref is not a string') 
+    }
+    if $thread_pool_name != undef and !is_string($thread_pool_name) { 
+      fail('The attribute thread_pool_name is not a string') 
+    }
   
 
     $raw_options = { 

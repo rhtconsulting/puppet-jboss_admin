@@ -37,6 +37,24 @@ define jboss_admin::resource::json_formatter (
 ) {
   if $ensure == present {
 
+    if $compact != undef and !is_bool($compact) { 
+      fail('The attribute compact is not a boolean') 
+    }
+    if $date_format != undef and !is_string($date_format) { 
+      fail('The attribute date_format is not a string') 
+    }
+    if $date_separator != undef and !is_string($date_separator) { 
+      fail('The attribute date_separator is not a string') 
+    }
+    if $escape_control_characters != undef and !is_bool($escape_control_characters) { 
+      fail('The attribute escape_control_characters is not a boolean') 
+    }
+    if $escape_new_line != undef and !is_bool($escape_new_line) { 
+      fail('The attribute escape_new_line is not a boolean') 
+    }
+    if $include_date != undef and !is_bool($include_date) { 
+      fail('The attribute include_date is not a boolean') 
+    }
   
 
     $raw_options = { 

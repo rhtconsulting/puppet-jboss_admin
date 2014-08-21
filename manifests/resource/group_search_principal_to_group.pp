@@ -36,6 +36,27 @@ define jboss_admin::resource::group_search_principal_to_group (
 ) {
   if $ensure == present {
 
+    if $group_attribute != undef and !is_string($group_attribute) { 
+      fail('The attribute group_attribute is not a string') 
+    }
+    if $group_dn_attribute != undef and !is_string($group_dn_attribute) { 
+      fail('The attribute group_dn_attribute is not a string') 
+    }
+    if $group_name != undef and !is_string($group_name) { 
+      fail('The attribute group_name is not a string') 
+    }
+    if $group_name != undef and !($group_name in ['DISTINGUISHED_NAME','SIMPLE']) {
+      fail("The attribute group_name is not an allowed value: 'DISTINGUISHED_NAME','SIMPLE'")
+    }
+    if $group_name_attribute != undef and !is_string($group_name_attribute) { 
+      fail('The attribute group_name_attribute is not a string') 
+    }
+    if $iterative != undef and !is_bool($iterative) { 
+      fail('The attribute iterative is not a boolean') 
+    }
+    if $prefer_original_connection != undef and !is_bool($prefer_original_connection) { 
+      fail('The attribute prefer_original_connection is not a boolean') 
+    }
   
 
     $raw_options = { 

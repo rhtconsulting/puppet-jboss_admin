@@ -24,6 +24,15 @@ define jboss_admin::resource::cached_connection_manager (
 ) {
   if $ensure == present {
 
+    if $debug != undef and !is_bool($debug) { 
+      fail('The attribute debug is not a boolean') 
+    }
+    if $error != undef and !is_bool($error) { 
+      fail('The attribute error is not a boolean') 
+    }
+    if $install != undef and !is_bool($install) { 
+      fail('The attribute install is not a boolean') 
+    }
   
 
     $raw_options = { 

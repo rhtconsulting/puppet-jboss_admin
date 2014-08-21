@@ -40,6 +40,27 @@ define jboss_admin::resource::ssl (
 ) {
   if $ensure == present {
 
+    if $ca_certificate_file != undef and !is_string($ca_certificate_file) { 
+      fail('The attribute ca_certificate_file is not a string') 
+    }
+    if $ca_revocation_url != undef and !is_string($ca_revocation_url) { 
+      fail('The attribute ca_revocation_url is not a string') 
+    }
+    if $certificate_key_file != undef and !is_string($certificate_key_file) { 
+      fail('The attribute certificate_key_file is not a string') 
+    }
+    if $cipher_suite != undef and !is_string($cipher_suite) { 
+      fail('The attribute cipher_suite is not a string') 
+    }
+    if $key_alias != undef and !is_string($key_alias) { 
+      fail('The attribute key_alias is not a string') 
+    }
+    if $password != undef and !is_string($password) { 
+      fail('The attribute password is not a string') 
+    }
+    if $protocol != undef and !is_string($protocol) { 
+      fail('The attribute protocol is not a string') 
+    }
   
 
     $raw_options = { 

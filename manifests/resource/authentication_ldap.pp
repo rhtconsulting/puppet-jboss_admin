@@ -40,6 +40,27 @@ define jboss_admin::resource::authentication_ldap (
 ) {
   if $ensure == present {
 
+    if $advanced_filter != undef and !is_string($advanced_filter) { 
+      fail('The attribute advanced_filter is not a string') 
+    }
+    if $allow_empty_passwords != undef and !is_bool($allow_empty_passwords) { 
+      fail('The attribute allow_empty_passwords is not a boolean') 
+    }
+    if $base_dn != undef and !is_string($base_dn) { 
+      fail('The attribute base_dn is not a string') 
+    }
+    if $connection != undef and !is_string($connection) { 
+      fail('The attribute connection is not a string') 
+    }
+    if $recursive != undef and !is_bool($recursive) { 
+      fail('The attribute recursive is not a boolean') 
+    }
+    if $user_dn != undef and !is_string($user_dn) { 
+      fail('The attribute user_dn is not a string') 
+    }
+    if $username_attribute != undef and !is_string($username_attribute) { 
+      fail('The attribute username_attribute is not a string') 
+    }
   
 
     $raw_options = { 

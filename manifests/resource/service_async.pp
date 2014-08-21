@@ -16,6 +16,9 @@ define jboss_admin::resource::service_async (
 ) {
   if $ensure == present {
 
+    if $thread_pool_name != undef and !is_string($thread_pool_name) { 
+      fail('The attribute thread_pool_name is not a string') 
+    }
   
 
     $raw_options = { 

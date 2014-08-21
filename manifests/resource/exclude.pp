@@ -24,6 +24,18 @@ define jboss_admin::resource::exclude (
 ) {
   if $ensure == present {
 
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
+    if $realm != undef and !is_string($realm) { 
+      fail('The attribute realm is not a string') 
+    }
+    if $type != undef and !is_string($type) { 
+      fail('The attribute type is not a string') 
+    }
+    if $type != undef and !($type in ['GROUP','USER']) {
+      fail("The attribute type is not an allowed value: 'GROUP','USER'")
+    }
   
 
     $raw_options = { 

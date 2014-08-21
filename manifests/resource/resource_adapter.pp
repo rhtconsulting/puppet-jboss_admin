@@ -36,6 +36,27 @@ define jboss_admin::resource::resource_adapter (
 ) {
   if $ensure == present {
 
+    if $archive != undef and !is_string($archive) { 
+      fail('The attribute archive is not a string') 
+    }
+    if $beanvalidationgroups != undef and !is_array($beanvalidationgroups) { 
+      fail('The attribute beanvalidationgroups is not an array') 
+    }
+    if $bootstrap_context != undef and !is_string($bootstrap_context) { 
+      fail('The attribute bootstrap_context is not a string') 
+    }
+    if $config_properties != undef and !is_string($config_properties) { 
+      fail('The attribute config_properties is not a string') 
+    }
+    if $module != undef and !is_string($module) { 
+      fail('The attribute module is not a string') 
+    }
+    if $transaction_support != undef and !is_string($transaction_support) { 
+      fail('The attribute transaction_support is not a string') 
+    }
+    if $transaction_support != undef and !($transaction_support in ['NoTransaction','LocalTransaction','XATransaction']) {
+      fail("The attribute transaction_support is not an allowed value: 'NoTransaction','LocalTransaction','XATransaction'")
+    }
   
 
     $raw_options = { 

@@ -37,6 +37,9 @@ define jboss_admin::resource::subsystem (
     if $management_minor_version != undef and !is_integer($management_minor_version) { 
       fail('The attribute management_minor_version is not an integer') 
     }
+    if $xml_namespaces != undef and !is_array($xml_namespaces) { 
+      fail('The attribute xml_namespaces is not an array') 
+    }
   
 
     $raw_options = { 

@@ -33,8 +33,17 @@ define jboss_admin::resource::thread_factory (
 ) {
   if $ensure == present {
 
+    if $group_name != undef and !is_string($group_name) { 
+      fail('The attribute group_name is not a string') 
+    }
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
     if $priority != undef and !is_integer($priority) { 
       fail('The attribute priority is not an integer') 
+    }
+    if $thread_name_pattern != undef and !is_string($thread_name_pattern) { 
+      fail('The attribute thread_name_pattern is not a string') 
     }
   
 

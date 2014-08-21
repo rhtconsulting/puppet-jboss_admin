@@ -16,6 +16,9 @@ define jboss_admin::resource::workmanager (
 ) {
   if $ensure == present {
 
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
   
 
     $raw_options = { 

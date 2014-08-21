@@ -36,6 +36,24 @@ define jboss_admin::resource::sasl_policy (
 ) {
   if $ensure == present {
 
+    if $forward_secrecy != undef and !is_bool($forward_secrecy) { 
+      fail('The attribute forward_secrecy is not a boolean') 
+    }
+    if $no_active != undef and !is_bool($no_active) { 
+      fail('The attribute no_active is not a boolean') 
+    }
+    if $no_anonymous != undef and !is_bool($no_anonymous) { 
+      fail('The attribute no_anonymous is not a boolean') 
+    }
+    if $no_dictionary != undef and !is_bool($no_dictionary) { 
+      fail('The attribute no_dictionary is not a boolean') 
+    }
+    if $no_plain_text != undef and !is_bool($no_plain_text) { 
+      fail('The attribute no_plain_text is not a boolean') 
+    }
+    if $pass_credentials != undef and !is_bool($pass_credentials) { 
+      fail('The attribute pass_credentials is not a boolean') 
+    }
   
 
     $raw_options = { 

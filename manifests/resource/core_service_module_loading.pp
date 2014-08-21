@@ -16,6 +16,9 @@ define jboss_admin::resource::core_service_module_loading (
 ) {
   if $ensure == present {
 
+    if $module_roots != undef and !is_array($module_roots) { 
+      fail('The attribute module_roots is not an array') 
+    }
   
 
     $raw_options = { 

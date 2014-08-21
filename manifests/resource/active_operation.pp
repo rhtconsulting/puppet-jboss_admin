@@ -44,6 +44,36 @@ define jboss_admin::resource::active_operation (
 ) {
   if $ensure == present {
 
+    if $access_mechanism != undef and !is_string($access_mechanism) { 
+      fail('The attribute access_mechanism is not a string') 
+    }
+    if $access_mechanism != undef and !($access_mechanism in ['NATIVE','HTTP','JMX']) {
+      fail("The attribute access_mechanism is not an allowed value: 'NATIVE','HTTP','JMX'")
+    }
+    if $address != undef and !is_array($address) { 
+      fail('The attribute address is not an array') 
+    }
+    if $caller_thread != undef and !is_string($caller_thread) { 
+      fail('The attribute caller_thread is not a string') 
+    }
+    if $cancelled != undef and !is_bool($cancelled) { 
+      fail('The attribute cancelled is not a boolean') 
+    }
+    if $exclusive_running_time != undef and !is_integer($exclusive_running_time) { 
+      fail('The attribute exclusive_running_time is not an integer') 
+    }
+    if $execution_status != undef and !is_string($execution_status) { 
+      fail('The attribute execution_status is not a string') 
+    }
+    if $execution_status != undef and !($execution_status in ['executing','awaiting-other-operation','awaiting-stability','completing','rolling-back']) {
+      fail("The attribute execution_status is not an allowed value: 'executing','awaiting-other-operation','awaiting-stability','completing','rolling-back'")
+    }
+    if $operation != undef and !is_string($operation) { 
+      fail('The attribute operation is not a string') 
+    }
+    if $running_time != undef and !is_integer($running_time) { 
+      fail('The attribute running_time is not an integer') 
+    }
   
 
     $raw_options = { 

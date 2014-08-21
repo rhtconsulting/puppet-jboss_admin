@@ -28,6 +28,18 @@ define jboss_admin::resource::path (
 ) {
   if $ensure == present {
 
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
+    if $path != undef and !is_string($path) { 
+      fail('The attribute path is not a string') 
+    }
+    if $read_only != undef and !is_bool($read_only) { 
+      fail('The attribute read_only is not a boolean') 
+    }
+    if $relative_to != undef and !is_string($relative_to) { 
+      fail('The attribute relative_to is not a string') 
+    }
   
 
     $raw_options = { 

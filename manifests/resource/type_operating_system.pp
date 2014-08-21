@@ -28,6 +28,18 @@ define jboss_admin::resource::type_operating_system (
 ) {
   if $ensure == present {
 
+    if $arch != undef and !is_string($arch) { 
+      fail('The attribute arch is not a string') 
+    }
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
+    }
+    if $object_name != undef and !is_string($object_name) { 
+      fail('The attribute object_name is not a string') 
+    }
+    if $version != undef and !is_string($version) { 
+      fail('The attribute version is not a string') 
+    }
   
 
     $raw_options = { 

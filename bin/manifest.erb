@@ -25,12 +25,35 @@ define jboss_admin::resource::<%= type[:name] %> (
 <% if attribute[:required] -%>
     if $<%= puppet_name attr %> == undef { fail('The attribute <%= puppet_name attr %> is undefined but required') }
 <% end -%>
-<% if !attribute[:type].nil? && attribute[:type][:'TYPE_MODEL_VALUE'] == 'INT' -%>
+<% if !attribute[:type].nil?
+     if ['INT', 'LONG'].include? attribute[:type][:'TYPE_MODEL_VALUE'] -%>
     if $<%= puppet_name attr %> != undef and !is_integer($<%= puppet_name attr %>) { 
       fail('The attribute <%= puppet_name attr %> is not an integer') 
     }
-<% end -%>
-<% end -%>  
+<%   end -%>
+<%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'STRING' -%>
+    if $<%= puppet_name attr %> != undef and !is_string($<%= puppet_name attr %>) { 
+      fail('The attribute <%= puppet_name attr %> is not a string') 
+    }
+<%     if attribute[:allowed] 
+         allowed_values = attribute[:allowed].collect{|a| "'#{a}'"}.join(',') -%>
+    if $<%= puppet_name attr %> != undef and !($<%= puppet_name attr %> in [<%= allowed_values %>]) {
+      fail("The attribute <%= puppet_name attr %> is not an allowed value: <%= allowed_values %>")
+    }
+<%     end
+     end -%>
+<%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'BOOLEAN' -%>
+    if $<%= puppet_name attr %> != undef and !is_bool($<%= puppet_name attr %>) { 
+      fail('The attribute <%= puppet_name attr %> is not a boolean') 
+    }
+<%   end -%>
+<%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'LIST' -%>
+    if $<%= puppet_name attr %> != undef and !is_array($<%= puppet_name attr %>) { 
+      fail('The attribute <%= puppet_name attr %> is not an array') 
+    }
+<%   end -%>
+<% end
+end -%>  
 
     $raw_options = { 
 <% type[:attributes].each_key.sort.each do |attr_name| 

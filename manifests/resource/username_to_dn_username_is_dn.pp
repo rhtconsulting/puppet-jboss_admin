@@ -16,6 +16,9 @@ define jboss_admin::resource::username_to_dn_username_is_dn (
 ) {
   if $ensure == present {
 
+    if $force != undef and !is_bool($force) { 
+      fail('The attribute force is not a boolean') 
+    }
   
 
     $raw_options = { 

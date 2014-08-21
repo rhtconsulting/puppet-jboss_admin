@@ -40,8 +40,23 @@ define jboss_admin::resource::socket_binding (
 ) {
   if $ensure == present {
 
+    if $client_mappings != undef and !is_array($client_mappings) { 
+      fail('The attribute client_mappings is not an array') 
+    }
+    if $fixed_port != undef and !is_bool($fixed_port) { 
+      fail('The attribute fixed_port is not a boolean') 
+    }
+    if $interface != undef and !is_string($interface) { 
+      fail('The attribute interface is not a string') 
+    }
+    if $multicast_address != undef and !is_string($multicast_address) { 
+      fail('The attribute multicast_address is not a string') 
+    }
     if $multicast_port != undef and !is_integer($multicast_port) { 
       fail('The attribute multicast_port is not an integer') 
+    }
+    if $resource_name != undef and !is_string($resource_name) { 
+      fail('The attribute resource_name is not a string') 
     }
     if $port != undef and !is_integer($port) { 
       fail('The attribute port is not an integer') 

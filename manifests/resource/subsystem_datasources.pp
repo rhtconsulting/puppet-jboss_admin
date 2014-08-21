@@ -16,6 +16,9 @@ define jboss_admin::resource::subsystem_datasources (
 ) {
   if $ensure == present {
 
+    if $installed_drivers != undef and !is_array($installed_drivers) { 
+      fail('The attribute installed_drivers is not an array') 
+    }
   
 
     $raw_options = { 

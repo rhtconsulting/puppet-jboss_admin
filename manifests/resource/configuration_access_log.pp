@@ -32,6 +32,21 @@ define jboss_admin::resource::configuration_access_log (
 ) {
   if $ensure == present {
 
+    if $extended != undef and !is_bool($extended) { 
+      fail('The attribute extended is not a boolean') 
+    }
+    if $pattern != undef and !is_string($pattern) { 
+      fail('The attribute pattern is not a string') 
+    }
+    if $prefix != undef and !is_string($prefix) { 
+      fail('The attribute prefix is not a string') 
+    }
+    if $resolve_hosts != undef and !is_bool($resolve_hosts) { 
+      fail('The attribute resolve_hosts is not a boolean') 
+    }
+    if $rotate != undef and !is_bool($rotate) { 
+      fail('The attribute rotate is not a boolean') 
+    }
   
 
     $raw_options = { 

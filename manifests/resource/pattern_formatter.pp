@@ -20,6 +20,12 @@ define jboss_admin::resource::pattern_formatter (
 ) {
   if $ensure == present {
 
+    if $color_map != undef and !is_string($color_map) { 
+      fail('The attribute color_map is not a string') 
+    }
+    if $pattern != undef and !is_string($pattern) { 
+      fail('The attribute pattern is not a string') 
+    }
   
 
     $raw_options = { 
