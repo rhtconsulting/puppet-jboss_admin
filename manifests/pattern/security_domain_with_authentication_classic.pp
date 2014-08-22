@@ -55,7 +55,7 @@ define jboss_admin::pattern::security_domain_with_authentication_classic (
   }
 
   # configure the data source and security configuration
-  $_security_domain_path                   = "/subsystem=security/security-domain=${security_domain_name}":
+  $_security_domain_path                   = "/subsystem=security/security-domain=${security_domain_name}"
   $_security_domain_auth_path              = "${_security_domain_path}/authentication=classic"
   $_security_domain_auth_login_module_path = "${_security_domain_auth_path}/login-module=${code}"
   jboss_admin::resource::security_domain { $_security_domain_path:
