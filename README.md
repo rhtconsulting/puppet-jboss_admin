@@ -67,7 +67,7 @@ porcelain types:
 
 There is currently one pattern type:
 
-* secuiryt_dmain_with_authentication_classic
+* security_domain_with_authentication_classic
 
 ###Dependency Ordering###
 
