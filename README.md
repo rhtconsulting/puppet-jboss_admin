@@ -30,12 +30,14 @@ and functionality under implementation.
 Founding Concepts
 -----------------
 
-This module is divided into two different sets of types: porcelain and 
-plumbing. The intent is that the plumbing types will provide full coverage of
-container configuration with a generic interface, while the porcelain types
+This module is divided into three different sets of types: plumbing, porcelain and 
+pattern. The intent is that the plumbing types will provide full coverage of
+container configuration with a generic interface. The porcelain types
 provide easy to use interfaces for specific container resources. Porcelain
 types have enhanced documentation, validation, and error handling that is
-specific to a single resource.
+specific to a single resource. Pattern types have enhanced documenation,
+validation, and error handling that is specific to a common pattern that combines
+multiple related plumbing and porcelain types.
 
 Currently there are two plumbing types on which all porcelain types are built:
 
@@ -62,6 +64,10 @@ porcelain types:
 * authentication_truststore
 * authorization_classic
 * authorization_properties 
+
+There is currently one pattern type:
+
+* security_domain_with_authentication_classic
 
 ###Dependency Ordering###
 
