@@ -11,5 +11,6 @@ class jboss_admin::dependencies(
     provider => gem
   }
 
-  Package['Treetop'] -> Jboss_admin::Server<||>
+  Package['treetop'] -> Jboss_admin::Server<||>
+  Package['json']    -> Jboss_admin::Server<||>
 }
