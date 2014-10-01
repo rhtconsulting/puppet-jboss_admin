@@ -6,11 +6,9 @@
 # like we'll need to maintain this for some time perhaps.
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__),"..",".."))
 
-require 'puppet/util/cli_parser'
-require 'puppet/util/path_generator'
-
 Puppet::Type.newtype(:jboss_exec) do
   @doc = "Executes an arbitrary command within a JBoss container"
+  feature :treetop, "Treetop gem for parsing"
 
   newparam(:server) do
     desc "The Server instance that this resource should be managed in"
@@ -64,6 +62,9 @@ Puppet::Type.newtype(:jboss_exec) do
   end
 
   def should_execute?(refreshing=false)
+    require 'puppet/util/cli_parser'
+    require 'puppet/util/path_generator'
+
     return false if self[:refreshonly] && !refreshing
 
     parser = CliParser.new
@@ -93,6 +94,9 @@ Puppet::Type.newtype(:jboss_exec) do
   end
 
   autorequire(:jboss_resource) do
+    require 'puppet/util/cli_parser'
+    require 'puppet/util/path_generator'
+
     parser = CliParser.new
     resource_path = parser.parse_command value(:command)
     raise "Could not parse command #{value(:command)}, autorequire will fail" unless resource_path
