@@ -23,7 +23,11 @@ class CliParser
   end
 
   def parse(parser, input)
-    result = parser.parse input
+    begin
+      result = parser.parse input
+    rescue Exception => e
+      raise "Error parsing path, #{e}: #{input}"
+    end
     raise "#{parser.failure_reason}: #{input}" if !result
     result.value
   end
