@@ -17,6 +17,7 @@ define jboss_admin::server (
   $base_path,
   $user            = jboss,
   $group           = jboss,
+  $management_ip   = localhost,
   $management_port = 9999,
 ) {
   anchor{ "Jboss_admin::Server[${name}] End": }
