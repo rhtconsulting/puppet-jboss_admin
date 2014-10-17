@@ -50,7 +50,8 @@ module Puppet::Util::CliExecution
     if value.is_a?(Array) || value.is_a?(Hash)
       value.inspect
     else
-      value.to_s
+      # if the value contains commas or spaces then wrap it in quotes
+      (/[, ]/ =~ value.to_s).nil? ? value.to_s : "\"#{value.to_s}\""
     end
   end
 
