@@ -30,7 +30,7 @@ module Puppet::Util::CliExecution
 
     delete_nil = Proc.new { |k, v| v.kind_of?(Hash) ? (v.delete_if(&delete_nil); nil) : v.nil? }
 
-    output = execute [cli_path, '--connect', '--file=' + command_file.path], {:failonfail => failonfail, :combine => true}
+    output = execute [cli_path, '--connect','--controller=' + server['management_ip'] + ':' + server['management_port'], '--file=' + command_file.path], {:failonfail => failonfail, :combine => true}
 
     if batch
       return {'outcome' => 'success'} if output =~ /The batch executed successfully/
@@ -50,7 +50,8 @@ module Puppet::Util::CliExecution
     if value.is_a?(Array) || value.is_a?(Hash)
       value.inspect
     else
-      value.to_s
+      # if the value contains commas or spaces then wrap it in quotes
+      (/[, ]/ =~ value.to_s).nil? ? value.to_s : "\"#{value.to_s}\""
     end
   end
 
