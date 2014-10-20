@@ -1,5 +1,5 @@
 define jboss_admin::cleanup(
-  $server = $name
+  $server
 ) {
   jboss_exec{"Restart Server $name":
     command => ":shutdown(restart=true)",
@@ -13,7 +13,7 @@ define jboss_admin::cleanup(
     server  => $server
   }
 
-  Jboss_resource<| server == $name |> -> Jboss_exec["Reload Server $name"]
-  Jboss_exec<| server == $name and title != "Restart Server $name" and title != "Reload Server $name"|> -> Jboss_exec["Reload Server $name"]
+  #Jboss_resource<| server == $name |> -> Jboss_exec["Reload Server $name"]
+  #Jboss_exec<| server == $name and title != "Restart Server $name" and title != "Reload Server $name"|> -> Jboss_exec["Reload Server $name"]
   Jboss_exec["Reload Server $name"] -> Jboss_exec["Restart Server $name"]
 }

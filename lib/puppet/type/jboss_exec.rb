@@ -10,6 +10,9 @@ Puppet::Type.newtype(:jboss_exec) do
   @doc = "Executes an arbitrary command within a JBoss container"
   feature :treetop, "Treetop gem for parsing"
 
+  #non-isomorphic types can have multiple instances with the same namevar
+  @isomorphic = false
+
   newparam(:server) do
     desc "The Server instance that this resource should be managed in"
   end
