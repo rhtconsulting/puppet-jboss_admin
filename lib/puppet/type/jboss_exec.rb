@@ -39,6 +39,44 @@ Puppet::Type.newtype(:jboss_exec) do
     newvalues true, false, :on_failure
   end
 
+  newparam(:tries) do
+    desc "The number of times execution of the command should be tried.
+          Defaults to '1'. This many attempts will be made to execute
+          the command until the command does not return a failure.
+          Note that the timeout paramater applies to each try rather than
+          to the complete set of tries."
+
+    munge do |value|
+      if value.is_a?(String)
+        unless value =~ /^[\d]+$/
+          raise ArgumentError, "Tries must be an integer"
+        end
+        value = Integer(value)
+      end
+      raise ArgumentError, "Tries must be an integer >= 1" if value < 1
+      value
+    end
+
+    defaultto 1
+  end
+
+  newparam(:try_sleep) do
+    desc "The time to sleep in seconds between 'tries'."
+
+    munge do |value|
+      if value.is_a?(String)
+        unless value =~ /^[-\d.]+$/
+          raise ArgumentError, "try_sleep must be a number"
+        end
+        value = Float(value)
+      end
+      raise ArgumentError, "try_sleep cannot be a negative number" if value < 0
+      value
+    end
+
+    defaultto 0
+  end
+
   def server_reference
     catalog.resource("Jboss_admin::Server[#{self[:server]}]")
   end
@@ -51,10 +89,35 @@ Puppet::Type.newtype(:jboss_exec) do
     end
 
     def sync
-      output = provider.execute_command(resource[:command])
+      tries = self.resource[:tries]
+      try_sleep = self.resource[:try_sleep]
+
+      output = nil
+
+      # attempt toe CLI command for each try
+      begin tries.times do |try|
+        # Only add debug messages for tries > 1 to reduce log spam.
+        debug("Exec try #{try+1}/#{tries}") if tries > 1
+
+        # run the command
+        output = provider.execute_command(resource[:command])
+
+        # break the try loop if command was a success
+        break if output['outcome'] != 'failed'
+
+        # sleep before next attempt
+        if try_sleep > 0 and tries > 1
+          debug("Sleeping for #{try_sleep} seconds between tries")
+          sleep try_sleep
+        end
+      end
+
+      # log output if required
       if (resource[:logoutput] == :true || (output['outcome'] == 'failed' && resource[:logoutput] == :on_failure))
         self.send(@resource[:loglevel], output.inspect)
       end
+
+      # fail if CLI command failed
       if output['outcome'] == 'failed'
         self.fail("Error executing CLI command `#{resource[:command]}`: #{output['failure-description']}") 
       end
