@@ -6,11 +6,10 @@
 # like we'll need to maintain this for some time perhaps.
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__),"..",".."))
 
-require 'puppet/util/cli_parser'
-require 'puppet/util/path_generator'
-
 Puppet::Type.newtype(:jboss_resource) do
   @doc = "A resource within a JBoss container"
+  feature :treetop, "The treetop gem for resource parsing"
+
 
   ensurable
 
@@ -60,6 +59,9 @@ Puppet::Type.newtype(:jboss_resource) do
   end
 
   autorequire(:jboss_resource) do
+    require 'puppet/util/cli_parser'
+    require 'puppet/util/path_generator'
+
     parser = CliParser.new
     resource_path = parser.parse_path value(:address)
     raise "Could not parse resource path #{value(:address)}, autorequire will fail" unless resource_path
