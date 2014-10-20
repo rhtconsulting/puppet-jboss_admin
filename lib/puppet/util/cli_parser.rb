@@ -1,3 +1,9 @@
+gem_path = File.expand_path('../cli_parser/external/gems/treetop-1.5.3/lib', __FILE__)
+$LOAD_PATH.unshift(gem_path) unless $LOAD_PATH.include? gem_path
+
+gem_path = File.expand_path('../cli_parser/external/gems/polyglot-0.3.5/lib', __FILE__)
+$LOAD_PATH.unshift(gem_path) unless $LOAD_PATH.include? gem_path
+
 require 'treetop'
 require File.expand_path('../cli_parser/cli_path', __FILE__)
 require File.expand_path('../cli_parser/cli_command', __FILE__)
