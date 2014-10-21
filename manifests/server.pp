@@ -27,5 +27,5 @@ define jboss_admin::server (
   }
 
   Jboss_resource<| server == $name |> -> Jboss_admin::Cleanup[$name]
-  Jboss_exec<| server == $name and title != "Restart Server $name" and title != "Reload Server $name"|> -> Jboss_admin::Cleanup[$name]
+  Jboss_exec<| server == $name and title != "Restart Server $name" and title != "Reload Server $name" and title != "Check Server Up After $name" |> -> Jboss_admin::Cleanup[$name]
 }

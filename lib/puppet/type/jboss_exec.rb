@@ -96,23 +96,32 @@ Puppet::Type.newtype(:jboss_exec) do
       try_sleep = self.resource[:try_sleep]
 
       output = nil
+      last_error = nil
 
       # attempt toe CLI command for each try
-      begin tries.times do |try|
-        # Only add debug messages for tries > 1 to reduce log spam.
-        debug("Exec try #{try+1}/#{tries}") if tries > 1
+      tries.times do |try|
+        begin
+          # Only add debug messages for tries > 1 to reduce log spam.
+          debug("Exec try #{try+1}/#{tries}") if tries > 1
 
-        # run the command
-        output = provider.execute_command(resource[:command])
+          # run the command
+          output = provider.execute_command(resource[:command])
 
-        # break the try loop if command was a success
-        break if output['outcome'] != 'failed'
+          # break the try loop if command was a success
+          break if output['outcome'] != 'failed'
 
-        # sleep before next attempt
-        if try_sleep > 0 and tries > 1
-          debug("Sleeping for #{try_sleep} seconds between tries")
-          sleep try_sleep
+          # sleep before next attempt
+          if try_sleep > 0 and tries > 1
+            debug("Sleeping for #{try_sleep} seconds between tries")
+            sleep try_sleep
+          end
+        rescue => e
+          last_error = e
         end
+      end
+
+      if (!output)
+        self.fail("Error executing CLI command `#{resource[:command]}`: #{last_error}")
       end
 
       # log output if required
