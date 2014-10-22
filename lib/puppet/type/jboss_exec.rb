@@ -21,6 +21,10 @@ Puppet::Type.newtype(:jboss_exec) do
     desc "The command to execute, given in CLI format"
   end
 
+  newparam(:arguments) do
+    desc "Arguments to be appended to the command"
+  end
+
   newparam(:unless) do
     desc "If specified, the command is only executed when this evaluates to false"
   end
@@ -105,7 +109,7 @@ Puppet::Type.newtype(:jboss_exec) do
           debug("Exec try #{try+1}/#{tries}") if tries > 1
 
           # run the command
-          output = provider.execute_command(resource[:command])
+          output = provider.execute_command(resource[:command], resource[:arguments])
 
           # break the try loop if command was a success
           break if output['outcome'] != 'failed'
