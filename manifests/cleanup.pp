@@ -14,7 +14,7 @@ define jboss_admin::cleanup(
     notify  => Jboss_exec["Check Server Up After $name"],
     server  => $server
   }
-
+  ->
   jboss_exec{"Check Server Up After $name":
     command     => ':read-attribute(name=server-state)',
     refreshonly => true,
@@ -22,5 +22,4 @@ define jboss_admin::cleanup(
     try_sleep   => 1,
     server      => $server
   }
-
 }
