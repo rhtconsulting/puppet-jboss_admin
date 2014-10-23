@@ -44,7 +44,7 @@ define jboss_admin::resource::cache_container (
   $start                          = undef,
   $statistics_enabled             = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -75,8 +75,8 @@ define jboss_admin::resource::cache_container (
     if $start != undef and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
     }
-    if $statistics_enabled != undef and !is_bool($statistics_enabled) { 
-      fail('The attribute statistics_enabled is not a boolean') 
+    if $statistics_enabled != undef { 
+      validate_bool($statistics_enabled)
     }
   
 
@@ -93,7 +93,7 @@ define jboss_admin::resource::cache_container (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -103,7 +103,7 @@ define jboss_admin::resource::cache_container (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

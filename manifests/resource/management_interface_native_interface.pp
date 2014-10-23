@@ -24,7 +24,7 @@ define jboss_admin::resource::management_interface_native_interface (
   $security_realm                 = undef,
   $socket_binding                 = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -50,7 +50,7 @@ define jboss_admin::resource::management_interface_native_interface (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::management_interface_native_interface (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

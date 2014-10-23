@@ -1,4 +1,4 @@
-# == Defines jboss_admin::stack
+# = Defines jboss_admin::stack
 #
 # The configuration of a JGroups protocol stack.
 #
@@ -7,6 +7,8 @@
 # [*protocols*]
 #   The list of configured protocols for a protocol stack.
 #
+# [*transport*]
+#   A JGroups stack transport layer.
 #
 define jboss_admin::resource::stack (
   $server,

@@ -108,12 +108,12 @@ define jboss_admin::resource::mod_cluster_config (
   $ttl                            = undef,
   $worker_timeout                 = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $advertise != undef and !is_bool($advertise) { 
-      fail('The attribute advertise is not a boolean') 
+    if $advertise != undef { 
+      validate_bool($advertise)
     }
     if $advertise_security_key != undef and !is_string($advertise_security_key) { 
       fail('The attribute advertise_security_key is not a string') 
@@ -121,8 +121,8 @@ define jboss_admin::resource::mod_cluster_config (
     if $advertise_socket != undef and !is_string($advertise_socket) { 
       fail('The attribute advertise_socket is not a string') 
     }
-    if $auto_enable_contexts != undef and !is_bool($auto_enable_contexts) { 
-      fail('The attribute auto_enable_contexts is not a boolean') 
+    if $auto_enable_contexts != undef { 
+      validate_bool($auto_enable_contexts)
     }
     if $balancer != undef and !is_string($balancer) { 
       fail('The attribute balancer is not a string') 
@@ -133,8 +133,8 @@ define jboss_admin::resource::mod_cluster_config (
     if $excluded_contexts != undef and !is_string($excluded_contexts) { 
       fail('The attribute excluded_contexts is not a string') 
     }
-    if $flush_packets != undef and !is_bool($flush_packets) { 
-      fail('The attribute flush_packets is not a boolean') 
+    if $flush_packets != undef { 
+      validate_bool($flush_packets)
     }
     if $flush_wait != undef and !is_integer($flush_wait) { 
       fail('The attribute flush_wait is not an integer') 
@@ -172,14 +172,14 @@ define jboss_admin::resource::mod_cluster_config (
     if $socket_timeout != undef and !is_integer($socket_timeout) { 
       fail('The attribute socket_timeout is not an integer') 
     }
-    if $sticky_session != undef and !is_bool($sticky_session) { 
-      fail('The attribute sticky_session is not a boolean') 
+    if $sticky_session != undef { 
+      validate_bool($sticky_session)
     }
-    if $sticky_session_force != undef and !is_bool($sticky_session_force) { 
-      fail('The attribute sticky_session_force is not a boolean') 
+    if $sticky_session_force != undef { 
+      validate_bool($sticky_session_force)
     }
-    if $sticky_session_remove != undef and !is_bool($sticky_session_remove) { 
-      fail('The attribute sticky_session_remove is not a boolean') 
+    if $sticky_session_remove != undef { 
+      validate_bool($sticky_session_remove)
     }
     if $stop_context_timeout != undef and !is_integer($stop_context_timeout) { 
       fail('The attribute stop_context_timeout is not an integer') 
@@ -221,7 +221,7 @@ define jboss_admin::resource::mod_cluster_config (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -231,7 +231,7 @@ define jboss_admin::resource::mod_cluster_config (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

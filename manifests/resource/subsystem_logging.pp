@@ -12,12 +12,12 @@ define jboss_admin::resource::subsystem_logging (
   $server,
   $add_logging_api_dependencies   = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $add_logging_api_dependencies != undef and !is_bool($add_logging_api_dependencies) { 
-      fail('The attribute add_logging_api_dependencies is not a boolean') 
+    if $add_logging_api_dependencies != undef { 
+      validate_bool($add_logging_api_dependencies)
     }
   
 
@@ -26,7 +26,7 @@ define jboss_admin::resource::subsystem_logging (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -36,7 +36,7 @@ define jboss_admin::resource::subsystem_logging (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

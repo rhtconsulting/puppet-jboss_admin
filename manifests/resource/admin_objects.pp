@@ -24,21 +24,21 @@ define jboss_admin::resource::admin_objects (
   $jndi_name                      = undef,
   $use_java_context               = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $class_name != undef and !is_string($class_name) { 
       fail('The attribute class_name is not a string') 
     }
-    if $enabled != undef and !is_bool($enabled) { 
-      fail('The attribute enabled is not a boolean') 
+    if $enabled != undef { 
+      validate_bool($enabled)
     }
     if $jndi_name != undef and !is_string($jndi_name) { 
       fail('The attribute jndi_name is not a string') 
     }
-    if $use_java_context != undef and !is_bool($use_java_context) { 
-      fail('The attribute use_java_context is not a boolean') 
+    if $use_java_context != undef { 
+      validate_bool($use_java_context)
     }
   
 
@@ -50,7 +50,7 @@ define jboss_admin::resource::admin_objects (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::admin_objects (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

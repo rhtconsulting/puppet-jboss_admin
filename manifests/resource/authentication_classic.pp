@@ -12,7 +12,7 @@ define jboss_admin::resource::authentication_classic (
   $server,
   $login_modules                  = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -26,7 +26,7 @@ define jboss_admin::resource::authentication_classic (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -36,7 +36,7 @@ define jboss_admin::resource::authentication_classic (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

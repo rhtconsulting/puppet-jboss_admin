@@ -43,8 +43,8 @@ define jboss_admin::resource::<%= type[:name] %> (
 <%     end
      end -%>
 <%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'BOOLEAN' -%>
-    if $<%= puppet_name attr %> != undef and !is_bool($<%= puppet_name attr %>) { 
-      fail('The attribute <%= puppet_name attr %> is not a boolean') 
+    if $<%= puppet_name attr %> != undef { 
+      validate_bool($<%= puppet_name attr %>)
     }
 <%   end -%>
 <%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'LIST' -%>

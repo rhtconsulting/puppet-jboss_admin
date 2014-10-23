@@ -16,15 +16,15 @@ define jboss_admin::resource::service_iiop (
   $enable_by_default              = undef,
   $use_qualified_name             = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $enable_by_default != undef and !is_bool($enable_by_default) { 
-      fail('The attribute enable_by_default is not a boolean') 
+    if $enable_by_default != undef { 
+      validate_bool($enable_by_default)
     }
-    if $use_qualified_name != undef and !is_bool($use_qualified_name) { 
-      fail('The attribute use_qualified_name is not a boolean') 
+    if $use_qualified_name != undef { 
+      validate_bool($use_qualified_name)
     }
   
 
@@ -34,7 +34,7 @@ define jboss_admin::resource::service_iiop (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -44,7 +44,7 @@ define jboss_admin::resource::service_iiop (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

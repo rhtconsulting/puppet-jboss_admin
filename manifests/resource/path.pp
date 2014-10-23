@@ -24,7 +24,7 @@ define jboss_admin::resource::path (
   $read_only                      = undef,
   $relative_to                    = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -34,8 +34,8 @@ define jboss_admin::resource::path (
     if $path != undef and !is_string($path) { 
       fail('The attribute path is not a string') 
     }
-    if $read_only != undef and !is_bool($read_only) { 
-      fail('The attribute read_only is not a boolean') 
+    if $read_only != undef { 
+      validate_bool($read_only)
     }
     if $relative_to != undef and !is_string($relative_to) { 
       fail('The attribute relative_to is not a string') 
@@ -50,7 +50,7 @@ define jboss_admin::resource::path (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::path (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

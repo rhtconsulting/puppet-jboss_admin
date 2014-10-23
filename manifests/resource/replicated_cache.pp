@@ -56,15 +56,15 @@ define jboss_admin::resource::replicated_cache (
   $start                          = undef,
   $statistics_enabled             = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $async_marshalling != undef and !is_bool($async_marshalling) { 
-      fail('The attribute async_marshalling is not a boolean') 
+    if $async_marshalling != undef { 
+      validate_bool($async_marshalling)
     }
-    if $batching != undef and !is_bool($batching) { 
-      fail('The attribute batching is not a boolean') 
+    if $batching != undef { 
+      validate_bool($batching)
     }
     if $indexing != undef and !is_string($indexing) { 
       fail('The attribute indexing is not a string') 
@@ -99,8 +99,8 @@ define jboss_admin::resource::replicated_cache (
     if $start != undef and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
     }
-    if $statistics_enabled != undef and !is_bool($statistics_enabled) { 
-      fail('The attribute statistics_enabled is not a boolean') 
+    if $statistics_enabled != undef { 
+      validate_bool($statistics_enabled)
     }
   
 
@@ -120,7 +120,7 @@ define jboss_admin::resource::replicated_cache (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -130,7 +130,7 @@ define jboss_admin::resource::replicated_cache (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

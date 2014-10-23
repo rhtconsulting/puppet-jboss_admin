@@ -24,7 +24,7 @@ define jboss_admin::resource::access_authorization (
   $provider                       = undef,
   $standard_role_names            = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -56,7 +56,7 @@ define jboss_admin::resource::access_authorization (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -66,7 +66,7 @@ define jboss_admin::resource::access_authorization (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

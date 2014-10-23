@@ -140,7 +140,7 @@ define jboss_admin::resource::connection_definitions (
   $wrap_xa_resource               = undef,
   $xa_resource_timeout            = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -150,8 +150,8 @@ define jboss_admin::resource::connection_definitions (
     if $allocation_retry_wait_millis != undef and !is_integer($allocation_retry_wait_millis) { 
       fail('The attribute allocation_retry_wait_millis is not an integer') 
     }
-    if $background_validation != undef and !is_bool($background_validation) { 
-      fail('The attribute background_validation is not a boolean') 
+    if $background_validation != undef { 
+      validate_bool($background_validation)
     }
     if $background_validation_millis != undef and !is_integer($background_validation_millis) { 
       fail('The attribute background_validation_millis is not an integer') 
@@ -162,8 +162,8 @@ define jboss_admin::resource::connection_definitions (
     if $class_name != undef and !is_string($class_name) { 
       fail('The attribute class_name is not a string') 
     }
-    if $enabled != undef and !is_bool($enabled) { 
-      fail('The attribute enabled is not a boolean') 
+    if $enabled != undef { 
+      validate_bool($enabled)
     }
     if $flush_strategy != undef and !is_string($flush_strategy) { 
       fail('The attribute flush_strategy is not a string') 
@@ -174,8 +174,8 @@ define jboss_admin::resource::connection_definitions (
     if $idle_timeout_minutes != undef and !is_integer($idle_timeout_minutes) { 
       fail('The attribute idle_timeout_minutes is not an integer') 
     }
-    if $interleaving != undef and !is_bool($interleaving) { 
-      fail('The attribute interleaving is not a boolean') 
+    if $interleaving != undef { 
+      validate_bool($interleaving)
     }
     if $jndi_name != undef and !is_string($jndi_name) { 
       fail('The attribute jndi_name is not a string') 
@@ -186,20 +186,20 @@ define jboss_admin::resource::connection_definitions (
     if $min_pool_size != undef and !is_integer($min_pool_size) { 
       fail('The attribute min_pool_size is not an integer') 
     }
-    if $no_recovery != undef and !is_bool($no_recovery) { 
-      fail('The attribute no_recovery is not a boolean') 
+    if $no_recovery != undef { 
+      validate_bool($no_recovery)
     }
-    if $no_tx_separate_pool != undef and !is_bool($no_tx_separate_pool) { 
-      fail('The attribute no_tx_separate_pool is not a boolean') 
+    if $no_tx_separate_pool != undef { 
+      validate_bool($no_tx_separate_pool)
     }
-    if $pad_xid != undef and !is_bool($pad_xid) { 
-      fail('The attribute pad_xid is not a boolean') 
+    if $pad_xid != undef { 
+      validate_bool($pad_xid)
     }
-    if $pool_prefill != undef and !is_bool($pool_prefill) { 
-      fail('The attribute pool_prefill is not a boolean') 
+    if $pool_prefill != undef { 
+      validate_bool($pool_prefill)
     }
-    if $pool_use_strict_min != undef and !is_bool($pool_use_strict_min) { 
-      fail('The attribute pool_use_strict_min is not a boolean') 
+    if $pool_use_strict_min != undef { 
+      validate_bool($pool_use_strict_min)
     }
     if $recovery_password != undef and !is_string($recovery_password) { 
       fail('The attribute recovery_password is not a string') 
@@ -213,11 +213,11 @@ define jboss_admin::resource::connection_definitions (
     if $recovery_username != undef and !is_string($recovery_username) { 
       fail('The attribute recovery_username is not a string') 
     }
-    if $same_rm_override != undef and !is_bool($same_rm_override) { 
-      fail('The attribute same_rm_override is not a boolean') 
+    if $same_rm_override != undef { 
+      validate_bool($same_rm_override)
     }
-    if $security_application != undef and !is_bool($security_application) { 
-      fail('The attribute security_application is not a boolean') 
+    if $security_application != undef { 
+      validate_bool($security_application)
     }
     if $security_domain != undef and !is_string($security_domain) { 
       fail('The attribute security_domain is not a string') 
@@ -225,20 +225,20 @@ define jboss_admin::resource::connection_definitions (
     if $security_domain_and_application != undef and !is_string($security_domain_and_application) { 
       fail('The attribute security_domain_and_application is not a string') 
     }
-    if $use_ccm != undef and !is_bool($use_ccm) { 
-      fail('The attribute use_ccm is not a boolean') 
+    if $use_ccm != undef { 
+      validate_bool($use_ccm)
     }
-    if $use_fast_fail != undef and !is_bool($use_fast_fail) { 
-      fail('The attribute use_fast_fail is not a boolean') 
+    if $use_fast_fail != undef { 
+      validate_bool($use_fast_fail)
     }
-    if $use_java_context != undef and !is_bool($use_java_context) { 
-      fail('The attribute use_java_context is not a boolean') 
+    if $use_java_context != undef { 
+      validate_bool($use_java_context)
     }
     if $use_try_lock != undef and !is_integer($use_try_lock) { 
       fail('The attribute use_try_lock is not an integer') 
     }
-    if $wrap_xa_resource != undef and !is_bool($wrap_xa_resource) { 
-      fail('The attribute wrap_xa_resource is not a boolean') 
+    if $wrap_xa_resource != undef { 
+      validate_bool($wrap_xa_resource)
     }
     if $xa_resource_timeout != undef and !is_integer($xa_resource_timeout) { 
       fail('The attribute xa_resource_timeout is not an integer') 
@@ -282,7 +282,7 @@ define jboss_admin::resource::connection_definitions (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -292,7 +292,7 @@ define jboss_admin::resource::connection_definitions (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -200,7 +200,7 @@ define jboss_admin::resource::data_source (
   $valid_connection_checker_properties = undef,
   $validate_on_match              = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -210,11 +210,11 @@ define jboss_admin::resource::data_source (
     if $allocation_retry_wait_millis != undef and !is_integer($allocation_retry_wait_millis) { 
       fail('The attribute allocation_retry_wait_millis is not an integer') 
     }
-    if $allow_multiple_users != undef and !is_bool($allow_multiple_users) { 
-      fail('The attribute allow_multiple_users is not a boolean') 
+    if $allow_multiple_users != undef { 
+      validate_bool($allow_multiple_users)
     }
-    if $background_validation != undef and !is_bool($background_validation) { 
-      fail('The attribute background_validation is not a boolean') 
+    if $background_validation != undef { 
+      validate_bool($background_validation)
     }
     if $background_validation_millis != undef and !is_integer($background_validation_millis) { 
       fail('The attribute background_validation_millis is not an integer') 
@@ -225,8 +225,8 @@ define jboss_admin::resource::data_source (
     if $check_valid_connection_sql != undef and !is_string($check_valid_connection_sql) { 
       fail('The attribute check_valid_connection_sql is not a string') 
     }
-    if $connectable != undef and !is_bool($connectable) { 
-      fail('The attribute connectable is not a boolean') 
+    if $connectable != undef { 
+      validate_bool($connectable)
     }
     if $connection_url != undef and !is_string($connection_url) { 
       fail('The attribute connection_url is not a string') 
@@ -240,8 +240,8 @@ define jboss_admin::resource::data_source (
     if $driver_name != undef and !is_string($driver_name) { 
       fail('The attribute driver_name is not a string') 
     }
-    if $enabled != undef and !is_bool($enabled) { 
-      fail('The attribute enabled is not a boolean') 
+    if $enabled != undef { 
+      validate_bool($enabled)
     }
     if $exception_sorter_class_name != undef and !is_string($exception_sorter_class_name) { 
       fail('The attribute exception_sorter_class_name is not a string') 
@@ -258,8 +258,8 @@ define jboss_admin::resource::data_source (
     if $jndi_name != undef and !is_string($jndi_name) { 
       fail('The attribute jndi_name is not a string') 
     }
-    if $jta != undef and !is_bool($jta) { 
-      fail('The attribute jta is not a boolean') 
+    if $jta != undef { 
+      validate_bool($jta)
     }
     if $max_pool_size != undef and !is_integer($max_pool_size) { 
       fail('The attribute max_pool_size is not an integer') 
@@ -273,11 +273,11 @@ define jboss_admin::resource::data_source (
     if $password != undef and !is_string($password) { 
       fail('The attribute password is not a string') 
     }
-    if $pool_prefill != undef and !is_bool($pool_prefill) { 
-      fail('The attribute pool_prefill is not a boolean') 
+    if $pool_prefill != undef { 
+      validate_bool($pool_prefill)
     }
-    if $pool_use_strict_min != undef and !is_bool($pool_use_strict_min) { 
-      fail('The attribute pool_use_strict_min is not a boolean') 
+    if $pool_use_strict_min != undef { 
+      validate_bool($pool_use_strict_min)
     }
     if $prepared_statements_cache_size != undef and !is_integer($prepared_statements_cache_size) { 
       fail('The attribute prepared_statements_cache_size is not an integer') 
@@ -291,20 +291,20 @@ define jboss_admin::resource::data_source (
     if $security_domain != undef and !is_string($security_domain) { 
       fail('The attribute security_domain is not a string') 
     }
-    if $set_tx_query_timeout != undef and !is_bool($set_tx_query_timeout) { 
-      fail('The attribute set_tx_query_timeout is not a boolean') 
+    if $set_tx_query_timeout != undef { 
+      validate_bool($set_tx_query_timeout)
     }
-    if $share_prepared_statements != undef and !is_bool($share_prepared_statements) { 
-      fail('The attribute share_prepared_statements is not a boolean') 
+    if $share_prepared_statements != undef { 
+      validate_bool($share_prepared_statements)
     }
-    if $spy != undef and !is_bool($spy) { 
-      fail('The attribute spy is not a boolean') 
+    if $spy != undef { 
+      validate_bool($spy)
     }
     if $stale_connection_checker_class_name != undef and !is_string($stale_connection_checker_class_name) { 
       fail('The attribute stale_connection_checker_class_name is not a string') 
     }
-    if $statistics_enabled != undef and !is_bool($statistics_enabled) { 
-      fail('The attribute statistics_enabled is not a boolean') 
+    if $statistics_enabled != undef { 
+      validate_bool($statistics_enabled)
     }
     if $track_statements != undef and !is_string($track_statements) { 
       fail('The attribute track_statements is not a string') 
@@ -318,14 +318,14 @@ define jboss_admin::resource::data_source (
     if $url_selector_strategy_class_name != undef and !is_string($url_selector_strategy_class_name) { 
       fail('The attribute url_selector_strategy_class_name is not a string') 
     }
-    if $use_ccm != undef and !is_bool($use_ccm) { 
-      fail('The attribute use_ccm is not a boolean') 
+    if $use_ccm != undef { 
+      validate_bool($use_ccm)
     }
-    if $use_fast_fail != undef and !is_bool($use_fast_fail) { 
-      fail('The attribute use_fast_fail is not a boolean') 
+    if $use_fast_fail != undef { 
+      validate_bool($use_fast_fail)
     }
-    if $use_java_context != undef and !is_bool($use_java_context) { 
-      fail('The attribute use_java_context is not a boolean') 
+    if $use_java_context != undef { 
+      validate_bool($use_java_context)
     }
     if $use_try_lock != undef and !is_integer($use_try_lock) { 
       fail('The attribute use_try_lock is not an integer') 
@@ -336,8 +336,8 @@ define jboss_admin::resource::data_source (
     if $valid_connection_checker_class_name != undef and !is_string($valid_connection_checker_class_name) { 
       fail('The attribute valid_connection_checker_class_name is not a string') 
     }
-    if $validate_on_match != undef and !is_bool($validate_on_match) { 
-      fail('The attribute validate_on_match is not a boolean') 
+    if $validate_on_match != undef { 
+      validate_bool($validate_on_match)
     }
   
 
@@ -393,7 +393,7 @@ define jboss_admin::resource::data_source (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -403,7 +403,7 @@ define jboss_admin::resource::data_source (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

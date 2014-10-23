@@ -33,12 +33,12 @@ define jboss_admin::resource::json_formatter (
   $escape_new_line                = undef,
   $include_date                   = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $compact != undef and !is_bool($compact) { 
-      fail('The attribute compact is not a boolean') 
+    if $compact != undef { 
+      validate_bool($compact)
     }
     if $date_format != undef and !is_string($date_format) { 
       fail('The attribute date_format is not a string') 
@@ -46,14 +46,14 @@ define jboss_admin::resource::json_formatter (
     if $date_separator != undef and !is_string($date_separator) { 
       fail('The attribute date_separator is not a string') 
     }
-    if $escape_control_characters != undef and !is_bool($escape_control_characters) { 
-      fail('The attribute escape_control_characters is not a boolean') 
+    if $escape_control_characters != undef { 
+      validate_bool($escape_control_characters)
     }
-    if $escape_new_line != undef and !is_bool($escape_new_line) { 
-      fail('The attribute escape_new_line is not a boolean') 
+    if $escape_new_line != undef { 
+      validate_bool($escape_new_line)
     }
-    if $include_date != undef and !is_bool($include_date) { 
-      fail('The attribute include_date is not a boolean') 
+    if $include_date != undef { 
+      validate_bool($include_date)
     }
   
 
@@ -67,7 +67,7 @@ define jboss_admin::resource::json_formatter (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -77,7 +77,7 @@ define jboss_admin::resource::json_formatter (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

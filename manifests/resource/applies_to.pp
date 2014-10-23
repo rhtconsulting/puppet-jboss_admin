@@ -24,7 +24,7 @@ define jboss_admin::resource::applies_to (
   $entire_resource                = undef,
   $operations                     = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -34,8 +34,8 @@ define jboss_admin::resource::applies_to (
     if $attributes != undef and !is_array($attributes) { 
       fail('The attribute attributes is not an array') 
     }
-    if $entire_resource != undef and !is_bool($entire_resource) { 
-      fail('The attribute entire_resource is not a boolean') 
+    if $entire_resource != undef { 
+      validate_bool($entire_resource)
     }
     if $operations != undef and !is_array($operations) { 
       fail('The attribute operations is not an array') 
@@ -50,7 +50,7 @@ define jboss_admin::resource::applies_to (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::applies_to (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

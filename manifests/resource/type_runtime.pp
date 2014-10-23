@@ -72,15 +72,15 @@ define jboss_admin::resource::type_runtime (
   $vm_vendor                      = undef,
   $vm_version                     = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $boot_class_path != undef and !is_string($boot_class_path) { 
       fail('The attribute boot_class_path is not a string') 
     }
-    if $boot_class_path_supported != undef and !is_bool($boot_class_path_supported) { 
-      fail('The attribute boot_class_path_supported is not a boolean') 
+    if $boot_class_path_supported != undef { 
+      validate_bool($boot_class_path_supported)
     }
     if $class_path != undef and !is_string($class_path) { 
       fail('The attribute class_path is not a string') 
@@ -143,7 +143,7 @@ define jboss_admin::resource::type_runtime (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -153,7 +153,7 @@ define jboss_admin::resource::type_runtime (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

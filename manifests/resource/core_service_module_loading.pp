@@ -12,7 +12,7 @@ define jboss_admin::resource::core_service_module_loading (
   $server,
   $module_roots                   = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -26,7 +26,7 @@ define jboss_admin::resource::core_service_module_loading (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -36,7 +36,7 @@ define jboss_admin::resource::core_service_module_loading (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

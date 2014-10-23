@@ -36,12 +36,12 @@ define jboss_admin::resource::management_interface_http_interface (
   $security_realm                 = undef,
   $socket_binding                 = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $console_enabled != undef and !is_bool($console_enabled) { 
-      fail('The attribute console_enabled is not a boolean') 
+    if $console_enabled != undef { 
+      validate_bool($console_enabled)
     }
     if $interface != undef and !is_string($interface) { 
       fail('The attribute interface is not a string') 
@@ -74,7 +74,7 @@ define jboss_admin::resource::management_interface_http_interface (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -84,7 +84,7 @@ define jboss_admin::resource::management_interface_http_interface (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

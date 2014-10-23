@@ -24,7 +24,7 @@ define jboss_admin::resource::load_metric (
   $type                           = undef,
   $weight                         = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -47,7 +47,7 @@ define jboss_admin::resource::load_metric (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -57,7 +57,7 @@ define jboss_admin::resource::load_metric (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

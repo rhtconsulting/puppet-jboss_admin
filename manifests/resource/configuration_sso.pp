@@ -24,7 +24,7 @@ define jboss_admin::resource::configuration_sso (
   $domain                         = undef,
   $reauthenticate                 = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -37,8 +37,8 @@ define jboss_admin::resource::configuration_sso (
     if $domain != undef and !is_string($domain) { 
       fail('The attribute domain is not a string') 
     }
-    if $reauthenticate != undef and !is_bool($reauthenticate) { 
-      fail('The attribute reauthenticate is not a boolean') 
+    if $reauthenticate != undef { 
+      validate_bool($reauthenticate)
     }
   
 
@@ -50,7 +50,7 @@ define jboss_admin::resource::configuration_sso (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::configuration_sso (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

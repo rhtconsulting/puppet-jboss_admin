@@ -44,7 +44,7 @@ define jboss_admin::resource::group_search_group_to_principal (
   $recursive                      = undef,
   $search_by                      = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -63,17 +63,17 @@ define jboss_admin::resource::group_search_group_to_principal (
     if $group_name_attribute != undef and !is_string($group_name_attribute) { 
       fail('The attribute group_name_attribute is not a string') 
     }
-    if $iterative != undef and !is_bool($iterative) { 
-      fail('The attribute iterative is not a boolean') 
+    if $iterative != undef { 
+      validate_bool($iterative)
     }
-    if $prefer_original_connection != undef and !is_bool($prefer_original_connection) { 
-      fail('The attribute prefer_original_connection is not a boolean') 
+    if $prefer_original_connection != undef { 
+      validate_bool($prefer_original_connection)
     }
     if $principal_attribute != undef and !is_string($principal_attribute) { 
       fail('The attribute principal_attribute is not a string') 
     }
-    if $recursive != undef and !is_bool($recursive) { 
-      fail('The attribute recursive is not a boolean') 
+    if $recursive != undef { 
+      validate_bool($recursive)
     }
     if $search_by != undef and !is_string($search_by) { 
       fail('The attribute search_by is not a string') 
@@ -96,7 +96,7 @@ define jboss_admin::resource::group_search_group_to_principal (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -106,7 +106,7 @@ define jboss_admin::resource::group_search_group_to_principal (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -16,12 +16,12 @@ define jboss_admin::resource::authentication_jaas (
   $assign_groups                  = undef,
   $resource_name                  = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $assign_groups != undef and !is_bool($assign_groups) { 
-      fail('The attribute assign_groups is not a boolean') 
+    if $assign_groups != undef { 
+      validate_bool($assign_groups)
     }
     if $resource_name != undef and !is_string($resource_name) { 
       fail('The attribute resource_name is not a string') 
@@ -34,7 +34,7 @@ define jboss_admin::resource::authentication_jaas (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -44,7 +44,7 @@ define jboss_admin::resource::authentication_jaas (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

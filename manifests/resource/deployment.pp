@@ -28,21 +28,21 @@ define jboss_admin::resource::deployment (
   $persistent                     = undef,
   $runtime_name                   = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $content != undef and !is_array($content) { 
       fail('The attribute content is not an array') 
     }
-    if $enabled != undef and !is_bool($enabled) { 
-      fail('The attribute enabled is not a boolean') 
+    if $enabled != undef { 
+      validate_bool($enabled)
     }
     if $resource_name != undef and !is_string($resource_name) { 
       fail('The attribute resource_name is not a string') 
     }
-    if $persistent != undef and !is_bool($persistent) { 
-      fail('The attribute persistent is not a boolean') 
+    if $persistent != undef { 
+      validate_bool($persistent)
     }
     if $runtime_name != undef and !is_string($runtime_name) { 
       fail('The attribute runtime_name is not a string') 
@@ -58,7 +58,7 @@ define jboss_admin::resource::deployment (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -68,7 +68,7 @@ define jboss_admin::resource::deployment (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

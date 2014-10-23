@@ -32,27 +32,27 @@ define jboss_admin::resource::sasl_policy (
   $no_plain_text                  = undef,
   $pass_credentials               = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $forward_secrecy != undef and !is_bool($forward_secrecy) { 
-      fail('The attribute forward_secrecy is not a boolean') 
+    if $forward_secrecy != undef { 
+      validate_bool($forward_secrecy)
     }
-    if $no_active != undef and !is_bool($no_active) { 
-      fail('The attribute no_active is not a boolean') 
+    if $no_active != undef { 
+      validate_bool($no_active)
     }
-    if $no_anonymous != undef and !is_bool($no_anonymous) { 
-      fail('The attribute no_anonymous is not a boolean') 
+    if $no_anonymous != undef { 
+      validate_bool($no_anonymous)
     }
-    if $no_dictionary != undef and !is_bool($no_dictionary) { 
-      fail('The attribute no_dictionary is not a boolean') 
+    if $no_dictionary != undef { 
+      validate_bool($no_dictionary)
     }
-    if $no_plain_text != undef and !is_bool($no_plain_text) { 
-      fail('The attribute no_plain_text is not a boolean') 
+    if $no_plain_text != undef { 
+      validate_bool($no_plain_text)
     }
-    if $pass_credentials != undef and !is_bool($pass_credentials) { 
-      fail('The attribute pass_credentials is not a boolean') 
+    if $pass_credentials != undef { 
+      validate_bool($pass_credentials)
     }
   
 
@@ -66,7 +66,7 @@ define jboss_admin::resource::sasl_policy (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -76,7 +76,7 @@ define jboss_admin::resource::sasl_policy (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

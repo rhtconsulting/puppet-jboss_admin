@@ -28,12 +28,12 @@ define jboss_admin::resource::remote_destination_outbound_socket_binding (
   $source_interface               = undef,
   $source_port                    = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $fixed_source_port != undef and !is_bool($fixed_source_port) { 
-      fail('The attribute fixed_source_port is not a boolean') 
+    if $fixed_source_port != undef { 
+      validate_bool($fixed_source_port)
     }
     if $host != undef and !is_string($host) { 
       fail('The attribute host is not a string') 
@@ -58,7 +58,7 @@ define jboss_admin::resource::remote_destination_outbound_socket_binding (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -68,7 +68,7 @@ define jboss_admin::resource::remote_destination_outbound_socket_binding (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -52,7 +52,7 @@ define jboss_admin::resource::jsse (
   $trust_manager                  = undef,
   $truststore                     = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -62,8 +62,8 @@ define jboss_admin::resource::jsse (
     if $client_alias != undef and !is_string($client_alias) { 
       fail('The attribute client_alias is not a string') 
     }
-    if $client_auth != undef and !is_bool($client_auth) { 
-      fail('The attribute client_auth is not a boolean') 
+    if $client_auth != undef { 
+      validate_bool($client_auth)
     }
     if $protocols != undef and !is_string($protocols) { 
       fail('The attribute protocols is not a string') 
@@ -91,7 +91,7 @@ define jboss_admin::resource::jsse (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -101,7 +101,7 @@ define jboss_admin::resource::jsse (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -12,12 +12,12 @@ define jboss_admin::resource::subsystem_security (
   $server,
   $deep_copy_subject_mode         = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $deep_copy_subject_mode != undef and !is_bool($deep_copy_subject_mode) { 
-      fail('The attribute deep_copy_subject_mode is not a boolean') 
+    if $deep_copy_subject_mode != undef { 
+      validate_bool($deep_copy_subject_mode)
     }
   
 
@@ -26,7 +26,7 @@ define jboss_admin::resource::subsystem_security (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -36,7 +36,7 @@ define jboss_admin::resource::subsystem_security (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -36,15 +36,15 @@ define jboss_admin::resource::authentication_ldap (
   $user_dn                        = undef,
   $username_attribute             = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $advanced_filter != undef and !is_string($advanced_filter) { 
       fail('The attribute advanced_filter is not a string') 
     }
-    if $allow_empty_passwords != undef and !is_bool($allow_empty_passwords) { 
-      fail('The attribute allow_empty_passwords is not a boolean') 
+    if $allow_empty_passwords != undef { 
+      validate_bool($allow_empty_passwords)
     }
     if $base_dn != undef and !is_string($base_dn) { 
       fail('The attribute base_dn is not a string') 
@@ -52,8 +52,8 @@ define jboss_admin::resource::authentication_ldap (
     if $connection != undef and !is_string($connection) { 
       fail('The attribute connection is not a string') 
     }
-    if $recursive != undef and !is_bool($recursive) { 
-      fail('The attribute recursive is not a boolean') 
+    if $recursive != undef { 
+      validate_bool($recursive)
     }
     if $user_dn != undef and !is_string($user_dn) { 
       fail('The attribute user_dn is not a string') 
@@ -74,7 +74,7 @@ define jboss_admin::resource::authentication_ldap (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -84,7 +84,7 @@ define jboss_admin::resource::authentication_ldap (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -20,15 +20,15 @@ define jboss_admin::resource::state_transfer (
   $enabled                        = undef,
   $timeout                        = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $chunk_size != undef and !is_integer($chunk_size) { 
       fail('The attribute chunk_size is not an integer') 
     }
-    if $enabled != undef and !is_bool($enabled) { 
-      fail('The attribute enabled is not a boolean') 
+    if $enabled != undef { 
+      validate_bool($enabled)
     }
     if $timeout != undef and !is_integer($timeout) { 
       fail('The attribute timeout is not an integer') 
@@ -42,7 +42,7 @@ define jboss_admin::resource::state_transfer (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -52,7 +52,7 @@ define jboss_admin::resource::state_transfer (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

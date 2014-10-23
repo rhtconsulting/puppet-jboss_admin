@@ -24,21 +24,21 @@ define jboss_admin::resource::constraint_vault_expression (
   $default_requires_read          = undef,
   $default_requires_write         = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $configured_requires_read != undef and !is_bool($configured_requires_read) { 
-      fail('The attribute configured_requires_read is not a boolean') 
+    if $configured_requires_read != undef { 
+      validate_bool($configured_requires_read)
     }
-    if $configured_requires_write != undef and !is_bool($configured_requires_write) { 
-      fail('The attribute configured_requires_write is not a boolean') 
+    if $configured_requires_write != undef { 
+      validate_bool($configured_requires_write)
     }
-    if $default_requires_read != undef and !is_bool($default_requires_read) { 
-      fail('The attribute default_requires_read is not a boolean') 
+    if $default_requires_read != undef { 
+      validate_bool($default_requires_read)
     }
-    if $default_requires_write != undef and !is_bool($default_requires_write) { 
-      fail('The attribute default_requires_write is not a boolean') 
+    if $default_requires_write != undef { 
+      validate_bool($default_requires_write)
     }
   
 
@@ -50,7 +50,7 @@ define jboss_admin::resource::constraint_vault_expression (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::constraint_vault_expression (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

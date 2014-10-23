@@ -40,12 +40,12 @@ define jboss_admin::resource::short_running_threads (
   $queue_length                   = undef,
   $thread_factory                 = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $allow_core_timeout != undef and !is_bool($allow_core_timeout) { 
-      fail('The attribute allow_core_timeout is not a boolean') 
+    if $allow_core_timeout != undef { 
+      validate_bool($allow_core_timeout)
     }
     if $core_threads != undef and !is_integer($core_threads) { 
       fail('The attribute core_threads is not an integer') 
@@ -79,7 +79,7 @@ define jboss_admin::resource::short_running_threads (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -89,7 +89,7 @@ define jboss_admin::resource::short_running_threads (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

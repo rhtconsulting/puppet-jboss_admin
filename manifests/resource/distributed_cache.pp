@@ -72,15 +72,15 @@ define jboss_admin::resource::distributed_cache (
   $statistics_enabled             = undef,
   $virtual_nodes                  = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $async_marshalling != undef and !is_bool($async_marshalling) { 
-      fail('The attribute async_marshalling is not a boolean') 
+    if $async_marshalling != undef { 
+      validate_bool($async_marshalling)
     }
-    if $batching != undef and !is_bool($batching) { 
-      fail('The attribute batching is not a boolean') 
+    if $batching != undef { 
+      validate_bool($batching)
     }
     if $indexing != undef and !is_string($indexing) { 
       fail('The attribute indexing is not a string') 
@@ -124,8 +124,8 @@ define jboss_admin::resource::distributed_cache (
     if $start != undef and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
     }
-    if $statistics_enabled != undef and !is_bool($statistics_enabled) { 
-      fail('The attribute statistics_enabled is not a boolean') 
+    if $statistics_enabled != undef { 
+      validate_bool($statistics_enabled)
     }
     if $virtual_nodes != undef and !is_integer($virtual_nodes) { 
       fail('The attribute virtual_nodes is not an integer') 
@@ -152,7 +152,7 @@ define jboss_admin::resource::distributed_cache (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -162,7 +162,7 @@ define jboss_admin::resource::distributed_cache (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

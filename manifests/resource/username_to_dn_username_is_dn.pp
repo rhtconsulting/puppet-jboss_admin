@@ -12,12 +12,12 @@ define jboss_admin::resource::username_to_dn_username_is_dn (
   $server,
   $force                          = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $force != undef and !is_bool($force) { 
-      fail('The attribute force is not a boolean') 
+    if $force != undef { 
+      validate_bool($force)
     }
   
 
@@ -26,7 +26,7 @@ define jboss_admin::resource::username_to_dn_username_is_dn (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -36,7 +36,7 @@ define jboss_admin::resource::username_to_dn_username_is_dn (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

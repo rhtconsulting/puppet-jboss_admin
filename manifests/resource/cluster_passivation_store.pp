@@ -36,7 +36,7 @@ define jboss_admin::resource::cluster_passivation_store (
   $max_size                       = undef,
   $passivate_events_on_replicate  = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -61,8 +61,8 @@ define jboss_admin::resource::cluster_passivation_store (
     if $max_size != undef and !is_integer($max_size) { 
       fail('The attribute max_size is not an integer') 
     }
-    if $passivate_events_on_replicate != undef and !is_bool($passivate_events_on_replicate) { 
-      fail('The attribute passivate_events_on_replicate is not a boolean') 
+    if $passivate_events_on_replicate != undef { 
+      validate_bool($passivate_events_on_replicate)
     }
   
 
@@ -77,7 +77,7 @@ define jboss_admin::resource::cluster_passivation_store (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -87,7 +87,7 @@ define jboss_admin::resource::cluster_passivation_store (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -16,15 +16,15 @@ define jboss_admin::resource::type_memory (
   $object_name                    = undef,
   $verbose                        = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $object_name != undef and !is_string($object_name) { 
       fail('The attribute object_name is not a string') 
     }
-    if $verbose != undef and !is_bool($verbose) { 
-      fail('The attribute verbose is not a boolean') 
+    if $verbose != undef { 
+      validate_bool($verbose)
     }
   
 
@@ -34,7 +34,7 @@ define jboss_admin::resource::type_memory (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -44,7 +44,7 @@ define jboss_admin::resource::type_memory (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

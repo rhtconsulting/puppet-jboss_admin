@@ -24,12 +24,12 @@ define jboss_admin::resource::subsystem_webservices (
   $wsdl_port                      = undef,
   $wsdl_secure_port               = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $modify_wsdl_address != undef and !is_bool($modify_wsdl_address) { 
-      fail('The attribute modify_wsdl_address is not a boolean') 
+    if $modify_wsdl_address != undef { 
+      validate_bool($modify_wsdl_address)
     }
     if $wsdl_host != undef and !is_string($wsdl_host) { 
       fail('The attribute wsdl_host is not a string') 
@@ -50,7 +50,7 @@ define jboss_admin::resource::subsystem_webservices (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::subsystem_webservices (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

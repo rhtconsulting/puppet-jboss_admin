@@ -24,15 +24,15 @@ define jboss_admin::resource::valve (
   $module                         = undef,
   $param                          = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $class_name != undef and !is_string($class_name) { 
       fail('The attribute class_name is not a string') 
     }
-    if $enabled != undef and !is_bool($enabled) { 
-      fail('The attribute enabled is not a boolean') 
+    if $enabled != undef { 
+      validate_bool($enabled)
     }
     if $module != undef and !is_string($module) { 
       fail('The attribute module is not a string') 
@@ -47,7 +47,7 @@ define jboss_admin::resource::valve (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -57,7 +57,7 @@ define jboss_admin::resource::valve (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

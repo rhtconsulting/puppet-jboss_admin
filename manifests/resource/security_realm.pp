@@ -12,12 +12,12 @@ define jboss_admin::resource::security_realm (
   $server,
   $map_groups_to_roles            = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $map_groups_to_roles != undef and !is_bool($map_groups_to_roles) { 
-      fail('The attribute map_groups_to_roles is not a boolean') 
+    if $map_groups_to_roles != undef { 
+      validate_bool($map_groups_to_roles)
     }
   
 
@@ -26,7 +26,7 @@ define jboss_admin::resource::security_realm (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -36,7 +36,7 @@ define jboss_admin::resource::security_realm (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

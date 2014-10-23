@@ -108,36 +108,36 @@ define jboss_admin::resource::subsystem_transactions (
   $use_hornetq_store              = undef,
   $use_jdbc_store                 = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $default_timeout != undef and !is_integer($default_timeout) { 
       fail('The attribute default_timeout is not an integer') 
     }
-    if $enable_statistics != undef and !is_bool($enable_statistics) { 
-      fail('The attribute enable_statistics is not a boolean') 
+    if $enable_statistics != undef { 
+      validate_bool($enable_statistics)
     }
-    if $enable_tsm_status != undef and !is_bool($enable_tsm_status) { 
-      fail('The attribute enable_tsm_status is not a boolean') 
+    if $enable_tsm_status != undef { 
+      validate_bool($enable_tsm_status)
     }
-    if $hornetq_store_enable_async_io != undef and !is_bool($hornetq_store_enable_async_io) { 
-      fail('The attribute hornetq_store_enable_async_io is not a boolean') 
+    if $hornetq_store_enable_async_io != undef { 
+      validate_bool($hornetq_store_enable_async_io)
     }
-    if $jdbc_action_store_drop_table != undef and !is_bool($jdbc_action_store_drop_table) { 
-      fail('The attribute jdbc_action_store_drop_table is not a boolean') 
+    if $jdbc_action_store_drop_table != undef { 
+      validate_bool($jdbc_action_store_drop_table)
     }
     if $jdbc_action_store_table_prefix != undef and !is_string($jdbc_action_store_table_prefix) { 
       fail('The attribute jdbc_action_store_table_prefix is not a string') 
     }
-    if $jdbc_communication_store_drop_table != undef and !is_bool($jdbc_communication_store_drop_table) { 
-      fail('The attribute jdbc_communication_store_drop_table is not a boolean') 
+    if $jdbc_communication_store_drop_table != undef { 
+      validate_bool($jdbc_communication_store_drop_table)
     }
     if $jdbc_communication_store_table_prefix != undef and !is_string($jdbc_communication_store_table_prefix) { 
       fail('The attribute jdbc_communication_store_table_prefix is not a string') 
     }
-    if $jdbc_state_store_drop_table != undef and !is_bool($jdbc_state_store_drop_table) { 
-      fail('The attribute jdbc_state_store_drop_table is not a boolean') 
+    if $jdbc_state_store_drop_table != undef { 
+      validate_bool($jdbc_state_store_drop_table)
     }
     if $jdbc_state_store_table_prefix != undef and !is_string($jdbc_state_store_table_prefix) { 
       fail('The attribute jdbc_state_store_table_prefix is not a string') 
@@ -145,8 +145,8 @@ define jboss_admin::resource::subsystem_transactions (
     if $jdbc_store_datasource != undef and !is_string($jdbc_store_datasource) { 
       fail('The attribute jdbc_store_datasource is not a string') 
     }
-    if $jts != undef and !is_bool($jts) { 
-      fail('The attribute jts is not a boolean') 
+    if $jts != undef { 
+      validate_bool($jts)
     }
     if $node_identifier != undef and !is_string($node_identifier) { 
       fail('The attribute node_identifier is not a string') 
@@ -166,11 +166,11 @@ define jboss_admin::resource::subsystem_transactions (
     if $process_id_socket_max_ports != undef and !is_integer($process_id_socket_max_ports) { 
       fail('The attribute process_id_socket_max_ports is not an integer') 
     }
-    if $process_id_uuid != undef and !is_bool($process_id_uuid) { 
-      fail('The attribute process_id_uuid is not a boolean') 
+    if $process_id_uuid != undef { 
+      validate_bool($process_id_uuid)
     }
-    if $recovery_listener != undef and !is_bool($recovery_listener) { 
-      fail('The attribute recovery_listener is not a boolean') 
+    if $recovery_listener != undef { 
+      validate_bool($recovery_listener)
     }
     if $relative_to != undef and !is_string($relative_to) { 
       fail('The attribute relative_to is not a string') 
@@ -181,11 +181,11 @@ define jboss_admin::resource::subsystem_transactions (
     if $status_socket_binding != undef and !is_string($status_socket_binding) { 
       fail('The attribute status_socket_binding is not a string') 
     }
-    if $use_hornetq_store != undef and !is_bool($use_hornetq_store) { 
-      fail('The attribute use_hornetq_store is not a boolean') 
+    if $use_hornetq_store != undef { 
+      validate_bool($use_hornetq_store)
     }
-    if $use_jdbc_store != undef and !is_bool($use_jdbc_store) { 
-      fail('The attribute use_jdbc_store is not a boolean') 
+    if $use_jdbc_store != undef { 
+      validate_bool($use_jdbc_store)
     }
   
 
@@ -218,7 +218,7 @@ define jboss_admin::resource::subsystem_transactions (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -228,7 +228,7 @@ define jboss_admin::resource::subsystem_transactions (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

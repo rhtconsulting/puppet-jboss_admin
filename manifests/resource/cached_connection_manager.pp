@@ -20,18 +20,18 @@ define jboss_admin::resource::cached_connection_manager (
   $error                          = undef,
   $install                        = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $debug != undef and !is_bool($debug) { 
-      fail('The attribute debug is not a boolean') 
+    if $debug != undef { 
+      validate_bool($debug)
     }
-    if $error != undef and !is_bool($error) { 
-      fail('The attribute error is not a boolean') 
+    if $error != undef { 
+      validate_bool($error)
     }
-    if $install != undef and !is_bool($install) { 
-      fail('The attribute install is not a boolean') 
+    if $install != undef { 
+      validate_bool($install)
     }
   
 
@@ -42,7 +42,7 @@ define jboss_admin::resource::cached_connection_manager (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -52,7 +52,7 @@ define jboss_admin::resource::cached_connection_manager (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

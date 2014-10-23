@@ -12,12 +12,12 @@ define jboss_admin::resource::remoting_connector (
   $server,
   $use_management_endpoint        = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $use_management_endpoint != undef and !is_bool($use_management_endpoint) { 
-      fail('The attribute use_management_endpoint is not a boolean') 
+    if $use_management_endpoint != undef { 
+      validate_bool($use_management_endpoint)
     }
   
 
@@ -26,7 +26,7 @@ define jboss_admin::resource::remoting_connector (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -36,7 +36,7 @@ define jboss_admin::resource::remoting_connector (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

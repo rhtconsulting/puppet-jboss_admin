@@ -32,7 +32,7 @@ define jboss_admin::resource::group_search_principal_to_group (
   $iterative                      = undef,
   $prefer_original_connection     = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -51,11 +51,11 @@ define jboss_admin::resource::group_search_principal_to_group (
     if $group_name_attribute != undef and !is_string($group_name_attribute) { 
       fail('The attribute group_name_attribute is not a string') 
     }
-    if $iterative != undef and !is_bool($iterative) { 
-      fail('The attribute iterative is not a boolean') 
+    if $iterative != undef { 
+      validate_bool($iterative)
     }
-    if $prefer_original_connection != undef and !is_bool($prefer_original_connection) { 
-      fail('The attribute prefer_original_connection is not a boolean') 
+    if $prefer_original_connection != undef { 
+      validate_bool($prefer_original_connection)
     }
   
 
@@ -69,7 +69,7 @@ define jboss_admin::resource::group_search_principal_to_group (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -79,7 +79,7 @@ define jboss_admin::resource::group_search_principal_to_group (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

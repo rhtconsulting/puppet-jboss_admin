@@ -40,24 +40,24 @@ define jboss_admin::resource::configuration_static_resources (
   $sendfile                       = undef,
   $webdav                         = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $disabled != undef and !is_bool($disabled) { 
-      fail('The attribute disabled is not a boolean') 
+    if $disabled != undef { 
+      validate_bool($disabled)
     }
     if $file_encoding != undef and !is_string($file_encoding) { 
       fail('The attribute file_encoding is not a string') 
     }
-    if $listings != undef and !is_bool($listings) { 
-      fail('The attribute listings is not a boolean') 
+    if $listings != undef { 
+      validate_bool($listings)
     }
     if $max_depth != undef and !is_integer($max_depth) { 
       fail('The attribute max_depth is not an integer') 
     }
-    if $read_only != undef and !is_bool($read_only) { 
-      fail('The attribute read_only is not a boolean') 
+    if $read_only != undef { 
+      validate_bool($read_only)
     }
     if $secret != undef and !is_string($secret) { 
       fail('The attribute secret is not a string') 
@@ -65,8 +65,8 @@ define jboss_admin::resource::configuration_static_resources (
     if $sendfile != undef and !is_integer($sendfile) { 
       fail('The attribute sendfile is not an integer') 
     }
-    if $webdav != undef and !is_bool($webdav) { 
-      fail('The attribute webdav is not a boolean') 
+    if $webdav != undef { 
+      validate_bool($webdav)
     }
   
 
@@ -82,7 +82,7 @@ define jboss_admin::resource::configuration_static_resources (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -92,7 +92,7 @@ define jboss_admin::resource::configuration_static_resources (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

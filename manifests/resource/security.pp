@@ -28,7 +28,7 @@ define jboss_admin::resource::security (
   $server_auth                    = undef,
   $strength                       = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -38,11 +38,11 @@ define jboss_admin::resource::security (
     if $qop != undef and !is_array($qop) { 
       fail('The attribute qop is not an array') 
     }
-    if $reuse_session != undef and !is_bool($reuse_session) { 
-      fail('The attribute reuse_session is not a boolean') 
+    if $reuse_session != undef { 
+      validate_bool($reuse_session)
     }
-    if $server_auth != undef and !is_bool($server_auth) { 
-      fail('The attribute server_auth is not a boolean') 
+    if $server_auth != undef { 
+      validate_bool($server_auth)
     }
     if $strength != undef and !is_array($strength) { 
       fail('The attribute strength is not an array') 
@@ -58,7 +58,7 @@ define jboss_admin::resource::security (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -68,7 +68,7 @@ define jboss_admin::resource::security (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

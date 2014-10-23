@@ -20,15 +20,15 @@ define jboss_admin::resource::authentication_properties (
   $plain_text                     = undef,
   $relative_to                    = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $path != undef and !is_string($path) { 
       fail('The attribute path is not a string') 
     }
-    if $plain_text != undef and !is_bool($plain_text) { 
-      fail('The attribute plain_text is not a boolean') 
+    if $plain_text != undef { 
+      validate_bool($plain_text)
     }
     if $relative_to != undef and !is_string($relative_to) { 
       fail('The attribute relative_to is not a string') 
@@ -42,7 +42,7 @@ define jboss_admin::resource::authentication_properties (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -52,7 +52,7 @@ define jboss_admin::resource::authentication_properties (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

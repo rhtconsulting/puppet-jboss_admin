@@ -28,24 +28,24 @@ define jboss_admin::resource::subsystem_ee (
   $jboss_descriptor_property_replacement = undef,
   $spec_descriptor_property_replacement = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $annotation_property_replacement != undef and !is_bool($annotation_property_replacement) { 
-      fail('The attribute annotation_property_replacement is not a boolean') 
+    if $annotation_property_replacement != undef { 
+      validate_bool($annotation_property_replacement)
     }
-    if $ear_subdeployments_isolated != undef and !is_bool($ear_subdeployments_isolated) { 
-      fail('The attribute ear_subdeployments_isolated is not a boolean') 
+    if $ear_subdeployments_isolated != undef { 
+      validate_bool($ear_subdeployments_isolated)
     }
     if $global_modules != undef and !is_array($global_modules) { 
       fail('The attribute global_modules is not an array') 
     }
-    if $jboss_descriptor_property_replacement != undef and !is_bool($jboss_descriptor_property_replacement) { 
-      fail('The attribute jboss_descriptor_property_replacement is not a boolean') 
+    if $jboss_descriptor_property_replacement != undef { 
+      validate_bool($jboss_descriptor_property_replacement)
     }
-    if $spec_descriptor_property_replacement != undef and !is_bool($spec_descriptor_property_replacement) { 
-      fail('The attribute spec_descriptor_property_replacement is not a boolean') 
+    if $spec_descriptor_property_replacement != undef { 
+      validate_bool($spec_descriptor_property_replacement)
     }
   
 
@@ -58,7 +58,7 @@ define jboss_admin::resource::subsystem_ee (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -68,7 +68,7 @@ define jboss_admin::resource::subsystem_ee (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

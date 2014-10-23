@@ -28,12 +28,12 @@ define jboss_admin::resource::configuration_access_log (
   $resolve_hosts                  = undef,
   $rotate                         = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $extended != undef and !is_bool($extended) { 
-      fail('The attribute extended is not a boolean') 
+    if $extended != undef { 
+      validate_bool($extended)
     }
     if $pattern != undef and !is_string($pattern) { 
       fail('The attribute pattern is not a string') 
@@ -41,11 +41,11 @@ define jboss_admin::resource::configuration_access_log (
     if $prefix != undef and !is_string($prefix) { 
       fail('The attribute prefix is not a string') 
     }
-    if $resolve_hosts != undef and !is_bool($resolve_hosts) { 
-      fail('The attribute resolve_hosts is not a boolean') 
+    if $resolve_hosts != undef { 
+      validate_bool($resolve_hosts)
     }
-    if $rotate != undef and !is_bool($rotate) { 
-      fail('The attribute rotate is not a boolean') 
+    if $rotate != undef { 
+      validate_bool($rotate)
     }
   
 
@@ -58,7 +58,7 @@ define jboss_admin::resource::configuration_access_log (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -68,7 +68,7 @@ define jboss_admin::resource::configuration_access_log (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -36,15 +36,15 @@ define jboss_admin::resource::socket_binding (
   $resource_name                  = undef,
   $port                           = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $client_mappings != undef and !is_array($client_mappings) { 
       fail('The attribute client_mappings is not an array') 
     }
-    if $fixed_port != undef and !is_bool($fixed_port) { 
-      fail('The attribute fixed_port is not a boolean') 
+    if $fixed_port != undef { 
+      validate_bool($fixed_port)
     }
     if $interface != undef and !is_string($interface) { 
       fail('The attribute interface is not a string') 
@@ -74,7 +74,7 @@ define jboss_admin::resource::socket_binding (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -84,7 +84,7 @@ define jboss_admin::resource::socket_binding (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

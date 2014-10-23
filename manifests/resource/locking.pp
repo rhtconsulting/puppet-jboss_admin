@@ -24,7 +24,7 @@ define jboss_admin::resource::locking (
   $isolation                      = undef,
   $striping                       = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -40,8 +40,8 @@ define jboss_admin::resource::locking (
     if $isolation != undef and !($isolation in ['NONE','SERIALIZABLE','REPEATABLE_READ','READ_COMMITTED','READ_UNCOMMITTED']) {
       fail("The attribute isolation is not an allowed value: 'NONE','SERIALIZABLE','REPEATABLE_READ','READ_COMMITTED','READ_UNCOMMITTED'")
     }
-    if $striping != undef and !is_bool($striping) { 
-      fail('The attribute striping is not a boolean') 
+    if $striping != undef { 
+      validate_bool($striping)
     }
   
 
@@ -53,7 +53,7 @@ define jboss_admin::resource::locking (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -63,7 +63,7 @@ define jboss_admin::resource::locking (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -20,12 +20,12 @@ define jboss_admin::resource::type_compilation (
   $resource_name                  = undef,
   $object_name                    = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $compilation_time_monitoring_supported != undef and !is_bool($compilation_time_monitoring_supported) { 
-      fail('The attribute compilation_time_monitoring_supported is not a boolean') 
+    if $compilation_time_monitoring_supported != undef { 
+      validate_bool($compilation_time_monitoring_supported)
     }
     if $resource_name != undef and !is_string($resource_name) { 
       fail('The attribute resource_name is not a string') 
@@ -42,7 +42,7 @@ define jboss_admin::resource::type_compilation (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -52,7 +52,7 @@ define jboss_admin::resource::type_compilation (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

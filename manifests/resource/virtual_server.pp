@@ -24,7 +24,7 @@ define jboss_admin::resource::virtual_server (
   $enable_welcome_root            = undef,
   $resource_name                  = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -34,8 +34,8 @@ define jboss_admin::resource::virtual_server (
     if $default_web_module != undef and !is_string($default_web_module) { 
       fail('The attribute default_web_module is not a string') 
     }
-    if $enable_welcome_root != undef and !is_bool($enable_welcome_root) { 
-      fail('The attribute enable_welcome_root is not a boolean') 
+    if $enable_welcome_root != undef { 
+      validate_bool($enable_welcome_root)
     }
     if $resource_name != undef and !is_string($resource_name) { 
       fail('The attribute resource_name is not a string') 
@@ -50,7 +50,7 @@ define jboss_admin::resource::virtual_server (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::virtual_server (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

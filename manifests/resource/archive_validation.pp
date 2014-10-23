@@ -20,18 +20,18 @@ define jboss_admin::resource::archive_validation (
   $fail_on_error                  = undef,
   $fail_on_warn                   = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $enabled != undef and !is_bool($enabled) { 
-      fail('The attribute enabled is not a boolean') 
+    if $enabled != undef { 
+      validate_bool($enabled)
     }
-    if $fail_on_error != undef and !is_bool($fail_on_error) { 
-      fail('The attribute fail_on_error is not a boolean') 
+    if $fail_on_error != undef { 
+      validate_bool($fail_on_error)
     }
-    if $fail_on_warn != undef and !is_bool($fail_on_warn) { 
-      fail('The attribute fail_on_warn is not a boolean') 
+    if $fail_on_warn != undef { 
+      validate_bool($fail_on_warn)
     }
   
 
@@ -42,7 +42,7 @@ define jboss_admin::resource::archive_validation (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -52,7 +52,7 @@ define jboss_admin::resource::archive_validation (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

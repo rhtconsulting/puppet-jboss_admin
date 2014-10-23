@@ -16,15 +16,15 @@ define jboss_admin::resource::expose_model_resolved (
   $domain_name                    = undef,
   $proper_property_format         = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $domain_name != undef and !is_string($domain_name) { 
       fail('The attribute domain_name is not a string') 
     }
-    if $proper_property_format != undef and !is_bool($proper_property_format) { 
-      fail('The attribute proper_property_format is not a boolean') 
+    if $proper_property_format != undef { 
+      validate_bool($proper_property_format)
     }
   
 
@@ -34,7 +34,7 @@ define jboss_admin::resource::expose_model_resolved (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -44,7 +44,7 @@ define jboss_admin::resource::expose_model_resolved (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -88,33 +88,33 @@ define jboss_admin::resource::interface (
   $up                             = undef,
   $virtual                        = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $any_address != undef and !is_bool($any_address) { 
-      fail('The attribute any_address is not a boolean') 
+    if $any_address != undef { 
+      validate_bool($any_address)
     }
-    if $any_ipv4_address != undef and !is_bool($any_ipv4_address) { 
-      fail('The attribute any_ipv4_address is not a boolean') 
+    if $any_ipv4_address != undef { 
+      validate_bool($any_ipv4_address)
     }
-    if $any_ipv6_address != undef and !is_bool($any_ipv6_address) { 
-      fail('The attribute any_ipv6_address is not a boolean') 
+    if $any_ipv6_address != undef { 
+      validate_bool($any_ipv6_address)
     }
     if $inet_address != undef and !is_string($inet_address) { 
       fail('The attribute inet_address is not a string') 
     }
-    if $link_local_address != undef and !is_bool($link_local_address) { 
-      fail('The attribute link_local_address is not a boolean') 
+    if $link_local_address != undef { 
+      validate_bool($link_local_address)
     }
-    if $loopback != undef and !is_bool($loopback) { 
-      fail('The attribute loopback is not a boolean') 
+    if $loopback != undef { 
+      validate_bool($loopback)
     }
     if $loopback_address != undef and !is_string($loopback_address) { 
       fail('The attribute loopback_address is not a string') 
     }
-    if $multicast != undef and !is_bool($multicast) { 
-      fail('The attribute multicast is not a boolean') 
+    if $multicast != undef { 
+      validate_bool($multicast)
     }
     if $resource_name != undef and !is_string($resource_name) { 
       fail('The attribute resource_name is not a string') 
@@ -125,26 +125,26 @@ define jboss_admin::resource::interface (
     if $nic_match != undef and !is_string($nic_match) { 
       fail('The attribute nic_match is not a string') 
     }
-    if $point_to_point != undef and !is_bool($point_to_point) { 
-      fail('The attribute point_to_point is not a boolean') 
+    if $point_to_point != undef { 
+      validate_bool($point_to_point)
     }
-    if $public_address != undef and !is_bool($public_address) { 
-      fail('The attribute public_address is not a boolean') 
+    if $public_address != undef { 
+      validate_bool($public_address)
     }
     if $resolved_address != undef and !is_string($resolved_address) { 
       fail('The attribute resolved_address is not a string') 
     }
-    if $site_local_address != undef and !is_bool($site_local_address) { 
-      fail('The attribute site_local_address is not a boolean') 
+    if $site_local_address != undef { 
+      validate_bool($site_local_address)
     }
     if $subnet_match != undef and !is_string($subnet_match) { 
       fail('The attribute subnet_match is not a string') 
     }
-    if $up != undef and !is_bool($up) { 
-      fail('The attribute up is not a boolean') 
+    if $up != undef { 
+      validate_bool($up)
     }
-    if $virtual != undef and !is_bool($virtual) { 
-      fail('The attribute virtual is not a boolean') 
+    if $virtual != undef { 
+      validate_bool($virtual)
     }
   
 
@@ -172,7 +172,7 @@ define jboss_admin::resource::interface (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -182,7 +182,7 @@ define jboss_admin::resource::interface (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

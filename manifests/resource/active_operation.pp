@@ -40,7 +40,7 @@ define jboss_admin::resource::active_operation (
   $operation                      = undef,
   $running_time                   = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -56,8 +56,8 @@ define jboss_admin::resource::active_operation (
     if $caller_thread != undef and !is_string($caller_thread) { 
       fail('The attribute caller_thread is not a string') 
     }
-    if $cancelled != undef and !is_bool($cancelled) { 
-      fail('The attribute cancelled is not a boolean') 
+    if $cancelled != undef { 
+      validate_bool($cancelled)
     }
     if $exclusive_running_time != undef and !is_integer($exclusive_running_time) { 
       fail('The attribute exclusive_running_time is not an integer') 
@@ -88,7 +88,7 @@ define jboss_admin::resource::active_operation (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -98,7 +98,7 @@ define jboss_admin::resource::active_operation (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

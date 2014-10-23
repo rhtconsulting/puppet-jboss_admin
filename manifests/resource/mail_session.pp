@@ -20,12 +20,12 @@ define jboss_admin::resource::mail_session (
   $from                           = undef,
   $jndi_name                      = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
-    if $debug != undef and !is_bool($debug) { 
-      fail('The attribute debug is not a boolean') 
+    if $debug != undef { 
+      validate_bool($debug)
     }
     if $from != undef and !is_string($from) { 
       fail('The attribute from is not a string') 
@@ -42,7 +42,7 @@ define jboss_admin::resource::mail_session (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -52,7 +52,7 @@ define jboss_admin::resource::mail_session (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

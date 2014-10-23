@@ -1,18 +1,18 @@
 # == Defines jboss_admin::property
 #
-# A property within a security realm resource.
+# Properties supported by the underlying provider. The property name is inferred from the last element of the properties address.
 #
 # === Parameters
 #
 # [*value*]
-#   The optional value of the property.
+#   The property value.
 #
 #
 define jboss_admin::resource::property (
   $server,
   $value                          = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -26,7 +26,7 @@ define jboss_admin::resource::property (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -36,7 +36,7 @@ define jboss_admin::resource::property (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

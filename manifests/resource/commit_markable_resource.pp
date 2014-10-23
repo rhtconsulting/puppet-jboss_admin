@@ -24,15 +24,15 @@ define jboss_admin::resource::commit_markable_resource (
   $jndi_name                      = undef,
   $resource_name                  = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $batch_size != undef and !is_integer($batch_size) { 
       fail('The attribute batch_size is not an integer') 
     }
-    if $immediate_cleanup != undef and !is_bool($immediate_cleanup) { 
-      fail('The attribute immediate_cleanup is not a boolean') 
+    if $immediate_cleanup != undef { 
+      validate_bool($immediate_cleanup)
     }
     if $jndi_name != undef and !is_string($jndi_name) { 
       fail('The attribute jndi_name is not a string') 
@@ -50,7 +50,7 @@ define jboss_admin::resource::commit_markable_resource (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::commit_markable_resource (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

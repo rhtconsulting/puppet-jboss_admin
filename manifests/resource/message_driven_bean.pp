@@ -56,7 +56,7 @@ define jboss_admin::resource::message_driven_bean (
   $security_domain                = undef,
   $timers                         = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -66,8 +66,8 @@ define jboss_admin::resource::message_driven_bean (
     if $declared_roles != undef and !is_array($declared_roles) { 
       fail('The attribute declared_roles is not an array') 
     }
-    if $delivery_active != undef and !is_bool($delivery_active) { 
-      fail('The attribute delivery_active is not a boolean') 
+    if $delivery_active != undef { 
+      validate_bool($delivery_active)
     }
     if $pool_available_count != undef and !is_integer($pool_available_count) { 
       fail('The attribute pool_available_count is not an integer') 
@@ -114,7 +114,7 @@ define jboss_admin::resource::message_driven_bean (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -124,7 +124,7 @@ define jboss_admin::resource::message_driven_bean (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

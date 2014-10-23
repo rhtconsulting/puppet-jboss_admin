@@ -16,7 +16,7 @@ define jboss_admin::resource::subsystem_jpa (
   $default_datasource             = undef,
   $default_extended_persistence_inheritance = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -37,7 +37,7 @@ define jboss_admin::resource::subsystem_jpa (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -47,7 +47,7 @@ define jboss_admin::resource::subsystem_jpa (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

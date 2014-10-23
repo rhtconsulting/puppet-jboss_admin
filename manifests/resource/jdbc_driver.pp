@@ -52,7 +52,7 @@ define jboss_admin::resource::jdbc_driver (
   $module_slot                    = undef,
   $xa_datasource_class            = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -80,8 +80,8 @@ define jboss_admin::resource::jdbc_driver (
     if $driver_xa_datasource_class_name != undef and !is_string($driver_xa_datasource_class_name) { 
       fail('The attribute driver_xa_datasource_class_name is not a string') 
     }
-    if $jdbc_compliant != undef and !is_bool($jdbc_compliant) { 
-      fail('The attribute jdbc_compliant is not a boolean') 
+    if $jdbc_compliant != undef { 
+      validate_bool($jdbc_compliant)
     }
     if $module_slot != undef and !is_string($module_slot) { 
       fail('The attribute module_slot is not a string') 
@@ -106,7 +106,7 @@ define jboss_admin::resource::jdbc_driver (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -116,7 +116,7 @@ define jboss_admin::resource::jdbc_driver (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

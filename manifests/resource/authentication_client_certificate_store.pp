@@ -24,7 +24,7 @@ define jboss_admin::resource::authentication_client_certificate_store (
   $keystore_path                  = undef,
   $keystore_relative_to           = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -50,7 +50,7 @@ define jboss_admin::resource::authentication_client_certificate_store (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::authentication_client_certificate_store (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

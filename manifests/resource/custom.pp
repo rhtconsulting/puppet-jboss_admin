@@ -32,7 +32,7 @@ define jboss_admin::resource::custom (
   $tls                            = undef,
   $username                       = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -42,11 +42,11 @@ define jboss_admin::resource::custom (
     if $password != undef and !is_string($password) { 
       fail('The attribute password is not a string') 
     }
-    if $ssl != undef and !is_bool($ssl) { 
-      fail('The attribute ssl is not a boolean') 
+    if $ssl != undef { 
+      validate_bool($ssl)
     }
-    if $tls != undef and !is_bool($tls) { 
-      fail('The attribute tls is not a boolean') 
+    if $tls != undef { 
+      validate_bool($tls)
     }
     if $username != undef and !is_string($username) { 
       fail('The attribute username is not a string') 
@@ -63,7 +63,7 @@ define jboss_admin::resource::custom (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -73,7 +73,7 @@ define jboss_admin::resource::custom (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

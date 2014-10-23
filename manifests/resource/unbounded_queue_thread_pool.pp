@@ -24,7 +24,7 @@ define jboss_admin::resource::unbounded_queue_thread_pool (
   $resource_name                  = undef,
   $thread_factory                 = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -47,7 +47,7 @@ define jboss_admin::resource::unbounded_queue_thread_pool (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -57,7 +57,7 @@ define jboss_admin::resource::unbounded_queue_thread_pool (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

@@ -48,39 +48,39 @@ define jboss_admin::resource::remote_store (
   $socket_timeout                 = undef,
   $tcp_no_delay                   = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
     if $cache != undef and !is_string($cache) { 
       fail('The attribute cache is not a string') 
     }
-    if $fetch_state != undef and !is_bool($fetch_state) { 
-      fail('The attribute fetch_state is not a boolean') 
+    if $fetch_state != undef { 
+      validate_bool($fetch_state)
     }
-    if $passivation != undef and !is_bool($passivation) { 
-      fail('The attribute passivation is not a boolean') 
+    if $passivation != undef { 
+      validate_bool($passivation)
     }
-    if $preload != undef and !is_bool($preload) { 
-      fail('The attribute preload is not a boolean') 
+    if $preload != undef { 
+      validate_bool($preload)
     }
-    if $purge != undef and !is_bool($purge) { 
-      fail('The attribute purge is not a boolean') 
+    if $purge != undef { 
+      validate_bool($purge)
     }
     if $remote_servers != undef and !is_array($remote_servers) { 
       fail('The attribute remote_servers is not an array') 
     }
-    if $shared != undef and !is_bool($shared) { 
-      fail('The attribute shared is not a boolean') 
+    if $shared != undef { 
+      validate_bool($shared)
     }
-    if $singleton != undef and !is_bool($singleton) { 
-      fail('The attribute singleton is not a boolean') 
+    if $singleton != undef { 
+      validate_bool($singleton)
     }
     if $socket_timeout != undef and !is_integer($socket_timeout) { 
       fail('The attribute socket_timeout is not an integer') 
     }
-    if $tcp_no_delay != undef and !is_bool($tcp_no_delay) { 
-      fail('The attribute tcp_no_delay is not a boolean') 
+    if $tcp_no_delay != undef { 
+      validate_bool($tcp_no_delay)
     }
   
 
@@ -98,7 +98,7 @@ define jboss_admin::resource::remote_store (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -108,7 +108,7 @@ define jboss_admin::resource::remote_store (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

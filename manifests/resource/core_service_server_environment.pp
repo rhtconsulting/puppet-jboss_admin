@@ -76,7 +76,7 @@ define jboss_admin::resource::core_service_server_environment (
   $server_name                    = undef,
   $temp_dir                       = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -157,7 +157,7 @@ define jboss_admin::resource::core_service_server_environment (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -167,7 +167,7 @@ define jboss_admin::resource::core_service_server_environment (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }

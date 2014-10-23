@@ -64,7 +64,7 @@ define jboss_admin::resource::subsystem_ejb3 (
   $enable_statistics              = undef,
   $in_vm_remote_interface_invocation_pass_by_value = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -77,14 +77,14 @@ define jboss_admin::resource::subsystem_ejb3 (
     if $default_entity_bean_instance_pool != undef and !is_string($default_entity_bean_instance_pool) { 
       fail('The attribute default_entity_bean_instance_pool is not a string') 
     }
-    if $default_entity_bean_optimistic_locking != undef and !is_bool($default_entity_bean_optimistic_locking) { 
-      fail('The attribute default_entity_bean_optimistic_locking is not a boolean') 
+    if $default_entity_bean_optimistic_locking != undef { 
+      validate_bool($default_entity_bean_optimistic_locking)
     }
     if $default_mdb_instance_pool != undef and !is_string($default_mdb_instance_pool) { 
       fail('The attribute default_mdb_instance_pool is not a string') 
     }
-    if $default_missing_method_permissions_deny_access != undef and !is_bool($default_missing_method_permissions_deny_access) { 
-      fail('The attribute default_missing_method_permissions_deny_access is not a boolean') 
+    if $default_missing_method_permissions_deny_access != undef { 
+      validate_bool($default_missing_method_permissions_deny_access)
     }
     if $default_resource_adapter_name != undef and !is_string($default_resource_adapter_name) { 
       fail('The attribute default_resource_adapter_name is not a string') 
@@ -104,11 +104,11 @@ define jboss_admin::resource::subsystem_ejb3 (
     if $default_stateful_bean_access_timeout != undef and !is_integer($default_stateful_bean_access_timeout) { 
       fail('The attribute default_stateful_bean_access_timeout is not an integer') 
     }
-    if $enable_statistics != undef and !is_bool($enable_statistics) { 
-      fail('The attribute enable_statistics is not a boolean') 
+    if $enable_statistics != undef { 
+      validate_bool($enable_statistics)
     }
-    if $in_vm_remote_interface_invocation_pass_by_value != undef and !is_bool($in_vm_remote_interface_invocation_pass_by_value) { 
-      fail('The attribute in_vm_remote_interface_invocation_pass_by_value is not a boolean') 
+    if $in_vm_remote_interface_invocation_pass_by_value != undef { 
+      validate_bool($in_vm_remote_interface_invocation_pass_by_value)
     }
   
 
@@ -130,7 +130,7 @@ define jboss_admin::resource::subsystem_ejb3 (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -140,7 +140,7 @@ define jboss_admin::resource::subsystem_ejb3 (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $cli_path:
       ensure => $ensure,
       server => $server
     }
