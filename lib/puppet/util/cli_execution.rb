@@ -36,7 +36,7 @@ module Puppet::Util::CliExecution
       return {'outcome' => 'success'} if output =~ /The batch executed successfully/
       return {'outcome' => 'failure', 'failure-description' => output.lines.to_a.last}
     else
-      json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/=>/, ':').gsub(/: expression/, ': ').gsub(/\}\n\{/m, "},{").gsub(/\n/, '') + ']'
+      json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/=>/, ':').gsub(/: expression/, ': ').gsub(/\}\n\{/m, "},{").gsub(/\n/, '').gsub(/: (\d+)L/, ': \1') + ']'
       parsed_output = JSON.parse(json_string)
       parsed_output = parsed_output.collect {|o| o.delete_if &delete_nil}
       parsed_output = parsed_output.collect {|o| convert_ints_to_strings o }
