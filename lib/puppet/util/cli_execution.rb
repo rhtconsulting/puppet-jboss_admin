@@ -51,7 +51,7 @@ module Puppet::Util::CliExecution
       value.inspect
     else
       # if the value contains commas, spaces, or equals then wrap it in quotes
-      (/[, =]/ =~ value.to_s).nil? ? value.to_s : "\"#{value.to_s}\""
+      (/[, =\[\]]/ =~ value.to_s).nil? ? value.to_s : "\"#{value.to_s}\""
     end
   end
 
