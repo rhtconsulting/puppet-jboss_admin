@@ -42,12 +42,14 @@ define jboss_admin::module (
   }
 
   # create parent directories to module
-  $parent_dirs = child_directory_list($module_path, "${namespace_path}")
-  @file { $parent_dirs:
-    ensure => directory,
-    tag    => ['moduledir', $namespace]
+  # have to use an exec here because multiple modules can have
+  # the same parent directories so the File resource clash
+  exec { "Create Parent Directories: ${title}":
+    path    => ['/bin','/usr/bin', '/sbin'],
+    command => "/bin/mkdir -p ${module_path}/${namespace_path}",
+    unless  => "test -d ${module_path}/${namespace_path}",
+    before  => [File[$dir_path],],
   }
-  File <| tag == moduledir and tag == $namespace |>
   
   # if the module contents is a directory
   # else if is single file, such as a jar
@@ -65,7 +67,6 @@ define jboss_admin::module (
 
     file { "${dir_path}":
       ensure  => directory,
-      tag    => ['moduledir', $namespace]
     }
     file { "${dir_path}/${resource_name}":
       ensure  => file,
