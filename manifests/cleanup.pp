@@ -18,10 +18,12 @@ define jboss_admin::cleanup(
   }
   ->
   jboss_exec{"Check Server Up After $name":
-    command     => ':read-attribute(name=server-state)',
-    refreshonly => true,
-    tries       => $wait_for_up_tries,
-    try_sleep   => $wait_for_up_try_sleep,
-    server      => $server
+    command         => ':read-attribute(name=server-state)',
+    expected_output => { 'outcome' => 'success',
+                         'result'  => 'running',},
+    refreshonly     => true,
+    tries           => $wait_for_up_tries,
+    try_sleep       => $wait_for_up_try_sleep,
+    server          => $server,
   }
 }

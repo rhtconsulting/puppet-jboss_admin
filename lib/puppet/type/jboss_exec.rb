@@ -21,6 +21,12 @@ Puppet::Type.newtype(:jboss_exec) do
     desc "The command to execute, given in CLI format"
   end
 
+  newparam(:expected_output) do
+    desc "The hash output from the command should contain a super set of the provided values."
+    defaultto({"outcome"=>"success"})
+  end
+
+
   newparam(:arguments) do
     desc "Arguments to be appended to the command"
   end
@@ -112,7 +118,7 @@ Puppet::Type.newtype(:jboss_exec) do
           output = provider.execute_command(resource[:command], resource[:arguments])
 
           # break the try loop if command was a success
-          break if output['outcome'] != 'failed'
+          break if (resource[:expected_output].to_a - output.to_a).empty?
 
           # sleep before next attempt
           if try_sleep > 0 and tries > 1
@@ -128,13 +134,16 @@ Puppet::Type.newtype(:jboss_exec) do
         self.fail("Error executing CLI command `#{resource[:command]}`: #{last_error}")
       end
 
+      # determine if the execution was a success
+      success = (resource[:expected_output].to_a - output.to_a).empty?
+
       # log output if required
-      if (resource[:logoutput] == :true || (output['outcome'] == 'failed' && resource[:logoutput] == :on_failure))
+      if (resource[:logoutput] == :true || (!success && resource[:logoutput] == :on_failure))
         self.send(@resource[:loglevel], output.inspect)
       end
 
       # fail if CLI command failed
-      if output['outcome'] == 'failed'
+      if !success
         self.fail("Error executing CLI command `#{resource[:command]}`: #{output['failure-description']}") 
       end
     end
