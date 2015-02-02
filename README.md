@@ -19,10 +19,8 @@ Jboss CLI, including but not limited to:
 Status
 ------
 
-This module is currently in **pre-alpha**. Significant portions of 
-functionality have not yet been tested, and may not work. Backwards 
-compatibility will not be maintained between versions, as it becomes necessary
-to make larger scale changes.
+This module is currently in **beta**. This module has been used in a large
+scale implementation, and in general is functional.
 
 Please reference the issues for this project to understand the current defects
 and functionality under implementation.
@@ -106,7 +104,6 @@ jboss_admin::server {'main':
 
 jboss_admin::resource::datasource{'/subsystem=datasources/data-source=ExampleDS':
   ensure         => present,
-  enabled        => true,
   connection_url => 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1',
   driver_name    => h2,
   jndi_name      => 'java:jboss/datasources/ExampleDS2',
@@ -114,6 +111,12 @@ jboss_admin::resource::datasource{'/subsystem=datasources/data-source=ExampleDS'
   user_name      => sa,
   password       => sa,
   server         => main
+}
+
+jboss_exec {'Enable Data Source':
+  command => '/subsystem=datasources/data-source=ExampleDS:enable',
+  unless  => '(result == true) of /subsystem=datasources/data-source=ExampleDS:read-attribute(name=enabled)',
+  server  => main
 }
 ```
 
