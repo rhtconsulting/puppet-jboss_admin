@@ -34,7 +34,7 @@ module Puppet::Util::CliExecution
 
     if batch
       return {'outcome' => 'success'} if output =~ /The batch executed successfully/
-      return {'outcome' => 'failure', 'failure-description' => output.lines.to_a.last}
+      return {'outcome' => 'failure', 'failure-description' => output.lines.to_a}
     else
       json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/=>/, ':').gsub(/: expression/, ': ').gsub(/\}\n\{/m, "},{").gsub(/\n/, '').gsub(/: (\d+)L/, ': \1') + ']'
       parsed_output = JSON.parse(json_string)
@@ -56,7 +56,7 @@ module Puppet::Util::CliExecution
   end
 
   def format_command(address, operation, options = {})
-    if options.empty?
+    if options.nil? || options.empty?
       "#{address}:#{operation}"
     else
       option_string = options.map{ |option, value| "#{option}=#{format_value value}" }.join(',')
