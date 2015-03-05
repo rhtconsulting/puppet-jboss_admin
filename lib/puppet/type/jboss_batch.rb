@@ -29,6 +29,18 @@ Puppet::Type.newtype(:jboss_batch) do
       raise ArgumentError, "Each element of the batch array must contain an 'address' or 'command' element: #{batch_element.inspect}" unless batch_element['address'].is_a?(String) || batch_element['command'].is_a?(String)
     end
 
+    # if should execute this batch then return the super value,
+    # else return should to make it look like we are already in sync
+    #
+    # NOTE: this is the same trickery/hackery that Puppet:Type:Exec does
+    def retrieve
+      if @resource.should_execute?
+        return super()
+      else
+        return self.should
+      end
+    end
+
     def insync?(is)
       insync = true
       

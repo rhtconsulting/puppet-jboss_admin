@@ -7,7 +7,6 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
   extend  Puppet::Util::CliExecution
   
   def self.prefetch(resources)
-
     resources.each.each { |name, resource|
 
       # set up attributes of the 'is' provider resource
@@ -195,5 +194,15 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
 
     # execute all of the formated commands
     execute_cli get_server(resource), formated_commands, false, true
+  end
+
+  # executes a single command
+  def execute_command command, arguments = nil 
+    if arguments
+      parser = CliParser.new
+      parsed_command = parser.parse_command command
+      command = format_command PathGenerator.format_path(parsed_command[0]), parsed_command[1], arguments 
+    end 
+    execute_cli get_server(resource), command, false
   end
 end
