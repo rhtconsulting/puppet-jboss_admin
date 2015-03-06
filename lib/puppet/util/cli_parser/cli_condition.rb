@@ -645,7 +645,7 @@ module CliCondition
 
   module Value1
     def value
-      text_value
+      text_value.gsub(/^\"|\"?$/, '')
     end
   end
 
