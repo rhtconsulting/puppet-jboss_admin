@@ -60,7 +60,7 @@ Puppet::Type.type(:jboss_resource).provide(:cli) do
       undefines = @new_values[:options].select{ |key, value| value == 'undefined' && @property_hash[key]}.collect{ |key, value| key}
       changes = @new_values[:options].to_a - @property_hash[:options].to_a
       commands = changes.collect { |attribute, value| 
-        format_command resource[:address], 'write-attribute', {'name' => attribute, 'value' => value}
+        format_command resource[:address], 'write-attribute', {'name' => attribute, 'value' => "\"#{value}\""}
       } + undefines.collect { |attribute|
         format_command resource[:address], 'undefine-attribute', {'name' => attribute}
       }
