@@ -151,11 +151,6 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
 
             # create formated commands
             formated_attribute_commands = changes.collect { |attribute, value|
-              # wrap strings in quotes
-              if value.is_a? String
-                value = "\"#{value}\""
-              end
-
               format_command new_batch_element['address'], 'write-attribute', {'name' => attribute, 'value' => value}
             }
             formated_attribute_commands += undefines.collect { |attribute|
