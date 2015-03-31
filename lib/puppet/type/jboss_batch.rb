@@ -22,7 +22,7 @@ Puppet::Type.newtype(:jboss_batch) do
   end
 
   newproperty(:batch, :array_matching => :all) do
-    desc "The ordred batch of commands and resources to execute and ensure"
+    desc "The ordered batch of commands and resources to execute and ensure"
 
     validate do |batch_element|
       raise ArgumentError, "Each element of the batch array must be a hash: #{batch_element.inspect}" unless batch_element.is_a?(Hash)
@@ -70,7 +70,7 @@ Puppet::Type.newtype(:jboss_batch) do
 
     # puppet function
     #
-    # Used to foramt the Notice message that is printed for when the resource is out of sync
+    # Used to format the Notice message that is printed for when the resource is out of sync
     def change_to_s(current_value, new_value)
       # prevent changing the given values in place
       current_value = Marshal.load(Marshal.dump(current_value))
@@ -214,26 +214,23 @@ Puppet::Type.newtype(:jboss_batch) do
 
     parser = CliParser.new
 
-    batch_dependencies = []
     unless_dependencies  = []
     onlyif_dependencies  = []
 
     # parse each individual command of the batch and get its ancestors
-    value(:batch).each { |batch_element|
+    batch_dependencies = value(:batch).collect { |batch_element|
       if batch_element.has_key?('address')
         address = batch_element['address']
         resource_path = parser.parse_path address
         raise "Could not parse resource path #{address}, autorequire will fail" unless resource_path
 
-        # add the resource dependencies to the batch dependencies
-        batch_dependencies.push(PathGenerator.ancestors resource_path)
+        PathGenerator.ancestors resource_path
       elsif batch_element.has_key?('command')
         command = batch_element['command']
         resource_path = parser.parse_command command
         raise "Could not parse batch sub-command #{value(command)}, autorequire will fail" unless resource_path
 
-        # add the command dependencies to the batch dependencies
-        batch_dependencies.push(PathGenerator.ancestors_and_self resource_path[0])
+        PathGenerator.ancestors_and_self resource_path[0]
       else
         # this error condition should have already been caught by now but throw it here just in case
         raise "Element of the batch is not recognized as a command or a resource, must specify either 'address' or 'command' respectivly: #{batch_element.inspect}"

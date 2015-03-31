@@ -46,7 +46,7 @@ Currently there are three plumbing types on which all porcelain types are built:
   is not dependent on a specific version if EAP/Wildfly.
 * jboss_batch: Allows an ordered list of JBoss resources and JBoss CLI commands to be specified
   that will be ensured and executed in the specified ordered. The specifics of the specified
-  JBosss resources and CLI commands work the same as they would in an individual jboss_resource
+  JBoss resources and CLI commands work the same as they would in an individual jboss_resource
   or jboss_exec. That is if an address is specified for a resource with an ensure value and optional
   options then the jboss_batch operation will ensure that state of the resource. If any CLI commands
  are specified they they will be run. The jboss_batch will only execute if there are specified resources

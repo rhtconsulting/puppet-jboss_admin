@@ -7,7 +7,7 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
   extend  Puppet::Util::CliExecution
   
   def self.prefetch(resources)
-    resources.each.each { |name, resource|
+    resources.each { |name, resource|
 
       # set up attributes of the 'is' provider resource
       is_resource_attributes = {:name => name, :batch => []}
@@ -18,7 +18,7 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
         # else if batch element is a command
         # else error
         if batch_element.has_key?('address')
-          # get the urrent resource data
+          # get the current resource data
           current_resource_data = execute_cli get_server(resource), format_command(batch_element['address'], 'read-resource'), false
   
           # create hash of current resource status
@@ -121,8 +121,8 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
 
       # protect against the current and new batches getting out of order
       # NOTE: really this should never happen, but let's be safe
-      unless ((new_batch_element.has_key?('address') && new_batch_element['address'] == current_batch_element['address']) ||
-             (new_batch_element.has_key?('command') && new_batch_element['command'] == current_batch_element['command']))
+      unless (new_batch_element['address'] == current_batch_element['address'] &&
+             new_batch_element['command'] == current_batch_element['command'])
             
         raise Puppet::Error, "jboss_batch - cli - execute_batch: Current Batch order out of sync with New batch order"
       end
@@ -134,11 +134,11 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
 
         # if the resource currently exists
         # else if the resource does not currently exist
-        if current_batch_element['ensure'] == "present" || current_batch_element['ensure'] == :present
+        if current_batch_element['ensure'].to_sym == :present
 
           # if ensure the options on the existing resource are set correctly
           # else if ensure the resource does not exist
-          if new_batch_element.has_key?('options') && (!new_batch_element.has_key?('ensure') || new_batch_element['ensure'] == :present || new_batch_element['ensure'] == 'present') 
+          if new_batch_element.has_key?('options') && ((new_batch_element['ensure'] || :present).to_sym == :present) 
 
             current_resource_options = current_batch_element['options']
             new_resource_options = new_batch_element['options']
@@ -158,7 +158,7 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
             }
 
             formated_commands.push(formated_attribute_commands)
-          elsif new_batch_element['ensure'] == :absent || new_batch_element['ensure'] == 'absent'
+          elsif new_batch_element['ensure'].to_sym == :absent
             # remove the resource
             formated_command = format_command(new_batch_element['address'], 'remove')
             formated_commands.push(formated_command)
@@ -166,7 +166,7 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
         else
           # if ensure the resource exists
           # else ensure the resource does not exist
-          if (!new_batch_element.has_key?('ensure') || new_batch_element['ensure'] == 'present' || new_batch_element['ensure'] == 'present')
+          if ((new_batch_element['ensure'] || :present).to_sym == :present)
             # add the resource with all specified options
             formated_command = format_command(new_batch_element['address'], 'add', new_batch_element['options'])
             formated_commands.push(formated_command)
@@ -177,11 +177,11 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
         # else command has no options
         if new_batch_element.has_key?('options')
           parser = CliParser.new
-          parsed_command = parser.parse_command new_batch_element('command')
-          formated_command = format_command PathGenerator.format_path(parsed_command[0]), parsed_command[1], new_batch_element('options')
+          parsed_command = parser.parse_command new_batch_element['command']
+          formated_command = format_command PathGenerator.format_path(parsed_command[0]), parsed_command[1], new_batch_element['options']
           formated_commands.push(formated_command)
         else
-          formated_commands.push(new_batch_element('command'))
+          formated_commands.push(new_batch_element['command'])
         end
       else
         # this error condition should have already been caught by now but throw it here just in case
