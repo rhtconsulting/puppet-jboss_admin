@@ -30,7 +30,7 @@ module Puppet::Util::CliExecution
 
     delete_nil = Proc.new { |k, v| v.kind_of?(Hash) ? (v.delete_if(&delete_nil); nil) : v.nil? }
 
-    output = execute [ '--timeout', "#{server['cli_execute_timeout_minutes']}m", cli_path, '--connect','--controller=' + server['management_ip'] + ':' + server['management_port'], '--file=' + command_file.path], {:failonfail => failonfail, :combine => true}
+    output = execute [ 'timeout', "#{server['cli_execute_timeout_minutes']}m", cli_path, '--connect','--controller=' + server['management_ip'] + ':' + server['management_port'], '--file=' + command_file.path], {:failonfail => failonfail, :combine => true}
 
     if batch
       return {'outcome' => 'success'} if output =~ /The batch executed successfully/
