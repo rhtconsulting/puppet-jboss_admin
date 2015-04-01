@@ -30,9 +30,6 @@ define jboss_admin::resource::strict_max_bean_instance_pool (
     if $timeout != undef and !is_integer($timeout) { 
       fail('The attribute timeout is not an integer') 
     }
-    if $timeout_unit != undef and !is_string($timeout_unit) { 
-      fail('The attribute timeout_unit is not a string') 
-    }
     if $timeout_unit != undef and !($timeout_unit in ['NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS']) {
       fail("The attribute timeout_unit is not an allowed value: 'NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS'")
     }

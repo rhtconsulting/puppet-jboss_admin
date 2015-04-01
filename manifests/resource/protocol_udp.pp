@@ -20,9 +20,6 @@ define jboss_admin::resource::protocol_udp (
 ) {
   if $ensure == present {
 
-    if $host != undef and !is_string($host) { 
-      fail('The attribute host is not a string') 
-    }
     if $port != undef and !is_integer($port) { 
       fail('The attribute port is not an integer') 
     }

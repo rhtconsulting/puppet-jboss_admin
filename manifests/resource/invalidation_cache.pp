@@ -66,23 +66,11 @@ define jboss_admin::resource::invalidation_cache (
     if $batching != undef { 
       validate_bool($batching)
     }
-    if $indexing != undef and !is_string($indexing) { 
-      fail('The attribute indexing is not a string') 
-    }
     if $indexing != undef and !($indexing in ['NONE','LOCAL','ALL']) {
       fail("The attribute indexing is not an allowed value: 'NONE','LOCAL','ALL'")
     }
-    if $jndi_name != undef and !is_string($jndi_name) { 
-      fail('The attribute jndi_name is not a string') 
-    }
-    if $mode != undef and !is_string($mode) { 
-      fail('The attribute mode is not a string') 
-    }
     if $mode != undef and !($mode in ['SYNC','ASYNC']) {
       fail("The attribute mode is not an allowed value: 'SYNC','ASYNC'")
-    }
-    if $module != undef and !is_string($module) { 
-      fail('The attribute module is not a string') 
     }
     if $queue_flush_interval != undef and !is_integer($queue_flush_interval) { 
       fail('The attribute queue_flush_interval is not an integer') 
@@ -92,9 +80,6 @@ define jboss_admin::resource::invalidation_cache (
     }
     if $remote_timeout != undef and !is_integer($remote_timeout) { 
       fail('The attribute remote_timeout is not an integer') 
-    }
-    if $start != undef and !is_string($start) { 
-      fail('The attribute start is not a string') 
     }
     if $start != undef and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")

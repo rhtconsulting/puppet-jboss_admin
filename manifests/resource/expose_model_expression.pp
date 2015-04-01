@@ -16,9 +16,6 @@ define jboss_admin::resource::expose_model_expression (
 ) {
   if $ensure == present {
 
-    if $domain_name != undef and !is_string($domain_name) { 
-      fail('The attribute domain_name is not a string') 
-    }
   
 
     $raw_options = { 

@@ -40,26 +40,14 @@ define jboss_admin::resource::file_passivation_store (
 ) {
   if $ensure == present {
 
-    if $groups_path != undef and !is_string($groups_path) { 
-      fail('The attribute groups_path is not a string') 
-    }
     if $idle_timeout != undef and !is_integer($idle_timeout) { 
       fail('The attribute idle_timeout is not an integer') 
-    }
-    if $idle_timeout_unit != undef and !is_string($idle_timeout_unit) { 
-      fail('The attribute idle_timeout_unit is not a string') 
     }
     if $idle_timeout_unit != undef and !($idle_timeout_unit in ['NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS']) {
       fail("The attribute idle_timeout_unit is not an allowed value: 'NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS'")
     }
     if $max_size != undef and !is_integer($max_size) { 
       fail('The attribute max_size is not an integer') 
-    }
-    if $relative_to != undef and !is_string($relative_to) { 
-      fail('The attribute relative_to is not a string') 
-    }
-    if $sessions_path != undef and !is_string($sessions_path) { 
-      fail('The attribute sessions_path is not a string') 
     }
     if $subdirectory_count != undef and !is_integer($subdirectory_count) { 
       fail('The attribute subdirectory_count is not an integer') 

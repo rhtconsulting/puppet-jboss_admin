@@ -31,14 +31,8 @@ define jboss_admin::resource::access_authorization (
     if $all_role_names != undef and !is_array($all_role_names) { 
       fail('The attribute all_role_names is not an array') 
     }
-    if $permission_combination_policy != undef and !is_string($permission_combination_policy) { 
-      fail('The attribute permission_combination_policy is not a string') 
-    }
     if $permission_combination_policy != undef and !($permission_combination_policy in ['permissive','rejecting']) {
       fail("The attribute permission_combination_policy is not an allowed value: 'permissive','rejecting'")
-    }
-    if $provider != undef and !is_string($provider) { 
-      fail('The attribute provider is not a string') 
     }
     if $provider != undef and !($provider in ['simple','rbac']) {
       fail("The attribute provider is not an allowed value: 'simple','rbac'")

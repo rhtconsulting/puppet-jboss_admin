@@ -32,21 +32,6 @@ define jboss_admin::resource::endpoint (
 ) {
   if $ensure == present {
 
-    if $class != undef and !is_string($class) { 
-      fail('The attribute class is not a string') 
-    }
-    if $context != undef and !is_string($context) { 
-      fail('The attribute context is not a string') 
-    }
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
-    }
-    if $type != undef and !is_string($type) { 
-      fail('The attribute type is not a string') 
-    }
-    if $wsdl_url != undef and !is_string($wsdl_url) { 
-      fail('The attribute wsdl_url is not a string') 
-    }
   
 
     $raw_options = { 

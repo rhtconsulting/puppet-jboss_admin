@@ -16,9 +16,6 @@ define jboss_admin::resource::extension (
 ) {
   if $ensure == present {
 
-    if $module != undef and !is_string($module) { 
-      fail('The attribute module is not a string') 
-    }
   
 
     $raw_options = { 

@@ -57,9 +57,6 @@ define jboss_admin::resource::type_threading (
     if $object_monitor_usage_supported != undef { 
       validate_bool($object_monitor_usage_supported)
     }
-    if $object_name != undef and !is_string($object_name) { 
-      fail('The attribute object_name is not a string') 
-    }
     if $synchronizer_usage_supported != undef { 
       validate_bool($synchronizer_usage_supported)
     }

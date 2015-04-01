@@ -109,9 +109,6 @@ define jboss_admin::resource::configuration_jsp_configuration (
     if $generate_strings_as_char_arrays != undef { 
       validate_bool($generate_strings_as_char_arrays)
     }
-    if $java_encoding != undef and !is_string($java_encoding) { 
-      fail('The attribute java_encoding is not a string') 
-    }
     if $keep_generated != undef { 
       validate_bool($keep_generated)
     }
@@ -124,20 +121,11 @@ define jboss_admin::resource::configuration_jsp_configuration (
     if $recompile_on_fail != undef { 
       validate_bool($recompile_on_fail)
     }
-    if $scratch_dir != undef and !is_string($scratch_dir) { 
-      fail('The attribute scratch_dir is not a string') 
-    }
     if $smap != undef { 
       validate_bool($smap)
     }
-    if $source_vm != undef and !is_string($source_vm) { 
-      fail('The attribute source_vm is not a string') 
-    }
     if $tag_pooling != undef { 
       validate_bool($tag_pooling)
-    }
-    if $target_vm != undef and !is_string($target_vm) { 
-      fail('The attribute target_vm is not a string') 
     }
     if $trim_spaces != undef { 
       validate_bool($trim_spaces)

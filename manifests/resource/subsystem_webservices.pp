@@ -31,9 +31,6 @@ define jboss_admin::resource::subsystem_webservices (
     if $modify_wsdl_address != undef { 
       validate_bool($modify_wsdl_address)
     }
-    if $wsdl_host != undef and !is_string($wsdl_host) { 
-      fail('The attribute wsdl_host is not a string') 
-    }
     if $wsdl_port != undef and !is_integer($wsdl_port) { 
       fail('The attribute wsdl_port is not an integer') 
     }

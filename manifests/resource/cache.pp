@@ -23,9 +23,6 @@ define jboss_admin::resource::cache (
     if $aliases != undef and !is_array($aliases) { 
       fail('The attribute aliases is not an array') 
     }
-    if $passivation_store != undef and !is_string($passivation_store) { 
-      fail('The attribute passivation_store is not a string') 
-    }
   
 
     $raw_options = { 

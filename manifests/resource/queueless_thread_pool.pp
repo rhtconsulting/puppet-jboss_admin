@@ -32,17 +32,8 @@ define jboss_admin::resource::queueless_thread_pool (
 ) {
   if $ensure == present {
 
-    if $handoff_executor != undef and !is_string($handoff_executor) { 
-      fail('The attribute handoff_executor is not a string') 
-    }
     if $max_threads != undef and !is_integer($max_threads) { 
       fail('The attribute max_threads is not an integer') 
-    }
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
-    }
-    if $thread_factory != undef and !is_string($thread_factory) { 
-      fail('The attribute thread_factory is not a string') 
     }
   
 

@@ -36,26 +36,8 @@ define jboss_admin::resource::participants (
 ) {
   if $ensure == present {
 
-    if $eis_product_name != undef and !is_string($eis_product_name) { 
-      fail('The attribute eis_product_name is not a string') 
-    }
-    if $eis_product_version != undef and !is_string($eis_product_version) { 
-      fail('The attribute eis_product_version is not a string') 
-    }
-    if $jmx_name != undef and !is_string($jmx_name) { 
-      fail('The attribute jmx_name is not a string') 
-    }
-    if $jndi_name != undef and !is_string($jndi_name) { 
-      fail('The attribute jndi_name is not a string') 
-    }
-    if $status != undef and !is_string($status) { 
-      fail('The attribute status is not a string') 
-    }
     if $status != undef and !($status in ['PENDING','PREPARED','FAILED','HEURISTIC','READONLY']) {
       fail("The attribute status is not an allowed value: 'PENDING','PREPARED','FAILED','HEURISTIC','READONLY'")
-    }
-    if $type != undef and !is_string($type) { 
-      fail('The attribute type is not a string') 
     }
   
 

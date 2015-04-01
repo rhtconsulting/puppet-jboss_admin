@@ -36,20 +36,11 @@ define jboss_admin::resource::custom (
 ) {
   if $ensure == present {
 
-    if $outbound_socket_binding_ref != undef and !is_string($outbound_socket_binding_ref) { 
-      fail('The attribute outbound_socket_binding_ref is not a string') 
-    }
-    if $password != undef and !is_string($password) { 
-      fail('The attribute password is not a string') 
-    }
     if $ssl != undef { 
       validate_bool($ssl)
     }
     if $tls != undef { 
       validate_bool($tls)
-    }
-    if $username != undef and !is_string($username) { 
-      fail('The attribute username is not a string') 
     }
   
 

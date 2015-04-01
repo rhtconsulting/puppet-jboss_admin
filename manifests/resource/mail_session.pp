@@ -27,12 +27,6 @@ define jboss_admin::resource::mail_session (
     if $debug != undef { 
       validate_bool($debug)
     }
-    if $from != undef and !is_string($from) { 
-      fail('The attribute from is not a string') 
-    }
-    if $jndi_name != undef and !is_string($jndi_name) { 
-      fail('The attribute jndi_name is not a string') 
-    }
   
 
     $raw_options = { 

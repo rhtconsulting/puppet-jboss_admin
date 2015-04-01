@@ -31,14 +31,8 @@ define jboss_admin::resource::virtual_server (
     if $alias != undef and !is_array($alias) { 
       fail('The attribute alias is not an array') 
     }
-    if $default_web_module != undef and !is_string($default_web_module) { 
-      fail('The attribute default_web_module is not a string') 
-    }
     if $enable_welcome_root != undef { 
       validate_bool($enable_welcome_root)
-    }
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
     }
   
 

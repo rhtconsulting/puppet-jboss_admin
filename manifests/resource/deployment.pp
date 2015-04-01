@@ -38,14 +38,8 @@ define jboss_admin::resource::deployment (
     if $enabled != undef { 
       validate_bool($enabled)
     }
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
-    }
     if $persistent != undef { 
       validate_bool($persistent)
-    }
-    if $runtime_name != undef and !is_string($runtime_name) { 
-      fail('The attribute runtime_name is not a string') 
     }
   
 

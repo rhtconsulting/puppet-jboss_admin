@@ -16,9 +16,6 @@ define jboss_admin::resource::config_properties (
 ) {
   if $ensure == present {
 
-    if $value != undef and !is_string($value) { 
-      fail('The attribute value is not a string') 
-    }
   
 
     $raw_options = { 

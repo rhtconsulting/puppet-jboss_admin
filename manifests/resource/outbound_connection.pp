@@ -16,9 +16,6 @@ define jboss_admin::resource::outbound_connection (
 ) {
   if $ensure == present {
 
-    if $uri != undef and !is_string($uri) { 
-      fail('The attribute uri is not a string') 
-    }
   
 
     $raw_options = { 

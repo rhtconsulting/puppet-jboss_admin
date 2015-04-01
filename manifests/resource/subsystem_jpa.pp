@@ -20,12 +20,6 @@ define jboss_admin::resource::subsystem_jpa (
 ) {
   if $ensure == present {
 
-    if $default_datasource != undef and !is_string($default_datasource) { 
-      fail('The attribute default_datasource is not a string') 
-    }
-    if $default_extended_persistence_inheritance != undef and !is_string($default_extended_persistence_inheritance) { 
-      fail('The attribute default_extended_persistence_inheritance is not a string') 
-    }
     if $default_extended_persistence_inheritance != undef and !($default_extended_persistence_inheritance in ['DEEP','SHALLOW']) {
       fail("The attribute default_extended_persistence_inheritance is not an allowed value: 'DEEP','SHALLOW'")
     }

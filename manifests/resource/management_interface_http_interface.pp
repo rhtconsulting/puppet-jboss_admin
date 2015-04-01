@@ -43,23 +43,11 @@ define jboss_admin::resource::management_interface_http_interface (
     if $console_enabled != undef { 
       validate_bool($console_enabled)
     }
-    if $interface != undef and !is_string($interface) { 
-      fail('The attribute interface is not a string') 
-    }
     if $port != undef and !is_integer($port) { 
       fail('The attribute port is not an integer') 
     }
     if $secure_port != undef and !is_integer($secure_port) { 
       fail('The attribute secure_port is not an integer') 
-    }
-    if $secure_socket_binding != undef and !is_string($secure_socket_binding) { 
-      fail('The attribute secure_socket_binding is not a string') 
-    }
-    if $security_realm != undef and !is_string($security_realm) { 
-      fail('The attribute security_realm is not a string') 
-    }
-    if $socket_binding != undef and !is_string($socket_binding) { 
-      fail('The attribute socket_binding is not a string') 
     }
   
 

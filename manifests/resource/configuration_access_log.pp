@@ -35,12 +35,6 @@ define jboss_admin::resource::configuration_access_log (
     if $extended != undef { 
       validate_bool($extended)
     }
-    if $pattern != undef and !is_string($pattern) { 
-      fail('The attribute pattern is not a string') 
-    }
-    if $prefix != undef and !is_string($prefix) { 
-      fail('The attribute prefix is not a string') 
-    }
     if $resolve_hosts != undef { 
       validate_bool($resolve_hosts)
     }

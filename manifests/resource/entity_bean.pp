@@ -52,9 +52,6 @@ define jboss_admin::resource::entity_bean (
 ) {
   if $ensure == present {
 
-    if $component_class_name != undef and !is_string($component_class_name) { 
-      fail('The attribute component_class_name is not a string') 
-    }
     if $declared_roles != undef and !is_array($declared_roles) { 
       fail('The attribute declared_roles is not an array') 
     }
@@ -70,17 +67,8 @@ define jboss_admin::resource::entity_bean (
     if $pool_max_size != undef and !is_integer($pool_max_size) { 
       fail('The attribute pool_max_size is not an integer') 
     }
-    if $pool_name != undef and !is_string($pool_name) { 
-      fail('The attribute pool_name is not a string') 
-    }
     if $pool_remove_count != undef and !is_integer($pool_remove_count) { 
       fail('The attribute pool_remove_count is not an integer') 
-    }
-    if $run_as_role != undef and !is_string($run_as_role) { 
-      fail('The attribute run_as_role is not a string') 
-    }
-    if $security_domain != undef and !is_string($security_domain) { 
-      fail('The attribute security_domain is not a string') 
     }
   
 

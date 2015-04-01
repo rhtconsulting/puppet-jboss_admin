@@ -16,9 +16,6 @@ define jboss_admin::resource::local_outbound_connection (
 ) {
   if $ensure == present {
 
-    if $outbound_socket_binding_ref != undef and !is_string($outbound_socket_binding_ref) { 
-      fail('The attribute outbound_socket_binding_ref is not a string') 
-    }
   
 
     $raw_options = { 

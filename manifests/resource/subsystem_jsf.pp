@@ -16,9 +16,6 @@ define jboss_admin::resource::subsystem_jsf (
 ) {
   if $ensure == present {
 
-    if $default_jsf_impl_slot != undef and !is_string($default_jsf_impl_slot) { 
-      fail('The attribute default_jsf_impl_slot is not a string') 
-    }
   
 
     $raw_options = { 

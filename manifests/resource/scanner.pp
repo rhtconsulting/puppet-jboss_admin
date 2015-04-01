@@ -56,12 +56,6 @@ define jboss_admin::resource::scanner (
     if $deployment_timeout != undef and !is_integer($deployment_timeout) { 
       fail('The attribute deployment_timeout is not an integer') 
     }
-    if $path != undef and !is_string($path) { 
-      fail('The attribute path is not a string') 
-    }
-    if $relative_to != undef and !is_string($relative_to) { 
-      fail('The attribute relative_to is not a string') 
-    }
     if $scan_enabled != undef { 
       validate_bool($scan_enabled)
     }

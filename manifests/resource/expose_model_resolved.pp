@@ -20,9 +20,6 @@ define jboss_admin::resource::expose_model_resolved (
 ) {
   if $ensure == present {
 
-    if $domain_name != undef and !is_string($domain_name) { 
-      fail('The attribute domain_name is not a string') 
-    }
     if $proper_property_format != undef { 
       validate_bool($proper_property_format)
     }

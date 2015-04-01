@@ -24,12 +24,6 @@ define jboss_admin::resource::protocol_tls (
 ) {
   if $ensure == present {
 
-    if $host != undef and !is_string($host) { 
-      fail('The attribute host is not a string') 
-    }
-    if $message_transfer != undef and !is_string($message_transfer) { 
-      fail('The attribute message_transfer is not a string') 
-    }
     if $port != undef and !is_integer($port) { 
       fail('The attribute port is not an integer') 
     }

@@ -35,14 +35,8 @@ define jboss_admin::resource::remote_destination_outbound_socket_binding (
     if $fixed_source_port != undef { 
       validate_bool($fixed_source_port)
     }
-    if $host != undef and !is_string($host) { 
-      fail('The attribute host is not a string') 
-    }
     if $port != undef and !is_integer($port) { 
       fail('The attribute port is not an integer') 
-    }
-    if $source_interface != undef and !is_string($source_interface) { 
-      fail('The attribute source_interface is not a string') 
     }
     if $source_port != undef and !is_integer($source_port) { 
       fail('The attribute source_port is not an integer') 

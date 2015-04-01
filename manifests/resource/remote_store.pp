@@ -52,9 +52,6 @@ define jboss_admin::resource::remote_store (
 ) {
   if $ensure == present {
 
-    if $cache != undef and !is_string($cache) { 
-      fail('The attribute cache is not a string') 
-    }
     if $fetch_state != undef { 
       validate_bool($fetch_state)
     }

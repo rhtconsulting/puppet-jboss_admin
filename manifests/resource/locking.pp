@@ -34,9 +34,6 @@ define jboss_admin::resource::locking (
     if $concurrency_level != undef and !is_integer($concurrency_level) { 
       fail('The attribute concurrency_level is not an integer') 
     }
-    if $isolation != undef and !is_string($isolation) { 
-      fail('The attribute isolation is not a string') 
-    }
     if $isolation != undef and !($isolation in ['NONE','SERIALIZABLE','REPEATABLE_READ','READ_COMMITTED','READ_UNCOMMITTED']) {
       fail("The attribute isolation is not an allowed value: 'NONE','SERIALIZABLE','REPEATABLE_READ','READ_COMMITTED','READ_UNCOMMITTED'")
     }

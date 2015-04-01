@@ -24,12 +24,6 @@ define jboss_admin::resource::authentication_local (
 ) {
   if $ensure == present {
 
-    if $allowed_users != undef and !is_string($allowed_users) { 
-      fail('The attribute allowed_users is not a string') 
-    }
-    if $default_user != undef and !is_string($default_user) { 
-      fail('The attribute default_user is not a string') 
-    }
     if $skip_group_loading != undef { 
       validate_bool($skip_group_loading)
     }

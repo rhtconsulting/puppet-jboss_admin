@@ -76,50 +76,14 @@ define jboss_admin::resource::type_runtime (
 ) {
   if $ensure == present {
 
-    if $boot_class_path != undef and !is_string($boot_class_path) { 
-      fail('The attribute boot_class_path is not a string') 
-    }
     if $boot_class_path_supported != undef { 
       validate_bool($boot_class_path_supported)
-    }
-    if $class_path != undef and !is_string($class_path) { 
-      fail('The attribute class_path is not a string') 
     }
     if $input_arguments != undef and !is_array($input_arguments) { 
       fail('The attribute input_arguments is not an array') 
     }
-    if $library_path != undef and !is_string($library_path) { 
-      fail('The attribute library_path is not a string') 
-    }
-    if $management_spec_version != undef and !is_string($management_spec_version) { 
-      fail('The attribute management_spec_version is not a string') 
-    }
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
-    }
-    if $object_name != undef and !is_string($object_name) { 
-      fail('The attribute object_name is not a string') 
-    }
-    if $spec_name != undef and !is_string($spec_name) { 
-      fail('The attribute spec_name is not a string') 
-    }
-    if $spec_vendor != undef and !is_string($spec_vendor) { 
-      fail('The attribute spec_vendor is not a string') 
-    }
-    if $spec_version != undef and !is_string($spec_version) { 
-      fail('The attribute spec_version is not a string') 
-    }
     if $start_time != undef and !is_integer($start_time) { 
       fail('The attribute start_time is not an integer') 
-    }
-    if $vm_name != undef and !is_string($vm_name) { 
-      fail('The attribute vm_name is not a string') 
-    }
-    if $vm_vendor != undef and !is_string($vm_vendor) { 
-      fail('The attribute vm_vendor is not a string') 
-    }
-    if $vm_version != undef and !is_string($vm_version) { 
-      fail('The attribute vm_version is not a string') 
     }
   
 

@@ -16,9 +16,6 @@ define jboss_admin::resource::post_handler_chain (
 ) {
   if $ensure == present {
 
-    if $protocol_bindings != undef and !is_string($protocol_bindings) { 
-      fail('The attribute protocol_bindings is not a string') 
-    }
   
 
     $raw_options = { 

@@ -56,23 +56,8 @@ define jboss_admin::resource::jsse (
 ) {
   if $ensure == present {
 
-    if $cipher_suites != undef and !is_string($cipher_suites) { 
-      fail('The attribute cipher_suites is not a string') 
-    }
-    if $client_alias != undef and !is_string($client_alias) { 
-      fail('The attribute client_alias is not a string') 
-    }
     if $client_auth != undef { 
       validate_bool($client_auth)
-    }
-    if $protocols != undef and !is_string($protocols) { 
-      fail('The attribute protocols is not a string') 
-    }
-    if $server_alias != undef and !is_string($server_alias) { 
-      fail('The attribute server_alias is not a string') 
-    }
-    if $service_auth_token != undef and !is_string($service_auth_token) { 
-      fail('The attribute service_auth_token is not a string') 
     }
   
 

@@ -20,9 +20,6 @@ define jboss_admin::resource::type_class_loading (
 ) {
   if $ensure == present {
 
-    if $object_name != undef and !is_string($object_name) { 
-      fail('The attribute object_name is not a string') 
-    }
     if $verbose != undef { 
       validate_bool($verbose)
     }

@@ -20,9 +20,6 @@ define jboss_admin::resource::provider_module (
 ) {
   if $ensure == present {
 
-    if $code != undef and !is_string($code) { 
-      fail('The attribute code is not a string') 
-    }
   
 
     $raw_options = { 

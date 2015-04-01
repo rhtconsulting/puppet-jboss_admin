@@ -68,38 +68,14 @@ define jboss_admin::resource::subsystem_ejb3 (
 ) {
   if $ensure == present {
 
-    if $default_clustered_sfsb_cache != undef and !is_string($default_clustered_sfsb_cache) { 
-      fail('The attribute default_clustered_sfsb_cache is not a string') 
-    }
-    if $default_distinct_name != undef and !is_string($default_distinct_name) { 
-      fail('The attribute default_distinct_name is not a string') 
-    }
-    if $default_entity_bean_instance_pool != undef and !is_string($default_entity_bean_instance_pool) { 
-      fail('The attribute default_entity_bean_instance_pool is not a string') 
-    }
     if $default_entity_bean_optimistic_locking != undef { 
       validate_bool($default_entity_bean_optimistic_locking)
-    }
-    if $default_mdb_instance_pool != undef and !is_string($default_mdb_instance_pool) { 
-      fail('The attribute default_mdb_instance_pool is not a string') 
     }
     if $default_missing_method_permissions_deny_access != undef { 
       validate_bool($default_missing_method_permissions_deny_access)
     }
-    if $default_resource_adapter_name != undef and !is_string($default_resource_adapter_name) { 
-      fail('The attribute default_resource_adapter_name is not a string') 
-    }
-    if $default_security_domain != undef and !is_string($default_security_domain) { 
-      fail('The attribute default_security_domain is not a string') 
-    }
-    if $default_sfsb_cache != undef and !is_string($default_sfsb_cache) { 
-      fail('The attribute default_sfsb_cache is not a string') 
-    }
     if $default_singleton_bean_access_timeout != undef and !is_integer($default_singleton_bean_access_timeout) { 
       fail('The attribute default_singleton_bean_access_timeout is not an integer') 
-    }
-    if $default_slsb_instance_pool != undef and !is_string($default_slsb_instance_pool) { 
-      fail('The attribute default_slsb_instance_pool is not a string') 
     }
     if $default_stateful_bean_access_timeout != undef and !is_integer($default_stateful_bean_access_timeout) { 
       fail('The attribute default_stateful_bean_access_timeout is not an integer') 

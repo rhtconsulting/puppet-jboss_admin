@@ -43,20 +43,8 @@ define jboss_admin::resource::local_cache (
     if $batching != undef { 
       validate_bool($batching)
     }
-    if $indexing != undef and !is_string($indexing) { 
-      fail('The attribute indexing is not a string') 
-    }
     if $indexing != undef and !($indexing in ['NONE','LOCAL','ALL']) {
       fail("The attribute indexing is not an allowed value: 'NONE','LOCAL','ALL'")
-    }
-    if $jndi_name != undef and !is_string($jndi_name) { 
-      fail('The attribute jndi_name is not a string') 
-    }
-    if $module != undef and !is_string($module) { 
-      fail('The attribute module is not a string') 
-    }
-    if $start != undef and !is_string($start) { 
-      fail('The attribute start is not a string') 
     }
     if $start != undef and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")

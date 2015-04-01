@@ -40,20 +40,8 @@ define jboss_admin::resource::cluster_passivation_store (
 ) {
   if $ensure == present {
 
-    if $bean_cache != undef and !is_string($bean_cache) { 
-      fail('The attribute bean_cache is not a string') 
-    }
-    if $cache_container != undef and !is_string($cache_container) { 
-      fail('The attribute cache_container is not a string') 
-    }
-    if $client_mappings_cache != undef and !is_string($client_mappings_cache) { 
-      fail('The attribute client_mappings_cache is not a string') 
-    }
     if $idle_timeout != undef and !is_integer($idle_timeout) { 
       fail('The attribute idle_timeout is not an integer') 
-    }
-    if $idle_timeout_unit != undef and !is_string($idle_timeout_unit) { 
-      fail('The attribute idle_timeout_unit is not a string') 
     }
     if $idle_timeout_unit != undef and !($idle_timeout_unit in ['NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS']) {
       fail("The attribute idle_timeout_unit is not an allowed value: 'NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS'")

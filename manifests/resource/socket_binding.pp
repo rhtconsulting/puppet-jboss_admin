@@ -46,17 +46,8 @@ define jboss_admin::resource::socket_binding (
     if $fixed_port != undef { 
       validate_bool($fixed_port)
     }
-    if $interface != undef and !is_string($interface) { 
-      fail('The attribute interface is not a string') 
-    }
-    if $multicast_address != undef and !is_string($multicast_address) { 
-      fail('The attribute multicast_address is not a string') 
-    }
     if $multicast_port != undef and !is_integer($multicast_port) { 
       fail('The attribute multicast_port is not an integer') 
-    }
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
     }
     if $port != undef and !is_integer($port) { 
       fail('The attribute port is not an integer') 

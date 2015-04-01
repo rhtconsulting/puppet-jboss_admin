@@ -28,17 +28,8 @@ define jboss_admin::resource::stateful_session_bean (
 ) {
   if $ensure == present {
 
-    if $component_class_name != undef and !is_string($component_class_name) { 
-      fail('The attribute component_class_name is not a string') 
-    }
     if $declared_roles != undef and !is_array($declared_roles) { 
       fail('The attribute declared_roles is not an array') 
-    }
-    if $run_as_role != undef and !is_string($run_as_role) { 
-      fail('The attribute run_as_role is not a string') 
-    }
-    if $security_domain != undef and !is_string($security_domain) { 
-      fail('The attribute security_domain is not a string') 
     }
   
 

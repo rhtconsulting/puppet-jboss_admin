@@ -24,15 +24,6 @@ define jboss_admin::resource::rewrite (
 ) {
   if $ensure == present {
 
-    if $flags != undef and !is_string($flags) { 
-      fail('The attribute flags is not a string') 
-    }
-    if $pattern != undef and !is_string($pattern) { 
-      fail('The attribute pattern is not a string') 
-    }
-    if $substitution != undef and !is_string($substitution) { 
-      fail('The attribute substitution is not a string') 
-    }
   
 
     $raw_options = { 

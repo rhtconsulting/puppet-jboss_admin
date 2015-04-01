@@ -34,12 +34,6 @@ define jboss_admin::resource::commit_markable_resource (
     if $immediate_cleanup != undef { 
       validate_bool($immediate_cleanup)
     }
-    if $jndi_name != undef and !is_string($jndi_name) { 
-      fail('The attribute jndi_name is not a string') 
-    }
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
-    }
   
 
     $raw_options = { 

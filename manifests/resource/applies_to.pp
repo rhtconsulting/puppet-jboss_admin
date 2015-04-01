@@ -28,9 +28,6 @@ define jboss_admin::resource::applies_to (
 ) {
   if $ensure == present {
 
-    if $address != undef and !is_string($address) { 
-      fail('The attribute address is not a string') 
-    }
     if $attributes != undef and !is_array($attributes) { 
       fail('The attribute attributes is not an array') 
     }

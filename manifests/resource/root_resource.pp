@@ -72,9 +72,6 @@ define jboss_admin::resource::root_resource (
 ) {
   if $ensure == present {
 
-    if $launch_type != undef and !is_string($launch_type) { 
-      fail('The attribute launch_type is not a string') 
-    }
     if $launch_type != undef and !($launch_type in ['DOMAIN','STANDALONE','EMBEDDED','APPCLIENT']) {
       fail("The attribute launch_type is not an allowed value: 'DOMAIN','STANDALONE','EMBEDDED','APPCLIENT'")
     }
@@ -87,35 +84,8 @@ define jboss_admin::resource::root_resource (
     if $management_minor_version != undef and !is_integer($management_minor_version) { 
       fail('The attribute management_minor_version is not an integer') 
     }
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
-    }
-    if $process_type != undef and !is_string($process_type) { 
-      fail('The attribute process_type is not a string') 
-    }
-    if $product_name != undef and !is_string($product_name) { 
-      fail('The attribute product_name is not a string') 
-    }
-    if $product_version != undef and !is_string($product_version) { 
-      fail('The attribute product_version is not a string') 
-    }
-    if $profile_name != undef and !is_string($profile_name) { 
-      fail('The attribute profile_name is not a string') 
-    }
-    if $release_codename != undef and !is_string($release_codename) { 
-      fail('The attribute release_codename is not a string') 
-    }
-    if $release_version != undef and !is_string($release_version) { 
-      fail('The attribute release_version is not a string') 
-    }
-    if $running_mode != undef and !is_string($running_mode) { 
-      fail('The attribute running_mode is not a string') 
-    }
     if $running_mode != undef and !($running_mode in ['NORMAL','ADMIN_ONLY']) {
       fail("The attribute running_mode is not an allowed value: 'NORMAL','ADMIN_ONLY'")
-    }
-    if $server_state != undef and !is_string($server_state) { 
-      fail('The attribute server_state is not a string') 
     }
   
 

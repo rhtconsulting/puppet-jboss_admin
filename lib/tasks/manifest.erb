@@ -32,9 +32,6 @@ define jboss_admin::resource::<%= type[:name] %> (
     }
 <%   end -%>
 <%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'STRING' -%>
-    if $<%= puppet_name attr %> != undef and !is_string($<%= puppet_name attr %>) { 
-      fail('The attribute <%= puppet_name attr %> is not a string') 
-    }
 <%     if attribute[:allowed] 
          allowed_values = attribute[:allowed].collect{|a| "'#{a}'"}.join(',') -%>
     if $<%= puppet_name attr %> != undef and !($<%= puppet_name attr %> in [<%= allowed_values %>]) {

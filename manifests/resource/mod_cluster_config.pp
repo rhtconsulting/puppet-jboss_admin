@@ -115,32 +115,14 @@ define jboss_admin::resource::mod_cluster_config (
     if $advertise != undef { 
       validate_bool($advertise)
     }
-    if $advertise_security_key != undef and !is_string($advertise_security_key) { 
-      fail('The attribute advertise_security_key is not a string') 
-    }
-    if $advertise_socket != undef and !is_string($advertise_socket) { 
-      fail('The attribute advertise_socket is not a string') 
-    }
     if $auto_enable_contexts != undef { 
       validate_bool($auto_enable_contexts)
-    }
-    if $balancer != undef and !is_string($balancer) { 
-      fail('The attribute balancer is not a string') 
-    }
-    if $connector != undef and !is_string($connector) { 
-      fail('The attribute connector is not a string') 
-    }
-    if $excluded_contexts != undef and !is_string($excluded_contexts) { 
-      fail('The attribute excluded_contexts is not a string') 
     }
     if $flush_packets != undef { 
       validate_bool($flush_packets)
     }
     if $flush_wait != undef and !is_integer($flush_wait) { 
       fail('The attribute flush_wait is not an integer') 
-    }
-    if $load_balancing_group != undef and !is_string($load_balancing_group) { 
-      fail('The attribute load_balancing_group is not a string') 
     }
     if $max_attempts != undef and !is_integer($max_attempts) { 
       fail('The attribute max_attempts is not an integer') 
@@ -150,15 +132,6 @@ define jboss_admin::resource::mod_cluster_config (
     }
     if $ping != undef and !is_integer($ping) { 
       fail('The attribute ping is not an integer') 
-    }
-    if $proxy_list != undef and !is_string($proxy_list) { 
-      fail('The attribute proxy_list is not a string') 
-    }
-    if $proxy_url != undef and !is_string($proxy_url) { 
-      fail('The attribute proxy_url is not a string') 
-    }
-    if $session_draining_strategy != undef and !is_string($session_draining_strategy) { 
-      fail('The attribute session_draining_strategy is not a string') 
     }
     if $session_draining_strategy != undef and !($session_draining_strategy in ['DEFAULT','ALWAYS','NEVER']) {
       fail("The attribute session_draining_strategy is not an allowed value: 'DEFAULT','ALWAYS','NEVER'")

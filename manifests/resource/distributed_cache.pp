@@ -82,26 +82,14 @@ define jboss_admin::resource::distributed_cache (
     if $batching != undef { 
       validate_bool($batching)
     }
-    if $indexing != undef and !is_string($indexing) { 
-      fail('The attribute indexing is not a string') 
-    }
     if $indexing != undef and !($indexing in ['NONE','LOCAL','ALL']) {
       fail("The attribute indexing is not an allowed value: 'NONE','LOCAL','ALL'")
-    }
-    if $jndi_name != undef and !is_string($jndi_name) { 
-      fail('The attribute jndi_name is not a string') 
     }
     if $l1_lifespan != undef and !is_integer($l1_lifespan) { 
       fail('The attribute l1_lifespan is not an integer') 
     }
-    if $mode != undef and !is_string($mode) { 
-      fail('The attribute mode is not a string') 
-    }
     if $mode != undef and !($mode in ['SYNC','ASYNC']) {
       fail("The attribute mode is not an allowed value: 'SYNC','ASYNC'")
-    }
-    if $module != undef and !is_string($module) { 
-      fail('The attribute module is not a string') 
     }
     if $owners != undef and !is_integer($owners) { 
       fail('The attribute owners is not an integer') 
@@ -117,9 +105,6 @@ define jboss_admin::resource::distributed_cache (
     }
     if $segments != undef and !is_integer($segments) { 
       fail('The attribute segments is not an integer') 
-    }
-    if $start != undef and !is_string($start) { 
-      fail('The attribute start is not a string') 
     }
     if $start != undef and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")

@@ -101,29 +101,14 @@ define jboss_admin::resource::interface (
     if $any_ipv6_address != undef { 
       validate_bool($any_ipv6_address)
     }
-    if $inet_address != undef and !is_string($inet_address) { 
-      fail('The attribute inet_address is not a string') 
-    }
     if $link_local_address != undef { 
       validate_bool($link_local_address)
     }
     if $loopback != undef { 
       validate_bool($loopback)
     }
-    if $loopback_address != undef and !is_string($loopback_address) { 
-      fail('The attribute loopback_address is not a string') 
-    }
     if $multicast != undef { 
       validate_bool($multicast)
-    }
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
-    }
-    if $nic != undef and !is_string($nic) { 
-      fail('The attribute nic is not a string') 
-    }
-    if $nic_match != undef and !is_string($nic_match) { 
-      fail('The attribute nic_match is not a string') 
     }
     if $point_to_point != undef { 
       validate_bool($point_to_point)
@@ -131,14 +116,8 @@ define jboss_admin::resource::interface (
     if $public_address != undef { 
       validate_bool($public_address)
     }
-    if $resolved_address != undef and !is_string($resolved_address) { 
-      fail('The attribute resolved_address is not a string') 
-    }
     if $site_local_address != undef { 
       validate_bool($site_local_address)
-    }
-    if $subnet_match != undef and !is_string($subnet_match) { 
-      fail('The attribute subnet_match is not a string') 
     }
     if $up != undef { 
       validate_bool($up)

@@ -222,41 +222,17 @@ define jboss_admin::resource::data_source (
     if $blocking_timeout_wait_millis != undef and !is_integer($blocking_timeout_wait_millis) { 
       fail('The attribute blocking_timeout_wait_millis is not an integer') 
     }
-    if $check_valid_connection_sql != undef and !is_string($check_valid_connection_sql) { 
-      fail('The attribute check_valid_connection_sql is not a string') 
-    }
     if $connectable != undef { 
       validate_bool($connectable)
     }
-    if $connection_url != undef and !is_string($connection_url) { 
-      fail('The attribute connection_url is not a string') 
-    }
-    if $datasource_class != undef and !is_string($datasource_class) { 
-      fail('The attribute datasource_class is not a string') 
-    }
-    if $driver_class != undef and !is_string($driver_class) { 
-      fail('The attribute driver_class is not a string') 
-    }
-    if $driver_name != undef and !is_string($driver_name) { 
-      fail('The attribute driver_name is not a string') 
-    }
     if $enabled != undef { 
       validate_bool($enabled)
-    }
-    if $exception_sorter_class_name != undef and !is_string($exception_sorter_class_name) { 
-      fail('The attribute exception_sorter_class_name is not a string') 
-    }
-    if $flush_strategy != undef and !is_string($flush_strategy) { 
-      fail('The attribute flush_strategy is not a string') 
     }
     if $flush_strategy != undef and !($flush_strategy in ['UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool']) {
       fail("The attribute flush_strategy is not an allowed value: 'UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool'")
     }
     if $idle_timeout_minutes != undef and !is_integer($idle_timeout_minutes) { 
       fail('The attribute idle_timeout_minutes is not an integer') 
-    }
-    if $jndi_name != undef and !is_string($jndi_name) { 
-      fail('The attribute jndi_name is not a string') 
     }
     if $jta != undef { 
       validate_bool($jta)
@@ -266,12 +242,6 @@ define jboss_admin::resource::data_source (
     }
     if $min_pool_size != undef and !is_integer($min_pool_size) { 
       fail('The attribute min_pool_size is not an integer') 
-    }
-    if $new_connection_sql != undef and !is_string($new_connection_sql) { 
-      fail('The attribute new_connection_sql is not a string') 
-    }
-    if $password != undef and !is_string($password) { 
-      fail('The attribute password is not a string') 
     }
     if $pool_prefill != undef { 
       validate_bool($pool_prefill)
@@ -285,12 +255,6 @@ define jboss_admin::resource::data_source (
     if $query_timeout != undef and !is_integer($query_timeout) { 
       fail('The attribute query_timeout is not an integer') 
     }
-    if $reauth_plugin_class_name != undef and !is_string($reauth_plugin_class_name) { 
-      fail('The attribute reauth_plugin_class_name is not a string') 
-    }
-    if $security_domain != undef and !is_string($security_domain) { 
-      fail('The attribute security_domain is not a string') 
-    }
     if $set_tx_query_timeout != undef { 
       validate_bool($set_tx_query_timeout)
     }
@@ -300,23 +264,8 @@ define jboss_admin::resource::data_source (
     if $spy != undef { 
       validate_bool($spy)
     }
-    if $stale_connection_checker_class_name != undef and !is_string($stale_connection_checker_class_name) { 
-      fail('The attribute stale_connection_checker_class_name is not a string') 
-    }
     if $statistics_enabled != undef { 
       validate_bool($statistics_enabled)
-    }
-    if $track_statements != undef and !is_string($track_statements) { 
-      fail('The attribute track_statements is not a string') 
-    }
-    if $transaction_isolation != undef and !is_string($transaction_isolation) { 
-      fail('The attribute transaction_isolation is not a string') 
-    }
-    if $url_delimiter != undef and !is_string($url_delimiter) { 
-      fail('The attribute url_delimiter is not a string') 
-    }
-    if $url_selector_strategy_class_name != undef and !is_string($url_selector_strategy_class_name) { 
-      fail('The attribute url_selector_strategy_class_name is not a string') 
     }
     if $use_ccm != undef { 
       validate_bool($use_ccm)
@@ -329,12 +278,6 @@ define jboss_admin::resource::data_source (
     }
     if $use_try_lock != undef and !is_integer($use_try_lock) { 
       fail('The attribute use_try_lock is not an integer') 
-    }
-    if $user_name != undef and !is_string($user_name) { 
-      fail('The attribute user_name is not a string') 
-    }
-    if $valid_connection_checker_class_name != undef and !is_string($valid_connection_checker_class_name) { 
-      fail('The attribute valid_connection_checker_class_name is not a string') 
     }
     if $validate_on_match != undef { 
       validate_bool($validate_on_match)

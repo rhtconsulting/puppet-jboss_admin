@@ -43,26 +43,8 @@ define jboss_admin::resource::ldap_connection (
     if $handles_referrals_for != undef and !is_array($handles_referrals_for) { 
       fail('The attribute handles_referrals_for is not an array') 
     }
-    if $initial_context_factory != undef and !is_string($initial_context_factory) { 
-      fail('The attribute initial_context_factory is not a string') 
-    }
-    if $referrals != undef and !is_string($referrals) { 
-      fail('The attribute referrals is not a string') 
-    }
     if $referrals != undef and !($referrals in ['FOLLOW','IGNORE','THROW']) {
       fail("The attribute referrals is not an allowed value: 'FOLLOW','IGNORE','THROW'")
-    }
-    if $search_credential != undef and !is_string($search_credential) { 
-      fail('The attribute search_credential is not a string') 
-    }
-    if $search_dn != undef and !is_string($search_dn) { 
-      fail('The attribute search_dn is not a string') 
-    }
-    if $security_realm != undef and !is_string($security_realm) { 
-      fail('The attribute security_realm is not a string') 
-    }
-    if $url != undef and !is_string($url) { 
-      fail('The attribute url is not a string') 
     }
   
 

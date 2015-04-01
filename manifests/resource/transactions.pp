@@ -31,15 +31,6 @@ define jboss_admin::resource::transactions (
     if $age_in_seconds != undef and !is_integer($age_in_seconds) { 
       fail('The attribute age_in_seconds is not an integer') 
     }
-    if $id != undef and !is_string($id) { 
-      fail('The attribute id is not a string') 
-    }
-    if $jmx_name != undef and !is_string($jmx_name) { 
-      fail('The attribute jmx_name is not a string') 
-    }
-    if $type != undef and !is_string($type) { 
-      fail('The attribute type is not a string') 
-    }
   
 
     $raw_options = { 

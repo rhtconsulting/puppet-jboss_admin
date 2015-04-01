@@ -50,17 +50,11 @@ define jboss_admin::resource::file_store (
     if $passivation != undef { 
       validate_bool($passivation)
     }
-    if $path != undef and !is_string($path) { 
-      fail('The attribute path is not a string') 
-    }
     if $preload != undef { 
       validate_bool($preload)
     }
     if $purge != undef { 
       validate_bool($purge)
-    }
-    if $relative_to != undef and !is_string($relative_to) { 
-      fail('The attribute relative_to is not a string') 
     }
     if $shared != undef { 
       validate_bool($shared)

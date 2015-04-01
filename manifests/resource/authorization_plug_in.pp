@@ -16,9 +16,6 @@ define jboss_admin::resource::authorization_plug_in (
 ) {
   if $ensure == present {
 
-    if $resource_name != undef and !is_string($resource_name) { 
-      fail('The attribute resource_name is not a string') 
-    }
   
 
     $raw_options = { 

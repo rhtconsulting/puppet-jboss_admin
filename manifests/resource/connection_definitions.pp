@@ -159,14 +159,8 @@ define jboss_admin::resource::connection_definitions (
     if $blocking_timeout_wait_millis != undef and !is_integer($blocking_timeout_wait_millis) { 
       fail('The attribute blocking_timeout_wait_millis is not an integer') 
     }
-    if $class_name != undef and !is_string($class_name) { 
-      fail('The attribute class_name is not a string') 
-    }
     if $enabled != undef { 
       validate_bool($enabled)
-    }
-    if $flush_strategy != undef and !is_string($flush_strategy) { 
-      fail('The attribute flush_strategy is not a string') 
     }
     if $flush_strategy != undef and !($flush_strategy in ['UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool']) {
       fail("The attribute flush_strategy is not an allowed value: 'UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool'")
@@ -176,9 +170,6 @@ define jboss_admin::resource::connection_definitions (
     }
     if $interleaving != undef { 
       validate_bool($interleaving)
-    }
-    if $jndi_name != undef and !is_string($jndi_name) { 
-      fail('The attribute jndi_name is not a string') 
     }
     if $max_pool_size != undef and !is_integer($max_pool_size) { 
       fail('The attribute max_pool_size is not an integer') 
@@ -201,29 +192,11 @@ define jboss_admin::resource::connection_definitions (
     if $pool_use_strict_min != undef { 
       validate_bool($pool_use_strict_min)
     }
-    if $recovery_password != undef and !is_string($recovery_password) { 
-      fail('The attribute recovery_password is not a string') 
-    }
-    if $recovery_plugin_class_name != undef and !is_string($recovery_plugin_class_name) { 
-      fail('The attribute recovery_plugin_class_name is not a string') 
-    }
-    if $recovery_security_domain != undef and !is_string($recovery_security_domain) { 
-      fail('The attribute recovery_security_domain is not a string') 
-    }
-    if $recovery_username != undef and !is_string($recovery_username) { 
-      fail('The attribute recovery_username is not a string') 
-    }
     if $same_rm_override != undef { 
       validate_bool($same_rm_override)
     }
     if $security_application != undef { 
       validate_bool($security_application)
-    }
-    if $security_domain != undef and !is_string($security_domain) { 
-      fail('The attribute security_domain is not a string') 
-    }
-    if $security_domain_and_application != undef and !is_string($security_domain_and_application) { 
-      fail('The attribute security_domain_and_application is not a string') 
     }
     if $use_ccm != undef { 
       validate_bool($use_ccm)

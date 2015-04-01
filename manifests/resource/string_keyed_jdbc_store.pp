@@ -44,9 +44,6 @@ define jboss_admin::resource::string_keyed_jdbc_store (
 ) {
   if $ensure == present {
 
-    if $datasource != undef and !is_string($datasource) { 
-      fail('The attribute datasource is not a string') 
-    }
     if $fetch_state != undef { 
       validate_bool($fetch_state)
     }

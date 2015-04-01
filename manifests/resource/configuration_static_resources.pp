@@ -47,9 +47,6 @@ define jboss_admin::resource::configuration_static_resources (
     if $disabled != undef { 
       validate_bool($disabled)
     }
-    if $file_encoding != undef and !is_string($file_encoding) { 
-      fail('The attribute file_encoding is not a string') 
-    }
     if $listings != undef { 
       validate_bool($listings)
     }
@@ -58,9 +55,6 @@ define jboss_admin::resource::configuration_static_resources (
     }
     if $read_only != undef { 
       validate_bool($read_only)
-    }
-    if $secret != undef and !is_string($secret) { 
-      fail('The attribute secret is not a string') 
     }
     if $sendfile != undef and !is_integer($sendfile) { 
       fail('The attribute sendfile is not an integer') 

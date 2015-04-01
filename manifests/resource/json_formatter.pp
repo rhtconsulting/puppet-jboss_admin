@@ -40,12 +40,6 @@ define jboss_admin::resource::json_formatter (
     if $compact != undef { 
       validate_bool($compact)
     }
-    if $date_format != undef and !is_string($date_format) { 
-      fail('The attribute date_format is not a string') 
-    }
-    if $date_separator != undef and !is_string($date_separator) { 
-      fail('The attribute date_separator is not a string') 
-    }
     if $escape_control_characters != undef { 
       validate_bool($escape_control_characters)
     }

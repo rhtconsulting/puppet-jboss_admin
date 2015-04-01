@@ -24,12 +24,6 @@ define jboss_admin::resource::core_service_vault (
 ) {
   if $ensure == present {
 
-    if $code != undef and !is_string($code) { 
-      fail('The attribute code is not a string') 
-    }
-    if $module != undef and !is_string($module) { 
-      fail('The attribute module is not a string') 
-    }
   
 
     $raw_options = { 

@@ -40,9 +40,6 @@ define jboss_admin::resource::store (
 ) {
   if $ensure == present {
 
-    if $class != undef and !is_string($class) { 
-      fail('The attribute class is not a string') 
-    }
     if $fetch_state != undef { 
       validate_bool($fetch_state)
     }
