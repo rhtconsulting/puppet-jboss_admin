@@ -6,7 +6,7 @@ namespace :resource do
   end
 
   def custom_dir
-    File.join Rake.application.original_dir, 'manifests/internal/custom_resource'
+    File.join Rake.application.original_dir, 'internal/custom_resource'
   end
 
   def schema_path
