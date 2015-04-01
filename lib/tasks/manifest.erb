@@ -6,7 +6,7 @@
 #
 <% type[:attributes].each_key.sort.each do |attr| -%>
 # [*<%= puppet_name attr %>*]
-#   <%= type[:attributes][attr][:description] %>
+<%= type[:attributes][attr][:description].gsub(/^/, '#   ') %>
 #
 <% end -%>
 #

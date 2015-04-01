@@ -15,7 +15,7 @@
 #
 # [*escape_control_characters*]
 #   If true will escape all control characters (ascii entries with a decimal value < 32) with the ascii code in octal, e.g.'
-# becomes '#012'. If this is true, it will override escape-new-line="false".
+#    becomes '#012'. If this is true, it will override escape-new-line="false".
 #
 # [*escape_new_line*]
 #   If true will escape all new lines with the ascii code in octal, e.g. "#012".

@@ -15,11 +15,11 @@
 #
 # [*thread_name_pattern*]
 #   The template used to create names for threads.  The following patterns may be used:
-#	%% - emit a percent sign
-#	%t - emit the per-factory thread sequence number
-#	%g - emit the global thread sequence number
-#	%f - emit the factory sequence number
-#	%i - emit the thread ID.
+#   	%% - emit a percent sign
+#   	%t - emit the per-factory thread sequence number
+#   	%g - emit the global thread sequence number
+#   	%f - emit the factory sequence number
+#   	%i - emit the thread ID.
 #
 #
 define jboss_admin::resource::thread_factory (
