@@ -1,0 +1,5 @@
+vagrant/
+.gitignore
+internal/
+config/
+templates/
