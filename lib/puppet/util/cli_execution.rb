@@ -30,11 +30,11 @@ module Puppet::Util::CliExecution
 
     delete_nil = Proc.new { |k, v| v.kind_of?(Hash) ? (v.delete_if(&delete_nil); nil) : v.nil? }
 
-    output = execute [cli_path, '--connect','--controller=' + server['management_ip'] + ':' + server['management_port'], '--file=' + command_file.path], {:failonfail => failonfail, :combine => true}
+    output = execute [ 'timeout', "#{server['cli_execute_timeout_minutes']}m", cli_path, '--connect','--controller=' + server['management_ip'] + ':' + server['management_port'], '--file=' + command_file.path], {:failonfail => failonfail, :combine => true}
 
     if batch
       return {'outcome' => 'success'} if output =~ /The batch executed successfully/
-      return {'outcome' => 'failure', 'failure-description' => output.lines.to_a.last}
+      return {'outcome' => 'failure', 'failure-description' => output.lines.to_a}
     else
       json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/=>/, ':').gsub(/: expression/, ': ').gsub(/\}\n\{/m, "},{").gsub(/\n/, '').gsub(/: (\d+)L/, ': \1') + ']'
       parsed_output = JSON.parse(json_string)
@@ -50,13 +50,13 @@ module Puppet::Util::CliExecution
     if value.is_a?(Array) || value.is_a?(Hash)
       value.inspect
     else
-      # if the value contains commas, spaces, or equals then wrap it in quotes
-      (/[, =\[\]]/ =~ value.to_s).nil? ? value.to_s : "\"#{value.to_s}\""
+      # if the value contains special characters then wrap it in quotes
+      (/[${}, =\[\]]/ =~ value.to_s).nil? ? value.to_s : "\"#{value.to_s}\""
     end
   end
 
   def format_command(address, operation, options = {})
-    if options.empty?
+    if options.nil? || options.empty?
       "#{address}:#{operation}"
     else
       option_string = options.map{ |option, value| "#{option}=#{format_value value}" }.join(',')

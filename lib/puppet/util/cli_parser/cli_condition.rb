@@ -129,7 +129,7 @@ module CliCondition
     def value
       head_expr = head.expr.value
       tail.elements.inject(head_expr) do |result, node| 
-        node.logical_operation.value result, node.logical_expression.value
+        node.logical_operator.value result, node.logical_expression.value
       end
     end
   end
@@ -641,8 +641,11 @@ module CliCondition
   end
 
   module Value0
+  end
+
+  module Value1
     def value
-      text_value
+      text_value.gsub(/^\"|\"?$/, '')
     end
   end
 
@@ -657,27 +660,91 @@ module CliCondition
       return cached
     end
 
-    s0, i0 = [], index
+    i0 = index
+    s1, i1 = [], index
     loop do
       if has_terminal?(@regexps[gr = '\A[a-zA-Z0-9-]'] ||= Regexp.new(gr), :regexp, index)
-        r1 = true
+        r2 = true
         @index += 1
       else
         terminal_parse_failure('[a-zA-Z0-9-]')
-        r1 = nil
+        r2 = nil
       end
-      if r1
-        s0 << r1
+      if r2
+        s1 << r2
       else
         break
       end
     end
-    if s0.empty?
-      @index = i0
-      r0 = nil
+    if s1.empty?
+      @index = i1
+      r1 = nil
     else
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-      r0.extend(Value0)
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+    end
+    if r1
+      r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
+      r0 = r1
+      r0.extend(Value1)
+    else
+      i3, s3 = index, []
+      if (match_len = has_terminal?('"', false, index))
+        r4 = true
+        @index += match_len
+      else
+        terminal_parse_failure('"')
+        r4 = nil
+      end
+      s3 << r4
+      if r4
+        s5, i5 = [], index
+        loop do
+          if has_terminal?(@regexps[gr = '\A[a-zA-Z0-9_\\.\\-:/]'] ||= Regexp.new(gr), :regexp, index)
+            r6 = true
+            @index += 1
+          else
+            terminal_parse_failure('[a-zA-Z0-9_\\.\\-:/]')
+            r6 = nil
+          end
+          if r6
+            s5 << r6
+          else
+            break
+          end
+        end
+        if s5.empty?
+          @index = i5
+          r5 = nil
+        else
+          r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+        end
+        s3 << r5
+        if r5
+          if (match_len = has_terminal?('"', false, index))
+            r7 = true
+            @index += match_len
+          else
+            terminal_parse_failure('"')
+            r7 = nil
+          end
+          s3 << r7
+        end
+      end
+      if s3.last
+        r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
+        r3.extend(Value0)
+      else
+        @index = i3
+        r3 = nil
+      end
+      if r3
+        r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
+        r0 = r3
+        r0.extend(Value1)
+      else
+        @index = i0
+        r0 = nil
+      end
     end
 
     node_cache[:value][start_index] = r0

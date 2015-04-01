@@ -37,13 +37,21 @@ specific to a single resource. Pattern types have enhanced documenation,
 validation, and error handling that is specific to a common pattern that combines
 multiple related plumbing and porcelain types.
 
-Currently there are two plumbing types on which all porcelain types are built:
+Currently there are three plumbing types on which all porcelain types are built:
 
 * jboss_resource: Ensures that a specific resource path is present or absent, and that all 
   attributes have the specified values. Non-specified attributes are ignored.
 * jboss_exec: Executes the specified command within the Jboss CLI. Executing the command
   can be made conditional based on the result of another command. This support
   is not dependent on a specific version if EAP/Wildfly.
+* jboss_batch: Allows an ordered list of JBoss resources and JBoss CLI commands to be specified
+  that will be ensured and executed in the specified ordered. The specifics of the specified
+  JBoss resources and CLI commands work the same as they would in an individual jboss_resource
+  or jboss_exec. That is if an address is specified for a resource with an ensure value and optional
+  options then the jboss_batch operation will ensure that state of the resource. If any CLI commands
+ are specified they they will be run. The jboss_batch will only execute if there are specified resources
+ that are out of sync, or there are any CLI commands listed. But these cases will be ignored if an
+ unless or onlyif statement fails its given test.
 
 There are currently over 100 porcelain types. For example, here are a few
 porcelain types:
@@ -144,6 +152,40 @@ jboss_exec {'Enable Data Source':
   command => '/subsystem=datasources/data-source=ExampleDS:enable',
   unless  => '(result == true) of /subsystem=datasources/data-source=ExampleDS:read-attribute(name=enabled)',
   server  => main
+}
+
+jboss_batch { "Datasource Batch":
+  batch  => [
+    { address => '/subsystem=datasources/data-source=ExampleDS',
+      options => {
+        'connection-url' => 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1',
+        'driver-name'    => 'h2',
+        'jndi-name'      => 'java:jboss/datasources/ExampleDS2',
+        'jta'            => true,
+        'user-name'      => 'sa',
+        'password'       => 'sa'
+      },  
+      ensure  => present
+    }   
+  ],  
+  server => main,
+}
+
+jboss_batch { "Datasource Batch":
+  batch  => [
+    { command => '/subsystem=datasources/data-source=ExampleDS:add',
+      options => {
+        'connection-url' => 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1',
+        'driver-name'    => 'h2',
+        'jndi-name'      => 'java:jboss/datasources/ExampleDS2',
+        'jta'            => true,
+        'user-name'      => 'sa',
+        'password'       => 'sa'
+      },  
+      ensure  => present
+    }   
+  ],  
+  server => main,
 }
 ```
 

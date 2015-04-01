@@ -15,7 +15,7 @@ grammar CliCondition
       def value
         head_expr = head.expr.value
         tail.elements.inject(head_expr) do |result, node| 
-          node.logical_operation.value result, node.logical_expression.value
+          node.logical_operator.value result, node.logical_expression.value
         end
       end
     }
@@ -88,9 +88,9 @@ grammar CliCondition
   end
 
   rule value
-    [a-zA-Z0-9-]+ {
+    ([a-zA-Z0-9-]+ / '"' [a-zA-Z0-9_\.\-:/]+ '"') {
       def value
-        text_value
+        text_value.gsub(/^\"|\"?$/, '')
       end
     }
   end
