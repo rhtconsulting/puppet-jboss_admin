@@ -110,7 +110,7 @@ jboss_admin::server {'main':
   base_path => '/opt/jboss'
 }
 
-jboss_admin::resource::datasource{'/subsystem=datasources/data-source=ExampleDS':
+jboss_admin::resource::data_source{'/subsystem=datasources/data-source=ExampleDS':
   ensure         => present,
   connection_url => 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1',
   driver_name    => h2,
