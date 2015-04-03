@@ -41,19 +41,10 @@ define jboss_admin::module (
   }
 
   # collect all of the namespace parent directories
-  $_namespace_parent_dirs_str = inline_template("<%=
-    parent_dirs = []
-    parent_dir  = \"${namespace_path}\"
-    while parent_dir != '/' && parent_dir != '.'
-      parent_dirs.push(\"${module_path}/\" + parent_dir)
-      parent_dir = File.dirname(parent_dir)
-    end
-    parent_dirs.to_yaml
-  %>")
-  $_namespace_parent_dirs = parseyaml($_namespace_parent_dirs_str)
+  $_namespace_parent_dirs = child_directory_list($module_path, $namespace_path)
 
   # create namespace parent directories to module
-  # NOTE: use ensure_resource because mutliple modules can have the
+  # NOTE: use ensure_resource because multiple modules can have the
   #       same parent directories so this prevents duplicate resource declaration
   ensure_resource('file', $_namespace_parent_dirs, {
     'ensure' => 'directory',
@@ -84,7 +75,7 @@ define jboss_admin::module (
     }
   }
 
-  # create the module deffinition file
+  # create the module definition file
   file { "${dir_path}/module.xml":
     ensure   => file,
     content  => template('jboss_admin/module.erb')
