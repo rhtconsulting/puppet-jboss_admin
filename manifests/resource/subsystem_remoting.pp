@@ -36,27 +36,27 @@ define jboss_admin::resource::subsystem_remoting (
 ) {
   if $ensure == present {
 
-    if $worker_read_threads != undef and !is_integer($worker_read_threads) { 
-      fail('The attribute worker_read_threads is not an integer') 
+    if $worker_read_threads != undef and !is_integer($worker_read_threads) {
+      fail('The attribute worker_read_threads is not an integer')
     }
-    if $worker_task_core_threads != undef and !is_integer($worker_task_core_threads) { 
-      fail('The attribute worker_task_core_threads is not an integer') 
+    if $worker_task_core_threads != undef and !is_integer($worker_task_core_threads) {
+      fail('The attribute worker_task_core_threads is not an integer')
     }
-    if $worker_task_keepalive != undef and !is_integer($worker_task_keepalive) { 
-      fail('The attribute worker_task_keepalive is not an integer') 
+    if $worker_task_keepalive != undef and !is_integer($worker_task_keepalive) {
+      fail('The attribute worker_task_keepalive is not an integer')
     }
-    if $worker_task_limit != undef and !is_integer($worker_task_limit) { 
-      fail('The attribute worker_task_limit is not an integer') 
+    if $worker_task_limit != undef and !is_integer($worker_task_limit) {
+      fail('The attribute worker_task_limit is not an integer')
     }
-    if $worker_task_max_threads != undef and !is_integer($worker_task_max_threads) { 
-      fail('The attribute worker_task_max_threads is not an integer') 
+    if $worker_task_max_threads != undef and !is_integer($worker_task_max_threads) {
+      fail('The attribute worker_task_max_threads is not an integer')
     }
-    if $worker_write_threads != undef and !is_integer($worker_write_threads) { 
-      fail('The attribute worker_write_threads is not an integer') 
+    if $worker_write_threads != undef and !is_integer($worker_write_threads) {
+      fail('The attribute worker_write_threads is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'worker-read-threads'          => $worker_read_threads,
       'worker-task-core-threads'     => $worker_task_core_threads,
       'worker-task-keepalive'        => $worker_task_keepalive,

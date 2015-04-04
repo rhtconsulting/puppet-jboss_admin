@@ -18,7 +18,7 @@ define jboss_admin::resource::post_handler_chain (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'protocol-bindings'            => $protocol_bindings,
     }
     $options = delete_undef_values($raw_options)

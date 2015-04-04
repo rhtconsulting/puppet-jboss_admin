@@ -18,7 +18,7 @@ define jboss_admin::resource::workmanager (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'name'                         => $resource_name,
     }
     $options = delete_undef_values($raw_options)

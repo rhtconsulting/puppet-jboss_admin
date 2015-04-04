@@ -28,15 +28,15 @@ define jboss_admin::resource::local_destination_outbound_socket_binding (
 ) {
   if $ensure == present {
 
-    if $fixed_source_port != undef { 
+    if $fixed_source_port != undef {
       validate_bool($fixed_source_port)
     }
-    if $source_port != undef and !is_integer($source_port) { 
-      fail('The attribute source_port is not an integer') 
+    if $source_port != undef and !is_integer($source_port) {
+      fail('The attribute source_port is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'fixed-source-port'            => $fixed_source_port,
       'socket-binding-ref'           => $socket_binding_ref,
       'source-interface'             => $source_interface,

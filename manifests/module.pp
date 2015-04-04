@@ -56,7 +56,7 @@ define jboss_admin::module (
   if $is_directory {
     $resource_name = '.'
 
-    file { "${dir_path}":
+    file { $dir_path:
       ensure  => directory,
       source  => $resource_path,
       recurse => true,
@@ -65,18 +65,18 @@ define jboss_admin::module (
   } else {
     $resource_name = inline_template('<%= File.basename(@resource_path) %>')
 
-    file { "${dir_path}":
+    file { $dir_path:
       ensure  => directory,
     }
     file { "${dir_path}/${resource_name}":
-      ensure  => file,
-      source  => $resource_path
+      ensure => file,
+      source => $resource_path
     }
   }
 
   # create the module deffinition file
   file { "${dir_path}/module.xml":
-    ensure   => file,
-    content  => template('jboss_admin/module.erb')
+    ensure  => file,
+    content => template('jboss_admin/module.erb')
   }
 }

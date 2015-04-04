@@ -26,7 +26,7 @@ define jboss_admin::resource::custom_formatter (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'class'                        => $class,
       'module'                       => $module,
       'properties'                   => $properties,

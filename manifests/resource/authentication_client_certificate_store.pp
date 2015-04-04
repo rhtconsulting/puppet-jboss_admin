@@ -30,7 +30,7 @@ define jboss_admin::resource::authentication_client_certificate_store (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'key-password'                 => $key_password,
       'keystore-password'            => $keystore_password,
       'keystore-path'                => $keystore_path,

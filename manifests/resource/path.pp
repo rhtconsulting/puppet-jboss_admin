@@ -28,12 +28,12 @@ define jboss_admin::resource::path (
 ) {
   if $ensure == present {
 
-    if $read_only != undef { 
+    if $read_only != undef {
       validate_bool($read_only)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'name'                         => $resource_name,
       'path'                         => $path,
       'read-only'                    => $read_only,

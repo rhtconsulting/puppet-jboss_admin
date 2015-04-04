@@ -16,12 +16,12 @@ define jboss_admin::resource::bean_validation (
 ) {
   if $ensure == present {
 
-    if $enabled != undef { 
+    if $enabled != undef {
       validate_bool($enabled)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'enabled'                      => $enabled,
     }
     $options = delete_undef_values($raw_options)

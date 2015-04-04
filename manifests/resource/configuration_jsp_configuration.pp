@@ -88,54 +88,54 @@ define jboss_admin::resource::configuration_jsp_configuration (
 ) {
   if $ensure == present {
 
-    if $check_interval != undef and !is_integer($check_interval) { 
-      fail('The attribute check_interval is not an integer') 
+    if $check_interval != undef and !is_integer($check_interval) {
+      fail('The attribute check_interval is not an integer')
     }
-    if $development != undef { 
+    if $development != undef {
       validate_bool($development)
     }
-    if $disabled != undef { 
+    if $disabled != undef {
       validate_bool($disabled)
     }
-    if $display_source_fragment != undef { 
+    if $display_source_fragment != undef {
       validate_bool($display_source_fragment)
     }
-    if $dump_smap != undef { 
+    if $dump_smap != undef {
       validate_bool($dump_smap)
     }
-    if $error_on_use_bean_invalid_class_attribute != undef { 
+    if $error_on_use_bean_invalid_class_attribute != undef {
       validate_bool($error_on_use_bean_invalid_class_attribute)
     }
-    if $generate_strings_as_char_arrays != undef { 
+    if $generate_strings_as_char_arrays != undef {
       validate_bool($generate_strings_as_char_arrays)
     }
-    if $keep_generated != undef { 
+    if $keep_generated != undef {
       validate_bool($keep_generated)
     }
-    if $mapped_file != undef { 
+    if $mapped_file != undef {
       validate_bool($mapped_file)
     }
-    if $modification_test_interval != undef and !is_integer($modification_test_interval) { 
-      fail('The attribute modification_test_interval is not an integer') 
+    if $modification_test_interval != undef and !is_integer($modification_test_interval) {
+      fail('The attribute modification_test_interval is not an integer')
     }
-    if $recompile_on_fail != undef { 
+    if $recompile_on_fail != undef {
       validate_bool($recompile_on_fail)
     }
-    if $smap != undef { 
+    if $smap != undef {
       validate_bool($smap)
     }
-    if $tag_pooling != undef { 
+    if $tag_pooling != undef {
       validate_bool($tag_pooling)
     }
-    if $trim_spaces != undef { 
+    if $trim_spaces != undef {
       validate_bool($trim_spaces)
     }
-    if $x_powered_by != undef { 
+    if $x_powered_by != undef {
       validate_bool($x_powered_by)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'check-interval'               => $check_interval,
       'development'                  => $development,
       'disabled'                     => $disabled,

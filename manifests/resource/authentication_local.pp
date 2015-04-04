@@ -24,12 +24,12 @@ define jboss_admin::resource::authentication_local (
 ) {
   if $ensure == present {
 
-    if $skip_group_loading != undef { 
+    if $skip_group_loading != undef {
       validate_bool($skip_group_loading)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'allowed-users'                => $allowed_users,
       'default-user'                 => $default_user,
       'skip-group-loading'           => $skip_group_loading,

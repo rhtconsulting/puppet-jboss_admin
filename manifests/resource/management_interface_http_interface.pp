@@ -40,18 +40,18 @@ define jboss_admin::resource::management_interface_http_interface (
 ) {
   if $ensure == present {
 
-    if $console_enabled != undef { 
+    if $console_enabled != undef {
       validate_bool($console_enabled)
     }
-    if $port != undef and !is_integer($port) { 
-      fail('The attribute port is not an integer') 
+    if $port != undef and !is_integer($port) {
+      fail('The attribute port is not an integer')
     }
-    if $secure_port != undef and !is_integer($secure_port) { 
-      fail('The attribute secure_port is not an integer') 
+    if $secure_port != undef and !is_integer($secure_port) {
+      fail('The attribute secure_port is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'console-enabled'              => $console_enabled,
       'interface'                    => $interface,
       'port'                         => $port,

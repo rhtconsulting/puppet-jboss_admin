@@ -20,12 +20,12 @@ define jboss_admin::resource::expose_model_resolved (
 ) {
   if $ensure == present {
 
-    if $proper_property_format != undef { 
+    if $proper_property_format != undef {
       validate_bool($proper_property_format)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'domain-name'                  => $domain_name,
       'proper-property-format'       => $proper_property_format,
     }

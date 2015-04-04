@@ -68,27 +68,27 @@ define jboss_admin::resource::subsystem_ejb3 (
 ) {
   if $ensure == present {
 
-    if $default_entity_bean_optimistic_locking != undef { 
+    if $default_entity_bean_optimistic_locking != undef {
       validate_bool($default_entity_bean_optimistic_locking)
     }
-    if $default_missing_method_permissions_deny_access != undef { 
+    if $default_missing_method_permissions_deny_access != undef {
       validate_bool($default_missing_method_permissions_deny_access)
     }
-    if $default_singleton_bean_access_timeout != undef and !is_integer($default_singleton_bean_access_timeout) { 
-      fail('The attribute default_singleton_bean_access_timeout is not an integer') 
+    if $default_singleton_bean_access_timeout != undef and !is_integer($default_singleton_bean_access_timeout) {
+      fail('The attribute default_singleton_bean_access_timeout is not an integer')
     }
-    if $default_stateful_bean_access_timeout != undef and !is_integer($default_stateful_bean_access_timeout) { 
-      fail('The attribute default_stateful_bean_access_timeout is not an integer') 
+    if $default_stateful_bean_access_timeout != undef and !is_integer($default_stateful_bean_access_timeout) {
+      fail('The attribute default_stateful_bean_access_timeout is not an integer')
     }
-    if $enable_statistics != undef { 
+    if $enable_statistics != undef {
       validate_bool($enable_statistics)
     }
-    if $in_vm_remote_interface_invocation_pass_by_value != undef { 
+    if $in_vm_remote_interface_invocation_pass_by_value != undef {
       validate_bool($in_vm_remote_interface_invocation_pass_by_value)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'default-clustered-sfsb-cache' => $default_clustered_sfsb_cache,
       'default-distinct-name'        => $default_distinct_name,
       'default-entity-bean-instance-pool' => $default_entity_bean_instance_pool,

@@ -76,18 +76,18 @@ define jboss_admin::resource::type_runtime (
 ) {
   if $ensure == present {
 
-    if $boot_class_path_supported != undef { 
+    if $boot_class_path_supported != undef {
       validate_bool($boot_class_path_supported)
     }
-    if $input_arguments != undef and !is_array($input_arguments) { 
-      fail('The attribute input_arguments is not an array') 
+    if $input_arguments != undef and !is_array($input_arguments) {
+      fail('The attribute input_arguments is not an array')
     }
-    if $start_time != undef and !is_integer($start_time) { 
-      fail('The attribute start_time is not an integer') 
+    if $start_time != undef and !is_integer($start_time) {
+      fail('The attribute start_time is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'boot-class-path'              => $boot_class_path,
       'boot-class-path-supported'    => $boot_class_path_supported,
       'class-path'                   => $class_path,

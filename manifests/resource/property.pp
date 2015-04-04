@@ -16,7 +16,7 @@ define jboss_admin::resource::property (
 ) {
   if $ensure == present {
 
-    $raw_options = { 
+    $raw_options = {
       'value'                        => $value,
     }
     $options = delete_undef_values($raw_options)

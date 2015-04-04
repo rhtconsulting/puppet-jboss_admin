@@ -30,7 +30,7 @@ define jboss_admin::resource::type_operating_system (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'arch'                         => $arch,
       'name'                         => $resource_name,
       'object-name'                  => $object_name,

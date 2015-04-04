@@ -26,7 +26,7 @@ define jboss_admin::resource::authentication_truststore (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'keystore-password'            => $keystore_password,
       'keystore-path'                => $keystore_path,
       'keystore-relative-to'         => $keystore_relative_to,

@@ -18,7 +18,7 @@ define jboss_admin::resource::security_domain (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'cache-type'                   => $cache_type,
     }
     $options = delete_undef_values($raw_options)

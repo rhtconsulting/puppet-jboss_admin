@@ -44,27 +44,27 @@ define jboss_admin::resource::string_keyed_jdbc_store (
 ) {
   if $ensure == present {
 
-    if $fetch_state != undef { 
+    if $fetch_state != undef {
       validate_bool($fetch_state)
     }
-    if $passivation != undef { 
+    if $passivation != undef {
       validate_bool($passivation)
     }
-    if $preload != undef { 
+    if $preload != undef {
       validate_bool($preload)
     }
-    if $purge != undef { 
+    if $purge != undef {
       validate_bool($purge)
     }
-    if $shared != undef { 
+    if $shared != undef {
       validate_bool($shared)
     }
-    if $singleton != undef { 
+    if $singleton != undef {
       validate_bool($singleton)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'datasource'                   => $datasource,
       'fetch-state'                  => $fetch_state,
       'passivation'                  => $passivation,

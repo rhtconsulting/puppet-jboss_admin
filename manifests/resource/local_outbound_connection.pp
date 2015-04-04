@@ -18,7 +18,7 @@ define jboss_admin::resource::local_outbound_connection (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'outbound-socket-binding-ref'  => $outbound_socket_binding_ref,
     }
     $options = delete_undef_values($raw_options)

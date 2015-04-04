@@ -18,7 +18,7 @@ define jboss_admin::resource::handler (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'class'                        => $class,
     }
     $options = delete_undef_values($raw_options)

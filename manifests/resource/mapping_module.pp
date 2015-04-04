@@ -30,7 +30,7 @@ define jboss_admin::resource::mapping_module (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'code'                         => $code,
       'module'                       => $module,
       'module-options'               => $module_options,

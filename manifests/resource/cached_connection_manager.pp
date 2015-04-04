@@ -24,18 +24,18 @@ define jboss_admin::resource::cached_connection_manager (
 ) {
   if $ensure == present {
 
-    if $debug != undef { 
+    if $debug != undef {
       validate_bool($debug)
     }
-    if $error != undef { 
+    if $error != undef {
       validate_bool($error)
     }
-    if $install != undef { 
+    if $install != undef {
       validate_bool($install)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'debug'                        => $debug,
       'error'                        => $error,
       'install'                      => $install,

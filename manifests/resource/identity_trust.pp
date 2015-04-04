@@ -16,12 +16,12 @@ define jboss_admin::resource::identity_trust (
 ) {
   if $ensure == present {
 
-    if $trust_modules != undef and !is_array($trust_modules) { 
-      fail('The attribute trust_modules is not an array') 
+    if $trust_modules != undef and !is_array($trust_modules) {
+      fail('The attribute trust_modules is not an array')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'trust-modules'                => $trust_modules,
     }
     $options = delete_undef_values($raw_options)

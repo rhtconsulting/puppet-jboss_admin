@@ -22,7 +22,7 @@ define jboss_admin::resource::pattern_formatter (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'color-map'                    => $color_map,
       'pattern'                      => $pattern,
     }

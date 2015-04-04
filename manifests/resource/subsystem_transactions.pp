@@ -112,48 +112,48 @@ define jboss_admin::resource::subsystem_transactions (
 ) {
   if $ensure == present {
 
-    if $default_timeout != undef and !is_integer($default_timeout) { 
-      fail('The attribute default_timeout is not an integer') 
+    if $default_timeout != undef and !is_integer($default_timeout) {
+      fail('The attribute default_timeout is not an integer')
     }
-    if $enable_statistics != undef { 
+    if $enable_statistics != undef {
       validate_bool($enable_statistics)
     }
-    if $enable_tsm_status != undef { 
+    if $enable_tsm_status != undef {
       validate_bool($enable_tsm_status)
     }
-    if $hornetq_store_enable_async_io != undef { 
+    if $hornetq_store_enable_async_io != undef {
       validate_bool($hornetq_store_enable_async_io)
     }
-    if $jdbc_action_store_drop_table != undef { 
+    if $jdbc_action_store_drop_table != undef {
       validate_bool($jdbc_action_store_drop_table)
     }
-    if $jdbc_communication_store_drop_table != undef { 
+    if $jdbc_communication_store_drop_table != undef {
       validate_bool($jdbc_communication_store_drop_table)
     }
-    if $jdbc_state_store_drop_table != undef { 
+    if $jdbc_state_store_drop_table != undef {
       validate_bool($jdbc_state_store_drop_table)
     }
-    if $jts != undef { 
+    if $jts != undef {
       validate_bool($jts)
     }
-    if $process_id_socket_max_ports != undef and !is_integer($process_id_socket_max_ports) { 
-      fail('The attribute process_id_socket_max_ports is not an integer') 
+    if $process_id_socket_max_ports != undef and !is_integer($process_id_socket_max_ports) {
+      fail('The attribute process_id_socket_max_ports is not an integer')
     }
-    if $process_id_uuid != undef { 
+    if $process_id_uuid != undef {
       validate_bool($process_id_uuid)
     }
-    if $recovery_listener != undef { 
+    if $recovery_listener != undef {
       validate_bool($recovery_listener)
     }
-    if $use_hornetq_store != undef { 
+    if $use_hornetq_store != undef {
       validate_bool($use_hornetq_store)
     }
-    if $use_jdbc_store != undef { 
+    if $use_jdbc_store != undef {
       validate_bool($use_jdbc_store)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'default-timeout'              => $default_timeout,
       'enable-statistics'            => $enable_statistics,
       'enable-tsm-status'            => $enable_tsm_status,

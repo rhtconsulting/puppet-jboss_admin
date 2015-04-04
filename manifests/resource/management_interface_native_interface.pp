@@ -28,12 +28,12 @@ define jboss_admin::resource::management_interface_native_interface (
 ) {
   if $ensure == present {
 
-    if $port != undef and !is_integer($port) { 
-      fail('The attribute port is not an integer') 
+    if $port != undef and !is_integer($port) {
+      fail('The attribute port is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'interface'                    => $interface,
       'port'                         => $port,
       'security-realm'               => $security_realm,

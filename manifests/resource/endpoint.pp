@@ -34,7 +34,7 @@ define jboss_admin::resource::endpoint (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'class'                        => $class,
       'context'                      => $context,
       'name'                         => $resource_name,

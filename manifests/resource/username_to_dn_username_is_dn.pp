@@ -16,12 +16,12 @@ define jboss_admin::resource::username_to_dn_username_is_dn (
 ) {
   if $ensure == present {
 
-    if $force != undef { 
+    if $force != undef {
       validate_bool($force)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'force'                        => $force,
     }
     $options = delete_undef_values($raw_options)

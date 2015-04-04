@@ -28,12 +28,12 @@ define jboss_admin::resource::scheduled_thread_pool (
 ) {
   if $ensure == present {
 
-    if $max_threads != undef and !is_integer($max_threads) { 
-      fail('The attribute max_threads is not an integer') 
+    if $max_threads != undef and !is_integer($max_threads) {
+      fail('The attribute max_threads is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'keepalive-time'               => $keepalive_time,
       'max-threads'                  => $max_threads,
       'name'                         => $resource_name,

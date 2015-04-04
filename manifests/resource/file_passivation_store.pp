@@ -40,21 +40,21 @@ define jboss_admin::resource::file_passivation_store (
 ) {
   if $ensure == present {
 
-    if $idle_timeout != undef and !is_integer($idle_timeout) { 
-      fail('The attribute idle_timeout is not an integer') 
+    if $idle_timeout != undef and !is_integer($idle_timeout) {
+      fail('The attribute idle_timeout is not an integer')
     }
     if $idle_timeout_unit != undef and !($idle_timeout_unit in ['NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS']) {
       fail("The attribute idle_timeout_unit is not an allowed value: 'NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS'")
     }
-    if $max_size != undef and !is_integer($max_size) { 
-      fail('The attribute max_size is not an integer') 
+    if $max_size != undef and !is_integer($max_size) {
+      fail('The attribute max_size is not an integer')
     }
-    if $subdirectory_count != undef and !is_integer($subdirectory_count) { 
-      fail('The attribute subdirectory_count is not an integer') 
+    if $subdirectory_count != undef and !is_integer($subdirectory_count) {
+      fail('The attribute subdirectory_count is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'groups-path'                  => $groups_path,
       'idle-timeout'                 => $idle_timeout,
       'idle-timeout-unit'            => $idle_timeout_unit,

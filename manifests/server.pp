@@ -30,13 +30,13 @@ define jboss_admin::server (
   anchor{ "Jboss_admin::Server[${name}] End": }
 
   if !is_integer($cli_execute_timeout_minutes) {
-    fail("jboss_admin::server::cli__execute_timeout_minutes must be an integer")
+    fail('jboss_admin::server::cli__execute_timeout_minutes must be an integer')
   }
 
-  jboss_admin::cleanup {$name: 
+  jboss_admin::cleanup {$name:
     server => $name
   }
 
   Jboss_resource<| server == $name |> -> Jboss_admin::Cleanup[$name]
-  Jboss_exec<| server == $name and title != "Restart Server $name" and title != "Reload Server $name" and title != "Check Server Up After $name" |> -> Jboss_admin::Cleanup[$name]
+  Jboss_exec<| server == $name and title != "Restart Server ${name}" and title != "Reload Server ${name}" and title != "Check Server Up After ${name}" |> -> Jboss_admin::Cleanup[$name]
 }

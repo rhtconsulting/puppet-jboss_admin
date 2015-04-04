@@ -22,7 +22,7 @@ define jboss_admin::resource::bootstrap_context (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'name'                         => $resource_name,
       'workmanager'                  => $workmanager,
     }

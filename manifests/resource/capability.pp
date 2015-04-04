@@ -16,12 +16,12 @@ define jboss_admin::resource::capability (
 ) {
   if $ensure == present {
 
-    if $startlevel != undef and !is_integer($startlevel) { 
-      fail('The attribute startlevel is not an integer') 
+    if $startlevel != undef and !is_integer($startlevel) {
+      fail('The attribute startlevel is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'startlevel'                   => $startlevel,
     }
     $options = delete_undef_values($raw_options)

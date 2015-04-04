@@ -18,7 +18,7 @@ define jboss_admin::resource::log_store (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'type'                         => $type,
     }
     $options = delete_undef_values($raw_options)

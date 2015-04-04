@@ -24,12 +24,12 @@ define jboss_admin::resource::authentication_properties (
 ) {
   if $ensure == present {
 
-    if $plain_text != undef { 
+    if $plain_text != undef {
       validate_bool($plain_text)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'path'                         => $path,
       'plain-text'                   => $plain_text,
       'relative-to'                  => $relative_to,

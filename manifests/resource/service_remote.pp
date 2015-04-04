@@ -22,7 +22,7 @@ define jboss_admin::resource::service_remote (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'connector-ref'                => $connector_ref,
       'thread-pool-name'             => $thread_pool_name,
     }

@@ -18,7 +18,7 @@ define jboss_admin::resource::subsystem_infinispan (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'default-cache-container'      => $default_cache_container,
     }
     $options = delete_undef_values($raw_options)

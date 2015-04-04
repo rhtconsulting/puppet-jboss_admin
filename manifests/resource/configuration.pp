@@ -19,7 +19,7 @@ define jboss_admin::resource::configuration (
     if $entries == undef { fail('The attribute entries is undefined but required') }
   
 
-    $raw_options = { 
+    $raw_options = {
       'entries'                      => $entries,
     }
     $options = delete_undef_values($raw_options)

@@ -18,7 +18,7 @@ define jboss_admin::resource::subsystem_jgroups (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'default-stack'                => $default_stack,
     }
     $options = delete_undef_values($raw_options)

@@ -18,7 +18,7 @@ define jboss_admin::resource::content (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'content'                      => $content,
     }
     $options = delete_undef_values($raw_options)

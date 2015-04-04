@@ -22,7 +22,7 @@ define jboss_admin::resource::vault (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'code'                         => $code,
       'vault-options'                => $vault_options,
     }

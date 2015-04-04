@@ -33,7 +33,7 @@ define jboss_admin::resource::acl_module (
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'code'                         => $code,
       'flag'                         => $flag,
       'module'                       => $module,

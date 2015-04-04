@@ -20,12 +20,12 @@ define jboss_admin::resource::subsystem_osgi (
 ) {
   if $ensure == present {
 
-    if $startlevel != undef and !is_integer($startlevel) { 
-      fail('The attribute startlevel is not an integer') 
+    if $startlevel != undef and !is_integer($startlevel) {
+      fail('The attribute startlevel is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'activation'                   => $activation,
       'startlevel'                   => $startlevel,
     }

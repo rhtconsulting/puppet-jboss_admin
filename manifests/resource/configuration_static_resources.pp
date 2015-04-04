@@ -44,27 +44,27 @@ define jboss_admin::resource::configuration_static_resources (
 ) {
   if $ensure == present {
 
-    if $disabled != undef { 
+    if $disabled != undef {
       validate_bool($disabled)
     }
-    if $listings != undef { 
+    if $listings != undef {
       validate_bool($listings)
     }
-    if $max_depth != undef and !is_integer($max_depth) { 
-      fail('The attribute max_depth is not an integer') 
+    if $max_depth != undef and !is_integer($max_depth) {
+      fail('The attribute max_depth is not an integer')
     }
-    if $read_only != undef { 
+    if $read_only != undef {
       validate_bool($read_only)
     }
-    if $sendfile != undef and !is_integer($sendfile) { 
-      fail('The attribute sendfile is not an integer') 
+    if $sendfile != undef and !is_integer($sendfile) {
+      fail('The attribute sendfile is not an integer')
     }
-    if $webdav != undef { 
+    if $webdav != undef {
       validate_bool($webdav)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'disabled'                     => $disabled,
       'file-encoding'                => $file_encoding,
       'listings'                     => $listings,

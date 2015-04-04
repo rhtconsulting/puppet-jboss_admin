@@ -20,12 +20,12 @@ define jboss_admin::resource::authentication_jaas (
 ) {
   if $ensure == present {
 
-    if $assign_groups != undef { 
+    if $assign_groups != undef {
       validate_bool($assign_groups)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'assign-groups'                => $assign_groups,
       'name'                         => $resource_name,
     }

@@ -40,15 +40,15 @@ define jboss_admin::resource::ldap_connection (
 ) {
   if $ensure == present {
 
-    if $handles_referrals_for != undef and !is_array($handles_referrals_for) { 
-      fail('The attribute handles_referrals_for is not an array') 
+    if $handles_referrals_for != undef and !is_array($handles_referrals_for) {
+      fail('The attribute handles_referrals_for is not an array')
     }
     if $referrals != undef and !($referrals in ['FOLLOW','IGNORE','THROW']) {
       fail("The attribute referrals is not an allowed value: 'FOLLOW','IGNORE','THROW'")
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'handles-referrals-for'        => $handles_referrals_for,
       'initial-context-factory'      => $initial_context_factory,
       'referrals'                    => $referrals,

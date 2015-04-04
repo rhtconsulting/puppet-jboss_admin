@@ -75,21 +75,21 @@ define jboss_admin::resource::root_resource (
     if $launch_type != undef and !($launch_type in ['DOMAIN','STANDALONE','EMBEDDED','APPCLIENT']) {
       fail("The attribute launch_type is not an allowed value: 'DOMAIN','STANDALONE','EMBEDDED','APPCLIENT'")
     }
-    if $management_major_version != undef and !is_integer($management_major_version) { 
-      fail('The attribute management_major_version is not an integer') 
+    if $management_major_version != undef and !is_integer($management_major_version) {
+      fail('The attribute management_major_version is not an integer')
     }
-    if $management_micro_version != undef and !is_integer($management_micro_version) { 
-      fail('The attribute management_micro_version is not an integer') 
+    if $management_micro_version != undef and !is_integer($management_micro_version) {
+      fail('The attribute management_micro_version is not an integer')
     }
-    if $management_minor_version != undef and !is_integer($management_minor_version) { 
-      fail('The attribute management_minor_version is not an integer') 
+    if $management_minor_version != undef and !is_integer($management_minor_version) {
+      fail('The attribute management_minor_version is not an integer')
     }
     if $running_mode != undef and !($running_mode in ['NORMAL','ADMIN_ONLY']) {
       fail("The attribute running_mode is not an allowed value: 'NORMAL','ADMIN_ONLY'")
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'launch-type'                  => $launch_type,
       'management-major-version'     => $management_major_version,
       'management-micro-version'     => $management_micro_version,

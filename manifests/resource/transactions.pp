@@ -28,12 +28,12 @@ define jboss_admin::resource::transactions (
 ) {
   if $ensure == present {
 
-    if $age_in_seconds != undef and !is_integer($age_in_seconds) { 
-      fail('The attribute age_in_seconds is not an integer') 
+    if $age_in_seconds != undef and !is_integer($age_in_seconds) {
+      fail('The attribute age_in_seconds is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'age-in-seconds'               => $age_in_seconds,
       'id'                           => $id,
       'jmx-name'                     => $jmx_name,

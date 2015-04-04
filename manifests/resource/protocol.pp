@@ -24,8 +24,8 @@ define jboss_admin::resource::protocol (
   if $type == undef {
     fail('type is required')
   }
-  if $type != undef and !is_string($type) { 
-    fail('The attribute type is not a string') 
+  if $type != undef and !is_string($type) {
+    fail('The attribute type is not a string')
   }
 
   $add_command    = "${stack}:add-protocol(type=${type})"
@@ -33,19 +33,19 @@ define jboss_admin::resource::protocol (
 
   if $ensure == present {
 
-    if $socket_binding != undef and !is_string($socket_binding) { 
-      fail('The attribute socket_binding is not a string') 
+    if $socket_binding != undef and !is_string($socket_binding) {
+      fail('The attribute socket_binding is not a string')
     }
 
-    $raw_options = { 
+    $raw_options = {
       'socket-binding'               => $socket_binding,
       'type'                         => $type,
     }
     $options = delete_undef_values($raw_options)
 
     jboss_exec { $add_command:
-      unless  => $check_command, 
-      server  => $server
+      unless => $check_command,
+      server => $server
     }
     -> jboss_resource { $path:
       ensure  => $ensure,

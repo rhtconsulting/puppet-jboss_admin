@@ -20,12 +20,12 @@ define jboss_admin::resource::configuration_container (
 ) {
   if $ensure == present {
 
-    if $welcome_file != undef and !is_array($welcome_file) { 
-      fail('The attribute welcome_file is not an array') 
+    if $welcome_file != undef and !is_array($welcome_file) {
+      fail('The attribute welcome_file is not an array')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'mime-mapping'                 => $mime_mapping,
       'welcome-file'                 => $welcome_file,
     }

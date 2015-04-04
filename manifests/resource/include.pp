@@ -29,7 +29,7 @@ define jboss_admin::resource::include (
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'name'                         => $resource_name,
       'realm'                        => $realm,
       'type'                         => $type,

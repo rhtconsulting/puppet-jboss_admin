@@ -42,7 +42,7 @@ define jboss_admin::resource::transport (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'cluster'                      => $cluster,
       'executor'                     => $executor,
       'lock-timeout'                 => $lock_timeout,

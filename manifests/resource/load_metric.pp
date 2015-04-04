@@ -31,12 +31,12 @@ define jboss_admin::resource::load_metric (
     if $type != undef and !($type in ['cpu','mem','heap','sessions','receive-traffic','send-traffic','requests','busyness']) {
       fail("The attribute type is not an allowed value: 'cpu','mem','heap','sessions','receive-traffic','send-traffic','requests','busyness'")
     }
-    if $weight != undef and !is_integer($weight) { 
-      fail('The attribute weight is not an integer') 
+    if $weight != undef and !is_integer($weight) {
+      fail('The attribute weight is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'capacity'                     => $capacity,
       'property'                     => $property,
       'type'                         => $type,

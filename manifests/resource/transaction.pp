@@ -30,12 +30,12 @@ define jboss_admin::resource::transaction (
     if $mode != undef and !($mode in ['NONE','NON_XA','NON_DURABLE_XA','FULL_XA']) {
       fail("The attribute mode is not an allowed value: 'NONE','NON_XA','NON_DURABLE_XA','FULL_XA'")
     }
-    if $stop_timeout != undef and !is_integer($stop_timeout) { 
-      fail('The attribute stop_timeout is not an integer') 
+    if $stop_timeout != undef and !is_integer($stop_timeout) {
+      fail('The attribute stop_timeout is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'locking'                      => $locking,
       'mode'                         => $mode,
       'stop-timeout'                 => $stop_timeout,

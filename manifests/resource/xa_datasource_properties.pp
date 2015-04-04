@@ -18,7 +18,7 @@ define jboss_admin::resource::xa_datasource_properties (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'value'                        => $value,
     }
     $options = delete_undef_values($raw_options)

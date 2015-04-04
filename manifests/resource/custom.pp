@@ -36,15 +36,15 @@ define jboss_admin::resource::custom (
 ) {
   if $ensure == present {
 
-    if $ssl != undef { 
+    if $ssl != undef {
       validate_bool($ssl)
     }
-    if $tls != undef { 
+    if $tls != undef {
       validate_bool($tls)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'outbound-socket-binding-ref'  => $outbound_socket_binding_ref,
       'password'                     => $password,
       'properties'                   => $properties,

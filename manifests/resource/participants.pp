@@ -41,7 +41,7 @@ define jboss_admin::resource::participants (
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'eis-product-name'             => $eis_product_name,
       'eis-product-version'          => $eis_product_version,
       'jmx-name'                     => $jmx_name,

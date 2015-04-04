@@ -60,33 +60,33 @@ define jboss_admin::resource::message_driven_bean (
 ) {
   if $ensure == present {
 
-    if $declared_roles != undef and !is_array($declared_roles) { 
-      fail('The attribute declared_roles is not an array') 
+    if $declared_roles != undef and !is_array($declared_roles) {
+      fail('The attribute declared_roles is not an array')
     }
-    if $delivery_active != undef { 
+    if $delivery_active != undef {
       validate_bool($delivery_active)
     }
-    if $pool_available_count != undef and !is_integer($pool_available_count) { 
-      fail('The attribute pool_available_count is not an integer') 
+    if $pool_available_count != undef and !is_integer($pool_available_count) {
+      fail('The attribute pool_available_count is not an integer')
     }
-    if $pool_create_count != undef and !is_integer($pool_create_count) { 
-      fail('The attribute pool_create_count is not an integer') 
+    if $pool_create_count != undef and !is_integer($pool_create_count) {
+      fail('The attribute pool_create_count is not an integer')
     }
-    if $pool_current_size != undef and !is_integer($pool_current_size) { 
-      fail('The attribute pool_current_size is not an integer') 
+    if $pool_current_size != undef and !is_integer($pool_current_size) {
+      fail('The attribute pool_current_size is not an integer')
     }
-    if $pool_max_size != undef and !is_integer($pool_max_size) { 
-      fail('The attribute pool_max_size is not an integer') 
+    if $pool_max_size != undef and !is_integer($pool_max_size) {
+      fail('The attribute pool_max_size is not an integer')
     }
-    if $pool_remove_count != undef and !is_integer($pool_remove_count) { 
-      fail('The attribute pool_remove_count is not an integer') 
+    if $pool_remove_count != undef and !is_integer($pool_remove_count) {
+      fail('The attribute pool_remove_count is not an integer')
     }
-    if $timers != undef and !is_array($timers) { 
-      fail('The attribute timers is not an array') 
+    if $timers != undef and !is_array($timers) {
+      fail('The attribute timers is not an array')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'component-class-name'         => $component_class_name,
       'declared-roles'               => $declared_roles,
       'delivery-active'              => $delivery_active,

@@ -46,7 +46,7 @@ define jboss_admin::resource::file_handler (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'append'                       => $append,
       'autoflush'                    => $autoflush,
       'encoding'                     => $encoding,

@@ -25,7 +25,7 @@ define jboss_admin::resource::subsystem_jpa (
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'default-datasource'           => $default_datasource,
       'default-extended-persistence-inheritance' => $default_extended_persistence_inheritance,
     }

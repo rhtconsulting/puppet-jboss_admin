@@ -18,7 +18,7 @@ define jboss_admin::resource::outbound_connection (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'uri'                          => $uri,
     }
     $options = delete_undef_values($raw_options)

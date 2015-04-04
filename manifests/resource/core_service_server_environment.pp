@@ -85,7 +85,7 @@ define jboss_admin::resource::core_service_server_environment (
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'base-dir'                     => $base_dir,
       'config-dir'                   => $config_dir,
       'config-file'                  => $config_file,

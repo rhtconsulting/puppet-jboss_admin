@@ -18,7 +18,7 @@ define jboss_admin::resource::expose_model_expression (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'domain-name'                  => $domain_name,
     }
     $options = delete_undef_values($raw_options)

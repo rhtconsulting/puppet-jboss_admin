@@ -52,36 +52,36 @@ define jboss_admin::resource::remote_store (
 ) {
   if $ensure == present {
 
-    if $fetch_state != undef { 
+    if $fetch_state != undef {
       validate_bool($fetch_state)
     }
-    if $passivation != undef { 
+    if $passivation != undef {
       validate_bool($passivation)
     }
-    if $preload != undef { 
+    if $preload != undef {
       validate_bool($preload)
     }
-    if $purge != undef { 
+    if $purge != undef {
       validate_bool($purge)
     }
-    if $remote_servers != undef and !is_array($remote_servers) { 
-      fail('The attribute remote_servers is not an array') 
+    if $remote_servers != undef and !is_array($remote_servers) {
+      fail('The attribute remote_servers is not an array')
     }
-    if $shared != undef { 
+    if $shared != undef {
       validate_bool($shared)
     }
-    if $singleton != undef { 
+    if $singleton != undef {
       validate_bool($singleton)
     }
-    if $socket_timeout != undef and !is_integer($socket_timeout) { 
-      fail('The attribute socket_timeout is not an integer') 
+    if $socket_timeout != undef and !is_integer($socket_timeout) {
+      fail('The attribute socket_timeout is not an integer')
     }
-    if $tcp_no_delay != undef { 
+    if $tcp_no_delay != undef {
       validate_bool($tcp_no_delay)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'cache'                        => $cache,
       'fetch-state'                  => $fetch_state,
       'passivation'                  => $passivation,

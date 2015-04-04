@@ -26,7 +26,7 @@ define jboss_admin::resource::connector_remoting (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'authentication-provider'      => $authentication_provider,
       'security-realm'               => $security_realm,
       'socket-binding'               => $socket_binding,

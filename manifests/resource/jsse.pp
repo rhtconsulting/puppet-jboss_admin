@@ -56,12 +56,12 @@ define jboss_admin::resource::jsse (
 ) {
   if $ensure == present {
 
-    if $client_auth != undef { 
+    if $client_auth != undef {
       validate_bool($client_auth)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'additional-properties'        => $additional_properties,
       'cipher-suites'                => $cipher_suites,
       'client-alias'                 => $client_alias,

@@ -16,12 +16,12 @@ define jboss_admin::resource::subsystem_logging (
 ) {
   if $ensure == present {
 
-    if $add_logging_api_dependencies != undef { 
+    if $add_logging_api_dependencies != undef {
       validate_bool($add_logging_api_dependencies)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'add-logging-api-dependencies' => $add_logging_api_dependencies,
     }
     $options = delete_undef_values($raw_options)

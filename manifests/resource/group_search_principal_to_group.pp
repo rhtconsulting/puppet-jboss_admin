@@ -39,15 +39,15 @@ define jboss_admin::resource::group_search_principal_to_group (
     if $group_name != undef and !($group_name in ['DISTINGUISHED_NAME','SIMPLE']) {
       fail("The attribute group_name is not an allowed value: 'DISTINGUISHED_NAME','SIMPLE'")
     }
-    if $iterative != undef { 
+    if $iterative != undef {
       validate_bool($iterative)
     }
-    if $prefer_original_connection != undef { 
+    if $prefer_original_connection != undef {
       validate_bool($prefer_original_connection)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'group-attribute'              => $group_attribute,
       'group-dn-attribute'           => $group_dn_attribute,
       'group-name'                   => $group_name,

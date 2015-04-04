@@ -16,12 +16,12 @@ define jboss_admin::resource::security_realm (
 ) {
   if $ensure == present {
 
-    if $map_groups_to_roles != undef { 
+    if $map_groups_to_roles != undef {
       validate_bool($map_groups_to_roles)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'map-groups-to-roles'          => $map_groups_to_roles,
     }
     $options = delete_undef_values($raw_options)

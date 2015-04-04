@@ -18,7 +18,7 @@ define jboss_admin::resource::authorization_ldap (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'connection'                   => $connection,
     }
     $options = delete_undef_values($raw_options)

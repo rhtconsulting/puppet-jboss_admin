@@ -26,7 +26,7 @@ define jboss_admin::resource::remote_outbound_connection (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'outbound-socket-binding-ref'  => $outbound_socket_binding_ref,
       'security-realm'               => $security_realm,
       'username'                     => $username,

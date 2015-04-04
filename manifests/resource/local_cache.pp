@@ -40,7 +40,7 @@ define jboss_admin::resource::local_cache (
 ) {
   if $ensure == present {
 
-    if $batching != undef { 
+    if $batching != undef {
       validate_bool($batching)
     }
     if $indexing != undef and !($indexing in ['NONE','LOCAL','ALL']) {
@@ -49,12 +49,12 @@ define jboss_admin::resource::local_cache (
     if $start != undef and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
     }
-    if $statistics_enabled != undef { 
+    if $statistics_enabled != undef {
       validate_bool($statistics_enabled)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'batching'                     => $batching,
       'indexing'                     => $indexing,
       'indexing-properties'          => $indexing_properties,

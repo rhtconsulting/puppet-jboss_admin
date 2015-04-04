@@ -92,42 +92,42 @@ define jboss_admin::resource::interface (
 ) {
   if $ensure == present {
 
-    if $any_address != undef { 
+    if $any_address != undef {
       validate_bool($any_address)
     }
-    if $any_ipv4_address != undef { 
+    if $any_ipv4_address != undef {
       validate_bool($any_ipv4_address)
     }
-    if $any_ipv6_address != undef { 
+    if $any_ipv6_address != undef {
       validate_bool($any_ipv6_address)
     }
-    if $link_local_address != undef { 
+    if $link_local_address != undef {
       validate_bool($link_local_address)
     }
-    if $loopback != undef { 
+    if $loopback != undef {
       validate_bool($loopback)
     }
-    if $multicast != undef { 
+    if $multicast != undef {
       validate_bool($multicast)
     }
-    if $point_to_point != undef { 
+    if $point_to_point != undef {
       validate_bool($point_to_point)
     }
-    if $public_address != undef { 
+    if $public_address != undef {
       validate_bool($public_address)
     }
-    if $site_local_address != undef { 
+    if $site_local_address != undef {
       validate_bool($site_local_address)
     }
-    if $up != undef { 
+    if $up != undef {
       validate_bool($up)
     }
-    if $virtual != undef { 
+    if $virtual != undef {
       validate_bool($virtual)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'any'                          => $any,
       'any-address'                  => $any_address,
       'any-ipv4-address'             => $any_ipv4_address,

@@ -18,7 +18,7 @@ define jboss_admin::resource::user (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'password'                     => $password,
     }
     $options = delete_undef_values($raw_options)

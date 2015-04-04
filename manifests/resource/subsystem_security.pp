@@ -16,12 +16,12 @@ define jboss_admin::resource::subsystem_security (
 ) {
   if $ensure == present {
 
-    if $deep_copy_subject_mode != undef { 
+    if $deep_copy_subject_mode != undef {
       validate_bool($deep_copy_subject_mode)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'deep-copy-subject-mode'       => $deep_copy_subject_mode,
     }
     $options = delete_undef_values($raw_options)

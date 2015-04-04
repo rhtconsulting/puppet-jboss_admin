@@ -24,12 +24,12 @@ define jboss_admin::resource::socket_binding_group (
 ) {
   if $ensure == present {
 
-    if $port_offset != undef and !is_integer($port_offset) { 
-      fail('The attribute port_offset is not an integer') 
+    if $port_offset != undef and !is_integer($port_offset) {
+      fail('The attribute port_offset is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'default-interface'            => $default_interface,
       'name'                         => $resource_name,
       'port-offset'                  => $port_offset,

@@ -16,12 +16,12 @@ define jboss_admin::resource::remoting_connector (
 ) {
   if $ensure == present {
 
-    if $use_management_endpoint != undef { 
+    if $use_management_endpoint != undef {
       validate_bool($use_management_endpoint)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'use-management-endpoint'      => $use_management_endpoint,
     }
     $options = delete_undef_values($raw_options)

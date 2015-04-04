@@ -28,12 +28,12 @@ define jboss_admin::resource::bundle (
 ) {
   if $ensure == present {
 
-    if $startlevel != undef and !is_integer($startlevel) { 
-      fail('The attribute startlevel is not an integer') 
+    if $startlevel != undef and !is_integer($startlevel) {
+      fail('The attribute startlevel is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'id'                           => $id,
       'startlevel'                   => $startlevel,
       'symbolic-name'                => $symbolic_name,
