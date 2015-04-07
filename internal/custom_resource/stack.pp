@@ -19,7 +19,7 @@ define jboss_admin::resource::stack (
 ) {
   if $ensure == present {
 
-    if $protocols != undef and !is_array($protocols) {
+    if $protocols != undef and $protocols != undefined and !is_array($protocols) {
       fail('The attribute protocols is not an array')
     }
   

@@ -23,29 +23,29 @@ define jboss_admin::resource::<%= type[:name] %> (
 <% type[:attributes].each_key.sort.each do |attr| -%>
 <% attribute = type[:attributes][attr] -%>
 <% if attribute[:required] -%>
-    if $<%= puppet_name attr %> == undef { fail('The attribute <%= puppet_name attr %> is undefined but required') }
+    if $<%= puppet_name attr %> == undef or $<%= puppet_name attr %> == undefined { fail('The attribute <%= puppet_name attr %> is undefined but required') }
 <% end -%>
 <% if !attribute[:type].nil?
      if ['INT', 'LONG'].include? attribute[:type][:'TYPE_MODEL_VALUE'] -%>
-    if $<%= puppet_name attr %> != undef and !is_integer($<%= puppet_name attr %>) {
+    if $<%= puppet_name attr %> != undef and $<%= puppet_name attr %> != undefined and !is_integer($<%= puppet_name attr %>) {
       fail('The attribute <%= puppet_name attr %> is not an integer')
     }
 <%   end -%>
 <%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'STRING' -%>
 <%     if attribute[:allowed] 
          allowed_values = attribute[:allowed].collect{|a| "'#{a}'"}.join(',') -%>
-    if $<%= puppet_name attr %> != undef and !($<%= puppet_name attr %> in [<%= allowed_values %>]) {
+    if $<%= puppet_name attr %> != undef and $<%= puppet_name attr %> != undefined and !($<%= puppet_name attr %> in [<%= allowed_values %>]) {
       fail("The attribute <%= puppet_name attr %> is not an allowed value: <%= allowed_values %>")
     }
 <%     end
      end -%>
 <%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'BOOLEAN' -%>
-    if $<%= puppet_name attr %> != undef {
+    if $<%= puppet_name attr %> != undef and $<%= puppet_name attr %> != undefined {
       validate_bool($<%= puppet_name attr %>)
     }
 <%   end -%>
 <%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'LIST' -%>
-    if $<%= puppet_name attr %> != undef and !is_array($<%= puppet_name attr %>) {
+    if $<%= puppet_name attr %> != undef and $<%= puppet_name attr %> != undefined and !is_array($<%= puppet_name attr %>) {
       fail('The attribute <%= puppet_name attr %> is not an array')
     }
 <%   end -%>
