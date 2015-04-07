@@ -28,21 +28,21 @@ define jboss_admin::resource::locking (
 ) {
   if $ensure == present {
 
-    if $acquire_timeout != undef and !is_integer($acquire_timeout) { 
-      fail('The attribute acquire_timeout is not an integer') 
+    if $acquire_timeout != undef and !is_integer($acquire_timeout) {
+      fail('The attribute acquire_timeout is not an integer')
     }
-    if $concurrency_level != undef and !is_integer($concurrency_level) { 
-      fail('The attribute concurrency_level is not an integer') 
+    if $concurrency_level != undef and !is_integer($concurrency_level) {
+      fail('The attribute concurrency_level is not an integer')
     }
     if $isolation != undef and !($isolation in ['NONE','SERIALIZABLE','REPEATABLE_READ','READ_COMMITTED','READ_UNCOMMITTED']) {
       fail("The attribute isolation is not an allowed value: 'NONE','SERIALIZABLE','REPEATABLE_READ','READ_COMMITTED','READ_UNCOMMITTED'")
     }
-    if $striping != undef { 
+    if $striping != undef {
       validate_bool($striping)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'acquire-timeout'              => $acquire_timeout,
       'concurrency-level'            => $concurrency_level,
       'isolation'                    => $isolation,

@@ -236,102 +236,102 @@ define jboss_admin::resource::xa_data_source (
 ) {
   if $ensure == present {
 
-    if $allocation_retry != undef and !is_integer($allocation_retry) { 
-      fail('The attribute allocation_retry is not an integer') 
+    if $allocation_retry != undef and !is_integer($allocation_retry) {
+      fail('The attribute allocation_retry is not an integer')
     }
-    if $allocation_retry_wait_millis != undef and !is_integer($allocation_retry_wait_millis) { 
-      fail('The attribute allocation_retry_wait_millis is not an integer') 
+    if $allocation_retry_wait_millis != undef and !is_integer($allocation_retry_wait_millis) {
+      fail('The attribute allocation_retry_wait_millis is not an integer')
     }
-    if $allow_multiple_users != undef { 
+    if $allow_multiple_users != undef {
       validate_bool($allow_multiple_users)
     }
-    if $background_validation != undef { 
+    if $background_validation != undef {
       validate_bool($background_validation)
     }
-    if $background_validation_millis != undef and !is_integer($background_validation_millis) { 
-      fail('The attribute background_validation_millis is not an integer') 
+    if $background_validation_millis != undef and !is_integer($background_validation_millis) {
+      fail('The attribute background_validation_millis is not an integer')
     }
-    if $blocking_timeout_wait_millis != undef and !is_integer($blocking_timeout_wait_millis) { 
-      fail('The attribute blocking_timeout_wait_millis is not an integer') 
+    if $blocking_timeout_wait_millis != undef and !is_integer($blocking_timeout_wait_millis) {
+      fail('The attribute blocking_timeout_wait_millis is not an integer')
     }
-    if $enabled != undef { 
+    if $enabled != undef {
       validate_bool($enabled)
     }
     if $flush_strategy != undef and !($flush_strategy in ['UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool']) {
       fail("The attribute flush_strategy is not an allowed value: 'UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool'")
     }
-    if $idle_timeout_minutes != undef and !is_integer($idle_timeout_minutes) { 
-      fail('The attribute idle_timeout_minutes is not an integer') 
+    if $idle_timeout_minutes != undef and !is_integer($idle_timeout_minutes) {
+      fail('The attribute idle_timeout_minutes is not an integer')
     }
-    if $interleaving != undef { 
+    if $interleaving != undef {
       validate_bool($interleaving)
     }
-    if $max_pool_size != undef and !is_integer($max_pool_size) { 
-      fail('The attribute max_pool_size is not an integer') 
+    if $max_pool_size != undef and !is_integer($max_pool_size) {
+      fail('The attribute max_pool_size is not an integer')
     }
-    if $min_pool_size != undef and !is_integer($min_pool_size) { 
-      fail('The attribute min_pool_size is not an integer') 
+    if $min_pool_size != undef and !is_integer($min_pool_size) {
+      fail('The attribute min_pool_size is not an integer')
     }
-    if $no_recovery != undef { 
+    if $no_recovery != undef {
       validate_bool($no_recovery)
     }
-    if $no_tx_separate_pool != undef { 
+    if $no_tx_separate_pool != undef {
       validate_bool($no_tx_separate_pool)
     }
-    if $pad_xid != undef { 
+    if $pad_xid != undef {
       validate_bool($pad_xid)
     }
-    if $pool_prefill != undef { 
+    if $pool_prefill != undef {
       validate_bool($pool_prefill)
     }
-    if $pool_use_strict_min != undef { 
+    if $pool_use_strict_min != undef {
       validate_bool($pool_use_strict_min)
     }
-    if $prepared_statements_cache_size != undef and !is_integer($prepared_statements_cache_size) { 
-      fail('The attribute prepared_statements_cache_size is not an integer') 
+    if $prepared_statements_cache_size != undef and !is_integer($prepared_statements_cache_size) {
+      fail('The attribute prepared_statements_cache_size is not an integer')
     }
-    if $query_timeout != undef and !is_integer($query_timeout) { 
-      fail('The attribute query_timeout is not an integer') 
+    if $query_timeout != undef and !is_integer($query_timeout) {
+      fail('The attribute query_timeout is not an integer')
     }
-    if $same_rm_override != undef { 
+    if $same_rm_override != undef {
       validate_bool($same_rm_override)
     }
-    if $set_tx_query_timeout != undef { 
+    if $set_tx_query_timeout != undef {
       validate_bool($set_tx_query_timeout)
     }
-    if $share_prepared_statements != undef { 
+    if $share_prepared_statements != undef {
       validate_bool($share_prepared_statements)
     }
-    if $spy != undef { 
+    if $spy != undef {
       validate_bool($spy)
     }
-    if $statistics_enabled != undef { 
+    if $statistics_enabled != undef {
       validate_bool($statistics_enabled)
     }
-    if $use_ccm != undef { 
+    if $use_ccm != undef {
       validate_bool($use_ccm)
     }
-    if $use_fast_fail != undef { 
+    if $use_fast_fail != undef {
       validate_bool($use_fast_fail)
     }
-    if $use_java_context != undef { 
+    if $use_java_context != undef {
       validate_bool($use_java_context)
     }
-    if $use_try_lock != undef and !is_integer($use_try_lock) { 
-      fail('The attribute use_try_lock is not an integer') 
+    if $use_try_lock != undef and !is_integer($use_try_lock) {
+      fail('The attribute use_try_lock is not an integer')
     }
-    if $validate_on_match != undef { 
+    if $validate_on_match != undef {
       validate_bool($validate_on_match)
     }
-    if $wrap_xa_resource != undef { 
+    if $wrap_xa_resource != undef {
       validate_bool($wrap_xa_resource)
     }
-    if $xa_resource_timeout != undef and !is_integer($xa_resource_timeout) { 
-      fail('The attribute xa_resource_timeout is not an integer') 
+    if $xa_resource_timeout != undef and !is_integer($xa_resource_timeout) {
+      fail('The attribute xa_resource_timeout is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'allocation-retry'             => $allocation_retry,
       'allocation-retry-wait-millis' => $allocation_retry_wait_millis,
       'allow-multiple-users'         => $allow_multiple_users,

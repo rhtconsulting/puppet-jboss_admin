@@ -24,12 +24,12 @@ define jboss_admin::resource::mail_session (
 ) {
   if $ensure == present {
 
-    if $debug != undef { 
+    if $debug != undef {
       validate_bool($debug)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'debug'                        => $debug,
       'from'                         => $from,
       'jndi-name'                    => $jndi_name,

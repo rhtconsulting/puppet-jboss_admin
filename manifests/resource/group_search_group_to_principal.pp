@@ -51,13 +51,13 @@ define jboss_admin::resource::group_search_group_to_principal (
     if $group_name != undef and !($group_name in ['DISTINGUISHED_NAME','SIMPLE']) {
       fail("The attribute group_name is not an allowed value: 'DISTINGUISHED_NAME','SIMPLE'")
     }
-    if $iterative != undef { 
+    if $iterative != undef {
       validate_bool($iterative)
     }
-    if $prefer_original_connection != undef { 
+    if $prefer_original_connection != undef {
       validate_bool($prefer_original_connection)
     }
-    if $recursive != undef { 
+    if $recursive != undef {
       validate_bool($recursive)
     }
     if $search_by != undef and !($search_by in ['DISTINGUISHED_NAME','SIMPLE']) {
@@ -65,7 +65,7 @@ define jboss_admin::resource::group_search_group_to_principal (
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'base-dn'                      => $base_dn,
       'group-dn-attribute'           => $group_dn_attribute,
       'group-name'                   => $group_name,

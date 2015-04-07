@@ -46,7 +46,7 @@ define jboss_admin::resource::custom_handler (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'class'                        => $class,
       'encoding'                     => $encoding,
       'filter'                       => $filter,

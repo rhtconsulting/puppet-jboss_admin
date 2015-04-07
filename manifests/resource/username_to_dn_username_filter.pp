@@ -32,15 +32,15 @@ define jboss_admin::resource::username_to_dn_username_filter (
 ) {
   if $ensure == present {
 
-    if $force != undef { 
+    if $force != undef {
       validate_bool($force)
     }
-    if $recursive != undef { 
+    if $recursive != undef {
       validate_bool($recursive)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'attribute'                    => $attribute,
       'base-dn'                      => $base_dn,
       'force'                        => $force,

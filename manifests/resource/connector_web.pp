@@ -72,24 +72,24 @@ define jboss_admin::resource::connector_web (
 ) {
   if $ensure == present {
 
-    if $max_connections != undef and !is_integer($max_connections) { 
-      fail('The attribute max_connections is not an integer') 
+    if $max_connections != undef and !is_integer($max_connections) {
+      fail('The attribute max_connections is not an integer')
     }
-    if $max_post_size != undef and !is_integer($max_post_size) { 
-      fail('The attribute max_post_size is not an integer') 
+    if $max_post_size != undef and !is_integer($max_post_size) {
+      fail('The attribute max_post_size is not an integer')
     }
-    if $max_save_post_size != undef and !is_integer($max_save_post_size) { 
-      fail('The attribute max_save_post_size is not an integer') 
+    if $max_save_post_size != undef and !is_integer($max_save_post_size) {
+      fail('The attribute max_save_post_size is not an integer')
     }
-    if $proxy_port != undef and !is_integer($proxy_port) { 
-      fail('The attribute proxy_port is not an integer') 
+    if $proxy_port != undef and !is_integer($proxy_port) {
+      fail('The attribute proxy_port is not an integer')
     }
-    if $redirect_port != undef and !is_integer($redirect_port) { 
-      fail('The attribute redirect_port is not an integer') 
+    if $redirect_port != undef and !is_integer($redirect_port) {
+      fail('The attribute redirect_port is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'enable-lookups'               => $enable_lookups,
       'enabled'                      => $enabled,
       'executor'                     => $executor,

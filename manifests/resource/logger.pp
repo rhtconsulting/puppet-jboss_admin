@@ -34,7 +34,7 @@ define jboss_admin::resource::logger (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'category'                     => $category,
       'filter'                       => $filter,
       'handlers'                     => $handlers,

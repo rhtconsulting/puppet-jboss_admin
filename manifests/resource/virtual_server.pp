@@ -28,15 +28,15 @@ define jboss_admin::resource::virtual_server (
 ) {
   if $ensure == present {
 
-    if $alias != undef and !is_array($alias) { 
-      fail('The attribute alias is not an array') 
+    if $alias != undef and !is_array($alias) {
+      fail('The attribute alias is not an array')
     }
-    if $enable_welcome_root != undef { 
+    if $enable_welcome_root != undef {
       validate_bool($enable_welcome_root)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'alias'                        => $alias,
       'default-web-module'           => $default_web_module,
       'enable-welcome-root'          => $enable_welcome_root,

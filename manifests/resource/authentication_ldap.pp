@@ -40,15 +40,15 @@ define jboss_admin::resource::authentication_ldap (
 ) {
   if $ensure == present {
 
-    if $allow_empty_passwords != undef { 
+    if $allow_empty_passwords != undef {
       validate_bool($allow_empty_passwords)
     }
-    if $recursive != undef { 
+    if $recursive != undef {
       validate_bool($recursive)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'advanced-filter'              => $advanced_filter,
       'allow-empty-passwords'        => $allow_empty_passwords,
       'base-dn'                      => $base_dn,

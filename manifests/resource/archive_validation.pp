@@ -24,18 +24,18 @@ define jboss_admin::resource::archive_validation (
 ) {
   if $ensure == present {
 
-    if $enabled != undef { 
+    if $enabled != undef {
       validate_bool($enabled)
     }
-    if $fail_on_error != undef { 
+    if $fail_on_error != undef {
       validate_bool($fail_on_error)
     }
-    if $fail_on_warn != undef { 
+    if $fail_on_warn != undef {
       validate_bool($fail_on_warn)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'enabled'                      => $enabled,
       'fail-on-error'                => $fail_on_error,
       'fail-on-warn'                 => $fail_on_warn,

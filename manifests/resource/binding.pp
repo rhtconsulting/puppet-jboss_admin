@@ -47,12 +47,12 @@ define jboss_admin::resource::binding (
     if $binding_type != undef and !($binding_type in ['simple','object-factory','lookup','external-context']) {
       fail("The attribute binding_type is not an allowed value: 'simple','object-factory','lookup','external-context'")
     }
-    if $cache != undef { 
+    if $cache != undef {
       validate_bool($cache)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'binding-type'                 => $binding_type,
       'cache'                        => $cache,
       'class'                        => $class,

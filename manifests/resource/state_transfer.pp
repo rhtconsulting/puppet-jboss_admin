@@ -24,18 +24,18 @@ define jboss_admin::resource::state_transfer (
 ) {
   if $ensure == present {
 
-    if $chunk_size != undef and !is_integer($chunk_size) { 
-      fail('The attribute chunk_size is not an integer') 
+    if $chunk_size != undef and !is_integer($chunk_size) {
+      fail('The attribute chunk_size is not an integer')
     }
-    if $enabled != undef { 
+    if $enabled != undef {
       validate_bool($enabled)
     }
-    if $timeout != undef and !is_integer($timeout) { 
-      fail('The attribute timeout is not an integer') 
+    if $timeout != undef and !is_integer($timeout) {
+      fail('The attribute timeout is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'chunk-size'                   => $chunk_size,
       'enabled'                      => $enabled,
       'timeout'                      => $timeout,

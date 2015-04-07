@@ -24,12 +24,12 @@ define jboss_admin::resource::type_compilation (
 ) {
   if $ensure == present {
 
-    if $compilation_time_monitoring_supported != undef { 
+    if $compilation_time_monitoring_supported != undef {
       validate_bool($compilation_time_monitoring_supported)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'compilation-time-monitoring-supported' => $compilation_time_monitoring_supported,
       'name'                         => $resource_name,
       'object-name'                  => $object_name,

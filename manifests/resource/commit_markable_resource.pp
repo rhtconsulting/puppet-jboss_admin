@@ -28,15 +28,15 @@ define jboss_admin::resource::commit_markable_resource (
 ) {
   if $ensure == present {
 
-    if $batch_size != undef and !is_integer($batch_size) { 
-      fail('The attribute batch_size is not an integer') 
+    if $batch_size != undef and !is_integer($batch_size) {
+      fail('The attribute batch_size is not an integer')
     }
-    if $immediate_cleanup != undef { 
+    if $immediate_cleanup != undef {
       validate_bool($immediate_cleanup)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'batch-size'                   => $batch_size,
       'immediate-cleanup'            => $immediate_cleanup,
       'jndi-name'                    => $jndi_name,

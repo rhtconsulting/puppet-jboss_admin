@@ -22,7 +22,7 @@ define jboss_admin::resource::directory (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'path'                         => $path,
       'relative-to'                  => $relative_to,
     }

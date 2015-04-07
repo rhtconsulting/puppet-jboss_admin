@@ -26,7 +26,7 @@ define jboss_admin::resource::rewrite (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'flags'                        => $flags,
       'pattern'                      => $pattern,
       'substitution'                 => $substitution,

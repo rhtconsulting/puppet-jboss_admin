@@ -32,18 +32,18 @@ define jboss_admin::resource::deployment (
 ) {
   if $ensure == present {
 
-    if $content != undef and !is_array($content) { 
-      fail('The attribute content is not an array') 
+    if $content != undef and !is_array($content) {
+      fail('The attribute content is not an array')
     }
-    if $enabled != undef { 
+    if $enabled != undef {
       validate_bool($enabled)
     }
-    if $persistent != undef { 
+    if $persistent != undef {
       validate_bool($persistent)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'content'                      => $content,
       'enabled'                      => $enabled,
       'name'                         => $resource_name,

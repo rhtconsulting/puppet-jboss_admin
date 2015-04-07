@@ -42,7 +42,7 @@ define jboss_admin::resource::console_handler (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'autoflush'                    => $autoflush,
       'encoding'                     => $encoding,
       'filter'                       => $filter,

@@ -32,18 +32,18 @@ define jboss_admin::resource::remote_destination_outbound_socket_binding (
 ) {
   if $ensure == present {
 
-    if $fixed_source_port != undef { 
+    if $fixed_source_port != undef {
       validate_bool($fixed_source_port)
     }
-    if $port != undef and !is_integer($port) { 
-      fail('The attribute port is not an integer') 
+    if $port != undef and !is_integer($port) {
+      fail('The attribute port is not an integer')
     }
-    if $source_port != undef and !is_integer($source_port) { 
-      fail('The attribute source_port is not an integer') 
+    if $source_port != undef and !is_integer($source_port) {
+      fail('The attribute source_port is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'fixed-source-port'            => $fixed_source_port,
       'host'                         => $host,
       'port'                         => $port,

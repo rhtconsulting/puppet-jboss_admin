@@ -28,8 +28,8 @@ define jboss_admin::resource::access_authorization (
 ) {
   if $ensure == present {
 
-    if $all_role_names != undef and !is_array($all_role_names) { 
-      fail('The attribute all_role_names is not an array') 
+    if $all_role_names != undef and !is_array($all_role_names) {
+      fail('The attribute all_role_names is not an array')
     }
     if $permission_combination_policy != undef and !($permission_combination_policy in ['permissive','rejecting']) {
       fail("The attribute permission_combination_policy is not an allowed value: 'permissive','rejecting'")
@@ -37,12 +37,12 @@ define jboss_admin::resource::access_authorization (
     if $provider != undef and !($provider in ['simple','rbac']) {
       fail("The attribute provider is not an allowed value: 'simple','rbac'")
     }
-    if $standard_role_names != undef and !is_array($standard_role_names) { 
-      fail('The attribute standard_role_names is not an array') 
+    if $standard_role_names != undef and !is_array($standard_role_names) {
+      fail('The attribute standard_role_names is not an array')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'all-role-names'               => $all_role_names,
       'permission-combination-policy' => $permission_combination_policy,
       'provider'                     => $provider,

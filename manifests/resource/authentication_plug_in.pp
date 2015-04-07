@@ -25,7 +25,7 @@ define jboss_admin::resource::authentication_plug_in (
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'mechanism'                    => $mechanism,
       'name'                         => $resource_name,
     }

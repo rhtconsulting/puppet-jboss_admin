@@ -28,18 +28,18 @@ define jboss_admin::resource::applies_to (
 ) {
   if $ensure == present {
 
-    if $attributes != undef and !is_array($attributes) { 
-      fail('The attribute attributes is not an array') 
+    if $attributes != undef and !is_array($attributes) {
+      fail('The attribute attributes is not an array')
     }
-    if $entire_resource != undef { 
+    if $entire_resource != undef {
       validate_bool($entire_resource)
     }
-    if $operations != undef and !is_array($operations) { 
-      fail('The attribute operations is not an array') 
+    if $operations != undef and !is_array($operations) {
+      fail('The attribute operations is not an array')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'address'                      => $address,
       'attributes'                   => $attributes,
       'entire-resource'              => $entire_resource,

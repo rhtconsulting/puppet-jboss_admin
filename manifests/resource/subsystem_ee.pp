@@ -32,24 +32,24 @@ define jboss_admin::resource::subsystem_ee (
 ) {
   if $ensure == present {
 
-    if $annotation_property_replacement != undef { 
+    if $annotation_property_replacement != undef {
       validate_bool($annotation_property_replacement)
     }
-    if $ear_subdeployments_isolated != undef { 
+    if $ear_subdeployments_isolated != undef {
       validate_bool($ear_subdeployments_isolated)
     }
-    if $global_modules != undef and !is_array($global_modules) { 
-      fail('The attribute global_modules is not an array') 
+    if $global_modules != undef and !is_array($global_modules) {
+      fail('The attribute global_modules is not an array')
     }
-    if $jboss_descriptor_property_replacement != undef { 
+    if $jboss_descriptor_property_replacement != undef {
       validate_bool($jboss_descriptor_property_replacement)
     }
-    if $spec_descriptor_property_replacement != undef { 
+    if $spec_descriptor_property_replacement != undef {
       validate_bool($spec_descriptor_property_replacement)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'annotation-property-replacement' => $annotation_property_replacement,
       'ear-subdeployments-isolated'  => $ear_subdeployments_isolated,
       'global-modules'               => $global_modules,

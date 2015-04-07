@@ -33,12 +33,12 @@ define jboss_admin::resource::thread_factory (
 ) {
   if $ensure == present {
 
-    if $priority != undef and !is_integer($priority) { 
-      fail('The attribute priority is not an integer') 
+    if $priority != undef and !is_integer($priority) {
+      fail('The attribute priority is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'group-name'                   => $group_name,
       'name'                         => $resource_name,
       'priority'                     => $priority,

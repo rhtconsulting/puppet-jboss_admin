@@ -26,7 +26,7 @@ define jboss_admin::resource::core_service_vault (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'code'                         => $code,
       'module'                       => $module,
       'vault-options'                => $vault_options,

@@ -25,7 +25,7 @@ define jboss_admin::resource::channel_creation_options (
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'type'                         => $type,
       'value'                        => $value,
     }

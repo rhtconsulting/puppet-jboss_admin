@@ -18,7 +18,7 @@ define jboss_admin::resource::subsystem_jsf (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'default-jsf-impl-slot'        => $default_jsf_impl_slot,
     }
     $options = delete_undef_values($raw_options)

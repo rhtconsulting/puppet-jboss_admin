@@ -48,33 +48,33 @@ define jboss_admin::resource::type_threading (
 ) {
   if $ensure == present {
 
-    if $all_thread_ids != undef and !is_array($all_thread_ids) { 
-      fail('The attribute all_thread_ids is not an array') 
+    if $all_thread_ids != undef and !is_array($all_thread_ids) {
+      fail('The attribute all_thread_ids is not an array')
     }
-    if $current_thread_cpu_time_supported != undef { 
+    if $current_thread_cpu_time_supported != undef {
       validate_bool($current_thread_cpu_time_supported)
     }
-    if $object_monitor_usage_supported != undef { 
+    if $object_monitor_usage_supported != undef {
       validate_bool($object_monitor_usage_supported)
     }
-    if $synchronizer_usage_supported != undef { 
+    if $synchronizer_usage_supported != undef {
       validate_bool($synchronizer_usage_supported)
     }
-    if $thread_contention_monitoring_enabled != undef { 
+    if $thread_contention_monitoring_enabled != undef {
       validate_bool($thread_contention_monitoring_enabled)
     }
-    if $thread_contention_monitoring_supported != undef { 
+    if $thread_contention_monitoring_supported != undef {
       validate_bool($thread_contention_monitoring_supported)
     }
-    if $thread_cpu_time_enabled != undef { 
+    if $thread_cpu_time_enabled != undef {
       validate_bool($thread_cpu_time_enabled)
     }
-    if $thread_cpu_time_supported != undef { 
+    if $thread_cpu_time_supported != undef {
       validate_bool($thread_cpu_time_supported)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'all-thread-ids'               => $all_thread_ids,
       'current-thread-cpu-time-supported' => $current_thread_cpu_time_supported,
       'object-monitor-usage-supported' => $object_monitor_usage_supported,

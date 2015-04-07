@@ -22,7 +22,7 @@ define jboss_admin::resource::authorization_properties (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'path'                         => $path,
       'relative-to'                  => $relative_to,
     }

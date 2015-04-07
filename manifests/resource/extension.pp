@@ -18,7 +18,7 @@ define jboss_admin::resource::extension (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'module'                       => $module,
     }
     $options = delete_undef_values($raw_options)

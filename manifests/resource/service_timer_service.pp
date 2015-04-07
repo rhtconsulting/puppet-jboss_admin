@@ -26,7 +26,7 @@ define jboss_admin::resource::service_timer_service (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'path'                         => $path,
       'relative-to'                  => $relative_to,
       'thread-pool-name'             => $thread_pool_name,

@@ -26,7 +26,7 @@ define jboss_admin::resource::root_logger (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'filter'                       => $filter,
       'handlers'                     => $handlers,
       'level'                        => $level,

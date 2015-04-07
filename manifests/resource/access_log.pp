@@ -34,7 +34,7 @@ define jboss_admin::resource::access_log (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'extended'                     => $extended,
       'pattern'                      => $pattern,
       'prefix'                       => $prefix,

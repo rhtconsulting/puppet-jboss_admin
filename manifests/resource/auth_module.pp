@@ -37,7 +37,7 @@ define jboss_admin::resource::auth_module (
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'code'                         => $code,
       'flag'                         => $flag,
       'login-module-stack-ref'       => $login_module_stack_ref,

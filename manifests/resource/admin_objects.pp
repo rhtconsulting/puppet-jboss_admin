@@ -28,15 +28,15 @@ define jboss_admin::resource::admin_objects (
 ) {
   if $ensure == present {
 
-    if $enabled != undef { 
+    if $enabled != undef {
       validate_bool($enabled)
     }
-    if $use_java_context != undef { 
+    if $use_java_context != undef {
       validate_bool($use_java_context)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'class-name'                   => $class_name,
       'enabled'                      => $enabled,
       'jndi-name'                    => $jndi_name,

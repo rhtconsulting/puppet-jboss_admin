@@ -20,12 +20,12 @@ define jboss_admin::resource::cache (
 ) {
   if $ensure == present {
 
-    if $aliases != undef and !is_array($aliases) { 
-      fail('The attribute aliases is not an array') 
+    if $aliases != undef and !is_array($aliases) {
+      fail('The attribute aliases is not an array')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'aliases'                      => $aliases,
       'passivation-store'            => $passivation_store,
     }

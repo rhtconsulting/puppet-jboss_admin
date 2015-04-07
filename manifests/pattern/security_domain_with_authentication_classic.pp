@@ -64,8 +64,8 @@ define jboss_admin::pattern::security_domain_with_authentication_classic (
     ensure     => $ensure,
   }
   jboss_admin::resource::authentication_classic { $_security_domain_auth_path:
-    server        => $server,
-    ensure        => $ensure,
+    server => $server,
+    ensure => $ensure,
   }
   jboss_admin::resource::login_module { $_security_domain_auth_login_module_path:
     server         => $server,

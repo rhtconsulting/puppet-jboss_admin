@@ -40,21 +40,21 @@ define jboss_admin::resource::socket_binding (
 ) {
   if $ensure == present {
 
-    if $client_mappings != undef and !is_array($client_mappings) { 
-      fail('The attribute client_mappings is not an array') 
+    if $client_mappings != undef and !is_array($client_mappings) {
+      fail('The attribute client_mappings is not an array')
     }
-    if $fixed_port != undef { 
+    if $fixed_port != undef {
       validate_bool($fixed_port)
     }
-    if $multicast_port != undef and !is_integer($multicast_port) { 
-      fail('The attribute multicast_port is not an integer') 
+    if $multicast_port != undef and !is_integer($multicast_port) {
+      fail('The attribute multicast_port is not an integer')
     }
-    if $port != undef and !is_integer($port) { 
-      fail('The attribute port is not an integer') 
+    if $port != undef and !is_integer($port) {
+      fail('The attribute port is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'client-mappings'              => $client_mappings,
       'fixed-port'                   => $fixed_port,
       'interface'                    => $interface,

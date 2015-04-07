@@ -16,12 +16,12 @@ define jboss_admin::resource::acl (
 ) {
   if $ensure == present {
 
-    if $acl_modules != undef and !is_array($acl_modules) { 
-      fail('The attribute acl_modules is not an array') 
+    if $acl_modules != undef and !is_array($acl_modules) {
+      fail('The attribute acl_modules is not an array')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'acl-modules'                  => $acl_modules,
     }
     $options = delete_undef_values($raw_options)

@@ -28,12 +28,12 @@ define jboss_admin::resource::valve (
 ) {
   if $ensure == present {
 
-    if $enabled != undef { 
+    if $enabled != undef {
       validate_bool($enabled)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'class-name'                   => $class_name,
       'enabled'                      => $enabled,
       'module'                       => $module,

@@ -30,7 +30,7 @@ define jboss_admin::resource::sso (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'cache-container'              => $cache_container,
       'cache-name'                   => $cache_name,
       'domain'                       => $domain,

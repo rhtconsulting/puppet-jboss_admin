@@ -20,12 +20,12 @@ define jboss_admin::resource::protocol_udp (
 ) {
   if $ensure == present {
 
-    if $port != undef and !is_integer($port) { 
-      fail('The attribute port is not an integer') 
+    if $port != undef and !is_integer($port) {
+      fail('The attribute port is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'host'                         => $host,
       'port'                         => $port,
     }

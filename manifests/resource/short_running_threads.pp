@@ -44,21 +44,21 @@ define jboss_admin::resource::short_running_threads (
 ) {
   if $ensure == present {
 
-    if $allow_core_timeout != undef { 
+    if $allow_core_timeout != undef {
       validate_bool($allow_core_timeout)
     }
-    if $core_threads != undef and !is_integer($core_threads) { 
-      fail('The attribute core_threads is not an integer') 
+    if $core_threads != undef and !is_integer($core_threads) {
+      fail('The attribute core_threads is not an integer')
     }
-    if $max_threads != undef and !is_integer($max_threads) { 
-      fail('The attribute max_threads is not an integer') 
+    if $max_threads != undef and !is_integer($max_threads) {
+      fail('The attribute max_threads is not an integer')
     }
-    if $queue_length != undef and !is_integer($queue_length) { 
-      fail('The attribute queue_length is not an integer') 
+    if $queue_length != undef and !is_integer($queue_length) {
+      fail('The attribute queue_length is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'allow-core-timeout'           => $allow_core_timeout,
       'core-threads'                 => $core_threads,
       'handoff-executor'             => $handoff_executor,

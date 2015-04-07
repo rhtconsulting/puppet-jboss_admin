@@ -22,7 +22,7 @@ define jboss_admin::resource::provider_module (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'code'                         => $code,
       'module-options'               => $module_options,
     }

@@ -28,12 +28,12 @@ define jboss_admin::resource::configuration_sso (
 ) {
   if $ensure == present {
 
-    if $reauthenticate != undef { 
+    if $reauthenticate != undef {
       validate_bool($reauthenticate)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'cache-container'              => $cache_container,
       'cache-name'                   => $cache_name,
       'domain'                       => $domain,

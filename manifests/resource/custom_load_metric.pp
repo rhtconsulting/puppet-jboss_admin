@@ -28,12 +28,12 @@ define jboss_admin::resource::custom_load_metric (
 ) {
   if $ensure == present {
 
-    if $weight != undef and !is_integer($weight) { 
-      fail('The attribute weight is not an integer') 
+    if $weight != undef and !is_integer($weight) {
+      fail('The attribute weight is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'capacity'                     => $capacity,
       'class'                        => $class,
       'property'                     => $property,

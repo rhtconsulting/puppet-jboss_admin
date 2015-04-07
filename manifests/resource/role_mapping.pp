@@ -16,12 +16,12 @@ define jboss_admin::resource::role_mapping (
 ) {
   if $ensure == present {
 
-    if $include_all != undef { 
+    if $include_all != undef {
       validate_bool($include_all)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'include-all'                  => $include_all,
     }
     $options = delete_undef_values($raw_options)

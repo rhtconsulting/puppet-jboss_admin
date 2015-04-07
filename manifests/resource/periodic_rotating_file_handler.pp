@@ -50,7 +50,7 @@ define jboss_admin::resource::periodic_rotating_file_handler (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'append'                       => $append,
       'autoflush'                    => $autoflush,
       'encoding'                     => $encoding,

@@ -20,12 +20,12 @@ define jboss_admin::resource::type_class_loading (
 ) {
   if $ensure == present {
 
-    if $verbose != undef { 
+    if $verbose != undef {
       validate_bool($verbose)
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'object-name'                  => $object_name,
       'verbose'                      => $verbose,
     }

@@ -42,7 +42,7 @@ define jboss_admin::resource::server_identity_ssl (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'alias'                        => $alias,
       'key-password'                 => $key_password,
       'keystore-password'            => $keystore_password,

@@ -16,12 +16,12 @@ define jboss_admin::resource::mapping (
 ) {
   if $ensure == present {
 
-    if $mapping_modules != undef and !is_array($mapping_modules) { 
-      fail('The attribute mapping_modules is not an array') 
+    if $mapping_modules != undef and !is_array($mapping_modules) {
+      fail('The attribute mapping_modules is not an array')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'mapping-modules'              => $mapping_modules,
     }
     $options = delete_undef_values($raw_options)

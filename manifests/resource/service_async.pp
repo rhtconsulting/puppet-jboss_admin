@@ -18,7 +18,7 @@ define jboss_admin::resource::service_async (
 
   
 
-    $raw_options = { 
+    $raw_options = {
       'thread-pool-name'             => $thread_pool_name,
     }
     $options = delete_undef_values($raw_options)

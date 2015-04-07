@@ -112,60 +112,60 @@ define jboss_admin::resource::mod_cluster_config (
 ) {
   if $ensure == present {
 
-    if $advertise != undef { 
+    if $advertise != undef {
       validate_bool($advertise)
     }
-    if $auto_enable_contexts != undef { 
+    if $auto_enable_contexts != undef {
       validate_bool($auto_enable_contexts)
     }
-    if $flush_packets != undef { 
+    if $flush_packets != undef {
       validate_bool($flush_packets)
     }
-    if $flush_wait != undef and !is_integer($flush_wait) { 
-      fail('The attribute flush_wait is not an integer') 
+    if $flush_wait != undef and !is_integer($flush_wait) {
+      fail('The attribute flush_wait is not an integer')
     }
-    if $max_attempts != undef and !is_integer($max_attempts) { 
-      fail('The attribute max_attempts is not an integer') 
+    if $max_attempts != undef and !is_integer($max_attempts) {
+      fail('The attribute max_attempts is not an integer')
     }
-    if $node_timeout != undef and !is_integer($node_timeout) { 
-      fail('The attribute node_timeout is not an integer') 
+    if $node_timeout != undef and !is_integer($node_timeout) {
+      fail('The attribute node_timeout is not an integer')
     }
-    if $ping != undef and !is_integer($ping) { 
-      fail('The attribute ping is not an integer') 
+    if $ping != undef and !is_integer($ping) {
+      fail('The attribute ping is not an integer')
     }
     if $session_draining_strategy != undef and !($session_draining_strategy in ['DEFAULT','ALWAYS','NEVER']) {
       fail("The attribute session_draining_strategy is not an allowed value: 'DEFAULT','ALWAYS','NEVER'")
     }
-    if $simple_load_provider != undef and !is_integer($simple_load_provider) { 
-      fail('The attribute simple_load_provider is not an integer') 
+    if $simple_load_provider != undef and !is_integer($simple_load_provider) {
+      fail('The attribute simple_load_provider is not an integer')
     }
-    if $smax != undef and !is_integer($smax) { 
-      fail('The attribute smax is not an integer') 
+    if $smax != undef and !is_integer($smax) {
+      fail('The attribute smax is not an integer')
     }
-    if $socket_timeout != undef and !is_integer($socket_timeout) { 
-      fail('The attribute socket_timeout is not an integer') 
+    if $socket_timeout != undef and !is_integer($socket_timeout) {
+      fail('The attribute socket_timeout is not an integer')
     }
-    if $sticky_session != undef { 
+    if $sticky_session != undef {
       validate_bool($sticky_session)
     }
-    if $sticky_session_force != undef { 
+    if $sticky_session_force != undef {
       validate_bool($sticky_session_force)
     }
-    if $sticky_session_remove != undef { 
+    if $sticky_session_remove != undef {
       validate_bool($sticky_session_remove)
     }
-    if $stop_context_timeout != undef and !is_integer($stop_context_timeout) { 
-      fail('The attribute stop_context_timeout is not an integer') 
+    if $stop_context_timeout != undef and !is_integer($stop_context_timeout) {
+      fail('The attribute stop_context_timeout is not an integer')
     }
-    if $ttl != undef and !is_integer($ttl) { 
-      fail('The attribute ttl is not an integer') 
+    if $ttl != undef and !is_integer($ttl) {
+      fail('The attribute ttl is not an integer')
     }
-    if $worker_timeout != undef and !is_integer($worker_timeout) { 
-      fail('The attribute worker_timeout is not an integer') 
+    if $worker_timeout != undef and !is_integer($worker_timeout) {
+      fail('The attribute worker_timeout is not an integer')
     }
   
 
-    $raw_options = { 
+    $raw_options = {
       'advertise'                    => $advertise,
       'advertise-security-key'       => $advertise_security_key,
       'advertise-socket'             => $advertise_socket,
