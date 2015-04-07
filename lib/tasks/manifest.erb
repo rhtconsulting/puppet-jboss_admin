@@ -27,8 +27,8 @@ define jboss_admin::resource::<%= type[:name] %> (
 <% end -%>
 <% if !attribute[:type].nil?
      if ['INT', 'LONG'].include? attribute[:type][:'TYPE_MODEL_VALUE'] -%>
-    if $<%= puppet_name attr %> != undef and !is_integer($<%= puppet_name attr %>) { 
-      fail('The attribute <%= puppet_name attr %> is not an integer') 
+    if $<%= puppet_name attr %> != undef and !is_integer($<%= puppet_name attr %>) {
+      fail('The attribute <%= puppet_name attr %> is not an integer')
     }
 <%   end -%>
 <%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'STRING' -%>
@@ -40,19 +40,19 @@ define jboss_admin::resource::<%= type[:name] %> (
 <%     end
      end -%>
 <%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'BOOLEAN' -%>
-    if $<%= puppet_name attr %> != undef { 
+    if $<%= puppet_name attr %> != undef {
       validate_bool($<%= puppet_name attr %>)
     }
 <%   end -%>
 <%   if attribute[:type][:'TYPE_MODEL_VALUE'] == 'LIST' -%>
-    if $<%= puppet_name attr %> != undef and !is_array($<%= puppet_name attr %>) { 
-      fail('The attribute <%= puppet_name attr %> is not an array') 
+    if $<%= puppet_name attr %> != undef and !is_array($<%= puppet_name attr %>) {
+      fail('The attribute <%= puppet_name attr %> is not an array')
     }
 <%   end -%>
 <% end
 end -%>  
 
-    $raw_options = { 
+    $raw_options = {
 <% type[:attributes].each_key.sort.each do |attr_name| 
   unless attr_name.to_s == 'enabled' && ['data-source', 'xa-data-source'].include?(type[:name].to_s)-%>
       <%= "'#{attr_name}'".ljust 30 %> => $<%= puppet_name attr_name %>,
