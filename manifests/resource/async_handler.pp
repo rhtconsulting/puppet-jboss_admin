@@ -40,7 +40,7 @@ define jboss_admin::resource::async_handler (
 ) {
   if $ensure == present {
 
-    if $queue_length != undef and !is_integer($queue_length) {
+    if $queue_length != undef and $queue_length != undefined and !is_integer($queue_length) {
       fail('The attribute queue_length is not an integer')
     }
   

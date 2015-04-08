@@ -28,16 +28,16 @@ define jboss_admin::resource::subsystem (
 ) {
   if $ensure == present {
 
-    if $management_major_version != undef and !is_integer($management_major_version) {
+    if $management_major_version != undef and $management_major_version != undefined and !is_integer($management_major_version) {
       fail('The attribute management_major_version is not an integer')
     }
-    if $management_micro_version != undef and !is_integer($management_micro_version) {
+    if $management_micro_version != undef and $management_micro_version != undefined and !is_integer($management_micro_version) {
       fail('The attribute management_micro_version is not an integer')
     }
-    if $management_minor_version != undef and !is_integer($management_minor_version) {
+    if $management_minor_version != undef and $management_minor_version != undefined and !is_integer($management_minor_version) {
       fail('The attribute management_minor_version is not an integer')
     }
-    if $xml_namespaces != undef and !is_array($xml_namespaces) {
+    if $xml_namespaces != undef and $xml_namespaces != undefined and !is_array($xml_namespaces) {
       fail('The attribute xml_namespaces is not an array')
     }
   

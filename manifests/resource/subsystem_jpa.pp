@@ -20,7 +20,7 @@ define jboss_admin::resource::subsystem_jpa (
 ) {
   if $ensure == present {
 
-    if $default_extended_persistence_inheritance != undef and !($default_extended_persistence_inheritance in ['DEEP','SHALLOW']) {
+    if $default_extended_persistence_inheritance != undef and $default_extended_persistence_inheritance != undefined and !($default_extended_persistence_inheritance in ['DEEP','SHALLOW']) {
       fail("The attribute default_extended_persistence_inheritance is not an allowed value: 'DEEP','SHALLOW'")
     }
   

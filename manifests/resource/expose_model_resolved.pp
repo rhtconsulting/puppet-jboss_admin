@@ -20,7 +20,7 @@ define jboss_admin::resource::expose_model_resolved (
 ) {
   if $ensure == present {
 
-    if $proper_property_format != undef {
+    if $proper_property_format != undef and $proper_property_format != undefined {
       validate_bool($proper_property_format)
     }
   

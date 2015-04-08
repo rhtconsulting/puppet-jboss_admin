@@ -32,10 +32,10 @@ define jboss_admin::resource::server_imap (
 ) {
   if $ensure == present {
 
-    if $ssl != undef {
+    if $ssl != undef and $ssl != undefined {
       validate_bool($ssl)
     }
-    if $tls != undef {
+    if $tls != undef and $tls != undefined {
       validate_bool($tls)
     }
   

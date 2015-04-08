@@ -20,10 +20,10 @@ define jboss_admin::resource::subsystem_jmx (
 ) {
   if $ensure == present {
 
-    if $non_core_mbean_sensitivity != undef {
+    if $non_core_mbean_sensitivity != undef and $non_core_mbean_sensitivity != undefined {
       validate_bool($non_core_mbean_sensitivity)
     }
-    if $show_model != undef {
+    if $show_model != undef and $show_model != undefined {
       validate_bool($show_model)
     }
   

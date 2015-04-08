@@ -16,7 +16,7 @@ define jboss_admin::resource::subsystem_security (
 ) {
   if $ensure == present {
 
-    if $deep_copy_subject_mode != undef {
+    if $deep_copy_subject_mode != undef and $deep_copy_subject_mode != undefined {
       validate_bool($deep_copy_subject_mode)
     }
   

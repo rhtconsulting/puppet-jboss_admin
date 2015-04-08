@@ -36,7 +36,7 @@ define jboss_admin::resource::participants (
 ) {
   if $ensure == present {
 
-    if $status != undef and !($status in ['PENDING','PREPARED','FAILED','HEURISTIC','READONLY']) {
+    if $status != undef and $status != undefined and !($status in ['PENDING','PREPARED','FAILED','HEURISTIC','READONLY']) {
       fail("The attribute status is not an allowed value: 'PENDING','PREPARED','FAILED','HEURISTIC','READONLY'")
     }
   

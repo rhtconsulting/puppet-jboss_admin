@@ -44,22 +44,22 @@ define jboss_admin::resource::scanner (
 ) {
   if $ensure == present {
 
-    if $auto_deploy_exploded != undef {
+    if $auto_deploy_exploded != undef and $auto_deploy_exploded != undefined {
       validate_bool($auto_deploy_exploded)
     }
-    if $auto_deploy_xml != undef {
+    if $auto_deploy_xml != undef and $auto_deploy_xml != undefined {
       validate_bool($auto_deploy_xml)
     }
-    if $auto_deploy_zipped != undef {
+    if $auto_deploy_zipped != undef and $auto_deploy_zipped != undefined {
       validate_bool($auto_deploy_zipped)
     }
-    if $deployment_timeout != undef and !is_integer($deployment_timeout) {
+    if $deployment_timeout != undef and $deployment_timeout != undefined and !is_integer($deployment_timeout) {
       fail('The attribute deployment_timeout is not an integer')
     }
-    if $scan_enabled != undef {
+    if $scan_enabled != undef and $scan_enabled != undefined {
       validate_bool($scan_enabled)
     }
-    if $scan_interval != undef and !is_integer($scan_interval) {
+    if $scan_interval != undef and $scan_interval != undefined and !is_integer($scan_interval) {
       fail('The attribute scan_interval is not an integer')
     }
   

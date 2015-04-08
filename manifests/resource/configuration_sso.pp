@@ -28,7 +28,7 @@ define jboss_admin::resource::configuration_sso (
 ) {
   if $ensure == present {
 
-    if $reauthenticate != undef {
+    if $reauthenticate != undef and $reauthenticate != undefined {
       validate_bool($reauthenticate)
     }
   

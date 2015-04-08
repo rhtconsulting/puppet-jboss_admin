@@ -16,7 +16,7 @@ define jboss_admin::resource::username_to_dn_username_is_dn (
 ) {
   if $ensure == present {
 
-    if $force != undef {
+    if $force != undef and $force != undefined {
       validate_bool($force)
     }
   

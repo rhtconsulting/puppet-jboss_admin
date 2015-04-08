@@ -37,16 +37,16 @@ define jboss_admin::resource::json_formatter (
 ) {
   if $ensure == present {
 
-    if $compact != undef {
+    if $compact != undef and $compact != undefined {
       validate_bool($compact)
     }
-    if $escape_control_characters != undef {
+    if $escape_control_characters != undef and $escape_control_characters != undefined {
       validate_bool($escape_control_characters)
     }
-    if $escape_new_line != undef {
+    if $escape_new_line != undef and $escape_new_line != undefined {
       validate_bool($escape_new_line)
     }
-    if $include_date != undef {
+    if $include_date != undef and $include_date != undefined {
       validate_bool($include_date)
     }
   

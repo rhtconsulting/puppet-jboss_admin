@@ -28,13 +28,13 @@ define jboss_admin::resource::subsystem_webservices (
 ) {
   if $ensure == present {
 
-    if $modify_wsdl_address != undef {
+    if $modify_wsdl_address != undef and $modify_wsdl_address != undefined {
       validate_bool($modify_wsdl_address)
     }
-    if $wsdl_port != undef and !is_integer($wsdl_port) {
+    if $wsdl_port != undef and $wsdl_port != undefined and !is_integer($wsdl_port) {
       fail('The attribute wsdl_port is not an integer')
     }
-    if $wsdl_secure_port != undef and !is_integer($wsdl_secure_port) {
+    if $wsdl_secure_port != undef and $wsdl_secure_port != undefined and !is_integer($wsdl_secure_port) {
       fail('The attribute wsdl_secure_port is not an integer')
     }
   

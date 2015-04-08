@@ -24,7 +24,7 @@ define jboss_admin::resource::authentication_properties (
 ) {
   if $ensure == present {
 
-    if $plain_text != undef {
+    if $plain_text != undef and $plain_text != undefined {
       validate_bool($plain_text)
     }
   

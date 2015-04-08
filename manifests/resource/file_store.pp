@@ -44,22 +44,22 @@ define jboss_admin::resource::file_store (
 ) {
   if $ensure == present {
 
-    if $fetch_state != undef {
+    if $fetch_state != undef and $fetch_state != undefined {
       validate_bool($fetch_state)
     }
-    if $passivation != undef {
+    if $passivation != undef and $passivation != undefined {
       validate_bool($passivation)
     }
-    if $preload != undef {
+    if $preload != undef and $preload != undefined {
       validate_bool($preload)
     }
-    if $purge != undef {
+    if $purge != undef and $purge != undefined {
       validate_bool($purge)
     }
-    if $shared != undef {
+    if $shared != undef and $shared != undefined {
       validate_bool($shared)
     }
-    if $singleton != undef {
+    if $singleton != undef and $singleton != undefined {
       validate_bool($singleton)
     }
   

@@ -16,7 +16,7 @@ define jboss_admin::resource::hibernate_persistence_unit (
 ) {
   if $ensure == present {
 
-    if $enabled != undef {
+    if $enabled != undef and $enabled != undefined {
       validate_bool($enabled)
     }
   

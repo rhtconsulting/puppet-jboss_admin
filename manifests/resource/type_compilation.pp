@@ -24,7 +24,7 @@ define jboss_admin::resource::type_compilation (
 ) {
   if $ensure == present {
 
-    if $compilation_time_monitoring_supported != undef {
+    if $compilation_time_monitoring_supported != undef and $compilation_time_monitoring_supported != undefined {
       validate_bool($compilation_time_monitoring_supported)
     }
   

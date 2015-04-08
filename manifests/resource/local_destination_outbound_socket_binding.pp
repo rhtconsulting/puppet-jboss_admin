@@ -28,10 +28,10 @@ define jboss_admin::resource::local_destination_outbound_socket_binding (
 ) {
   if $ensure == present {
 
-    if $fixed_source_port != undef {
+    if $fixed_source_port != undef and $fixed_source_port != undefined {
       validate_bool($fixed_source_port)
     }
-    if $source_port != undef and !is_integer($source_port) {
+    if $source_port != undef and $source_port != undefined and !is_integer($source_port) {
       fail('The attribute source_port is not an integer')
     }
   

@@ -32,13 +32,13 @@ define jboss_admin::resource::configuration_access_log (
 ) {
   if $ensure == present {
 
-    if $extended != undef {
+    if $extended != undef and $extended != undefined {
       validate_bool($extended)
     }
-    if $resolve_hosts != undef {
+    if $resolve_hosts != undef and $resolve_hosts != undefined {
       validate_bool($resolve_hosts)
     }
-    if $rotate != undef {
+    if $rotate != undef and $rotate != undefined {
       validate_bool($rotate)
     }
   

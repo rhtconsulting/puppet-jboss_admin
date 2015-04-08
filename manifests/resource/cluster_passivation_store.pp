@@ -40,16 +40,16 @@ define jboss_admin::resource::cluster_passivation_store (
 ) {
   if $ensure == present {
 
-    if $idle_timeout != undef and !is_integer($idle_timeout) {
+    if $idle_timeout != undef and $idle_timeout != undefined and !is_integer($idle_timeout) {
       fail('The attribute idle_timeout is not an integer')
     }
-    if $idle_timeout_unit != undef and !($idle_timeout_unit in ['NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS']) {
+    if $idle_timeout_unit != undef and $idle_timeout_unit != undefined and !($idle_timeout_unit in ['NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS']) {
       fail("The attribute idle_timeout_unit is not an allowed value: 'NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS'")
     }
-    if $max_size != undef and !is_integer($max_size) {
+    if $max_size != undef and $max_size != undefined and !is_integer($max_size) {
       fail('The attribute max_size is not an integer')
     }
-    if $passivate_events_on_replicate != undef {
+    if $passivate_events_on_replicate != undef and $passivate_events_on_replicate != undefined {
       validate_bool($passivate_events_on_replicate)
     }
   

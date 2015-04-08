@@ -16,7 +16,7 @@ define jboss_admin::resource::capability (
 ) {
   if $ensure == present {
 
-    if $startlevel != undef and !is_integer($startlevel) {
+    if $startlevel != undef and $startlevel != undefined and !is_integer($startlevel) {
       fail('The attribute startlevel is not an integer')
     }
   

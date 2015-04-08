@@ -28,16 +28,16 @@ define jboss_admin::resource::locking (
 ) {
   if $ensure == present {
 
-    if $acquire_timeout != undef and !is_integer($acquire_timeout) {
+    if $acquire_timeout != undef and $acquire_timeout != undefined and !is_integer($acquire_timeout) {
       fail('The attribute acquire_timeout is not an integer')
     }
-    if $concurrency_level != undef and !is_integer($concurrency_level) {
+    if $concurrency_level != undef and $concurrency_level != undefined and !is_integer($concurrency_level) {
       fail('The attribute concurrency_level is not an integer')
     }
-    if $isolation != undef and !($isolation in ['NONE','SERIALIZABLE','REPEATABLE_READ','READ_COMMITTED','READ_UNCOMMITTED']) {
+    if $isolation != undef and $isolation != undefined and !($isolation in ['NONE','SERIALIZABLE','REPEATABLE_READ','READ_COMMITTED','READ_UNCOMMITTED']) {
       fail("The attribute isolation is not an allowed value: 'NONE','SERIALIZABLE','REPEATABLE_READ','READ_COMMITTED','READ_UNCOMMITTED'")
     }
-    if $striping != undef {
+    if $striping != undef and $striping != undefined {
       validate_bool($striping)
     }
   

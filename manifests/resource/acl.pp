@@ -16,7 +16,7 @@ define jboss_admin::resource::acl (
 ) {
   if $ensure == present {
 
-    if $acl_modules != undef and !is_array($acl_modules) {
+    if $acl_modules != undef and $acl_modules != undefined and !is_array($acl_modules) {
       fail('The attribute acl_modules is not an array')
     }
   

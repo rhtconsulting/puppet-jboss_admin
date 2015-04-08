@@ -16,7 +16,7 @@ define jboss_admin::resource::security_realm (
 ) {
   if $ensure == present {
 
-    if $map_groups_to_roles != undef {
+    if $map_groups_to_roles != undef and $map_groups_to_roles != undefined {
       validate_bool($map_groups_to_roles)
     }
   

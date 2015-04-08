@@ -92,37 +92,37 @@ define jboss_admin::resource::interface (
 ) {
   if $ensure == present {
 
-    if $any_address != undef {
+    if $any_address != undef and $any_address != undefined {
       validate_bool($any_address)
     }
-    if $any_ipv4_address != undef {
+    if $any_ipv4_address != undef and $any_ipv4_address != undefined {
       validate_bool($any_ipv4_address)
     }
-    if $any_ipv6_address != undef {
+    if $any_ipv6_address != undef and $any_ipv6_address != undefined {
       validate_bool($any_ipv6_address)
     }
-    if $link_local_address != undef {
+    if $link_local_address != undef and $link_local_address != undefined {
       validate_bool($link_local_address)
     }
-    if $loopback != undef {
+    if $loopback != undef and $loopback != undefined {
       validate_bool($loopback)
     }
-    if $multicast != undef {
+    if $multicast != undef and $multicast != undefined {
       validate_bool($multicast)
     }
-    if $point_to_point != undef {
+    if $point_to_point != undef and $point_to_point != undefined {
       validate_bool($point_to_point)
     }
-    if $public_address != undef {
+    if $public_address != undef and $public_address != undefined {
       validate_bool($public_address)
     }
-    if $site_local_address != undef {
+    if $site_local_address != undef and $site_local_address != undefined {
       validate_bool($site_local_address)
     }
-    if $up != undef {
+    if $up != undef and $up != undefined {
       validate_bool($up)
     }
-    if $virtual != undef {
+    if $virtual != undef and $virtual != undefined {
       validate_bool($virtual)
     }
   

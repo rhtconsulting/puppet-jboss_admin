@@ -28,10 +28,10 @@ define jboss_admin::resource::admin_objects (
 ) {
   if $ensure == present {
 
-    if $enabled != undef {
+    if $enabled != undef and $enabled != undefined {
       validate_bool($enabled)
     }
-    if $use_java_context != undef {
+    if $use_java_context != undef and $use_java_context != undefined {
       validate_bool($use_java_context)
     }
   

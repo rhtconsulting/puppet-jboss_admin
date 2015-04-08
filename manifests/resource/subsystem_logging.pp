@@ -16,7 +16,7 @@ define jboss_admin::resource::subsystem_logging (
 ) {
   if $ensure == present {
 
-    if $add_logging_api_dependencies != undef {
+    if $add_logging_api_dependencies != undef and $add_logging_api_dependencies != undefined {
       validate_bool($add_logging_api_dependencies)
     }
   

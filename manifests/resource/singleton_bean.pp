@@ -32,10 +32,10 @@ define jboss_admin::resource::singleton_bean (
 ) {
   if $ensure == present {
 
-    if $declared_roles != undef and !is_array($declared_roles) {
+    if $declared_roles != undef and $declared_roles != undefined and !is_array($declared_roles) {
       fail('The attribute declared_roles is not an array')
     }
-    if $timers != undef and !is_array($timers) {
+    if $timers != undef and $timers != undefined and !is_array($timers) {
       fail('The attribute timers is not an array')
     }
   

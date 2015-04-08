@@ -144,76 +144,76 @@ define jboss_admin::resource::connection_definitions (
 ) {
   if $ensure == present {
 
-    if $allocation_retry != undef and !is_integer($allocation_retry) {
+    if $allocation_retry != undef and $allocation_retry != undefined and !is_integer($allocation_retry) {
       fail('The attribute allocation_retry is not an integer')
     }
-    if $allocation_retry_wait_millis != undef and !is_integer($allocation_retry_wait_millis) {
+    if $allocation_retry_wait_millis != undef and $allocation_retry_wait_millis != undefined and !is_integer($allocation_retry_wait_millis) {
       fail('The attribute allocation_retry_wait_millis is not an integer')
     }
-    if $background_validation != undef {
+    if $background_validation != undef and $background_validation != undefined {
       validate_bool($background_validation)
     }
-    if $background_validation_millis != undef and !is_integer($background_validation_millis) {
+    if $background_validation_millis != undef and $background_validation_millis != undefined and !is_integer($background_validation_millis) {
       fail('The attribute background_validation_millis is not an integer')
     }
-    if $blocking_timeout_wait_millis != undef and !is_integer($blocking_timeout_wait_millis) {
+    if $blocking_timeout_wait_millis != undef and $blocking_timeout_wait_millis != undefined and !is_integer($blocking_timeout_wait_millis) {
       fail('The attribute blocking_timeout_wait_millis is not an integer')
     }
-    if $enabled != undef {
+    if $enabled != undef and $enabled != undefined {
       validate_bool($enabled)
     }
-    if $flush_strategy != undef and !($flush_strategy in ['UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool']) {
+    if $flush_strategy != undef and $flush_strategy != undefined and !($flush_strategy in ['UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool']) {
       fail("The attribute flush_strategy is not an allowed value: 'UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool'")
     }
-    if $idle_timeout_minutes != undef and !is_integer($idle_timeout_minutes) {
+    if $idle_timeout_minutes != undef and $idle_timeout_minutes != undefined and !is_integer($idle_timeout_minutes) {
       fail('The attribute idle_timeout_minutes is not an integer')
     }
-    if $interleaving != undef {
+    if $interleaving != undef and $interleaving != undefined {
       validate_bool($interleaving)
     }
-    if $max_pool_size != undef and !is_integer($max_pool_size) {
+    if $max_pool_size != undef and $max_pool_size != undefined and !is_integer($max_pool_size) {
       fail('The attribute max_pool_size is not an integer')
     }
-    if $min_pool_size != undef and !is_integer($min_pool_size) {
+    if $min_pool_size != undef and $min_pool_size != undefined and !is_integer($min_pool_size) {
       fail('The attribute min_pool_size is not an integer')
     }
-    if $no_recovery != undef {
+    if $no_recovery != undef and $no_recovery != undefined {
       validate_bool($no_recovery)
     }
-    if $no_tx_separate_pool != undef {
+    if $no_tx_separate_pool != undef and $no_tx_separate_pool != undefined {
       validate_bool($no_tx_separate_pool)
     }
-    if $pad_xid != undef {
+    if $pad_xid != undef and $pad_xid != undefined {
       validate_bool($pad_xid)
     }
-    if $pool_prefill != undef {
+    if $pool_prefill != undef and $pool_prefill != undefined {
       validate_bool($pool_prefill)
     }
-    if $pool_use_strict_min != undef {
+    if $pool_use_strict_min != undef and $pool_use_strict_min != undefined {
       validate_bool($pool_use_strict_min)
     }
-    if $same_rm_override != undef {
+    if $same_rm_override != undef and $same_rm_override != undefined {
       validate_bool($same_rm_override)
     }
-    if $security_application != undef {
+    if $security_application != undef and $security_application != undefined {
       validate_bool($security_application)
     }
-    if $use_ccm != undef {
+    if $use_ccm != undef and $use_ccm != undefined {
       validate_bool($use_ccm)
     }
-    if $use_fast_fail != undef {
+    if $use_fast_fail != undef and $use_fast_fail != undefined {
       validate_bool($use_fast_fail)
     }
-    if $use_java_context != undef {
+    if $use_java_context != undef and $use_java_context != undefined {
       validate_bool($use_java_context)
     }
-    if $use_try_lock != undef and !is_integer($use_try_lock) {
+    if $use_try_lock != undef and $use_try_lock != undefined and !is_integer($use_try_lock) {
       fail('The attribute use_try_lock is not an integer')
     }
-    if $wrap_xa_resource != undef {
+    if $wrap_xa_resource != undef and $wrap_xa_resource != undefined {
       validate_bool($wrap_xa_resource)
     }
-    if $xa_resource_timeout != undef and !is_integer($xa_resource_timeout) {
+    if $xa_resource_timeout != undef and $xa_resource_timeout != undefined and !is_integer($xa_resource_timeout) {
       fail('The attribute xa_resource_timeout is not an integer')
     }
   

@@ -60,31 +60,31 @@ define jboss_admin::resource::replicated_cache (
 ) {
   if $ensure == present {
 
-    if $async_marshalling != undef {
+    if $async_marshalling != undef and $async_marshalling != undefined {
       validate_bool($async_marshalling)
     }
-    if $batching != undef {
+    if $batching != undef and $batching != undefined {
       validate_bool($batching)
     }
-    if $indexing != undef and !($indexing in ['NONE','LOCAL','ALL']) {
+    if $indexing != undef and $indexing != undefined and !($indexing in ['NONE','LOCAL','ALL']) {
       fail("The attribute indexing is not an allowed value: 'NONE','LOCAL','ALL'")
     }
-    if $mode != undef and !($mode in ['SYNC','ASYNC']) {
+    if $mode != undef and $mode != undefined and !($mode in ['SYNC','ASYNC']) {
       fail("The attribute mode is not an allowed value: 'SYNC','ASYNC'")
     }
-    if $queue_flush_interval != undef and !is_integer($queue_flush_interval) {
+    if $queue_flush_interval != undef and $queue_flush_interval != undefined and !is_integer($queue_flush_interval) {
       fail('The attribute queue_flush_interval is not an integer')
     }
-    if $queue_size != undef and !is_integer($queue_size) {
+    if $queue_size != undef and $queue_size != undefined and !is_integer($queue_size) {
       fail('The attribute queue_size is not an integer')
     }
-    if $remote_timeout != undef and !is_integer($remote_timeout) {
+    if $remote_timeout != undef and $remote_timeout != undefined and !is_integer($remote_timeout) {
       fail('The attribute remote_timeout is not an integer')
     }
-    if $start != undef and !($start in ['EAGER','LAZY']) {
+    if $start != undef and $start != undefined and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
     }
-    if $statistics_enabled != undef {
+    if $statistics_enabled != undef and $statistics_enabled != undefined {
       validate_bool($statistics_enabled)
     }
   

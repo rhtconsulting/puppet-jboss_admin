@@ -24,13 +24,13 @@ define jboss_admin::resource::expiration (
 ) {
   if $ensure == present {
 
-    if $interval != undef and !is_integer($interval) {
+    if $interval != undef and $interval != undefined and !is_integer($interval) {
       fail('The attribute interval is not an integer')
     }
-    if $lifespan != undef and !is_integer($lifespan) {
+    if $lifespan != undef and $lifespan != undefined and !is_integer($lifespan) {
       fail('The attribute lifespan is not an integer')
     }
-    if $max_idle != undef and !is_integer($max_idle) {
+    if $max_idle != undef and $max_idle != undefined and !is_integer($max_idle) {
       fail('The attribute max_idle is not an integer')
     }
   

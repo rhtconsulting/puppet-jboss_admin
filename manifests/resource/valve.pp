@@ -28,7 +28,7 @@ define jboss_admin::resource::valve (
 ) {
   if $ensure == present {
 
-    if $enabled != undef {
+    if $enabled != undef and $enabled != undefined {
       validate_bool($enabled)
     }
   

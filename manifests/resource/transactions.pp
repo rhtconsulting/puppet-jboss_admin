@@ -28,7 +28,7 @@ define jboss_admin::resource::transactions (
 ) {
   if $ensure == present {
 
-    if $age_in_seconds != undef and !is_integer($age_in_seconds) {
+    if $age_in_seconds != undef and $age_in_seconds != undefined and !is_integer($age_in_seconds) {
       fail('The attribute age_in_seconds is not an integer')
     }
   

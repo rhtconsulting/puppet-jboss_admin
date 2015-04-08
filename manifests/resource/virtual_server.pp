@@ -28,10 +28,10 @@ define jboss_admin::resource::virtual_server (
 ) {
   if $ensure == present {
 
-    if $alias != undef and !is_array($alias) {
+    if $alias != undef and $alias != undefined and !is_array($alias) {
       fail('The attribute alias is not an array')
     }
-    if $enable_welcome_root != undef {
+    if $enable_welcome_root != undef and $enable_welcome_root != undefined {
       validate_bool($enable_welcome_root)
     }
   

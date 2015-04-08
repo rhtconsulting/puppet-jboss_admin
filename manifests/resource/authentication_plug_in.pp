@@ -20,7 +20,7 @@ define jboss_admin::resource::authentication_plug_in (
 ) {
   if $ensure == present {
 
-    if $mechanism != undef and !($mechanism in ['DIGEST','PLAIN']) {
+    if $mechanism != undef and $mechanism != undefined and !($mechanism in ['DIGEST','PLAIN']) {
       fail("The attribute mechanism is not an allowed value: 'DIGEST','PLAIN'")
     }
   

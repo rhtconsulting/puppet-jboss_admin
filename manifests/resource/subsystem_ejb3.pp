@@ -68,22 +68,22 @@ define jboss_admin::resource::subsystem_ejb3 (
 ) {
   if $ensure == present {
 
-    if $default_entity_bean_optimistic_locking != undef {
+    if $default_entity_bean_optimistic_locking != undef and $default_entity_bean_optimistic_locking != undefined {
       validate_bool($default_entity_bean_optimistic_locking)
     }
-    if $default_missing_method_permissions_deny_access != undef {
+    if $default_missing_method_permissions_deny_access != undef and $default_missing_method_permissions_deny_access != undefined {
       validate_bool($default_missing_method_permissions_deny_access)
     }
-    if $default_singleton_bean_access_timeout != undef and !is_integer($default_singleton_bean_access_timeout) {
+    if $default_singleton_bean_access_timeout != undef and $default_singleton_bean_access_timeout != undefined and !is_integer($default_singleton_bean_access_timeout) {
       fail('The attribute default_singleton_bean_access_timeout is not an integer')
     }
-    if $default_stateful_bean_access_timeout != undef and !is_integer($default_stateful_bean_access_timeout) {
+    if $default_stateful_bean_access_timeout != undef and $default_stateful_bean_access_timeout != undefined and !is_integer($default_stateful_bean_access_timeout) {
       fail('The attribute default_stateful_bean_access_timeout is not an integer')
     }
-    if $enable_statistics != undef {
+    if $enable_statistics != undef and $enable_statistics != undefined {
       validate_bool($enable_statistics)
     }
-    if $in_vm_remote_interface_invocation_pass_by_value != undef {
+    if $in_vm_remote_interface_invocation_pass_by_value != undef and $in_vm_remote_interface_invocation_pass_by_value != undefined {
       validate_bool($in_vm_remote_interface_invocation_pass_by_value)
     }
   

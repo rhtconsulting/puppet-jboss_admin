@@ -21,21 +21,14 @@ define jboss_admin::resource::protocol (
   $stack = regsubst($path, '/protocol.*$', '')
   $check_command = "(outcome == success) of ${path}:read-resource()"
 
-  if $type == undef {
+  if $type == undef or $type == undefined {
     fail('type is required')
-  }
-  if $type != undef and !is_string($type) {
-    fail('The attribute type is not a string')
   }
 
   $add_command    = "${stack}:add-protocol(type=${type})"
   $remove_command = "${stack}:remove-protocol(type=${type})"
 
   if $ensure == present {
-
-    if $socket_binding != undef and !is_string($socket_binding) {
-      fail('The attribute socket_binding is not a string')
-    }
 
     $raw_options = {
       'socket-binding'               => $socket_binding,

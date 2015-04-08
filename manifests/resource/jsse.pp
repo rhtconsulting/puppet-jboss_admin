@@ -56,7 +56,7 @@ define jboss_admin::resource::jsse (
 ) {
   if $ensure == present {
 
-    if $client_auth != undef {
+    if $client_auth != undef and $client_auth != undefined {
       validate_bool($client_auth)
     }
   

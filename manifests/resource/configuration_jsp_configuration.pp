@@ -88,49 +88,49 @@ define jboss_admin::resource::configuration_jsp_configuration (
 ) {
   if $ensure == present {
 
-    if $check_interval != undef and !is_integer($check_interval) {
+    if $check_interval != undef and $check_interval != undefined and !is_integer($check_interval) {
       fail('The attribute check_interval is not an integer')
     }
-    if $development != undef {
+    if $development != undef and $development != undefined {
       validate_bool($development)
     }
-    if $disabled != undef {
+    if $disabled != undef and $disabled != undefined {
       validate_bool($disabled)
     }
-    if $display_source_fragment != undef {
+    if $display_source_fragment != undef and $display_source_fragment != undefined {
       validate_bool($display_source_fragment)
     }
-    if $dump_smap != undef {
+    if $dump_smap != undef and $dump_smap != undefined {
       validate_bool($dump_smap)
     }
-    if $error_on_use_bean_invalid_class_attribute != undef {
+    if $error_on_use_bean_invalid_class_attribute != undef and $error_on_use_bean_invalid_class_attribute != undefined {
       validate_bool($error_on_use_bean_invalid_class_attribute)
     }
-    if $generate_strings_as_char_arrays != undef {
+    if $generate_strings_as_char_arrays != undef and $generate_strings_as_char_arrays != undefined {
       validate_bool($generate_strings_as_char_arrays)
     }
-    if $keep_generated != undef {
+    if $keep_generated != undef and $keep_generated != undefined {
       validate_bool($keep_generated)
     }
-    if $mapped_file != undef {
+    if $mapped_file != undef and $mapped_file != undefined {
       validate_bool($mapped_file)
     }
-    if $modification_test_interval != undef and !is_integer($modification_test_interval) {
+    if $modification_test_interval != undef and $modification_test_interval != undefined and !is_integer($modification_test_interval) {
       fail('The attribute modification_test_interval is not an integer')
     }
-    if $recompile_on_fail != undef {
+    if $recompile_on_fail != undef and $recompile_on_fail != undefined {
       validate_bool($recompile_on_fail)
     }
-    if $smap != undef {
+    if $smap != undef and $smap != undefined {
       validate_bool($smap)
     }
-    if $tag_pooling != undef {
+    if $tag_pooling != undef and $tag_pooling != undefined {
       validate_bool($tag_pooling)
     }
-    if $trim_spaces != undef {
+    if $trim_spaces != undef and $trim_spaces != undefined {
       validate_bool($trim_spaces)
     }
-    if $x_powered_by != undef {
+    if $x_powered_by != undef and $x_powered_by != undefined {
       validate_bool($x_powered_by)
     }
   

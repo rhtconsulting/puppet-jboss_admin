@@ -28,7 +28,7 @@ define jboss_admin::resource::custom_load_metric (
 ) {
   if $ensure == present {
 
-    if $weight != undef and !is_integer($weight) {
+    if $weight != undef and $weight != undefined and !is_integer($weight) {
       fail('The attribute weight is not an integer')
     }
   

@@ -28,7 +28,7 @@ define jboss_admin::resource::path (
 ) {
   if $ensure == present {
 
-    if $read_only != undef {
+    if $read_only != undef and $read_only != undefined {
       validate_bool($read_only)
     }
   

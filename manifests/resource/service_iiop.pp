@@ -20,10 +20,10 @@ define jboss_admin::resource::service_iiop (
 ) {
   if $ensure == present {
 
-    if $enable_by_default != undef {
+    if $enable_by_default != undef and $enable_by_default != undefined {
       validate_bool($enable_by_default)
     }
-    if $use_qualified_name != undef {
+    if $use_qualified_name != undef and $use_qualified_name != undefined {
       validate_bool($use_qualified_name)
     }
   

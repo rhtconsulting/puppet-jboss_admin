@@ -36,22 +36,22 @@ define jboss_admin::resource::sasl_policy (
 ) {
   if $ensure == present {
 
-    if $forward_secrecy != undef {
+    if $forward_secrecy != undef and $forward_secrecy != undefined {
       validate_bool($forward_secrecy)
     }
-    if $no_active != undef {
+    if $no_active != undef and $no_active != undefined {
       validate_bool($no_active)
     }
-    if $no_anonymous != undef {
+    if $no_anonymous != undef and $no_anonymous != undefined {
       validate_bool($no_anonymous)
     }
-    if $no_dictionary != undef {
+    if $no_dictionary != undef and $no_dictionary != undefined {
       validate_bool($no_dictionary)
     }
-    if $no_plain_text != undef {
+    if $no_plain_text != undef and $no_plain_text != undefined {
       validate_bool($no_plain_text)
     }
-    if $pass_credentials != undef {
+    if $pass_credentials != undef and $pass_credentials != undefined {
       validate_bool($pass_credentials)
     }
   

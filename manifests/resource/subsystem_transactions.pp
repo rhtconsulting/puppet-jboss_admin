@@ -112,43 +112,43 @@ define jboss_admin::resource::subsystem_transactions (
 ) {
   if $ensure == present {
 
-    if $default_timeout != undef and !is_integer($default_timeout) {
+    if $default_timeout != undef and $default_timeout != undefined and !is_integer($default_timeout) {
       fail('The attribute default_timeout is not an integer')
     }
-    if $enable_statistics != undef {
+    if $enable_statistics != undef and $enable_statistics != undefined {
       validate_bool($enable_statistics)
     }
-    if $enable_tsm_status != undef {
+    if $enable_tsm_status != undef and $enable_tsm_status != undefined {
       validate_bool($enable_tsm_status)
     }
-    if $hornetq_store_enable_async_io != undef {
+    if $hornetq_store_enable_async_io != undef and $hornetq_store_enable_async_io != undefined {
       validate_bool($hornetq_store_enable_async_io)
     }
-    if $jdbc_action_store_drop_table != undef {
+    if $jdbc_action_store_drop_table != undef and $jdbc_action_store_drop_table != undefined {
       validate_bool($jdbc_action_store_drop_table)
     }
-    if $jdbc_communication_store_drop_table != undef {
+    if $jdbc_communication_store_drop_table != undef and $jdbc_communication_store_drop_table != undefined {
       validate_bool($jdbc_communication_store_drop_table)
     }
-    if $jdbc_state_store_drop_table != undef {
+    if $jdbc_state_store_drop_table != undef and $jdbc_state_store_drop_table != undefined {
       validate_bool($jdbc_state_store_drop_table)
     }
-    if $jts != undef {
+    if $jts != undef and $jts != undefined {
       validate_bool($jts)
     }
-    if $process_id_socket_max_ports != undef and !is_integer($process_id_socket_max_ports) {
+    if $process_id_socket_max_ports != undef and $process_id_socket_max_ports != undefined and !is_integer($process_id_socket_max_ports) {
       fail('The attribute process_id_socket_max_ports is not an integer')
     }
-    if $process_id_uuid != undef {
+    if $process_id_uuid != undef and $process_id_uuid != undefined {
       validate_bool($process_id_uuid)
     }
-    if $recovery_listener != undef {
+    if $recovery_listener != undef and $recovery_listener != undefined {
       validate_bool($recovery_listener)
     }
-    if $use_hornetq_store != undef {
+    if $use_hornetq_store != undef and $use_hornetq_store != undefined {
       validate_bool($use_hornetq_store)
     }
-    if $use_jdbc_store != undef {
+    if $use_jdbc_store != undef and $use_jdbc_store != undefined {
       validate_bool($use_jdbc_store)
     }
   

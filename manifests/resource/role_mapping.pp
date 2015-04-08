@@ -16,7 +16,7 @@ define jboss_admin::resource::role_mapping (
 ) {
   if $ensure == present {
 
-    if $include_all != undef {
+    if $include_all != undef and $include_all != undefined {
       validate_bool($include_all)
     }
   

@@ -28,10 +28,10 @@ define jboss_admin::resource::load_metric (
 ) {
   if $ensure == present {
 
-    if $type != undef and !($type in ['cpu','mem','heap','sessions','receive-traffic','send-traffic','requests','busyness']) {
+    if $type != undef and $type != undefined and !($type in ['cpu','mem','heap','sessions','receive-traffic','send-traffic','requests','busyness']) {
       fail("The attribute type is not an allowed value: 'cpu','mem','heap','sessions','receive-traffic','send-traffic','requests','busyness'")
     }
-    if $weight != undef and !is_integer($weight) {
+    if $weight != undef and $weight != undefined and !is_integer($weight) {
       fail('The attribute weight is not an integer')
     }
   

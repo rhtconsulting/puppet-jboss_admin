@@ -16,7 +16,7 @@ define jboss_admin::resource::bean_validation (
 ) {
   if $ensure == present {
 
-    if $enabled != undef {
+    if $enabled != undef and $enabled != undefined {
       validate_bool($enabled)
     }
   

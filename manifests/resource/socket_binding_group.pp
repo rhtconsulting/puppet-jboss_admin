@@ -24,7 +24,7 @@ define jboss_admin::resource::socket_binding_group (
 ) {
   if $ensure == present {
 
-    if $port_offset != undef and !is_integer($port_offset) {
+    if $port_offset != undef and $port_offset != undefined and !is_integer($port_offset) {
       fail('The attribute port_offset is not an integer')
     }
   

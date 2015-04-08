@@ -48,19 +48,19 @@ define jboss_admin::resource::group_search_group_to_principal (
 ) {
   if $ensure == present {
 
-    if $group_name != undef and !($group_name in ['DISTINGUISHED_NAME','SIMPLE']) {
+    if $group_name != undef and $group_name != undefined and !($group_name in ['DISTINGUISHED_NAME','SIMPLE']) {
       fail("The attribute group_name is not an allowed value: 'DISTINGUISHED_NAME','SIMPLE'")
     }
-    if $iterative != undef {
+    if $iterative != undef and $iterative != undefined {
       validate_bool($iterative)
     }
-    if $prefer_original_connection != undef {
+    if $prefer_original_connection != undef and $prefer_original_connection != undefined {
       validate_bool($prefer_original_connection)
     }
-    if $recursive != undef {
+    if $recursive != undef and $recursive != undefined {
       validate_bool($recursive)
     }
-    if $search_by != undef and !($search_by in ['DISTINGUISHED_NAME','SIMPLE']) {
+    if $search_by != undef and $search_by != undefined and !($search_by in ['DISTINGUISHED_NAME','SIMPLE']) {
       fail("The attribute search_by is not an allowed value: 'DISTINGUISHED_NAME','SIMPLE'")
     }
   

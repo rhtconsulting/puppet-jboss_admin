@@ -16,7 +16,7 @@ define jboss_admin::resource::configuration (
 ) {
   if $ensure == present {
 
-    if $entries == undef { fail('The attribute entries is undefined but required') }
+    if $entries == undef or $entries == undefined { fail('The attribute entries is undefined but required') }
   
 
     $raw_options = {

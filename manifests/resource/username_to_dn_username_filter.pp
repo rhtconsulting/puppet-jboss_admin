@@ -32,10 +32,10 @@ define jboss_admin::resource::username_to_dn_username_filter (
 ) {
   if $ensure == present {
 
-    if $force != undef {
+    if $force != undef and $force != undefined {
       validate_bool($force)
     }
-    if $recursive != undef {
+    if $recursive != undef and $recursive != undefined {
       validate_bool($recursive)
     }
   

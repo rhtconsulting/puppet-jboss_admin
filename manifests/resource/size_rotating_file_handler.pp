@@ -52,7 +52,7 @@ define jboss_admin::resource::size_rotating_file_handler (
 ) {
   if $ensure == present {
 
-    if $max_backup_index != undef and !is_integer($max_backup_index) {
+    if $max_backup_index != undef and $max_backup_index != undefined and !is_integer($max_backup_index) {
       fail('The attribute max_backup_index is not an integer')
     }
   

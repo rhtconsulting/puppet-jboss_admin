@@ -28,7 +28,7 @@ define jboss_admin::resource::management_interface_native_interface (
 ) {
   if $ensure == present {
 
-    if $port != undef and !is_integer($port) {
+    if $port != undef and $port != undefined and !is_integer($port) {
       fail('The attribute port is not an integer')
     }
   

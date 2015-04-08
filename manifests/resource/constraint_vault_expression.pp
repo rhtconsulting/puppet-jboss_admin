@@ -28,16 +28,16 @@ define jboss_admin::resource::constraint_vault_expression (
 ) {
   if $ensure == present {
 
-    if $configured_requires_read != undef {
+    if $configured_requires_read != undef and $configured_requires_read != undefined {
       validate_bool($configured_requires_read)
     }
-    if $configured_requires_write != undef {
+    if $configured_requires_write != undef and $configured_requires_write != undefined {
       validate_bool($configured_requires_write)
     }
-    if $default_requires_read != undef {
+    if $default_requires_read != undef and $default_requires_read != undefined {
       validate_bool($default_requires_read)
     }
-    if $default_requires_write != undef {
+    if $default_requires_write != undef and $default_requires_write != undefined {
       validate_bool($default_requires_write)
     }
   

@@ -20,10 +20,10 @@ define jboss_admin::resource::eviction (
 ) {
   if $ensure == present {
 
-    if $max_entries != undef and !is_integer($max_entries) {
+    if $max_entries != undef and $max_entries != undefined and !is_integer($max_entries) {
       fail('The attribute max_entries is not an integer')
     }
-    if $strategy != undef and !($strategy in ['NONE','UNORDERED','FIFO','LRU','LIRS']) {
+    if $strategy != undef and $strategy != undefined and !($strategy in ['NONE','UNORDERED','FIFO','LRU','LIRS']) {
       fail("The attribute strategy is not an allowed value: 'NONE','UNORDERED','FIFO','LRU','LIRS'")
     }
   

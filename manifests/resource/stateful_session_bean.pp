@@ -28,7 +28,7 @@ define jboss_admin::resource::stateful_session_bean (
 ) {
   if $ensure == present {
 
-    if $declared_roles != undef and !is_array($declared_roles) {
+    if $declared_roles != undef and $declared_roles != undefined and !is_array($declared_roles) {
       fail('The attribute declared_roles is not an array')
     }
   

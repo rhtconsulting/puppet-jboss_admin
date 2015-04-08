@@ -20,7 +20,7 @@ define jboss_admin::resource::directory (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'path'                         => $path,

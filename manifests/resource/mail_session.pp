@@ -24,7 +24,7 @@ define jboss_admin::resource::mail_session (
 ) {
   if $ensure == present {
 
-    if $debug != undef {
+    if $debug != undef and $debug != undefined {
       validate_bool($debug)
     }
   

@@ -20,7 +20,7 @@ define jboss_admin::resource::type_memory (
 ) {
   if $ensure == present {
 
-    if $verbose != undef {
+    if $verbose != undef and $verbose != undefined {
       validate_bool($verbose)
     }
   

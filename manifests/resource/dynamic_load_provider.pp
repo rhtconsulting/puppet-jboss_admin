@@ -20,10 +20,10 @@ define jboss_admin::resource::dynamic_load_provider (
 ) {
   if $ensure == present {
 
-    if $decay != undef and !is_integer($decay) {
+    if $decay != undef and $decay != undefined and !is_integer($decay) {
       fail('The attribute decay is not an integer')
     }
-    if $history != undef and !is_integer($history) {
+    if $history != undef and $history != undefined and !is_integer($history) {
       fail('The attribute history is not an integer')
     }
   

@@ -56,13 +56,13 @@ define jboss_admin::resource::jdbc_driver (
 ) {
   if $ensure == present {
 
-    if $driver_major_version != undef and !is_integer($driver_major_version) {
+    if $driver_major_version != undef and $driver_major_version != undefined and !is_integer($driver_major_version) {
       fail('The attribute driver_major_version is not an integer')
     }
-    if $driver_minor_version != undef and !is_integer($driver_minor_version) {
+    if $driver_minor_version != undef and $driver_minor_version != undefined and !is_integer($driver_minor_version) {
       fail('The attribute driver_minor_version is not an integer')
     }
-    if $jdbc_compliant != undef {
+    if $jdbc_compliant != undef and $jdbc_compliant != undefined {
       validate_bool($jdbc_compliant)
     }
   

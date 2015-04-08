@@ -20,7 +20,7 @@ define jboss_admin::resource::channel_creation_options (
 ) {
   if $ensure == present {
 
-    if $type != undef and !($type in ['remoting','xnio']) {
+    if $type != undef and $type != undefined and !($type in ['remoting','xnio']) {
       fail("The attribute type is not an allowed value: 'remoting','xnio'")
     }
   

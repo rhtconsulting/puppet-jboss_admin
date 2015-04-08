@@ -16,7 +16,7 @@ define jboss_admin::resource::authentication_classic (
 ) {
   if $ensure == present {
 
-    if $login_modules != undef and !is_array($login_modules) {
+    if $login_modules != undef and $login_modules != undefined and !is_array($login_modules) {
       fail('The attribute login_modules is not an array')
     }
   

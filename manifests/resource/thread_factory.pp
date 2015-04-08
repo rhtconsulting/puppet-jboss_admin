@@ -33,7 +33,7 @@ define jboss_admin::resource::thread_factory (
 ) {
   if $ensure == present {
 
-    if $priority != undef and !is_integer($priority) {
+    if $priority != undef and $priority != undefined and !is_integer($priority) {
       fail('The attribute priority is not an integer')
     }
   

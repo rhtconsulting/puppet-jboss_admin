@@ -24,7 +24,7 @@ define jboss_admin::resource::exclude (
 ) {
   if $ensure == present {
 
-    if $type != undef and !($type in ['GROUP','USER']) {
+    if $type != undef and $type != undefined and !($type in ['GROUP','USER']) {
       fail("The attribute type is not an allowed value: 'GROUP','USER'")
     }
   

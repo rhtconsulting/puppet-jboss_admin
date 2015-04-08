@@ -32,7 +32,7 @@ define jboss_admin::resource::queueless_thread_pool (
 ) {
   if $ensure == present {
 
-    if $max_threads != undef and !is_integer($max_threads) {
+    if $max_threads != undef and $max_threads != undefined and !is_integer($max_threads) {
       fail('The attribute max_threads is not an integer')
     }
   

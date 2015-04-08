@@ -72,19 +72,19 @@ define jboss_admin::resource::connector_web (
 ) {
   if $ensure == present {
 
-    if $max_connections != undef and !is_integer($max_connections) {
+    if $max_connections != undef and $max_connections != undefined and !is_integer($max_connections) {
       fail('The attribute max_connections is not an integer')
     }
-    if $max_post_size != undef and !is_integer($max_post_size) {
+    if $max_post_size != undef and $max_post_size != undefined and !is_integer($max_post_size) {
       fail('The attribute max_post_size is not an integer')
     }
-    if $max_save_post_size != undef and !is_integer($max_save_post_size) {
+    if $max_save_post_size != undef and $max_save_post_size != undefined and !is_integer($max_save_post_size) {
       fail('The attribute max_save_post_size is not an integer')
     }
-    if $proxy_port != undef and !is_integer($proxy_port) {
+    if $proxy_port != undef and $proxy_port != undefined and !is_integer($proxy_port) {
       fail('The attribute proxy_port is not an integer')
     }
-    if $redirect_port != undef and !is_integer($redirect_port) {
+    if $redirect_port != undef and $redirect_port != undefined and !is_integer($redirect_port) {
       fail('The attribute redirect_port is not an integer')
     }
   

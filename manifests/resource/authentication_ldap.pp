@@ -40,10 +40,10 @@ define jboss_admin::resource::authentication_ldap (
 ) {
   if $ensure == present {
 
-    if $allow_empty_passwords != undef {
+    if $allow_empty_passwords != undef and $allow_empty_passwords != undefined {
       validate_bool($allow_empty_passwords)
     }
-    if $recursive != undef {
+    if $recursive != undef and $recursive != undefined {
       validate_bool($recursive)
     }
   

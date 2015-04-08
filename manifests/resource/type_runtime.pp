@@ -76,13 +76,13 @@ define jboss_admin::resource::type_runtime (
 ) {
   if $ensure == present {
 
-    if $boot_class_path_supported != undef {
+    if $boot_class_path_supported != undef and $boot_class_path_supported != undefined {
       validate_bool($boot_class_path_supported)
     }
-    if $input_arguments != undef and !is_array($input_arguments) {
+    if $input_arguments != undef and $input_arguments != undefined and !is_array($input_arguments) {
       fail('The attribute input_arguments is not an array')
     }
-    if $start_time != undef and !is_integer($start_time) {
+    if $start_time != undef and $start_time != undefined and !is_integer($start_time) {
       fail('The attribute start_time is not an integer')
     }
   

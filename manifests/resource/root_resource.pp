@@ -72,19 +72,19 @@ define jboss_admin::resource::root_resource (
 ) {
   if $ensure == present {
 
-    if $launch_type != undef and !($launch_type in ['DOMAIN','STANDALONE','EMBEDDED','APPCLIENT']) {
+    if $launch_type != undef and $launch_type != undefined and !($launch_type in ['DOMAIN','STANDALONE','EMBEDDED','APPCLIENT']) {
       fail("The attribute launch_type is not an allowed value: 'DOMAIN','STANDALONE','EMBEDDED','APPCLIENT'")
     }
-    if $management_major_version != undef and !is_integer($management_major_version) {
+    if $management_major_version != undef and $management_major_version != undefined and !is_integer($management_major_version) {
       fail('The attribute management_major_version is not an integer')
     }
-    if $management_micro_version != undef and !is_integer($management_micro_version) {
+    if $management_micro_version != undef and $management_micro_version != undefined and !is_integer($management_micro_version) {
       fail('The attribute management_micro_version is not an integer')
     }
-    if $management_minor_version != undef and !is_integer($management_minor_version) {
+    if $management_minor_version != undef and $management_minor_version != undefined and !is_integer($management_minor_version) {
       fail('The attribute management_minor_version is not an integer')
     }
-    if $running_mode != undef and !($running_mode in ['NORMAL','ADMIN_ONLY']) {
+    if $running_mode != undef and $running_mode != undefined and !($running_mode in ['NORMAL','ADMIN_ONLY']) {
       fail("The attribute running_mode is not an allowed value: 'NORMAL','ADMIN_ONLY'")
     }
   

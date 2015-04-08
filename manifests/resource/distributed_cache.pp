@@ -76,43 +76,43 @@ define jboss_admin::resource::distributed_cache (
 ) {
   if $ensure == present {
 
-    if $async_marshalling != undef {
+    if $async_marshalling != undef and $async_marshalling != undefined {
       validate_bool($async_marshalling)
     }
-    if $batching != undef {
+    if $batching != undef and $batching != undefined {
       validate_bool($batching)
     }
-    if $indexing != undef and !($indexing in ['NONE','LOCAL','ALL']) {
+    if $indexing != undef and $indexing != undefined and !($indexing in ['NONE','LOCAL','ALL']) {
       fail("The attribute indexing is not an allowed value: 'NONE','LOCAL','ALL'")
     }
-    if $l1_lifespan != undef and !is_integer($l1_lifespan) {
+    if $l1_lifespan != undef and $l1_lifespan != undefined and !is_integer($l1_lifespan) {
       fail('The attribute l1_lifespan is not an integer')
     }
-    if $mode != undef and !($mode in ['SYNC','ASYNC']) {
+    if $mode != undef and $mode != undefined and !($mode in ['SYNC','ASYNC']) {
       fail("The attribute mode is not an allowed value: 'SYNC','ASYNC'")
     }
-    if $owners != undef and !is_integer($owners) {
+    if $owners != undef and $owners != undefined and !is_integer($owners) {
       fail('The attribute owners is not an integer')
     }
-    if $queue_flush_interval != undef and !is_integer($queue_flush_interval) {
+    if $queue_flush_interval != undef and $queue_flush_interval != undefined and !is_integer($queue_flush_interval) {
       fail('The attribute queue_flush_interval is not an integer')
     }
-    if $queue_size != undef and !is_integer($queue_size) {
+    if $queue_size != undef and $queue_size != undefined and !is_integer($queue_size) {
       fail('The attribute queue_size is not an integer')
     }
-    if $remote_timeout != undef and !is_integer($remote_timeout) {
+    if $remote_timeout != undef and $remote_timeout != undefined and !is_integer($remote_timeout) {
       fail('The attribute remote_timeout is not an integer')
     }
-    if $segments != undef and !is_integer($segments) {
+    if $segments != undef and $segments != undefined and !is_integer($segments) {
       fail('The attribute segments is not an integer')
     }
-    if $start != undef and !($start in ['EAGER','LAZY']) {
+    if $start != undef and $start != undefined and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
     }
-    if $statistics_enabled != undef {
+    if $statistics_enabled != undef and $statistics_enabled != undefined {
       validate_bool($statistics_enabled)
     }
-    if $virtual_nodes != undef and !is_integer($virtual_nodes) {
+    if $virtual_nodes != undef and $virtual_nodes != undefined and !is_integer($virtual_nodes) {
       fail('The attribute virtual_nodes is not an integer')
     }
   

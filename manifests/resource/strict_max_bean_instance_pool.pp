@@ -24,13 +24,13 @@ define jboss_admin::resource::strict_max_bean_instance_pool (
 ) {
   if $ensure == present {
 
-    if $max_pool_size != undef and !is_integer($max_pool_size) {
+    if $max_pool_size != undef and $max_pool_size != undefined and !is_integer($max_pool_size) {
       fail('The attribute max_pool_size is not an integer')
     }
-    if $timeout != undef and !is_integer($timeout) {
+    if $timeout != undef and $timeout != undefined and !is_integer($timeout) {
       fail('The attribute timeout is not an integer')
     }
-    if $timeout_unit != undef and !($timeout_unit in ['NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS']) {
+    if $timeout_unit != undef and $timeout_unit != undefined and !($timeout_unit in ['NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS']) {
       fail("The attribute timeout_unit is not an allowed value: 'NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS'")
     }
   

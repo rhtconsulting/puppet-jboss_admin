@@ -32,19 +32,19 @@ define jboss_admin::resource::subsystem_ee (
 ) {
   if $ensure == present {
 
-    if $annotation_property_replacement != undef {
+    if $annotation_property_replacement != undef and $annotation_property_replacement != undefined {
       validate_bool($annotation_property_replacement)
     }
-    if $ear_subdeployments_isolated != undef {
+    if $ear_subdeployments_isolated != undef and $ear_subdeployments_isolated != undefined {
       validate_bool($ear_subdeployments_isolated)
     }
-    if $global_modules != undef and !is_array($global_modules) {
+    if $global_modules != undef and $global_modules != undefined and !is_array($global_modules) {
       fail('The attribute global_modules is not an array')
     }
-    if $jboss_descriptor_property_replacement != undef {
+    if $jboss_descriptor_property_replacement != undef and $jboss_descriptor_property_replacement != undefined {
       validate_bool($jboss_descriptor_property_replacement)
     }
-    if $spec_descriptor_property_replacement != undef {
+    if $spec_descriptor_property_replacement != undef and $spec_descriptor_property_replacement != undefined {
       validate_bool($spec_descriptor_property_replacement)
     }
   

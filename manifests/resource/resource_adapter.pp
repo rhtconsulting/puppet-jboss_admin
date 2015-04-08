@@ -36,10 +36,10 @@ define jboss_admin::resource::resource_adapter (
 ) {
   if $ensure == present {
 
-    if $beanvalidationgroups != undef and !is_array($beanvalidationgroups) {
+    if $beanvalidationgroups != undef and $beanvalidationgroups != undefined and !is_array($beanvalidationgroups) {
       fail('The attribute beanvalidationgroups is not an array')
     }
-    if $transaction_support != undef and !($transaction_support in ['NoTransaction','LocalTransaction','XATransaction']) {
+    if $transaction_support != undef and $transaction_support != undefined and !($transaction_support in ['NoTransaction','LocalTransaction','XATransaction']) {
       fail("The attribute transaction_support is not an allowed value: 'NoTransaction','LocalTransaction','XATransaction'")
     }
   

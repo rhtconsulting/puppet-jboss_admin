@@ -80,7 +80,7 @@ define jboss_admin::resource::core_service_server_environment (
 ) {
   if $ensure == present {
 
-    if $initial_running_mode != undef and !($initial_running_mode in ['NORMAL','ADMIN_ONLY']) {
+    if $initial_running_mode != undef and $initial_running_mode != undefined and !($initial_running_mode in ['NORMAL','ADMIN_ONLY']) {
       fail("The attribute initial_running_mode is not an allowed value: 'NORMAL','ADMIN_ONLY'")
     }
   

@@ -48,13 +48,13 @@ define jboss_admin::resource::cache_container (
 ) {
   if $ensure == present {
 
-    if $aliases != undef and !is_array($aliases) {
+    if $aliases != undef and $aliases != undefined and !is_array($aliases) {
       fail('The attribute aliases is not an array')
     }
-    if $start != undef and !($start in ['EAGER','LAZY']) {
+    if $start != undef and $start != undefined and !($start in ['EAGER','LAZY']) {
       fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
     }
-    if $statistics_enabled != undef {
+    if $statistics_enabled != undef and $statistics_enabled != undefined {
       validate_bool($statistics_enabled)
     }
   
