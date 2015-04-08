@@ -63,15 +63,17 @@ def collect_types(root, name, node)
     :attributes => node[:attributes]
   }] +
   if node[:children]
-    node[:children].collect {|key, type| 
+    node[:children].collect {|key, type|
       if type[:'model-description'].count == 1 && ![:authorization, :connector].include?(key)
-        type[:'model-description'].collect{|value_key, value_node| 
-          collect_types("#{root}/#{key}=#{value_key}", name_type(key, "*"), value_node) 
-        }.flatten 
+        type[:'model-description'].select{|value_key, value_node| !value_node.nil?
+          }.collect{|value_key, value_node|
+            collect_types("#{root}/#{key}=#{value_key}", name_type(key, "*"), value_node)
+        }.flatten
       else
-        type[:'model-description'].collect{|value_key, value_node| 
-          collect_types("#{root}/#{key}=#{value_key}", name_type(key, value_key), value_node) 
-        }.flatten 
+        type[:'model-description'].select{|value_key, value_node| !value_node.nil?
+          }.collect{|value_key, value_node|
+            collect_types("#{root}/#{key}=#{value_key}", name_type(key, value_key), value_node)
+        }.flatten
       end
     }.flatten
   else
