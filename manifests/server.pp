@@ -12,6 +12,10 @@
 #  Default 5 minutes.
 #  Required.
 #
+# [*manage_server_restart*]
+#  If true, manages JBoss EAP restarts vvia jboss_admin::cleanup,
+#  else if false, does not manage JBoss EAP restarts.
+#  Defaults to true.
 #
 # Examples:
 #
@@ -26,6 +30,7 @@ define jboss_admin::server (
   $management_ip               = localhost,
   $management_port             = 9999,
   $cli_execute_timeout_minutes = 5,
+  $manage_server_restart       = true,
 ) {
   anchor{ "Jboss_admin::Server[${name}] End": }
 
@@ -33,10 +38,12 @@ define jboss_admin::server (
     fail('jboss_admin::server::cli__execute_timeout_minutes must be an integer')
   }
 
-  jboss_admin::cleanup {$name:
-    server => $name
+  if $manage_server_restart {
+    jboss_admin::cleanup {$name:
+      server => $name,
+    }
+  
+    Jboss_resource<| server == $name |> -> Jboss_admin::Cleanup[$name]
+    Jboss_exec<| server == $name and title != "Restart Server ${name}" and title != "Reload Server ${name}" and title != "Check Server Up After ${name}" |> -> Jboss_admin::Cleanup[$name]
   }
-
-  Jboss_resource<| server == $name |> -> Jboss_admin::Cleanup[$name]
-  Jboss_exec<| server == $name and title != "Restart Server ${name}" and title != "Reload Server ${name}" and title != "Check Server Up After ${name}" |> -> Jboss_admin::Cleanup[$name]
 }
