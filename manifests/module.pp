@@ -62,6 +62,7 @@ define jboss_admin::module (
       source  => $resource_path,
       recurse => true,
       purge   => true,
+      force   => true,
     }
   } else {
     $resource_name = inline_template('<%= File.basename(@resource_path) %>')
