@@ -1,6 +1,6 @@
 {
   "name": "cpitman-jboss_admin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Chris Pitman",
   "license": "MIT",
   "summary": "A module for managing resources internal to JBoss AS and EAP at runtime",
