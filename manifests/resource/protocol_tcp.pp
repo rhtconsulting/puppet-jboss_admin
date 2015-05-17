@@ -27,7 +27,6 @@ define jboss_admin::resource::protocol_tcp (
     if $port != undef and $port != undefined and !is_integer($port) {
       fail('The attribute port is not an integer')
     }
-  
 
     $raw_options = {
       'host'                         => $host,

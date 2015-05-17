@@ -24,7 +24,6 @@ define jboss_admin::resource::rewrite (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'flags'                        => $flags,

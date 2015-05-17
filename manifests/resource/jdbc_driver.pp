@@ -65,7 +65,6 @@ define jboss_admin::resource::jdbc_driver (
     if $jdbc_compliant != undef and $jdbc_compliant != undefined {
       validate_bool($jdbc_compliant)
     }
-  
 
     $raw_options = {
       'deployment-name'              => $deployment_name,

@@ -28,7 +28,6 @@ define jboss_admin::resource::authentication_client_certificate_store (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'key-password'                 => $key_password,

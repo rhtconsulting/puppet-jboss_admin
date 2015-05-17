@@ -27,7 +27,6 @@ define jboss_admin::resource::authentication_properties (
     if $plain_text != undef and $plain_text != undefined {
       validate_bool($plain_text)
     }
-  
 
     $raw_options = {
       'path'                         => $path,

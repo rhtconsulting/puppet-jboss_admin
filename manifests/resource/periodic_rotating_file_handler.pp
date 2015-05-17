@@ -48,7 +48,7 @@ define jboss_admin::resource::periodic_rotating_file_handler (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'append'                       => $append,

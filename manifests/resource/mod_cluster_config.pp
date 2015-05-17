@@ -134,7 +134,7 @@ define jboss_admin::resource::mod_cluster_config (
       fail('The attribute ping is not an integer')
     }
     if $session_draining_strategy != undef and $session_draining_strategy != undefined and !($session_draining_strategy in ['DEFAULT','ALWAYS','NEVER']) {
-      fail("The attribute session_draining_strategy is not an allowed value: 'DEFAULT','ALWAYS','NEVER'")
+      fail('The attribute session_draining_strategy is not an allowed value: "DEFAULT","ALWAYS","NEVER"')
     }
     if $simple_load_provider != undef and $simple_load_provider != undefined and !is_integer($simple_load_provider) {
       fail('The attribute simple_load_provider is not an integer')
@@ -163,7 +163,6 @@ define jboss_admin::resource::mod_cluster_config (
     if $worker_timeout != undef and $worker_timeout != undefined and !is_integer($worker_timeout) {
       fail('The attribute worker_timeout is not an integer')
     }
-  
 
     $raw_options = {
       'advertise'                    => $advertise,

@@ -16,7 +16,6 @@ define jboss_admin::resource::outbound_connection (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'uri'                          => $uri,

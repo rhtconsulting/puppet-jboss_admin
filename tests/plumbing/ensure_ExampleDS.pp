@@ -3,7 +3,7 @@ jboss_admin::server {'main':
 }
 
 jboss_resource {'/subsystem=datasources/data-source=ExampleDS':
-  ensure => present,
+  ensure  => present,
   options => {
     'connection-url' => 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1',
     'driver-name'    => 'h2',
@@ -12,5 +12,5 @@ jboss_resource {'/subsystem=datasources/data-source=ExampleDS':
     'user-name'      => 'sa',
     'password'       => 'sa'
   },
-  server => main
+  server  => main
 }

@@ -47,7 +47,6 @@ define jboss_admin::resource::subsystem_ee (
     if $spec_descriptor_property_replacement != undef and $spec_descriptor_property_replacement != undefined {
       validate_bool($spec_descriptor_property_replacement)
     }
-  
 
     $raw_options = {
       'annotation-property-replacement' => $annotation_property_replacement,

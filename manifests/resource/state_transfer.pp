@@ -33,7 +33,6 @@ define jboss_admin::resource::state_transfer (
     if $timeout != undef and $timeout != undefined and !is_integer($timeout) {
       fail('The attribute timeout is not an integer')
     }
-  
 
     $raw_options = {
       'chunk-size'                   => $chunk_size,

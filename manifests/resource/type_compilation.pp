@@ -27,7 +27,6 @@ define jboss_admin::resource::type_compilation (
     if $compilation_time_monitoring_supported != undef and $compilation_time_monitoring_supported != undefined {
       validate_bool($compilation_time_monitoring_supported)
     }
-  
 
     $raw_options = {
       'compilation-time-monitoring-supported' => $compilation_time_monitoring_supported,

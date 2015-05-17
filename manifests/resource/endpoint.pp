@@ -32,7 +32,6 @@ define jboss_admin::resource::endpoint (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'class'                        => $class,

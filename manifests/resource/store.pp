@@ -58,7 +58,6 @@ define jboss_admin::resource::store (
     if $singleton != undef and $singleton != undefined {
       validate_bool($singleton)
     }
-  
 
     $raw_options = {
       'class'                        => $class,

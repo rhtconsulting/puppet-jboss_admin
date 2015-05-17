@@ -59,20 +59,20 @@ define jboss_admin::pattern::security_domain_with_authentication_classic (
   $_security_domain_auth_path              = "${_security_domain_path}/authentication=classic"
   $_security_domain_auth_login_module_path = "${_security_domain_auth_path}/login-module=${code}"
   jboss_admin::resource::security_domain { $_security_domain_path:
+    ensure     => $ensure,
     server     => $server,
     cache_type => $cache_type,
-    ensure     => $ensure,
   }
   jboss_admin::resource::authentication_classic { $_security_domain_auth_path:
-    server => $server,
     ensure => $ensure,
+    server => $server,
   }
   jboss_admin::resource::login_module { $_security_domain_auth_login_module_path:
+    ensure         => $ensure,
     server         => $server,
     code           => $code,
     flag           => $flag,
     module         => $module,
     module_options => $module_options,
-    ensure         => $ensure,
   }
 }

@@ -40,7 +40,7 @@ define jboss_admin::resource::console_handler (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'autoflush'                    => $autoflush,

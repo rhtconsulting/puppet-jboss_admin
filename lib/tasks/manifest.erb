@@ -6,7 +6,7 @@
 #
 <% type[:attributes].each_key.sort.each do |attr| -%>
 # [*<%= puppet_name attr %>*]
-<%= type[:attributes][attr][:description].gsub(/^/, '#   ') %>
+<%= type[:attributes][attr][:description].empty? ? '#' : type[:attributes][attr][:description].gsub(/^/, '#   ').gsub(/\t/, '    ') %>
 #
 <% end -%>
 #
@@ -35,7 +35,7 @@ define jboss_admin::resource::<%= type[:name] %> (
 <%     if attribute[:allowed] 
          allowed_values = attribute[:allowed].collect{|a| "'#{a}'"}.join(',') -%>
     if $<%= puppet_name attr %> != undef and $<%= puppet_name attr %> != undefined and !($<%= puppet_name attr %> in [<%= allowed_values %>]) {
-      fail("The attribute <%= puppet_name attr %> is not an allowed value: <%= allowed_values %>")
+      fail('The attribute <%= puppet_name attr %> is not an allowed value: <%= allowed_values.gsub(/'/, '"') %>')
     }
 <%     end
      end -%>
@@ -50,7 +50,7 @@ define jboss_admin::resource::<%= type[:name] %> (
     }
 <%   end -%>
 <% end
-end -%>  
+end -%>
 
     $raw_options = {
 <% type[:attributes].each_key.sort.each do |attr_name| 

@@ -24,7 +24,6 @@ define jboss_admin::resource::custom_formatter (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'class'                        => $class,

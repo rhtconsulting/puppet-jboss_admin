@@ -20,7 +20,6 @@ define jboss_admin::resource::bootstrap_context (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'name'                         => $resource_name,

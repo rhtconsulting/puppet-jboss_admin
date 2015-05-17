@@ -16,7 +16,6 @@ define jboss_admin::resource::connection_properties (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'value'                        => $value,

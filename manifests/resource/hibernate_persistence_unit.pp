@@ -19,7 +19,6 @@ define jboss_admin::resource::hibernate_persistence_unit (
     if $enabled != undef and $enabled != undefined {
       validate_bool($enabled)
     }
-  
 
     $raw_options = {
       'enabled'                      => $enabled,

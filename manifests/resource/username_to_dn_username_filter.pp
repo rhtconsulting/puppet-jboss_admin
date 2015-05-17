@@ -38,7 +38,6 @@ define jboss_admin::resource::username_to_dn_username_filter (
     if $recursive != undef and $recursive != undefined {
       validate_bool($recursive)
     }
-  
 
     $raw_options = {
       'attribute'                    => $attribute,

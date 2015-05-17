@@ -16,7 +16,6 @@ define jboss_admin::resource::extension (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'module'                       => $module,

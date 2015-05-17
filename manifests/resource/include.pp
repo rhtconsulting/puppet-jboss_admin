@@ -25,9 +25,8 @@ define jboss_admin::resource::include (
   if $ensure == present {
 
     if $type != undef and $type != undefined and !($type in ['GROUP','USER']) {
-      fail("The attribute type is not an allowed value: 'GROUP','USER'")
+      fail('The attribute type is not an allowed value: "GROUP","USER"')
     }
-  
 
     $raw_options = {
       'name'                         => $resource_name,

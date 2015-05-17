@@ -24,7 +24,7 @@ define jboss_admin::resource::connector_remoting (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'authentication-provider'      => $authentication_provider,

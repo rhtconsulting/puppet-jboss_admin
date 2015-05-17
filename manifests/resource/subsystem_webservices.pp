@@ -37,7 +37,6 @@ define jboss_admin::resource::subsystem_webservices (
     if $wsdl_secure_port != undef and $wsdl_secure_port != undefined and !is_integer($wsdl_secure_port) {
       fail('The attribute wsdl_secure_port is not an integer')
     }
-  
 
     $raw_options = {
       'modify-wsdl-address'          => $modify_wsdl_address,

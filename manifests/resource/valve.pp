@@ -31,7 +31,6 @@ define jboss_admin::resource::valve (
     if $enabled != undef and $enabled != undefined {
       validate_bool($enabled)
     }
-  
 
     $raw_options = {
       'class-name'                   => $class_name,

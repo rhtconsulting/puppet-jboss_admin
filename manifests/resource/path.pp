@@ -31,7 +31,6 @@ define jboss_admin::resource::path (
     if $read_only != undef and $read_only != undefined {
       validate_bool($read_only)
     }
-  
 
     $raw_options = {
       'name'                         => $resource_name,

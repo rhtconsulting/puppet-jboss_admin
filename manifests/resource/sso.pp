@@ -28,7 +28,7 @@ define jboss_admin::resource::sso (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'cache-container'              => $cache_container,

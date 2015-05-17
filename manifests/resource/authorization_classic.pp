@@ -19,7 +19,6 @@ define jboss_admin::resource::authorization_classic (
     if $policy_modules != undef and $policy_modules != undefined and !is_array($policy_modules) {
       fail('The attribute policy_modules is not an array')
     }
-  
 
     $raw_options = {
       'policy-modules'               => $policy_modules,

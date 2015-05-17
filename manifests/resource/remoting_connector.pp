@@ -19,7 +19,6 @@ define jboss_admin::resource::remoting_connector (
     if $use_management_endpoint != undef and $use_management_endpoint != undefined {
       validate_bool($use_management_endpoint)
     }
-  
 
     $raw_options = {
       'use-management-endpoint'      => $use_management_endpoint,

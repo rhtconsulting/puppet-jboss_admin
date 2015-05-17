@@ -62,7 +62,6 @@ define jboss_admin::resource::string_keyed_jdbc_store (
     if $singleton != undef and $singleton != undefined {
       validate_bool($singleton)
     }
-  
 
     $raw_options = {
       'datasource'                   => $datasource,

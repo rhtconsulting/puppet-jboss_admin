@@ -24,7 +24,7 @@ define jboss_admin::resource::root_logger (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'filter'                       => $filter,

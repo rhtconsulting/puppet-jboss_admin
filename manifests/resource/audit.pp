@@ -19,7 +19,6 @@ define jboss_admin::resource::audit (
     if $provider_modules != undef and $provider_modules != undefined and !is_array($provider_modules) {
       fail('The attribute provider_modules is not an array')
     }
-  
 
     $raw_options = {
       'provider-modules'             => $provider_modules,

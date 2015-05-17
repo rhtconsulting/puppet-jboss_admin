@@ -24,7 +24,7 @@ define jboss_admin::resource::subsystem_web (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'default-virtual-server'       => $default_virtual_server,

@@ -16,7 +16,6 @@ define jboss_admin::resource::handler (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'class'                        => $class,

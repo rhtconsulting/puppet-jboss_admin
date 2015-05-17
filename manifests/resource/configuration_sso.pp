@@ -31,7 +31,6 @@ define jboss_admin::resource::configuration_sso (
     if $reauthenticate != undef and $reauthenticate != undefined {
       validate_bool($reauthenticate)
     }
-  
 
     $raw_options = {
       'cache-container'              => $cache_container,

@@ -49,7 +49,6 @@ define jboss_admin::resource::json_formatter (
     if $include_date != undef and $include_date != undefined {
       validate_bool($include_date)
     }
-  
 
     $raw_options = {
       'compact'                      => $compact,

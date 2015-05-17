@@ -31,7 +31,6 @@ define jboss_admin::resource::transactions (
     if $age_in_seconds != undef and $age_in_seconds != undefined and !is_integer($age_in_seconds) {
       fail('The attribute age_in_seconds is not an integer')
     }
-  
 
     $raw_options = {
       'age-in-seconds'               => $age_in_seconds,

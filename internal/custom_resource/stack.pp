@@ -22,7 +22,7 @@ define jboss_admin::resource::stack (
     if $protocols != undef and $protocols != undefined and !is_array($protocols) {
       fail('The attribute protocols is not an array')
     }
-  
+
 
     $raw_options = {
       'protocols'                    => $protocols,

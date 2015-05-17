@@ -27,7 +27,6 @@ define jboss_admin::resource::mail_session (
     if $debug != undef and $debug != undefined {
       validate_bool($debug)
     }
-  
 
     $raw_options = {
       'debug'                        => $debug,

@@ -40,7 +40,6 @@ define jboss_admin::resource::write_behind (
     if $thread_pool_size != undef and $thread_pool_size != undefined and !is_integer($thread_pool_size) {
       fail('The attribute thread_pool_size is not an integer')
     }
-  
 
     $raw_options = {
       'flush-lock-timeout'           => $flush_lock_timeout,

@@ -19,7 +19,6 @@ define jboss_admin::resource::security_realm (
     if $map_groups_to_roles != undef and $map_groups_to_roles != undefined {
       validate_bool($map_groups_to_roles)
     }
-  
 
     $raw_options = {
       'map-groups-to-roles'          => $map_groups_to_roles,

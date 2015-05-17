@@ -19,7 +19,6 @@ define jboss_admin::resource::authentication_classic (
     if $login_modules != undef and $login_modules != undefined and !is_array($login_modules) {
       fail('The attribute login_modules is not an array')
     }
-  
 
     $raw_options = {
       'login-modules'                => $login_modules,

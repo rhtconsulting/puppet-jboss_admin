@@ -31,7 +31,6 @@ define jboss_admin::resource::stateful_session_bean (
     if $declared_roles != undef and $declared_roles != undefined and !is_array($declared_roles) {
       fail('The attribute declared_roles is not an array')
     }
-  
 
     $raw_options = {
       'component-class-name'         => $component_class_name,

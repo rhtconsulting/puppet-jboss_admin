@@ -83,13 +83,13 @@ define jboss_admin::resource::distributed_cache (
       validate_bool($batching)
     }
     if $indexing != undef and $indexing != undefined and !($indexing in ['NONE','LOCAL','ALL']) {
-      fail("The attribute indexing is not an allowed value: 'NONE','LOCAL','ALL'")
+      fail('The attribute indexing is not an allowed value: "NONE","LOCAL","ALL"')
     }
     if $l1_lifespan != undef and $l1_lifespan != undefined and !is_integer($l1_lifespan) {
       fail('The attribute l1_lifespan is not an integer')
     }
     if $mode != undef and $mode != undefined and !($mode in ['SYNC','ASYNC']) {
-      fail("The attribute mode is not an allowed value: 'SYNC','ASYNC'")
+      fail('The attribute mode is not an allowed value: "SYNC","ASYNC"')
     }
     if $owners != undef and $owners != undefined and !is_integer($owners) {
       fail('The attribute owners is not an integer')
@@ -107,7 +107,7 @@ define jboss_admin::resource::distributed_cache (
       fail('The attribute segments is not an integer')
     }
     if $start != undef and $start != undefined and !($start in ['EAGER','LAZY']) {
-      fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
+      fail('The attribute start is not an allowed value: "EAGER","LAZY"')
     }
     if $statistics_enabled != undef and $statistics_enabled != undefined {
       validate_bool($statistics_enabled)
@@ -115,7 +115,6 @@ define jboss_admin::resource::distributed_cache (
     if $virtual_nodes != undef and $virtual_nodes != undefined and !is_integer($virtual_nodes) {
       fail('The attribute virtual_nodes is not an integer')
     }
-  
 
     $raw_options = {
       'async-marshalling'            => $async_marshalling,

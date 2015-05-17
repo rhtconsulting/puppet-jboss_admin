@@ -26,7 +26,6 @@ define jboss_admin::resource::dynamic_load_provider (
     if $history != undef and $history != undefined and !is_integer($history) {
       fail('The attribute history is not an integer')
     }
-  
 
     $raw_options = {
       'decay'                        => $decay,

@@ -5,7 +5,7 @@
 # === Parameters
 #
 # [*groups_path*]
-#   
+#
 #
 # [*idle_timeout*]
 #   The timeout in units specified by idle-timeout-unit, after which a bean will passivate
@@ -17,13 +17,13 @@
 #   The maximum number of beans this cache should store before forcing old beans to passivate
 #
 # [*relative_to*]
-#   
+#
 #
 # [*sessions_path*]
-#   
+#
 #
 # [*subdirectory_count*]
-#   
+#
 #
 #
 define jboss_admin::resource::file_passivation_store (
@@ -44,7 +44,7 @@ define jboss_admin::resource::file_passivation_store (
       fail('The attribute idle_timeout is not an integer')
     }
     if $idle_timeout_unit != undef and $idle_timeout_unit != undefined and !($idle_timeout_unit in ['NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS']) {
-      fail("The attribute idle_timeout_unit is not an allowed value: 'NANOSECONDS','MICROSECONDS','MILLISECONDS','SECONDS','MINUTES','HOURS','DAYS'")
+      fail('The attribute idle_timeout_unit is not an allowed value: "NANOSECONDS","MICROSECONDS","MILLISECONDS","SECONDS","MINUTES","HOURS","DAYS"')
     }
     if $max_size != undef and $max_size != undefined and !is_integer($max_size) {
       fail('The attribute max_size is not an integer')
@@ -52,7 +52,6 @@ define jboss_admin::resource::file_passivation_store (
     if $subdirectory_count != undef and $subdirectory_count != undefined and !is_integer($subdirectory_count) {
       fail('The attribute subdirectory_count is not an integer')
     }
-  
 
     $raw_options = {
       'groups-path'                  => $groups_path,

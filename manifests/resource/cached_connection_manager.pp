@@ -33,7 +33,6 @@ define jboss_admin::resource::cached_connection_manager (
     if $install != undef and $install != undefined {
       validate_bool($install)
     }
-  
 
     $raw_options = {
       'debug'                        => $debug,

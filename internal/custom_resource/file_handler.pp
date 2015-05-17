@@ -44,7 +44,7 @@ define jboss_admin::resource::file_handler (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'append'                       => $append,

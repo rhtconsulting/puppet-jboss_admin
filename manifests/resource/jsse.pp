@@ -59,7 +59,6 @@ define jboss_admin::resource::jsse (
     if $client_auth != undef and $client_auth != undefined {
       validate_bool($client_auth)
     }
-  
 
     $raw_options = {
       'additional-properties'        => $additional_properties,

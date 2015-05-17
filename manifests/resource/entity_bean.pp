@@ -70,7 +70,6 @@ define jboss_admin::resource::entity_bean (
     if $pool_remove_count != undef and $pool_remove_count != undefined and !is_integer($pool_remove_count) {
       fail('The attribute pool_remove_count is not an integer')
     }
-  
 
     $raw_options = {
       'component-class-name'         => $component_class_name,

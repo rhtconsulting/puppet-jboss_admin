@@ -86,7 +86,6 @@ define jboss_admin::resource::subsystem_ejb3 (
     if $in_vm_remote_interface_invocation_pass_by_value != undef and $in_vm_remote_interface_invocation_pass_by_value != undefined {
       validate_bool($in_vm_remote_interface_invocation_pass_by_value)
     }
-  
 
     $raw_options = {
       'default-clustered-sfsb-cache' => $default_clustered_sfsb_cache,

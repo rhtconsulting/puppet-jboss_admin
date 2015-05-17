@@ -19,7 +19,6 @@ define jboss_admin::resource::username_to_dn_username_is_dn (
     if $force != undef and $force != undefined {
       validate_bool($force)
     }
-  
 
     $raw_options = {
       'force'                        => $force,

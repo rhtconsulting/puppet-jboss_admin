@@ -23,7 +23,6 @@ define jboss_admin::resource::configuration_container (
     if $welcome_file != undef and $welcome_file != undefined and !is_array($welcome_file) {
       fail('The attribute welcome_file is not an array')
     }
-  
 
     $raw_options = {
       'mime-mapping'                 => $mime_mapping,

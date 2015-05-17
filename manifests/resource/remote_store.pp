@@ -79,7 +79,6 @@ define jboss_admin::resource::remote_store (
     if $tcp_no_delay != undef and $tcp_no_delay != undefined {
       validate_bool($tcp_no_delay)
     }
-  
 
     $raw_options = {
       'cache'                        => $cache,

@@ -29,9 +29,8 @@ define jboss_admin::resource::trust_module (
   if $ensure == present {
 
     if $flag != undef and $flag != undefined and !($flag in ['required','requisite','sufficient','optional']) {
-      fail("The attribute flag is not an allowed value: 'required','requisite','sufficient','optional'")
+      fail('The attribute flag is not an allowed value: "required","requisite","sufficient","optional"')
     }
-  
 
     $raw_options = {
       'code'                         => $code,

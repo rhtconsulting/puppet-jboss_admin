@@ -62,7 +62,6 @@ define jboss_admin::resource::file_store (
     if $singleton != undef and $singleton != undefined {
       validate_bool($singleton)
     }
-  
 
     $raw_options = {
       'fetch-state'                  => $fetch_state,

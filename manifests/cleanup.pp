@@ -1,3 +1,7 @@
+# == Define Jboss_admin::Cleanup
+#
+# Reloads or restarts the jboss container if needed.
+#
 define jboss_admin::cleanup(
   $server,
   $wait_for_up_tries     = 10,

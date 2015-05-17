@@ -40,7 +40,6 @@ define jboss_admin::resource::constraint_vault_expression (
     if $default_requires_write != undef and $default_requires_write != undefined {
       validate_bool($default_requires_write)
     }
-  
 
     $raw_options = {
       'configured-requires-read'     => $configured_requires_read,

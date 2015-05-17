@@ -23,7 +23,6 @@ define jboss_admin::resource::authentication_jaas (
     if $assign_groups != undef and $assign_groups != undefined {
       validate_bool($assign_groups)
     }
-  
 
     $raw_options = {
       'assign-groups'                => $assign_groups,

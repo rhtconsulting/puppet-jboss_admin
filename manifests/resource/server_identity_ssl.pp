@@ -40,7 +40,6 @@ define jboss_admin::resource::server_identity_ssl (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'alias'                        => $alias,

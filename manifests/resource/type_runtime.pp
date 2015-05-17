@@ -85,7 +85,6 @@ define jboss_admin::resource::type_runtime (
     if $start_time != undef and $start_time != undefined and !is_integer($start_time) {
       fail('The attribute start_time is not an integer')
     }
-  
 
     $raw_options = {
       'boot-class-path'              => $boot_class_path,

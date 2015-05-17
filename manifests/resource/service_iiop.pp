@@ -26,7 +26,6 @@ define jboss_admin::resource::service_iiop (
     if $use_qualified_name != undef and $use_qualified_name != undefined {
       validate_bool($use_qualified_name)
     }
-  
 
     $raw_options = {
       'enable-by-default'            => $enable_by_default,

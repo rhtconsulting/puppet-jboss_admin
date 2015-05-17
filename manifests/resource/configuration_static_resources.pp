@@ -62,7 +62,6 @@ define jboss_admin::resource::configuration_static_resources (
     if $webdav != undef and $webdav != undefined {
       validate_bool($webdav)
     }
-  
 
     $raw_options = {
       'disabled'                     => $disabled,

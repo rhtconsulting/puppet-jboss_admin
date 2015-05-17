@@ -24,7 +24,6 @@ define jboss_admin::resource::service_timer_service (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'path'                         => $path,

@@ -27,7 +27,6 @@ define jboss_admin::resource::socket_binding_group (
     if $port_offset != undef and $port_offset != undefined and !is_integer($port_offset) {
       fail('The attribute port_offset is not an integer')
     }
-  
 
     $raw_options = {
       'default-interface'            => $default_interface,

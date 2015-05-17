@@ -37,9 +37,8 @@ define jboss_admin::resource::participants (
   if $ensure == present {
 
     if $status != undef and $status != undefined and !($status in ['PENDING','PREPARED','FAILED','HEURISTIC','READONLY']) {
-      fail("The attribute status is not an allowed value: 'PENDING','PREPARED','FAILED','HEURISTIC','READONLY'")
+      fail('The attribute status is not an allowed value: "PENDING","PREPARED","FAILED","HEURISTIC","READONLY"')
     }
-  
 
     $raw_options = {
       'eis-product-name'             => $eis_product_name,

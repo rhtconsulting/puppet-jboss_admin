@@ -16,7 +16,6 @@ define jboss_admin::resource::post_handler_chain (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'protocol-bindings'            => $protocol_bindings,

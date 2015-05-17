@@ -54,7 +54,6 @@ define jboss_admin::resource::subsystem_remoting (
     if $worker_write_threads != undef and $worker_write_threads != undefined and !is_integer($worker_write_threads) {
       fail('The attribute worker_write_threads is not an integer')
     }
-  
 
     $raw_options = {
       'worker-read-threads'          => $worker_read_threads,

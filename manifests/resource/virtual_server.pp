@@ -34,7 +34,6 @@ define jboss_admin::resource::virtual_server (
     if $enable_welcome_root != undef and $enable_welcome_root != undefined {
       validate_bool($enable_welcome_root)
     }
-  
 
     $raw_options = {
       'alias'                        => $alias,

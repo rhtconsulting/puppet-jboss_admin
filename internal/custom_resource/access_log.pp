@@ -32,7 +32,7 @@ define jboss_admin::resource::access_log (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'extended'                     => $extended,

@@ -28,7 +28,6 @@ define jboss_admin::resource::type_operating_system (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'arch'                         => $arch,

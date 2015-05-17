@@ -40,7 +40,7 @@ define jboss_admin::resource::transport (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'cluster'                      => $cluster,

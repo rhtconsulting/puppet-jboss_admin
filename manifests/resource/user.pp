@@ -16,7 +16,6 @@ define jboss_admin::resource::user (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'password'                     => $password,

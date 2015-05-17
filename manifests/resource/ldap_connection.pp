@@ -44,9 +44,8 @@ define jboss_admin::resource::ldap_connection (
       fail('The attribute handles_referrals_for is not an array')
     }
     if $referrals != undef and $referrals != undefined and !($referrals in ['FOLLOW','IGNORE','THROW']) {
-      fail("The attribute referrals is not an allowed value: 'FOLLOW','IGNORE','THROW'")
+      fail('The attribute referrals is not an allowed value: "FOLLOW","IGNORE","THROW"')
     }
-  
 
     $raw_options = {
       'handles-referrals-for'        => $handles_referrals_for,

@@ -258,7 +258,7 @@ define jboss_admin::resource::xa_data_source (
       validate_bool($enabled)
     }
     if $flush_strategy != undef and $flush_strategy != undefined and !($flush_strategy in ['UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool']) {
-      fail("The attribute flush_strategy is not an allowed value: 'UNKNOWN','FailingConnectionOnly','IdleConnections','EntirePool'")
+      fail('The attribute flush_strategy is not an allowed value: "UNKNOWN","FailingConnectionOnly","IdleConnections","EntirePool"')
     }
     if $idle_timeout_minutes != undef and $idle_timeout_minutes != undefined and !is_integer($idle_timeout_minutes) {
       fail('The attribute idle_timeout_minutes is not an integer')
@@ -329,7 +329,6 @@ define jboss_admin::resource::xa_data_source (
     if $xa_resource_timeout != undef and $xa_resource_timeout != undefined and !is_integer($xa_resource_timeout) {
       fail('The attribute xa_resource_timeout is not an integer')
     }
-  
 
     $raw_options = {
       'allocation-retry'             => $allocation_retry,

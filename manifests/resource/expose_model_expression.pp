@@ -16,7 +16,6 @@ define jboss_admin::resource::expose_model_expression (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'domain-name'                  => $domain_name,

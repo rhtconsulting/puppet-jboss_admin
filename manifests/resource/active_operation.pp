@@ -45,7 +45,7 @@ define jboss_admin::resource::active_operation (
   if $ensure == present {
 
     if $access_mechanism != undef and $access_mechanism != undefined and !($access_mechanism in ['NATIVE','HTTP','JMX']) {
-      fail("The attribute access_mechanism is not an allowed value: 'NATIVE','HTTP','JMX'")
+      fail('The attribute access_mechanism is not an allowed value: "NATIVE","HTTP","JMX"')
     }
     if $address != undef and $address != undefined and !is_array($address) {
       fail('The attribute address is not an array')
@@ -57,12 +57,11 @@ define jboss_admin::resource::active_operation (
       fail('The attribute exclusive_running_time is not an integer')
     }
     if $execution_status != undef and $execution_status != undefined and !($execution_status in ['executing','awaiting-other-operation','awaiting-stability','completing','rolling-back']) {
-      fail("The attribute execution_status is not an allowed value: 'executing','awaiting-other-operation','awaiting-stability','completing','rolling-back'")
+      fail('The attribute execution_status is not an allowed value: "executing","awaiting-other-operation","awaiting-stability","completing","rolling-back"')
     }
     if $running_time != undef and $running_time != undefined and !is_integer($running_time) {
       fail('The attribute running_time is not an integer')
     }
-  
 
     $raw_options = {
       'access-mechanism'             => $access_mechanism,

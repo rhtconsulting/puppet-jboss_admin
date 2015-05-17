@@ -16,7 +16,6 @@ define jboss_admin::resource::service_async (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'thread-pool-name'             => $thread_pool_name,

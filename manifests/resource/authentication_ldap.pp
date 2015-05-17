@@ -46,7 +46,6 @@ define jboss_admin::resource::authentication_ldap (
     if $recursive != undef and $recursive != undefined {
       validate_bool($recursive)
     }
-  
 
     $raw_options = {
       'advanced-filter'              => $advanced_filter,

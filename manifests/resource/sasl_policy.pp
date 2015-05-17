@@ -54,7 +54,6 @@ define jboss_admin::resource::sasl_policy (
     if $pass_credentials != undef and $pass_credentials != undefined {
       validate_bool($pass_credentials)
     }
-  
 
     $raw_options = {
       'forward-secrecy'              => $forward_secrecy,

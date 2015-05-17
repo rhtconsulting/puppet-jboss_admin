@@ -66,7 +66,6 @@ define jboss_admin::resource::mixed_keyed_jdbc_store (
     if $singleton != undef and $singleton != undefined {
       validate_bool($singleton)
     }
-  
 
     $raw_options = {
       'binary-keyed-table'           => $binary_keyed_table,

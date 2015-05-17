@@ -16,7 +16,6 @@ define jboss_admin::resource::server_identity_secret (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'value'                        => $value,

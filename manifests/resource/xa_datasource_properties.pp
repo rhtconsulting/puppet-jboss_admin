@@ -16,7 +16,6 @@ define jboss_admin::resource::xa_datasource_properties (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'value'                        => $value,

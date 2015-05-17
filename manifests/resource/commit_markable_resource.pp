@@ -34,7 +34,6 @@ define jboss_admin::resource::commit_markable_resource (
     if $immediate_cleanup != undef and $immediate_cleanup != undefined {
       validate_bool($immediate_cleanup)
     }
-  
 
     $raw_options = {
       'batch-size'                   => $batch_size,

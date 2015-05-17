@@ -52,7 +52,6 @@ define jboss_admin::resource::socket_binding (
     if $port != undef and $port != undefined and !is_integer($port) {
       fail('The attribute port is not an integer')
     }
-  
 
     $raw_options = {
       'client-mappings'              => $client_mappings,

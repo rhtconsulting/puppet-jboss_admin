@@ -23,7 +23,6 @@ define jboss_admin::resource::type_class_loading (
     if $verbose != undef and $verbose != undefined {
       validate_bool($verbose)
     }
-  
 
     $raw_options = {
       'object-name'                  => $object_name,

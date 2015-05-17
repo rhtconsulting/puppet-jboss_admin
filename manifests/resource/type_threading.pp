@@ -72,7 +72,6 @@ define jboss_admin::resource::type_threading (
     if $thread_cpu_time_supported != undef and $thread_cpu_time_supported != undefined {
       validate_bool($thread_cpu_time_supported)
     }
-  
 
     $raw_options = {
       'all-thread-ids'               => $all_thread_ids,

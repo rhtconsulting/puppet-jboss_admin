@@ -20,7 +20,6 @@ define jboss_admin::resource::pattern_formatter (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'color-map'                    => $color_map,

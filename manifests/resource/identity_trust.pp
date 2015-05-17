@@ -19,7 +19,6 @@ define jboss_admin::resource::identity_trust (
     if $trust_modules != undef and $trust_modules != undefined and !is_array($trust_modules) {
       fail('The attribute trust_modules is not an array')
     }
-  
 
     $raw_options = {
       'trust-modules'                => $trust_modules,

@@ -19,7 +19,6 @@ define jboss_admin::resource::role_mapping (
     if $include_all != undef and $include_all != undefined {
       validate_bool($include_all)
     }
-  
 
     $raw_options = {
       'include-all'                  => $include_all,

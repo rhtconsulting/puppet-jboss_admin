@@ -56,7 +56,6 @@ define jboss_admin::resource::bounded_queue_thread_pool (
     if $queue_length != undef and $queue_length != undefined and !is_integer($queue_length) {
       fail('The attribute queue_length is not an integer')
     }
-  
 
     $raw_options = {
       'allow-core-timeout'           => $allow_core_timeout,

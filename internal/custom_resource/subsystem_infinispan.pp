@@ -16,7 +16,7 @@ define jboss_admin::resource::subsystem_infinispan (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'default-cache-container'      => $default_cache_container,

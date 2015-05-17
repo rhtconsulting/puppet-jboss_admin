@@ -16,7 +16,6 @@ define jboss_admin::resource::type_buffer_pool (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'name'                         => $resource_name,

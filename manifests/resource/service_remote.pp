@@ -20,7 +20,6 @@ define jboss_admin::resource::service_remote (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'connector-ref'                => $connector_ref,

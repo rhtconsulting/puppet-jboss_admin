@@ -35,7 +35,6 @@ define jboss_admin::resource::queueless_thread_pool (
     if $max_threads != undef and $max_threads != undefined and !is_integer($max_threads) {
       fail('The attribute max_threads is not an integer')
     }
-  
 
     $raw_options = {
       'handoff-executor'             => $handoff_executor,

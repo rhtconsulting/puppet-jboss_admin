@@ -16,7 +16,6 @@ define jboss_admin::resource::system_property (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'value'                        => $value,

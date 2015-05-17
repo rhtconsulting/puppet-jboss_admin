@@ -34,7 +34,6 @@ define jboss_admin::resource::local_destination_outbound_socket_binding (
     if $source_port != undef and $source_port != undefined and !is_integer($source_port) {
       fail('The attribute source_port is not an integer')
     }
-  
 
     $raw_options = {
       'fixed-source-port'            => $fixed_source_port,

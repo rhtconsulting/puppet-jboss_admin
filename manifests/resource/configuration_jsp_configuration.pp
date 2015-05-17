@@ -133,7 +133,6 @@ define jboss_admin::resource::configuration_jsp_configuration (
     if $x_powered_by != undef and $x_powered_by != undefined {
       validate_bool($x_powered_by)
     }
-  
 
     $raw_options = {
       'check-interval'               => $check_interval,

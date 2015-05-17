@@ -44,7 +44,7 @@ define jboss_admin::resource::custom_handler (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'class'                        => $class,

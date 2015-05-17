@@ -24,7 +24,7 @@ define jboss_admin::resource::authentication_truststore (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'keystore-password'            => $keystore_password,

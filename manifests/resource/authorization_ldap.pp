@@ -16,7 +16,6 @@ define jboss_admin::resource::authorization_ldap (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'connection'                   => $connection,

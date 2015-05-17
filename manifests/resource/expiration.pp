@@ -33,7 +33,6 @@ define jboss_admin::resource::expiration (
     if $max_idle != undef and $max_idle != undefined and !is_integer($max_idle) {
       fail('The attribute max_idle is not an integer')
     }
-  
 
     $raw_options = {
       'interval'                     => $interval,

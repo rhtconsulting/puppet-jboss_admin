@@ -37,7 +37,6 @@ define jboss_admin::resource::applies_to (
     if $operations != undef and $operations != undefined and !is_array($operations) {
       fail('The attribute operations is not an array')
     }
-  
 
     $raw_options = {
       'address'                      => $address,

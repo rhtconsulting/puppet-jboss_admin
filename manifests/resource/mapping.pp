@@ -19,7 +19,6 @@ define jboss_admin::resource::mapping (
     if $mapping_modules != undef and $mapping_modules != undefined and !is_array($mapping_modules) {
       fail('The attribute mapping_modules is not an array')
     }
-  
 
     $raw_options = {
       'mapping-modules'              => $mapping_modules,

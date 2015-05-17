@@ -3,10 +3,18 @@ jboss_admin::server{ 'example':
 }
 
 jboss_admin::resource::stack{ '/subsystem=jgroups/stack=tcpping':
-  ensure => present,
-  protocols => [{type => TCPPING}, {type => FD_SOCK, 'socket-binding' => 'jgroups-tcp-fd'}],
-  transport => {type => tcp, 'socket-binding' => 'jgroups-tcp'}, 
-  server => example
+  ensure    => present,
+  protocols => [
+    {type => TCPPING},
+    {
+      'type'           => FD_SOCK,
+      'socket-binding' => 'jgroups-tcp-fd'
+    }],
+  transport => {
+    'type'           => tcp,
+    'socket-binding' => 'jgroups-tcp'
+  },
+  server    => example
 }
 
 #jboss_admin::resource::protocol{ '/subsystem=jgroups/stack=tcpping/protocol=TCPPING':

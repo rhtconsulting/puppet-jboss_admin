@@ -16,7 +16,6 @@ define jboss_admin::resource::authorization_plug_in (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'name'                         => $resource_name,

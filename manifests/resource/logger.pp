@@ -32,7 +32,7 @@ define jboss_admin::resource::logger (
 ) {
   if $ensure == present {
 
-  
+
 
     $raw_options = {
       'category'                     => $category,

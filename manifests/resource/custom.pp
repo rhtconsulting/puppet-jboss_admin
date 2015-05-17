@@ -42,7 +42,6 @@ define jboss_admin::resource::custom (
     if $tls != undef and $tls != undefined {
       validate_bool($tls)
     }
-  
 
     $raw_options = {
       'outbound-socket-binding-ref'  => $outbound_socket_binding_ref,

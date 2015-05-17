@@ -19,7 +19,6 @@ define jboss_admin::resource::subsystem_logging (
     if $add_logging_api_dependencies != undef and $add_logging_api_dependencies != undefined {
       validate_bool($add_logging_api_dependencies)
     }
-  
 
     $raw_options = {
       'add-logging-api-dependencies' => $add_logging_api_dependencies,

@@ -27,7 +27,6 @@ define jboss_admin::resource::authentication_local (
     if $skip_group_loading != undef and $skip_group_loading != undefined {
       validate_bool($skip_group_loading)
     }
-  
 
     $raw_options = {
       'allowed-users'                => $allowed_users,

@@ -67,10 +67,10 @@ define jboss_admin::resource::invalidation_cache (
       validate_bool($batching)
     }
     if $indexing != undef and $indexing != undefined and !($indexing in ['NONE','LOCAL','ALL']) {
-      fail("The attribute indexing is not an allowed value: 'NONE','LOCAL','ALL'")
+      fail('The attribute indexing is not an allowed value: "NONE","LOCAL","ALL"')
     }
     if $mode != undef and $mode != undefined and !($mode in ['SYNC','ASYNC']) {
-      fail("The attribute mode is not an allowed value: 'SYNC','ASYNC'")
+      fail('The attribute mode is not an allowed value: "SYNC","ASYNC"')
     }
     if $queue_flush_interval != undef and $queue_flush_interval != undefined and !is_integer($queue_flush_interval) {
       fail('The attribute queue_flush_interval is not an integer')
@@ -82,12 +82,11 @@ define jboss_admin::resource::invalidation_cache (
       fail('The attribute remote_timeout is not an integer')
     }
     if $start != undef and $start != undefined and !($start in ['EAGER','LAZY']) {
-      fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
+      fail('The attribute start is not an allowed value: "EAGER","LAZY"')
     }
     if $statistics_enabled != undef and $statistics_enabled != undefined {
       validate_bool($statistics_enabled)
     }
-  
 
     $raw_options = {
       'async-marshalling'            => $async_marshalling,

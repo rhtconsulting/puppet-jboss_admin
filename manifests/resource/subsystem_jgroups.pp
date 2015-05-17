@@ -16,7 +16,6 @@ define jboss_admin::resource::subsystem_jgroups (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'default-stack'                => $default_stack,

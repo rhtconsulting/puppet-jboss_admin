@@ -24,7 +24,6 @@ define jboss_admin::resource::remote_outbound_connection (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'outbound-socket-binding-ref'  => $outbound_socket_binding_ref,

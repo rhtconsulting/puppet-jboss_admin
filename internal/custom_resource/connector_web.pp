@@ -87,7 +87,7 @@ define jboss_admin::resource::connector_web (
     if $redirect_port != undef and $redirect_port != undefined and !is_integer($redirect_port) {
       fail('The attribute redirect_port is not an integer')
     }
-  
+
 
     $raw_options = {
       'enable-lookups'               => $enable_lookups,

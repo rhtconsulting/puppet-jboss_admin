@@ -25,15 +25,14 @@ define jboss_admin::resource::transaction (
   if $ensure == present {
 
     if $locking != undef and $locking != undefined and !($locking in ['OPTIMISTIC','PESSIMISTIC']) {
-      fail("The attribute locking is not an allowed value: 'OPTIMISTIC','PESSIMISTIC'")
+      fail('The attribute locking is not an allowed value: "OPTIMISTIC","PESSIMISTIC"')
     }
     if $mode != undef and $mode != undefined and !($mode in ['NONE','NON_XA','NON_DURABLE_XA','FULL_XA']) {
-      fail("The attribute mode is not an allowed value: 'NONE','NON_XA','NON_DURABLE_XA','FULL_XA'")
+      fail('The attribute mode is not an allowed value: "NONE","NON_XA","NON_DURABLE_XA","FULL_XA"')
     }
     if $stop_timeout != undef and $stop_timeout != undefined and !is_integer($stop_timeout) {
       fail('The attribute stop_timeout is not an integer')
     }
-  
 
     $raw_options = {
       'locking'                      => $locking,

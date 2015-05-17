@@ -26,7 +26,6 @@ define jboss_admin::resource::subsystem_jmx (
     if $show_model != undef and $show_model != undefined {
       validate_bool($show_model)
     }
-  
 
     $raw_options = {
       'non-core-mbean-sensitivity'   => $non_core_mbean_sensitivity,

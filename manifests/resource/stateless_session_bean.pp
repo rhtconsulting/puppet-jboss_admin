@@ -77,7 +77,6 @@ define jboss_admin::resource::stateless_session_bean (
     if $timers != undef and $timers != undefined and !is_array($timers) {
       fail('The attribute timers is not an array')
     }
-  
 
     $raw_options = {
       'component-class-name'         => $component_class_name,

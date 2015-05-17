@@ -16,7 +16,6 @@ define jboss_admin::resource::security_domain (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'cache-type'                   => $cache_type,

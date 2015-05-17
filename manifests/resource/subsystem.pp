@@ -40,7 +40,6 @@ define jboss_admin::resource::subsystem (
     if $xml_namespaces != undef and $xml_namespaces != undefined and !is_array($xml_namespaces) {
       fail('The attribute xml_namespaces is not an array')
     }
-  
 
     $raw_options = {
       'management-major-version'     => $management_major_version,

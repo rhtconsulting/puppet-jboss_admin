@@ -20,7 +20,6 @@ define jboss_admin::resource::authorization_properties (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'path'                         => $path,

@@ -41,7 +41,6 @@ define jboss_admin::resource::deployment (
     if $persistent != undef and $persistent != undefined {
       validate_bool($persistent)
     }
-  
 
     $raw_options = {
       'content'                      => $content,

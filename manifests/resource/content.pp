@@ -16,7 +16,6 @@ define jboss_admin::resource::content (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'content'                      => $content,

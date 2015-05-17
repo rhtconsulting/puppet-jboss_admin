@@ -125,7 +125,6 @@ define jboss_admin::resource::interface (
     if $virtual != undef and $virtual != undefined {
       validate_bool($virtual)
     }
-  
 
     $raw_options = {
       'any'                          => $any,

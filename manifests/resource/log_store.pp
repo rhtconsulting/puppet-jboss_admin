@@ -16,7 +16,6 @@ define jboss_admin::resource::log_store (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'type'                         => $type,

@@ -62,7 +62,6 @@ define jboss_admin::resource::scanner (
     if $scan_interval != undef and $scan_interval != undefined and !is_integer($scan_interval) {
       fail('The attribute scan_interval is not an integer')
     }
-  
 
     $raw_options = {
       'auto-deploy-exploded'         => $auto_deploy_exploded,

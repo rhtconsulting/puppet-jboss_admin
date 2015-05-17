@@ -49,7 +49,6 @@ define jboss_admin::resource::management_interface_http_interface (
     if $secure_port != undef and $secure_port != undefined and !is_integer($secure_port) {
       fail('The attribute secure_port is not an integer')
     }
-  
 
     $raw_options = {
       'console-enabled'              => $console_enabled,

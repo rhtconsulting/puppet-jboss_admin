@@ -23,7 +23,6 @@ define jboss_admin::resource::cache (
     if $aliases != undef and $aliases != undefined and !is_array($aliases) {
       fail('The attribute aliases is not an array')
     }
-  
 
     $raw_options = {
       'aliases'                      => $aliases,

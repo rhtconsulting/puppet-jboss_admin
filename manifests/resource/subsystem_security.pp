@@ -19,7 +19,6 @@ define jboss_admin::resource::subsystem_security (
     if $deep_copy_subject_mode != undef and $deep_copy_subject_mode != undefined {
       validate_bool($deep_copy_subject_mode)
     }
-  
 
     $raw_options = {
       'deep-copy-subject-mode'       => $deep_copy_subject_mode,

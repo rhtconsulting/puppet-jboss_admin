@@ -151,7 +151,6 @@ define jboss_admin::resource::subsystem_transactions (
     if $use_jdbc_store != undef and $use_jdbc_store != undefined {
       validate_bool($use_jdbc_store)
     }
-  
 
     $raw_options = {
       'default-timeout'              => $default_timeout,

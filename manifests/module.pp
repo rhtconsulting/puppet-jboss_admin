@@ -1,6 +1,6 @@
 # = Define jboss_admin::module
 #
-# Creates the file structure for a module, including the module.xml, 
+# Creates the file structure for a module, including the module.xml,
 # and manages the resource jar.
 #
 # = Parameters
@@ -51,7 +51,7 @@ define jboss_admin::module (
     'owner'  => $server_user,
     'group'  => $server_group
   })
-  
+
   # if the module contents is a directory
   # else if is single file, such as a jar
   if $is_directory {

@@ -33,7 +33,6 @@ define jboss_admin::resource::archive_validation (
     if $fail_on_warn != undef and $fail_on_warn != undefined {
       validate_bool($fail_on_warn)
     }
-  
 
     $raw_options = {
       'enabled'                      => $enabled,

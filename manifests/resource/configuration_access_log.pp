@@ -41,7 +41,6 @@ define jboss_admin::resource::configuration_access_log (
     if $rotate != undef and $rotate != undefined {
       validate_bool($rotate)
     }
-  
 
     $raw_options = {
       'extended'                     => $extended,

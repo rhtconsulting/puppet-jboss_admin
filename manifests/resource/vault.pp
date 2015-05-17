@@ -20,7 +20,6 @@ define jboss_admin::resource::vault (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'code'                         => $code,

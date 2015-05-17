@@ -15,32 +15,50 @@ Jboss_admin::Resource::Async_handler{
 
 jboss_admin::resource::periodic_rotating_file_handler{'FILE_QS_TRACE':
   path => '/subsystem=logging/periodic-rotating-file-handler=FILE_QS_TRACE',
-  file => {"path"=>"quickstart.trace.log", "relative-to"=>"jboss.server.log.dir"}
+  file => {
+    'path'        => 'quickstart.trace.log',
+    'relative-to' => 'jboss.server.log.dir'
+  }
 }
 
 jboss_admin::resource::periodic_rotating_file_handler{'FILE_QS_DEBUG':
   path => '/subsystem=logging/periodic-rotating-file-handler=FILE_QS_DEBUG',
-  file => {"path"=>"quickstart.debug.log", "relative-to"=>"jboss.server.log.dir"}
+  file => {
+    'path'        => 'quickstart.debug.log',
+    'relative-to' =>'jboss.server.log.dir'
+  }
 }
 
 jboss_admin::resource::periodic_rotating_file_handler{'FILE_QS_INFO':
   path => '/subsystem=logging/periodic-rotating-file-handler=FILE_QS_INFO',
-  file => {"path"=>"quickstart.info.log", "relative-to"=>"jboss.server.log.dir"}
+  file => {
+    'path'        => 'quickstart.info.log',
+    'relative-to' => 'jboss.server.log.dir'
+  }
 }
 
 jboss_admin::resource::periodic_rotating_file_handler{'FILE_QS_WARN':
   path => '/subsystem=logging/periodic-rotating-file-handler=FILE_QS_WARN',
-  file => {"path"=>"quickstart.warn.log", "relative-to"=>"jboss.server.log.dir"}
+  file => {
+    'path'        => 'quickstart.warn.log',
+    'relative-to' => 'jboss.server.log.dir'
+  }
 }
 
 jboss_admin::resource::periodic_rotating_file_handler{'FILE_QS_ERROR':
   path => '/subsystem=logging/periodic-rotating-file-handler=FILE_QS_ERROR',
-  file => {"path"=>"quickstart.error.log", "relative-to"=>"jboss.server.log.dir"}
+  file => {
+    'path'        => 'quickstart.error.log',
+    'relative-to' => 'jboss.server.log.dir'
+  }
 }
 
 jboss_admin::resource::periodic_rotating_file_handler{'FILE_QS_FATAL':
   path => '/subsystem=logging/periodic-rotating-file-handler=FILE_QS_FATAL',
-  file => {"path"=>"quickstart.fatal.log", "relative-to"=>"jboss.server.log.dir"}
+  file => {
+    'path'        => 'quickstart.fatal.log',
+    'relative-to' => 'jboss.server.log.dir'
+  }
 }
 
 jboss_admin::resource::async_handler{'/subsystem=logging/async-handler=TRACE_QS_ASYNC':

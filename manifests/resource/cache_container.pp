@@ -52,12 +52,11 @@ define jboss_admin::resource::cache_container (
       fail('The attribute aliases is not an array')
     }
     if $start != undef and $start != undefined and !($start in ['EAGER','LAZY']) {
-      fail("The attribute start is not an allowed value: 'EAGER','LAZY'")
+      fail('The attribute start is not an allowed value: "EAGER","LAZY"')
     }
     if $statistics_enabled != undef and $statistics_enabled != undefined {
       validate_bool($statistics_enabled)
     }
-  
 
     $raw_options = {
       'aliases'                      => $aliases,

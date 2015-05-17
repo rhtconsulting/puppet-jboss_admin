@@ -37,7 +37,7 @@ define jboss_admin::resource::group_search_principal_to_group (
   if $ensure == present {
 
     if $group_name != undef and $group_name != undefined and !($group_name in ['DISTINGUISHED_NAME','SIMPLE']) {
-      fail("The attribute group_name is not an allowed value: 'DISTINGUISHED_NAME','SIMPLE'")
+      fail('The attribute group_name is not an allowed value: "DISTINGUISHED_NAME","SIMPLE"')
     }
     if $iterative != undef and $iterative != undefined {
       validate_bool($iterative)
@@ -45,7 +45,6 @@ define jboss_admin::resource::group_search_principal_to_group (
     if $prefer_original_connection != undef and $prefer_original_connection != undefined {
       validate_bool($prefer_original_connection)
     }
-  
 
     $raw_options = {
       'group-attribute'              => $group_attribute,

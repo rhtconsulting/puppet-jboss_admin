@@ -16,7 +16,6 @@ define jboss_admin::resource::subsystem_jsf (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'default-jsf-impl-slot'        => $default_jsf_impl_slot,

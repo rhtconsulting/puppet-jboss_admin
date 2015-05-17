@@ -47,7 +47,6 @@ define jboss_admin::resource::security (
     if $strength != undef and $strength != undefined and !is_array($strength) {
       fail('The attribute strength is not an array')
     }
-  
 
     $raw_options = {
       'include-mechanisms'           => $include_mechanisms,

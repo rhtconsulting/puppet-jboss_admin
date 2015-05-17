@@ -28,7 +28,6 @@ define jboss_admin::resource::mapping_module (
 ) {
   if $ensure == present {
 
-  
 
     $raw_options = {
       'code'                         => $code,
