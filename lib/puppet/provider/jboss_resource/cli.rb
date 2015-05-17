@@ -8,14 +8,28 @@ Puppet::Type.type(:jboss_resource).provide(:cli) do
   extend Puppet::Util::CliExecution
 
   def self.prefetch(resources)
+    cached_results = {}
+    parser = CliParser.new
+
     resources.each do |name, resource|
       # don't try to prefetch if noop
       unless resource[:noop]
-        option_data = execute_cli get_server(resource), format_command(resource[:address], 'read-resource'), false
+        if cached_results[resource[:server]].nil?
+          cached_results[resource[:server]] = execute_cli get_server(resource), format_command('/', 'read-resource', {:recursive => true}), false
+        end
+
+        parsed_address = parser.parse_path(resource[:address]).collect{|entry| entry.to_a}.flatten
+        search_pos = cached_results[resource[:server]]['result']
+
+        parsed_address.each { |step|
+          search_pos = search_pos[step]
+          break if search_pos.nil?
+        }
+
         attributes = {:name => name, :address => resource[:address]}
-        if option_data['outcome'] == 'success'
+        if search_pos
           attributes[:ensure] = :present
-          attributes[:options] = option_data['result']
+          attributes[:options] = search_pos
         else
           attributes[:ensure] = :absent
         end
