@@ -2,4 +2,4 @@ vagrant/
 .gitignore
 internal/
 config/
-templates/
+spec/
