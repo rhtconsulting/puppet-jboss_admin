@@ -7,12 +7,19 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
   extend  Puppet::Util::CliExecution
   
   def self.prefetch(resources)
+    cached_results = {}
+    parser = CliParser.new
+
     resources.each { |name, resource|
       # don't try to prefetch if noop
       unless resource[:noop]
 
         # set up attributes of the 'is' provider resource
         is_resource_attributes = {:name => name, :batch => []}
+
+        if cached_results[resource[:server]].nil?
+          cached_results[resource[:server]] = execute_cli get_server(resource), format_command('/', 'read-resource', {:recursive => true}), false
+        end
 
         # determine the current state of each batch element and add it to the current 'is' provider resource attributes
         resource[:batch].each { |batch_element|
@@ -21,13 +28,19 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
           # else error
           if batch_element.has_key?('address')
             # get the current resource data
-            current_resource_data = execute_cli get_server(resource), format_command(batch_element['address'], 'read-resource'), false
+            parsed_address = parser.parse_path(batch_element['address']).collect{|entry| entry.to_a}.flatten
+            search_pos = cached_results[resource[:server]]['result']
+
+            parsed_address.each { |step|
+              search_pos = search_pos[step]
+              break if search_pos.nil?
+            }
 
             # create hash of current resource status
             is_batch_element = { 'address' => batch_element['address'] }
-            if current_resource_data['outcome'] == 'success'
+            if search_pos
               is_batch_element['ensure']  = "present"
-              is_batch_element['options'] = current_resource_data['result']
+              is_batch_element['options'] = search_pos
             else
               is_batch_element['ensure']  = "absent"
             end
