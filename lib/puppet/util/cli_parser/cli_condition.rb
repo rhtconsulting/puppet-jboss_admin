@@ -450,25 +450,25 @@ module CliCondition
 
   module ComparisonOperator0
     def compare(lhs, rhs)
-      lhs.to_i <= rhs.to_i
+      lhs.to_s <= rhs.to_s
     end
   end
 
   module ComparisonOperator1
     def compare(lhs, rhs)
-      lhs.to_i >= rhs.to_i
+      lhs.to_s >= rhs.to_s
     end
   end
 
   module ComparisonOperator2
     def compare(lhs, rhs)
-      lhs.to_i > rhs.to_i
+      lhs.to_s > rhs.to_s
     end
   end
 
   module ComparisonOperator3
     def compare(lhs, rhs)
-      lhs.to_i < rhs.to_i
+      lhs.to_s < rhs.to_s
     end
   end
 
