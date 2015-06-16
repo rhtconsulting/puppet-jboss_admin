@@ -9,16 +9,19 @@ Puppet::Type.type(:jboss_resource).provide(:cli) do
 
   def self.prefetch(resources)
     resources.each do |name, resource|
-      option_data = execute_cli get_server(resource), format_command(resource[:address], 'read-resource'), false
-      attributes = {:name => name, :address => resource[:address]}
-      if option_data['outcome'] == 'success' 
-        attributes[:ensure] = :present 
-        attributes[:options] = option_data['result']
-      else
-        attributes[:ensure] = :absent
-      end
+      # don't try to prefetch if noop
+      unless resource[:noop]
+        option_data = execute_cli get_server(resource), format_command(resource[:address], 'read-resource'), false
+        attributes = {:name => name, :address => resource[:address]}
+        if option_data['outcome'] == 'success'
+          attributes[:ensure] = :present
+          attributes[:options] = option_data['result']
+        else
+          attributes[:ensure] = :absent
+        end
 
-      resource.provider = new attributes
+        resource.provider = new attributes
+      end
     end
   end
 
@@ -68,6 +71,6 @@ Puppet::Type.type(:jboss_resource).provide(:cli) do
       result = execute_cli get_server(resource), commands, false, true
       raise "Failed setting attribute, #{result['failure-description']}" unless result['outcome'] == 'success'  
     end
-    
   end
+
 end

@@ -8,41 +8,44 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
   
   def self.prefetch(resources)
     resources.each { |name, resource|
+      # don't try to prefetch if noop
+      unless resource[:noop]
 
-      # set up attributes of the 'is' provider resource
-      is_resource_attributes = {:name => name, :batch => []}
+        # set up attributes of the 'is' provider resource
+        is_resource_attributes = {:name => name, :batch => []}
 
-      # determine the current state of each batch element and add it to the current 'is' provider resource attributes
-      resource[:batch].each { |batch_element|
-        # if batch elment is a resource
-        # else if batch element is a command
-        # else error
-        if batch_element.has_key?('address')
-          # get the current resource data
-          current_resource_data = execute_cli get_server(resource), format_command(batch_element['address'], 'read-resource'), false
+        # determine the current state of each batch element and add it to the current 'is' provider resource attributes
+        resource[:batch].each { |batch_element|
+          # if batch elment is a resource
+          # else if batch element is a command
+          # else error
+          if batch_element.has_key?('address')
+            # get the current resource data
+            current_resource_data = execute_cli get_server(resource), format_command(batch_element['address'], 'read-resource'), false
+
+            # create hash of current resource status
+            is_batch_element = { 'address' => batch_element['address'] }
+            if current_resource_data['outcome'] == 'success'
+              is_batch_element['ensure']  = "present"
+              is_batch_element['options'] = current_resource_data['result']
+            else
+              is_batch_element['ensure']  = "absent"
+            end
   
-          # create hash of current resource status
-          is_batch_element = { 'address' => batch_element['address'] }
-          if current_resource_data['outcome'] == 'success'
-            is_batch_element['ensure']  = "present"
-            is_batch_element['options'] = current_resource_data['result']
+            is_resource_attributes[:batch].push(is_batch_element)
+          elsif batch_element.has_key?('command')
+            # the current state of a command is that it has not been run 
+            is_resource_attributes[:batch].push({ 'command' => batch_element['command'], 'ensure' => :absent})
           else
-            is_batch_element['ensure']  = "absent"
+            # this error condition should have already been caught by now but throw it here just in case
+            raise "Element of the batch is not recognized as a command or a resource, must specify either 'address' or 'command' respectivly: #{batch_element.inspect}"
           end
-  
-          is_resource_attributes[:batch].push(is_batch_element)
-        elsif batch_element.has_key?('command')
-          # the current state of a command is that it has not been run 
-          is_resource_attributes[:batch].push({ 'command' => batch_element['command'], 'ensure' => :absent})
-        else
-          # this error condition should have already been caught by now but throw it here just in case
-          raise "Element of the batch is not recognized as a command or a resource, must specify either 'address' or 'command' respectivly: #{batch_element.inspect}"
-        end
-      }
+        }
 
-      # set the 'is' provider for the given resource
-      Puppet.debug "jboss_batch[name=#{name}: is_resource_attributes: #{is_resource_attributes.inspect}"
-      resource.provider = new(is_resource_attributes)
+        # set the 'is' provider for the given resource
+        Puppet.debug "jboss_batch[name=#{name}: is_resource_attributes: #{is_resource_attributes.inspect}"
+        resource.provider = new(is_resource_attributes)
+      end
     }
   end
 
@@ -198,11 +201,14 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
 
   # executes a single command
   def execute_command command, arguments = nil 
-    if arguments
-      parser = CliParser.new
-      parsed_command = parser.parse_command command
-      command = format_command PathGenerator.format_path(parsed_command[0]), parsed_command[1], arguments 
-    end 
-    execute_cli get_server(resource), command, false
+    # don't try to execute a command if noop
+    unless resource[:noop]
+      if arguments
+        parser = CliParser.new
+        parsed_command = parser.parse_command command
+        command = format_command PathGenerator.format_path(parsed_command[0]), parsed_command[1], arguments 
+      end
+      execute_cli get_server(resource), command, false
+    end
   end
 end
