@@ -39,25 +39,25 @@ grammar CliCondition
   rule comparison_operator
      '<=' {
        def compare(lhs, rhs)
-         lhs.to_i <= rhs.to_i
+         lhs.to_s <= rhs.to_s
        end
      }
 
      / '>=' {
        def compare(lhs, rhs)
-         lhs.to_i >= rhs.to_i
+         lhs.to_s >= rhs.to_s
        end
      }
 
      / '>' {
        def compare(lhs, rhs)
-         lhs.to_i > rhs.to_i
+         lhs.to_s > rhs.to_s
        end
      }
 
      / '<' {
        def compare(lhs, rhs)
-         lhs.to_i < rhs.to_i
+         lhs.to_s < rhs.to_s
        end
      }
 
