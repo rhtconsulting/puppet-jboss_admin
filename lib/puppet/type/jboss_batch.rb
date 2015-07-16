@@ -42,30 +42,36 @@ Puppet::Type.newtype(:jboss_batch) do
     end
 
     def insync?(is)
-      insync = true
-      
-      # determine if each 'should' batch element is in sync with it's 'is' conterpart
-      should.zip(is).each do |should_batch_element, is_batch_element|
-        # if there are options to ensure are synced
-        if should_batch_element.has_key?('options')
-          # get the keys that should be undefined
-          should_undefined_options = should_batch_element['options'].select{ |key, value| value == 'undefined'}.collect{ |key, value| key}
-  
-          # if any keys that should be undefined are defined, then not in sync
-          # else if any keys that should be defined are not defined or have the wrong value, not in sync
-          if should_undefined_options.any?{|key, value| is_batch_element['options'][key] }
-            insync = false
-          else
-            out_of_sync_options = (should_batch_element['options'].select{ |key, value| value != 'undefined' }.to_a - is_batch_element['options'].to_a)
-            insync = out_of_sync_options.empty?
+      # if there is a current state then compare to desired state and determine if in sync
+      # else there is no current state so must be out of sync
+      if is
+        insync = true
+        
+        # determine if each 'should' batch element is in sync with it's 'is' conterpart
+        should.zip(is).each do |should_batch_element, is_batch_element|
+          # if there are options to ensure are synced
+          if should_batch_element.has_key?('options')
+            # get the keys that should be undefined
+            should_undefined_options = should_batch_element['options'].select{ |key, value| value == 'undefined'}.collect{ |key, value| key}
+    
+            # if any keys that should be undefined are defined, then not in sync
+            # else if any keys that should be defined are not defined or have the wrong value, not in sync
+            if should_undefined_options.any?{|key, value| is_batch_element['options'][key] }
+              insync = false
+            else
+              out_of_sync_options = (should_batch_element['options'].select{ |key, value| value != 'undefined' }.to_a - is_batch_element['options'].to_a)
+              insync = out_of_sync_options.empty?
+            end
           end
+  
+          break unless insync
         end
-
-        break unless insync
+  
+        # return insync state
+        insync
+      else
+        insync = false
       end
-
-      # return insync state
-      insync
     end
 
     # puppet function
