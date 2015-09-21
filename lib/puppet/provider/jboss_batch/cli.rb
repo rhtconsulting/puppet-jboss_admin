@@ -17,6 +17,7 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
         # set up attributes of the 'is' provider resource
         is_resource_attributes = {:name => name, :batch => []}
 
+        # dump the root resrouce and cache it
         if cached_results[resource[:server]].nil?
           cached_results[resource[:server]] = execute_cli get_server(resource), format_command('/', 'read-resource', {:recursive => true}), false
         end
@@ -27,20 +28,15 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
           # else if batch element is a command
           # else error
           if batch_element.has_key?('address')
-            # get the current resource data
-            parsed_address = parser.parse_path(batch_element['address']).collect{|entry| entry.to_a}.flatten
-            search_pos = cached_results[resource[:server]]['result']
-
-            parsed_address.each { |step|
-              search_pos = search_pos[step]
-              break if search_pos.nil?
-            }
+            # get the current value of for the given address
+            path     = parser.parse_path(batch_element['address'])
+            is_value = PathGenerator.root_dump_position(path, cached_results[resource[:server]]['result'])
 
             # create hash of current resource status
             is_batch_element = { 'address' => batch_element['address'] }
-            if search_pos
+            if is_value
               is_batch_element['ensure']  = "present"
-              is_batch_element['options'] = search_pos
+              is_batch_element['options'] = is_value
             else
               is_batch_element['ensure']  = "absent"
             end

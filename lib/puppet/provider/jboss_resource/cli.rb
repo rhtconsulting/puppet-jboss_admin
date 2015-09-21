@@ -14,22 +14,22 @@ Puppet::Type.type(:jboss_resource).provide(:cli) do
     resources.each do |name, resource|
       # don't try to prefetch if noop
       unless resource[:noop]
+
+        # dump the root resrouce and cache it
         if cached_results[resource[:server]].nil?
           cached_results[resource[:server]] = execute_cli get_server(resource), format_command('/', 'read-resource', {:recursive => true}), false
         end
 
-        parsed_address = parser.parse_path(resource[:address]).collect{|entry| entry.to_a}.flatten
-        search_pos = cached_results[resource[:server]]['result']
+        # get the current value of for the given address
+        path     = parser.parse_path(resource[:address])
+        is_value = PathGenerator.root_dump_position(path, cached_results[resource[:server]]['result'])
 
-        parsed_address.each { |step|
-          search_pos = search_pos[step]
-          break if search_pos.nil?
-        }
-
+        # if address exists in cache create attributes as present with current value
+        # else create attributes as absent
         attributes = {:name => name, :address => resource[:address]}
-        if search_pos
-          attributes[:ensure] = :present
-          attributes[:options] = search_pos
+        if is_value
+          attributes[:ensure]  = :present
+          attributes[:options] = is_value
         else
           attributes[:ensure] = :absent
         end
