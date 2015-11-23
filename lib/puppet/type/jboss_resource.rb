@@ -46,6 +46,44 @@ Puppet::Type.newtype(:jboss_resource) do
     end
   end
 
+  newparam(:tries) do
+    desc "The number of times applicaton of the resource should be tried.
+          Defaults to '1'. This many attempts will be made to apply
+          the resource until the resource application does not return a failure.
+          Note that the timeout paramater applies to each try rather than
+          to the complete set of tries."
+
+    munge do |value|
+      if value.is_a?(String)
+        unless value =~ /^[\d]+$/
+          raise ArgumentError, "Tries must be an integer"
+        end
+        value = Integer(value)
+      end
+      raise ArgumentError, "Tries must be an integer >= 1" if value < 1
+      value
+    end
+
+    defaultto 1
+  end
+
+  newparam(:try_sleep) do
+    desc "The time to sleep in seconds between 'tries'."
+
+    munge do |value|
+      if value.is_a?(String)
+        unless value =~ /^[-\d.]+$/
+          raise ArgumentError, "try_sleep must be a number"
+        end
+        value = Float(value)
+      end
+      raise ArgumentError, "try_sleep cannot be a negative number" if value < 0
+      value
+    end
+
+    defaultto 0
+  end
+
   def server_reference
     catalog.resource("Jboss_admin::Server[#{self[:server]}]")
   end

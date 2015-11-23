@@ -65,25 +65,51 @@ Puppet::Type.type(:jboss_resource).provide(:cli) do
   end
 
   def flush
-    if @new_values[:ensure] == :absent
-      result = execute_cli get_server(resource), format_command(resource[:address], 'remove')
-      raise "Error removing resource" unless result['outcome'] == 'success'
-      return
-    elsif @new_values[:ensure] == :present
-      result = execute_cli get_server(resource), format_command(resource[:address], 'add', resource[:options])
-      raise "Error creating resource" unless result['outcome'] == 'success'
-      return
-    elsif @new_values[:options]
-      undefines = @new_values[:options].select{ |key, value| value == 'undefined' && @property_hash[key]}.collect{ |key, value| key}
-      changes = @new_values[:options].to_a - @property_hash[:options].to_a
-      commands = changes.collect { |attribute, value| 
-        format_command resource[:address], 'write-attribute', {'name' => attribute, 'value' => value}
-      } + undefines.collect { |attribute|
-        format_command resource[:address], 'undefine-attribute', {'name' => attribute}
-      }
+    tries      = resource[:tries]
+    try_sleep  = resource[:try_sleep]
+    last_error = nil
+    result     = nil
 
-      result = execute_cli get_server(resource), commands, false, true
-      raise "Failed setting attribute, #{result['failure-description']}" unless result['outcome'] == 'success'  
+    # attempt to apply the resource changes the given number of tries
+    tries.times do |try|
+      begin
+        # Only add debug messages for tries > 1 to reduce log spam.
+        debug("Resource try #{try+1}/#{tries}") if tries > 1
+ 
+        if @new_values[:ensure] == :absent
+          result = execute_cli get_server(resource), format_command(resource[:address], 'remove')
+          raise "Error removing resource" unless result['outcome'] == 'success'
+          return
+        elsif @new_values[:ensure] == :present
+          result = execute_cli get_server(resource), format_command(resource[:address], 'add', resource[:options])
+          raise "Error creating resource" unless result['outcome'] == 'success'
+          return
+        elsif @new_values[:options]
+          undefines = @new_values[:options].select{ |key, value| value == 'undefined' && @property_hash[key]}.collect{ |key, value| key}
+          changes = @new_values[:options].to_a - @property_hash[:options].to_a
+          commands = changes.collect { |attribute, value| 
+            format_command resource[:address], 'write-attribute', {'name' => attribute, 'value' => value}
+          } + undefines.collect { |attribute|
+            format_command resource[:address], 'undefine-attribute', {'name' => attribute}
+          }
+
+          result = execute_cli get_server(resource), commands, false, true
+          raise "Failed setting attribute, #{result['failure-description']}" unless result['outcome'] == 'success'  
+        end
+
+        # sleep before next attempt
+        if try_sleep > 0 and tries > 1
+          debug("Sleeping for #{try_sleep} seconds between tries")
+          sleep try_sleep
+        end
+      rescue => e
+        last_error = e
+      end
+    end
+
+    # if never succeeded then re-raise the last error
+    if last_error
+      raise last_error
     end
   end
 
