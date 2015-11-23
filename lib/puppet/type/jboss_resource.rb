@@ -36,14 +36,6 @@ Puppet::Type.newtype(:jboss_resource) do
       (should.select{ |key, value| value != 'undefined' }.to_a - is.to_a).empty?
     end
 
-    #def is_to_s(is)
-    #  is.delete_if{|key,value| !should.has_key? key }.inspect
-    #end
-
-    #def should_to_s(should)
-    #  should.inspect
-    #end
-
     def change_to_s(current_value, new_value)
       changed_keys = (new_value.to_a - current_value.to_a).collect { |key, value|  key }
 
