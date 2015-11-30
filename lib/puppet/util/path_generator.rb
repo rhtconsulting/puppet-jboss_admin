@@ -38,6 +38,15 @@ class PathGenerator
       previous_pos = current_pos
       current_pos  = current_pos[step]
 
+      # if address not found, check if step is wrapped in quotes and if so remove the quotes and try again
+      #
+      # Examples:
+      #   CLI address: /subsystem=naming/binding="java:/comp/env/MY_BINDING_0"
+      #   root dump position: subsystem -> naming -> binding -> java:/comp/env/MY_BINDING_0
+      if current_pos.nil? && step =~ /^"([^"]*)"$/
+        current_pos = previous_pos[$1] # $1 contains the first capture group from the last regular expression
+      end
+
       # if address not found, check the level above for a 'configuration' namespace
       #   
       # Examples:
