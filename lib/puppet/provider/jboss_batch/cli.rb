@@ -72,34 +72,9 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
   end
 
   def flush
-    tries = self.resource[:tries]
-    try_sleep = self.resource[:try_sleep]
-
-    output = nil
-    last_error = nil
-
-    # attempt CLI batch for each try
-    tries.times do |try|
-      begin
-        # Only add debug messages for tries > 1 to reduce log spam.
-        debug("Exec try #{try+1}/#{tries}") if tries > 1
-
-        # run the batch 
-        output = execute_batch(@property_hash[:batch], @new_values[:batch])
-
-        # break the try loop if batch was a success
-        break if (resource[:expected_output].to_a - output.to_a).empty?
-
-        # sleep before next attempt
-        if try_sleep > 0 and tries > 1
-          debug("Sleeping for #{try_sleep} seconds between tries")
-          sleep try_sleep
-        end
-      rescue => e
-        last_error = e
-      end
-    end
-
+    # run the batch 
+    output = execute_batch(@property_hash[:batch], @new_values[:batch])
+        
     if (!output)
       self.fail("Error executing CLI batch `#{resource[:title]}`: #{last_error}")
     end
@@ -205,7 +180,9 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
     formated_commands.reject! { |formated_command| formated_command.empty? }
 
     # execute all of the formated commands
-    execute_cli get_server(resource), formated_commands, false, true
+    tries = self.resource[:tries]
+    try_sleep = self.resource[:try_sleep]
+    execute_cli get_server(resource), formated_commands, false, true, tries, try_sleep
   end
 
   # executes a single command
@@ -217,7 +194,9 @@ Puppet::Type.type(:jboss_batch).provide(:cli) do
         parsed_command = parser.parse_command command
         command = format_command PathGenerator.format_path(parsed_command[0]), parsed_command[1], arguments 
       end
-      execute_cli get_server(resource), command, false
+      tries = self.resource[:tries]
+      try_sleep = self.resource[:try_sleep]
+      execute_cli get_server(resource), command, false, false, tries, try_sleep
     end
   end
 end

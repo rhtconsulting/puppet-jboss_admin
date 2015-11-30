@@ -6,6 +6,8 @@
 # like we'll need to maintain this for some time perhaps.
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__),"..",".."))
 
+require 'pp'
+
 Puppet::Type.newtype(:jboss_exec) do
   @doc = "Executes an arbitrary command within a JBoss container"
   feature :treetop, "Treetop gem for parsing"
@@ -104,22 +106,24 @@ Puppet::Type.newtype(:jboss_exec) do
     def sync
       tries = self.resource[:tries]
       try_sleep = self.resource[:try_sleep]
-
+      
       output = nil
       last_error = nil
-
-      # attempt toe CLI command for each try
+      
+      # attempt to CLI command for each try.  Retry needs to be done at this level
+      #to handle the case where the received output is not the expected output from the command
+      #(command execution succeeds without cli timeout, but the result isnt what we expected)
       tries.times do |try|
         begin
           # Only add debug messages for tries > 1 to reduce log spam.
           debug("Exec try #{try+1}/#{tries}") if tries > 1
-
+          
           # run the command
           output = provider.execute_command(resource[:command], resource[:arguments])
-
+          
           # break the try loop if command was a success
           break if (resource[:expected_output].to_a - output.to_a).empty?
-
+          
           # sleep before next attempt
           if try_sleep > 0 and tries > 1
             debug("Sleeping for #{try_sleep} seconds between tries")
@@ -133,7 +137,7 @@ Puppet::Type.newtype(:jboss_exec) do
       if (!output)
         self.fail("Error executing CLI command `#{resource[:command]}`: #{last_error}")
       end
-
+      
       # determine if the execution was a success
       success = (resource[:expected_output].to_a - output.to_a).empty?
 
@@ -144,7 +148,9 @@ Puppet::Type.newtype(:jboss_exec) do
 
       # fail if CLI command failed
       if !success
-        self.fail("Error executing CLI command `#{resource[:command]}`: #{output['failure-description']}") 
+        expected_output = resource[:expected_output].pretty_inspect
+        received_output = output.pretty_inspect
+        self.fail("Error executing CLI command `#{resource[:command]}`:\n Expected output: #{expected_output}\n Received output:\n #{received_output} \n Failure desc:\n #{output['failure-description']}") 
       end
     end
   end

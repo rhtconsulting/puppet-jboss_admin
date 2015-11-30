@@ -18,7 +18,10 @@ module Puppet::Util::CliExecution
     end
   end
 
-  def execute_cli(server, command, failonfail = true, batch = false)
+  def execute_cli(server, command, failonfail = true, batch = false, tries = 3 , try_sleep = 1)
+    output = ""
+    tries = tries.to_i
+    try_sleep = try_sleep.to_i
     cli_path = "#{server['base_path']}/bin/jboss-cli.sh"
     command_file = Tempfile.new 'clicommands'
     command_file.chmod 0644
@@ -30,21 +33,49 @@ module Puppet::Util::CliExecution
 
     delete_nil = Proc.new { |k, v| v.kind_of?(Hash) ? (v.delete_if(&delete_nil); nil) : v.nil? }
 
-    output = execute [ 'timeout', "#{server['cli_execute_timeout_minutes']}m", cli_path, '--connect','--controller=' + server['management_ip'] + ':' + server['management_port'], '--file=' + command_file.path], {:failonfail => failonfail, :combine => true}
+    tries.times { |try|
+      output = execute [ 'timeout', "#{server['cli_execute_timeout_minutes']}m", cli_path, '--connect','--controller=' + server['management_ip'] + ':' + server['management_port'], '--file=' + command_file.path], {:failonfail => failonfail, :combine => true}
 
-    if batch
-      return {'outcome' => 'success'} if output =~ /The batch executed successfully/
-      return {'outcome' => 'failure', 'failure-description' => output.lines.to_a}
-    else
-      json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/=>/, ':').gsub(/: expression/, ': ').gsub(/\}\n\{/m, "},{").gsub(/\n/, '').gsub(/ (-?\d+)L/, ' \1').gsub(/bytes\s*\{([^\}]*)\}/,'"bytes {\1}"') + ']'
+      if batch
+        #in batch mode, we either exit on a success or we keep retrying up until our
+        #retries are exhausted
+        return {'outcome' => 'success'} if output =~ /The batch executed successfully/
+        if try >= (tries - 1)
+          return {'outcome' => 'failure', 'failure-description' => output.lines.to_a}
+        end
+        #else, retry
+      else
+        json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/=>/, ':').gsub(/: expression/, ': ').gsub(/\}\n\{/m, "},{").gsub(/\n/, '').gsub(/ (-?\d+)L/, ' \1').gsub(/bytes\s*\{([^\}]*)\}/,'"bytes {\1}"') + ']'
 
-      parsed_output = JSON.parse(json_string)
-      parsed_output = parsed_output.collect {|o| o.delete_if &delete_nil}
-      parsed_output = parsed_output.collect {|o| convert_ints_to_strings o }
+        begin
+          parsed_output = JSON.parse(json_string)
+          parsed_output = parsed_output.collect {|o| o.delete_if &delete_nil}
+          parsed_output = parsed_output.collect {|o| convert_ints_to_strings o }
+          if parsed_output.count == 1
+            return parsed_output.first
+          else
+            return parsed_output
+          end
+        rescue JSON::ParserError => e
+          #this is a retryable error, the loop will continue and try again
+          #unless we have exhausted all tries, then just print the output
+          #from the raise at the bottom of this function
+          debug("Handled a JSON parse error in execute_cli:\n #{e.to_s}")
+        end
+      end
 
-      return parsed_output.first if parsed_output.count == 1
-      parsed_output
-    end
+      #for non-batch commands, we use a JSON::ParseError to detect when a stack trace
+      #is emitted from the execution, this will cause us to retry the command.
+      debug("Possible cli timeout while in execute_cli for command #{command}, retrying #{try+1}/#{tries}")
+      # sleep before next attempt
+      if try_sleep > 0 and tries > 1
+        debug("Sleeping for #{try_sleep} seconds between tries")
+        sleep try_sleep
+      end
+    }
+
+    #if we get here, then all retries failed and we should raise an exception
+    raise "All retries (amount: #{tries}) exhausted executing #{command}.  Last output:\n #{output}"
   end
 
   def format_value(value)
