@@ -165,7 +165,7 @@ Puppet::Type.newtype(:jboss_exec) do
     if self[:onlyif]
       check = parser.parse_condition self[:onlyif]
       check_command = PathGenerator.format_command check[1][0], check[1][1], check[1][2]
-      data = provider.execute_command check_command
+      data = provider.execute_command check_command,nil,self[:tries],self[:try_sleep]
       result = check[0].call data
 
       return false if !result
@@ -173,7 +173,7 @@ Puppet::Type.newtype(:jboss_exec) do
     if self[:unless]
       check = parser.parse_condition self[:unless]
       check_command = PathGenerator.format_command check[1][0], check[1][1], check[1][2]
-      data = provider.execute_command check_command
+      data = provider.execute_command check_command,nil,self[:tries],self[:try_sleep]
       result = check[0].call data
 
       return false if result
