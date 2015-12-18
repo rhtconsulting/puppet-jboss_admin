@@ -6,8 +6,6 @@
 # like we'll need to maintain this for some time perhaps.
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__),"..",".."))
 
-require 'pp'
-
 Puppet::Type.newtype(:jboss_exec) do
   @doc = "Executes an arbitrary command within a JBoss container"
   feature :treetop, "Treetop gem for parsing"
