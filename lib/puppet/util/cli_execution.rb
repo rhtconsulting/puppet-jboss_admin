@@ -80,11 +80,17 @@ module Puppet::Util::CliExecution
 
   def format_value(value)
     if value.is_a?(Array) || value.is_a?(Hash)
-      value.inspect
+      value = value.inspect
     else
+      # if the value contains double quotes escape them
+      # NOTE: be sure this is done before wrapping the string in quotes
+      value = value.to_s.gsub(/"/,'\"')
+
       # if the value contains special characters then wrap it in quotes
-      (/[${}, =\[\]]/ =~ value.to_s).nil? ? value.to_s : "\"#{value.to_s}\""
+      value = (/[${}, =\[\]]/ =~ value.to_s).nil? ? value.to_s : "\"#{value.to_s}\""
     end
+
+    return value
   end
 
   def format_command(address, operation, options = {})
