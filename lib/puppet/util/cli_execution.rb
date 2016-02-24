@@ -45,7 +45,7 @@ module Puppet::Util::CliExecution
         end
         #else, retry
       else
-        json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/=>/, ':').gsub(/: expression/, ': ').gsub(/\}\n\{/m, "},{").gsub(/\n/, '').gsub(/ (-?\d+)L/, ' \1').gsub(/bytes\s*\{([^\}]*)\}/,'"bytes {\1}"') + ']'
+        json_string = '[' + output.gsub(/ => undefined/, ': null').gsub(/ => big decimal/, ': ').gsub(/=>/, ':').gsub(/: expression/, ': ').gsub(/\}\n\{/m, "},{").gsub(/\n/, '').gsub(/ (-?\d+)L/, ' \1').gsub(/bytes\s*\{([^\}]*)\}/,'"bytes {\1}"') + ']'
 
         begin
           parsed_output = JSON.parse(json_string)
