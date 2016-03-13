@@ -1,4 +1,4 @@
-# == Defines jboss_admin::data_source
+# == Defines jboss_admin::data_source_ExampleDS
 #
 # A JDBC data-source configuration
 #
@@ -109,6 +109,9 @@
 # [*stale_connection_checker_properties*]
 #   The stale connection checker properties
 #
+# [*statistics*]
+#   Runtime statistics provided by the resource adapter.
+#
 # [*statistics_enabled*]
 #   define if runtime statistics is enabled or not.
 #
@@ -149,7 +152,7 @@
 #   The validate-on-match element specifies if connection validation should be done when a connection factory attempts to match a managed connection. This is typically exclusive to the use of background validation
 #
 #
-define jboss_admin::resource::data_source (
+define jboss_admin::resource::data_source_ExampleDS (
   $server,
   $allocation_retry               = undef,
   $allocation_retry_wait_millis   = undef,
@@ -186,6 +189,7 @@ define jboss_admin::resource::data_source (
   $spy                            = undef,
   $stale_connection_checker_class_name = undef,
   $stale_connection_checker_properties = undef,
+  $statistics                     = undef,
   $statistics_enabled             = undef,
   $track_statements               = undef,
   $transaction_isolation          = undef,
@@ -318,6 +322,7 @@ define jboss_admin::resource::data_source (
       'spy'                          => $spy,
       'stale-connection-checker-class-name' => $stale_connection_checker_class_name,
       'stale-connection-checker-properties' => $stale_connection_checker_properties,
+      'statistics'                   => $statistics,
       'statistics-enabled'           => $statistics_enabled,
       'track-statements'             => $track_statements,
       'transaction-isolation'        => $transaction_isolation,

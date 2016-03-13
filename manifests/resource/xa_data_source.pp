@@ -29,7 +29,7 @@
 #   Defines the JDBC driver the datasource should use. It is a symbolic name matching the the name of installed driver. In case the driver is deployed as jar, the name is the name of deployment unit
 #
 # [*enabled*]
-#   Specifies if the datasource should be enabled
+#   Specifies if the datasource should be enabled. Note this attribute will not be supported runtime in next versions.
 #
 # [*exception_sorter_class_name*]
 #   An org.jboss.jca.adapters.jdbc.ExceptionSorter that provides an isExceptionFatal(SQLException) method to validate if an exception should broadcast an error

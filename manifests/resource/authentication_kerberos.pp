@@ -1,23 +1,26 @@
-# == Defines jboss_admin::subsystem_jgroups
+# == Defines jboss_admin::authentication_kerberos
 #
-# The configuration of the JGroups subsystem.
+# Configuration to use Kerberos to authenticate the users.
 #
 # === Parameters
 #
-# [*default_stack*]
-#   The default JGroups protocol stack.
+# [*remove_realm*]
+#   After authentication should the realm name be stripped from the users name.
 #
 #
-define jboss_admin::resource::subsystem_jgroups (
+define jboss_admin::resource::authentication_kerberos (
   $server,
-  $default_stack                  = undef,
+  $remove_realm                   = undef,
   $ensure                         = present,
   $cli_path                       = $name,
 ) {
   if $ensure == present {
+    if $remove_realm != undef and $remove_realm != undefined {
+      validate_bool($remove_realm)
+    }
 
     $raw_options = {
-      'default-stack'                => $default_stack,
+      'remove-realm'                 => $remove_realm,
     }
     $options = delete_undef_values($raw_options)
 

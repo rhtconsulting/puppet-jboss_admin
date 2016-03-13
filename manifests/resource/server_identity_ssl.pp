@@ -7,6 +7,12 @@
 # [*alias*]
 #   The alias of the entry to use from the keystore.
 #
+# [*enabled_cipher_suites*]
+#   The cipher suites that can be enabled on the underlying SSLEngine.
+#
+# [*enabled_protocols*]
+#   The protocols that can be enabled on the underlying SSLEngine.
+#
 # [*key_password*]
 #   The password to obtain the key from the keystore.
 #
@@ -29,6 +35,8 @@
 define jboss_admin::resource::server_identity_ssl (
   $server,
   $alias                          = undef,
+  $enabled_cipher_suites          = undef,
+  $enabled_protocols              = undef,
   $key_password                   = undef,
   $keystore_password              = undef,
   $keystore_path                  = undef,
@@ -39,9 +47,17 @@ define jboss_admin::resource::server_identity_ssl (
   $cli_path                       = $name,
 ) {
   if $ensure == present {
+    if $enabled_cipher_suites != undef and $enabled_cipher_suites != undefined and !is_array($enabled_cipher_suites) {
+      fail('The attribute enabled_cipher_suites is not an array')
+    }
+    if $enabled_protocols != undef and $enabled_protocols != undefined and !is_array($enabled_protocols) {
+      fail('The attribute enabled_protocols is not an array')
+    }
 
     $raw_options = {
       'alias'                        => $alias,
+      'enabled-cipher-suites'        => $enabled_cipher_suites,
+      'enabled-protocols'            => $enabled_protocols,
       'key-password'                 => $key_password,
       'keystore-password'            => $keystore_password,
       'keystore-path'                => $keystore_path,

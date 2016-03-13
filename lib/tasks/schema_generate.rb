@@ -7,7 +7,18 @@ require 'backports/1.9.1/symbol/comparison'
 def generate_from_schema schema_path, output_dir
 
   schema_text = IO.read(schema_path)
-  schema = JSON.parse schema_text, :symbolize_names => true
+  schema_json = schema_text
+    .gsub(/ => undefined/, ': null')
+    .gsub(/ => big decimal/, ': ')
+    .gsub(/=>/, ':')
+    .gsub(/: expression/, ': ')
+    .gsub(/^\s*"(type|value-type)"\s*:\s+([^{,\n]+)/,'"\1": "\2"')
+    .gsub(/\}\n\{/m, "},{")
+    .gsub(/\n/, '')
+    .gsub(/\t/, '    ')
+    .gsub(/ (-?\d+)L/, ' \1')
+    .gsub(/bytes\s*\{([^\}]*)\}/,'"bytes {\1}"')
+  schema = JSON.parse schema_json, :symbolize_names => true
 
   manifest_template_text = IO.read(File.expand_path('../manifest.erb', __FILE__))
   manifest_template = ERB.new(manifest_template_text, safe_mode = nil, trim_mode = '-')

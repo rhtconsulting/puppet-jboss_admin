@@ -5,7 +5,7 @@
 # === Parameters
 #
 # [*annotation_property_replacement*]
-#   Flag indicating whether EJB annotations will have property replacements applied
+#   Flag indicating whether Java EE annotations will have property replacements applied
 #
 # [*ear_subdeployments_isolated*]
 #   Flag indicating whether each of the subdeployments within a .ear can access classes belonging to another subdeployment within the same .ear. A value of false means the subdeployments can see classes belonging to other subdeployments within the .ear.

@@ -13,6 +13,9 @@
 # [*domain*]
 #   The cookie domain that will be used.
 #
+# [*http_only*]
+#   The cookie http-only flag will be set.
+#
 # [*reauthenticate*]
 #   Enables reauthentication with the realm when using SSO.
 #
@@ -22,11 +25,15 @@ define jboss_admin::resource::configuration_sso (
   $cache_container                = undef,
   $cache_name                     = undef,
   $domain                         = undef,
+  $http_only                      = undef,
   $reauthenticate                 = undef,
   $ensure                         = present,
   $cli_path                       = $name,
 ) {
   if $ensure == present {
+    if $http_only != undef and $http_only != undefined {
+      validate_bool($http_only)
+    }
     if $reauthenticate != undef and $reauthenticate != undefined {
       validate_bool($reauthenticate)
     }
@@ -35,6 +42,7 @@ define jboss_admin::resource::configuration_sso (
       'cache-container'              => $cache_container,
       'cache-name'                   => $cache_name,
       'domain'                       => $domain,
+      'http-only'                    => $http_only,
       'reauthenticate'               => $reauthenticate,
     }
     $options = delete_undef_values($raw_options)

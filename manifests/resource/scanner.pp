@@ -23,7 +23,7 @@
 #   Reference to a filesystem path defined in the "paths" section of the server configuration.
 #
 # [*scan_enabled*]
-#   Flag indicating that all scanning (including initial scanning at startup) should be disabled.
+#   Flag indicating if all scanning (including initial scanning at startup) is enabled.
 #
 # [*scan_interval*]
 #   Periodic interval, in milliseconds, at which the repository should be scanned for changes. A value of less than 1 indicates the repository should only be scanned at initial startup.

@@ -4,11 +4,8 @@
 #
 # === Parameters
 #
-# [*path*]
-#   The directory to store persistent timer information in
-#
-# [*relative_to*]
-#   The relative path that is used to resolve the timer data store location
+# [*default_data_store*]
+#   The default data store used for persistent timers
 #
 # [*thread_pool_name*]
 #   The name of the thread pool used to run timer service invocations
@@ -16,8 +13,7 @@
 #
 define jboss_admin::resource::service_timer_service (
   $server,
-  $path                           = undef,
-  $relative_to                    = undef,
+  $default_data_store             = undef,
   $thread_pool_name               = undef,
   $ensure                         = present,
   $cli_path                       = $name,
@@ -25,8 +21,7 @@ define jboss_admin::resource::service_timer_service (
   if $ensure == present {
 
     $raw_options = {
-      'path'                         => $path,
-      'relative-to'                  => $relative_to,
+      'default-data-store'           => $default_data_store,
       'thread-pool-name'             => $thread_pool_name,
     }
     $options = delete_undef_values($raw_options)

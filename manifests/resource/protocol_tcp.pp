@@ -13,12 +13,16 @@
 # [*port*]
 #   The port of the syslog server for the tcp requests.
 #
+# [*reconnect_timeout*]
+#   If a connection drop is detected, the number of seconds to wait before reconnecting. A negative number means don't reconnect automatically.
+#
 #
 define jboss_admin::resource::protocol_tcp (
   $server,
   $host                           = undef,
   $message_transfer               = undef,
   $port                           = undef,
+  $reconnect_timeout              = undef,
   $ensure                         = present,
   $cli_path                       = $name,
 ) {
@@ -26,11 +30,15 @@ define jboss_admin::resource::protocol_tcp (
     if $port != undef and $port != undefined and !is_integer($port) {
       fail('The attribute port is not an integer')
     }
+    if $reconnect_timeout != undef and $reconnect_timeout != undefined and !is_integer($reconnect_timeout) {
+      fail('The attribute reconnect_timeout is not an integer')
+    }
 
     $raw_options = {
       'host'                         => $host,
       'message-transfer'             => $message_transfer,
       'port'                         => $port,
+      'reconnect-timeout'            => $reconnect_timeout,
     }
     $options = delete_undef_values($raw_options)
 
