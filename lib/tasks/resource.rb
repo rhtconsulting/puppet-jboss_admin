@@ -1,4 +1,4 @@
-require 'lib/tasks/schema_generate'
+require_relative 'schema_generate'
 
 namespace :resource do
   def resource_dir
