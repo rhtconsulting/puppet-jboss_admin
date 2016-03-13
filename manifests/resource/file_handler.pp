@@ -40,12 +40,9 @@ define jboss_admin::resource::file_handler (
   $level                          = undef,
   $resource_name                  = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
-
-
-
     $raw_options = {
       'append'                       => $append,
       'autoflush'                    => $autoflush,
@@ -58,21 +55,19 @@ define jboss_admin::resource::file_handler (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path,
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

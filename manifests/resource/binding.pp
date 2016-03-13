@@ -40,10 +40,9 @@ define jboss_admin::resource::binding (
   $type                           = undef,
   $value                          = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $binding_type != undef and $binding_type != undefined and !($binding_type in ['simple','object-factory','lookup','external-context']) {
       fail('The attribute binding_type is not an allowed value: "simple","object-factory","lookup","external-context"')
     }
@@ -63,13 +62,12 @@ define jboss_admin::resource::binding (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -78,6 +76,4 @@ define jboss_admin::resource::binding (
       server => $server
     }
   }
-
-
 }

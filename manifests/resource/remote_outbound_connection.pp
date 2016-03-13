@@ -20,10 +20,9 @@ define jboss_admin::resource::remote_outbound_connection (
   $security_realm                 = undef,
   $username                       = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
 
     $raw_options = {
       'outbound-socket-binding-ref'  => $outbound_socket_binding_ref,
@@ -32,13 +31,12 @@ define jboss_admin::resource::remote_outbound_connection (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -47,6 +45,4 @@ define jboss_admin::resource::remote_outbound_connection (
       server => $server
     }
   }
-
-
 }

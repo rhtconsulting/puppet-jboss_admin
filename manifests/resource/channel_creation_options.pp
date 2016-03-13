@@ -16,10 +16,9 @@ define jboss_admin::resource::channel_creation_options (
   $type                           = undef,
   $value                          = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $type != undef and $type != undefined and !($type in ['remoting','xnio']) {
       fail('The attribute type is not an allowed value: "remoting","xnio"')
     }
@@ -30,13 +29,12 @@ define jboss_admin::resource::channel_creation_options (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -45,6 +43,4 @@ define jboss_admin::resource::channel_creation_options (
       server => $server
     }
   }
-
-
 }

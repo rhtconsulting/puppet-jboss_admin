@@ -28,10 +28,9 @@ define jboss_admin::resource::server_smtp (
   $tls                            = undef,
   $username                       = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $ssl != undef and $ssl != undefined {
       validate_bool($ssl)
     }
@@ -48,13 +47,12 @@ define jboss_admin::resource::server_smtp (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -63,6 +61,4 @@ define jboss_admin::resource::server_smtp (
       server => $server
     }
   }
-
-
 }

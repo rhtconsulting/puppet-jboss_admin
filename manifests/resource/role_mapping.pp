@@ -12,10 +12,9 @@ define jboss_admin::resource::role_mapping (
   $server,
   $include_all                    = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $include_all != undef and $include_all != undefined {
       validate_bool($include_all)
     }
@@ -25,13 +24,12 @@ define jboss_admin::resource::role_mapping (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -40,6 +38,4 @@ define jboss_admin::resource::role_mapping (
       server => $server
     }
   }
-
-
 }

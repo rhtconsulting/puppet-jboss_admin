@@ -12,32 +12,27 @@ define jboss_admin::resource::subsystem_infinispan (
   $server,
   $default_cache_container        = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
-
-
-
     $raw_options = {
       'default-cache-container'      => $default_cache_container,
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path,
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

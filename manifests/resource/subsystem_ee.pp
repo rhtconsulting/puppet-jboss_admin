@@ -28,10 +28,9 @@ define jboss_admin::resource::subsystem_ee (
   $jboss_descriptor_property_replacement = undef,
   $spec_descriptor_property_replacement = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $annotation_property_replacement != undef and $annotation_property_replacement != undefined {
       validate_bool($annotation_property_replacement)
     }
@@ -57,13 +56,12 @@ define jboss_admin::resource::subsystem_ee (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -72,6 +70,4 @@ define jboss_admin::resource::subsystem_ee (
       server => $server
     }
   }
-
-
 }

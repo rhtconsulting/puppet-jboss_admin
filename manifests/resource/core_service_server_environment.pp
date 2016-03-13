@@ -76,10 +76,9 @@ define jboss_admin::resource::core_service_server_environment (
   $server_name                    = undef,
   $temp_dir                       = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $initial_running_mode != undef and $initial_running_mode != undefined and !($initial_running_mode in ['NORMAL','ADMIN_ONLY']) {
       fail('The attribute initial_running_mode is not an allowed value: "NORMAL","ADMIN_ONLY"')
     }
@@ -105,13 +104,12 @@ define jboss_admin::resource::core_service_server_environment (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -120,6 +118,4 @@ define jboss_admin::resource::core_service_server_environment (
       server => $server
     }
   }
-
-
 }

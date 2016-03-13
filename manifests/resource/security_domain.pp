@@ -12,23 +12,21 @@ define jboss_admin::resource::security_domain (
   $server,
   $cache_type                     = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
 
     $raw_options = {
       'cache-type'                   => $cache_type,
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -37,6 +35,4 @@ define jboss_admin::resource::security_domain (
       server => $server
     }
   }
-
-
 }

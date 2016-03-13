@@ -20,10 +20,9 @@ define jboss_admin::resource::authentication_properties (
   $plain_text                     = undef,
   $relative_to                    = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $plain_text != undef and $plain_text != undefined {
       validate_bool($plain_text)
     }
@@ -35,13 +34,12 @@ define jboss_admin::resource::authentication_properties (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -50,6 +48,4 @@ define jboss_admin::resource::authentication_properties (
       server => $server
     }
   }
-
-
 }

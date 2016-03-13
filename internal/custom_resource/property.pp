@@ -15,27 +15,24 @@ define jboss_admin::resource::property (
   $cli_path                       = $name
 ) {
   if $ensure == present {
-
     $raw_options = {
       'value'                        => $value,
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $cli_path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path,
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

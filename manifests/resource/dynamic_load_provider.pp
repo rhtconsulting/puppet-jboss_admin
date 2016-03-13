@@ -16,10 +16,9 @@ define jboss_admin::resource::dynamic_load_provider (
   $decay                          = undef,
   $history                        = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $decay != undef and $decay != undefined and !is_integer($decay) {
       fail('The attribute decay is not an integer')
     }
@@ -33,13 +32,12 @@ define jboss_admin::resource::dynamic_load_provider (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -48,6 +46,4 @@ define jboss_admin::resource::dynamic_load_provider (
       server => $server
     }
   }
-
-
 }

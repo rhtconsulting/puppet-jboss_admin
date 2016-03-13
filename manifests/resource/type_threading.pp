@@ -44,10 +44,9 @@ define jboss_admin::resource::type_threading (
   $thread_cpu_time_enabled        = undef,
   $thread_cpu_time_supported      = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $all_thread_ids != undef and $all_thread_ids != undefined and !is_array($all_thread_ids) {
       fail('The attribute all_thread_ids is not an array')
     }
@@ -86,13 +85,12 @@ define jboss_admin::resource::type_threading (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -101,6 +99,4 @@ define jboss_admin::resource::type_threading (
       server => $server
     }
   }
-
-
 }

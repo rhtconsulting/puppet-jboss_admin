@@ -16,10 +16,9 @@ define jboss_admin::resource::setting (
   $path                           = undef,
   $relative_to                    = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
 
     $raw_options = {
       'path'                         => $path,
@@ -27,13 +26,12 @@ define jboss_admin::resource::setting (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -42,6 +40,4 @@ define jboss_admin::resource::setting (
       server => $server
     }
   }
-
-
 }

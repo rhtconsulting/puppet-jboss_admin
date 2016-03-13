@@ -16,10 +16,9 @@ define jboss_admin::resource::subsystem_jmx (
   $non_core_mbean_sensitivity     = undef,
   $show_model                     = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $non_core_mbean_sensitivity != undef and $non_core_mbean_sensitivity != undefined {
       validate_bool($non_core_mbean_sensitivity)
     }
@@ -33,13 +32,12 @@ define jboss_admin::resource::subsystem_jmx (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -48,6 +46,4 @@ define jboss_admin::resource::subsystem_jmx (
       server => $server
     }
   }
-
-
 }

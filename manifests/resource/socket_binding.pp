@@ -36,10 +36,9 @@ define jboss_admin::resource::socket_binding (
   $resource_name                  = undef,
   $port                           = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $client_mappings != undef and $client_mappings != undefined and !is_array($client_mappings) {
       fail('The attribute client_mappings is not an array')
     }
@@ -64,13 +63,12 @@ define jboss_admin::resource::socket_binding (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -79,6 +77,4 @@ define jboss_admin::resource::socket_binding (
       server => $server
     }
   }
-
-
 }

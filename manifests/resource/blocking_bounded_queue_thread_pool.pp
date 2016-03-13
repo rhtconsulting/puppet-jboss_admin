@@ -36,10 +36,9 @@ define jboss_admin::resource::blocking_bounded_queue_thread_pool (
   $queue_length                   = undef,
   $thread_factory                 = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $allow_core_timeout != undef and $allow_core_timeout != undefined {
       validate_bool($allow_core_timeout)
     }
@@ -64,13 +63,12 @@ define jboss_admin::resource::blocking_bounded_queue_thread_pool (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -79,6 +77,4 @@ define jboss_admin::resource::blocking_bounded_queue_thread_pool (
       server => $server
     }
   }
-
-
 }

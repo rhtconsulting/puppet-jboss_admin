@@ -24,10 +24,9 @@ define jboss_admin::resource::management_interface_native_interface (
   $security_realm                 = undef,
   $socket_binding                 = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $port != undef and $port != undefined and !is_integer($port) {
       fail('The attribute port is not an integer')
     }
@@ -40,13 +39,12 @@ define jboss_admin::resource::management_interface_native_interface (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -55,6 +53,4 @@ define jboss_admin::resource::management_interface_native_interface (
       server => $server
     }
   }
-
-
 }

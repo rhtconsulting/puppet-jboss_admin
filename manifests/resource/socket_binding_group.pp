@@ -20,10 +20,9 @@ define jboss_admin::resource::socket_binding_group (
   $resource_name                  = undef,
   $port_offset                    = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $port_offset != undef and $port_offset != undefined and !is_integer($port_offset) {
       fail('The attribute port_offset is not an integer')
     }
@@ -35,13 +34,12 @@ define jboss_admin::resource::socket_binding_group (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -50,6 +48,4 @@ define jboss_admin::resource::socket_binding_group (
       server => $server
     }
   }
-
-
 }

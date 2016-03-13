@@ -16,10 +16,9 @@ define jboss_admin::resource::<%= type[:name] %> (
   $<%= (puppet_name attr).to_s.ljust 30 %> = undef,
 <% end -%>
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
 <% type[:attributes].each_key.sort.each do |attr| -%>
 <% attribute = type[:attributes][attr] -%>
 <% if attribute[:required] -%>
@@ -61,13 +60,14 @@ end -%>
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
 <% if ['data-source', 'xa-data-source'].include?(type[:name].to_s)-%>
+
     if $enabled {
       jboss_exec {"Enable Data Source ${name}":
         command => "${name}:enable",
@@ -83,7 +83,6 @@ end -%>
       }
     }
 <% end -%>
-
   }
 
   if $ensure == absent {
@@ -92,6 +91,4 @@ end -%>
       server => $server
     }
   }
-
-
 }

@@ -32,10 +32,9 @@ define jboss_admin::resource::subsystem_remoting (
   $worker_task_max_threads        = undef,
   $worker_write_threads           = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $worker_read_threads != undef and $worker_read_threads != undefined and !is_integer($worker_read_threads) {
       fail('The attribute worker_read_threads is not an integer')
     }
@@ -65,13 +64,12 @@ define jboss_admin::resource::subsystem_remoting (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -80,6 +78,4 @@ define jboss_admin::resource::subsystem_remoting (
       server => $server
     }
   }
-
-
 }

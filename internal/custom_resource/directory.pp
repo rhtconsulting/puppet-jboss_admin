@@ -19,30 +19,25 @@ define jboss_admin::resource::directory (
   $cli_path                       = $name
 ) {
   if $ensure == present {
-
-
-
     $raw_options = {
       'path'                         => $path,
       'relative-to'                  => $relative_to,
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $cli_path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path,
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

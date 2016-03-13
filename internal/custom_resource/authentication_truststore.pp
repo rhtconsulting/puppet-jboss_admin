@@ -20,12 +20,9 @@ define jboss_admin::resource::authentication_truststore (
   $keystore_path                  = undef,
   $keystore_relative_to           = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
-
-
-
     $raw_options = {
       'keystore-password'            => $keystore_password,
       'keystore-path'                => $keystore_path,
@@ -33,21 +30,19 @@ define jboss_admin::resource::authentication_truststore (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

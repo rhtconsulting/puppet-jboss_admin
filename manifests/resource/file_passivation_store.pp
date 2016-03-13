@@ -36,10 +36,9 @@ define jboss_admin::resource::file_passivation_store (
   $sessions_path                  = undef,
   $subdirectory_count             = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $idle_timeout != undef and $idle_timeout != undefined and !is_integer($idle_timeout) {
       fail('The attribute idle_timeout is not an integer')
     }
@@ -64,13 +63,12 @@ define jboss_admin::resource::file_passivation_store (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -79,6 +77,4 @@ define jboss_admin::resource::file_passivation_store (
       server => $server
     }
   }
-
-
 }

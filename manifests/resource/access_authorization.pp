@@ -24,10 +24,9 @@ define jboss_admin::resource::access_authorization (
   $provider                       = undef,
   $standard_role_names            = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $all_role_names != undef and $all_role_names != undefined and !is_array($all_role_names) {
       fail('The attribute all_role_names is not an array')
     }
@@ -49,13 +48,12 @@ define jboss_admin::resource::access_authorization (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -64,6 +62,4 @@ define jboss_admin::resource::access_authorization (
       server => $server
     }
   }
-
-
 }

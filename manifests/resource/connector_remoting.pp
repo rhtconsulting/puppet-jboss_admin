@@ -20,12 +20,9 @@ define jboss_admin::resource::connector_remoting (
   $security_realm                 = undef,
   $socket_binding                 = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
-
-
-
     $raw_options = {
       'authentication-provider'      => $authentication_provider,
       'security-realm'               => $security_realm,
@@ -33,7 +30,8 @@ define jboss_admin::resource::connector_remoting (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -43,11 +41,10 @@ define jboss_admin::resource::connector_remoting (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure => $ensure,
       server => $server
     }
   }
-
-
 }

@@ -108,10 +108,9 @@ define jboss_admin::resource::subsystem_transactions (
   $use_hornetq_store              = undef,
   $use_jdbc_store                 = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $default_timeout != undef and $default_timeout != undefined and !is_integer($default_timeout) {
       fail('The attribute default_timeout is not an integer')
     }
@@ -181,13 +180,12 @@ define jboss_admin::resource::subsystem_transactions (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -196,6 +194,4 @@ define jboss_admin::resource::subsystem_transactions (
       server => $server
     }
   }
-
-
 }

@@ -36,10 +36,9 @@ define jboss_admin::resource::local_cache (
   $start                          = undef,
   $statistics_enabled             = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $batching != undef and $batching != undefined {
       validate_bool($batching)
     }
@@ -64,13 +63,12 @@ define jboss_admin::resource::local_cache (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -79,6 +77,4 @@ define jboss_admin::resource::local_cache (
       server => $server
     }
   }
-
-
 }

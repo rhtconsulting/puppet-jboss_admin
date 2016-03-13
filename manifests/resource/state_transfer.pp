@@ -20,10 +20,9 @@ define jboss_admin::resource::state_transfer (
   $enabled                        = undef,
   $timeout                        = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $chunk_size != undef and $chunk_size != undefined and !is_integer($chunk_size) {
       fail('The attribute chunk_size is not an integer')
     }
@@ -41,13 +40,12 @@ define jboss_admin::resource::state_transfer (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -56,6 +54,4 @@ define jboss_admin::resource::state_transfer (
       server => $server
     }
   }
-
-
 }

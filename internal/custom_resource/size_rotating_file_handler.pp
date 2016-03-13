@@ -48,14 +48,12 @@ define jboss_admin::resource::size_rotating_file_handler (
   $resource_name                  = undef,
   $rotate_size                    = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
-
     if $max_backup_index != undef and $max_backup_index != undefined and !is_integer($max_backup_index) {
       fail('The attribute max_backup_index is not an integer')
     }
-
 
     $raw_options = {
       'append'                       => $append,
@@ -71,21 +69,19 @@ define jboss_admin::resource::size_rotating_file_handler (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path,
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

@@ -48,10 +48,9 @@ define jboss_admin::resource::remote_store (
   $socket_timeout                 = undef,
   $tcp_no_delay                   = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $fetch_state != undef and $fetch_state != undefined {
       validate_bool($fetch_state)
     }
@@ -94,13 +93,12 @@ define jboss_admin::resource::remote_store (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -109,6 +107,4 @@ define jboss_admin::resource::remote_store (
       server => $server
     }
   }
-
-
 }

@@ -16,10 +16,9 @@ define jboss_admin::resource::type_memory (
   $object_name                    = undef,
   $verbose                        = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $verbose != undef and $verbose != undefined {
       validate_bool($verbose)
     }
@@ -30,13 +29,12 @@ define jboss_admin::resource::type_memory (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -45,6 +43,4 @@ define jboss_admin::resource::type_memory (
       server => $server
     }
   }
-
-
 }

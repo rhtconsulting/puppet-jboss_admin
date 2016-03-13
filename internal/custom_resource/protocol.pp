@@ -16,10 +16,10 @@ define jboss_admin::resource::protocol (
   $socket_binding                 = undef,
   $type                           = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
-  $stack = regsubst($path, '/protocol.*$', '')
-  $check_command = "(outcome == success) of ${path}:read-resource()"
+  $stack = regsubst($cli_path, '/protocol.*$', '')
+  $check_command = "(outcome == success) of ${cli_path}:read-resource()"
 
   if $type == undef or $type == undefined {
     fail('type is required')
@@ -36,24 +36,25 @@ define jboss_admin::resource::protocol (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_exec { $add_command:
-      unless => $check_command,
-      server => $server
+    jboss_exec { "${name}: add":
+      command => $add_command,
+      unless  => $check_command,
+      server  => $server
     }
-    -> jboss_resource { $path:
+    ->
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
   }
 
   if $ensure == absent {
-    jboss_exec { $remove_command:
-      onlyif => $check_command,
-      server => $server
+    jboss_exec { "${name}: remove":
+      command => $remove_command,
+      onlyif  => $check_command,
+      server  => $server
     }
   }
-
-
 }

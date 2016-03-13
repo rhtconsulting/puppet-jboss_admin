@@ -44,10 +44,9 @@ define jboss_admin::resource::group_search_group_to_principal (
   $recursive                      = undef,
   $search_by                      = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $group_name != undef and $group_name != undefined and !($group_name in ['DISTINGUISHED_NAME','SIMPLE']) {
       fail('The attribute group_name is not an allowed value: "DISTINGUISHED_NAME","SIMPLE"')
     }
@@ -77,13 +76,12 @@ define jboss_admin::resource::group_search_group_to_principal (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -92,6 +90,4 @@ define jboss_admin::resource::group_search_group_to_principal (
       server => $server
     }
   }
-
-
 }

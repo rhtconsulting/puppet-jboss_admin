@@ -40,10 +40,9 @@ define jboss_admin::resource::active_operation (
   $operation                      = undef,
   $running_time                   = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $access_mechanism != undef and $access_mechanism != undefined and !($access_mechanism in ['NATIVE','HTTP','JMX']) {
       fail('The attribute access_mechanism is not an allowed value: "NATIVE","HTTP","JMX"')
     }
@@ -75,13 +74,12 @@ define jboss_admin::resource::active_operation (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -90,6 +88,4 @@ define jboss_admin::resource::active_operation (
       server => $server
     }
   }
-
-
 }

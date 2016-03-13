@@ -36,12 +36,9 @@ define jboss_admin::resource::console_handler (
   $resource_name                  = undef,
   $target                         = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
-
-
-
     $raw_options = {
       'autoflush'                    => $autoflush,
       'encoding'                     => $encoding,
@@ -53,7 +50,8 @@ define jboss_admin::resource::console_handler (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -63,11 +61,10 @@ define jboss_admin::resource::console_handler (
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path,
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

@@ -20,10 +20,9 @@ define jboss_admin::resource::type_compilation (
   $resource_name                  = undef,
   $object_name                    = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $compilation_time_monitoring_supported != undef and $compilation_time_monitoring_supported != undefined {
       validate_bool($compilation_time_monitoring_supported)
     }
@@ -35,13 +34,12 @@ define jboss_admin::resource::type_compilation (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -50,6 +48,4 @@ define jboss_admin::resource::type_compilation (
       server => $server
     }
   }
-
-
 }

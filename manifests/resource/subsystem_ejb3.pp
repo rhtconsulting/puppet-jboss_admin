@@ -64,10 +64,9 @@ define jboss_admin::resource::subsystem_ejb3 (
   $enable_statistics              = undef,
   $in_vm_remote_interface_invocation_pass_by_value = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $default_entity_bean_optimistic_locking != undef and $default_entity_bean_optimistic_locking != undefined {
       validate_bool($default_entity_bean_optimistic_locking)
     }
@@ -105,13 +104,12 @@ define jboss_admin::resource::subsystem_ejb3 (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -120,6 +118,4 @@ define jboss_admin::resource::subsystem_ejb3 (
       server => $server
     }
   }
-
-
 }

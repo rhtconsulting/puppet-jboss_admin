@@ -33,10 +33,9 @@ define jboss_admin::resource::json_formatter (
   $escape_new_line                = undef,
   $include_date                   = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $compact != undef and $compact != undefined {
       validate_bool($compact)
     }
@@ -60,13 +59,12 @@ define jboss_admin::resource::json_formatter (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -75,6 +73,4 @@ define jboss_admin::resource::json_formatter (
       server => $server
     }
   }
-
-
 }

@@ -24,10 +24,9 @@ define jboss_admin::resource::transactions (
   $jmx_name                       = undef,
   $type                           = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $age_in_seconds != undef and $age_in_seconds != undefined and !is_integer($age_in_seconds) {
       fail('The attribute age_in_seconds is not an integer')
     }
@@ -40,13 +39,12 @@ define jboss_admin::resource::transactions (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -55,6 +53,4 @@ define jboss_admin::resource::transactions (
       server => $server
     }
   }
-
-
 }

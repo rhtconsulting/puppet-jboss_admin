@@ -24,10 +24,9 @@ define jboss_admin::resource::load_metric (
   $type                           = undef,
   $weight                         = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $type != undef and $type != undefined and !($type in ['cpu','mem','heap','sessions','receive-traffic','send-traffic','requests','busyness']) {
       fail('The attribute type is not an allowed value: "cpu","mem","heap","sessions","receive-traffic","send-traffic","requests","busyness"')
     }
@@ -43,13 +42,12 @@ define jboss_admin::resource::load_metric (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -58,6 +56,4 @@ define jboss_admin::resource::load_metric (
       server => $server
     }
   }
-
-
 }

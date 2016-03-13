@@ -24,10 +24,9 @@ define jboss_admin::resource::policy_module (
   $module                         = undef,
   $module_options                 = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $flag != undef and $flag != undefined and !($flag in ['required','requisite','sufficient','optional']) {
       fail('The attribute flag is not an allowed value: "required","requisite","sufficient","optional"')
     }
@@ -40,13 +39,12 @@ define jboss_admin::resource::policy_module (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -55,6 +53,4 @@ define jboss_admin::resource::policy_module (
       server => $server
     }
   }
-
-
 }

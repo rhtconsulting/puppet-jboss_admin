@@ -32,10 +32,9 @@ define jboss_admin::resource::resource_adapter (
   $module                         = undef,
   $transaction_support            = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $beanvalidationgroups != undef and $beanvalidationgroups != undefined and !is_array($beanvalidationgroups) {
       fail('The attribute beanvalidationgroups is not an array')
     }
@@ -53,13 +52,12 @@ define jboss_admin::resource::resource_adapter (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -68,6 +66,4 @@ define jboss_admin::resource::resource_adapter (
       server => $server
     }
   }
-
-
 }

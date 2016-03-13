@@ -12,10 +12,9 @@ define jboss_admin::resource::subsystem_security (
   $server,
   $deep_copy_subject_mode         = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $deep_copy_subject_mode != undef and $deep_copy_subject_mode != undefined {
       validate_bool($deep_copy_subject_mode)
     }
@@ -25,13 +24,12 @@ define jboss_admin::resource::subsystem_security (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -40,6 +38,4 @@ define jboss_admin::resource::subsystem_security (
       server => $server
     }
   }
-
-
 }

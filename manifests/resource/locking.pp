@@ -24,10 +24,9 @@ define jboss_admin::resource::locking (
   $isolation                      = undef,
   $striping                       = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $acquire_timeout != undef and $acquire_timeout != undefined and !is_integer($acquire_timeout) {
       fail('The attribute acquire_timeout is not an integer')
     }
@@ -49,13 +48,12 @@ define jboss_admin::resource::locking (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -64,6 +62,4 @@ define jboss_admin::resource::locking (
       server => $server
     }
   }
-
-
 }

@@ -40,10 +40,9 @@ define jboss_admin::resource::long_running_threads (
   $queue_length                   = undef,
   $thread_factory                 = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $allow_core_timeout != undef and $allow_core_timeout != undefined {
       validate_bool($allow_core_timeout)
     }
@@ -69,13 +68,12 @@ define jboss_admin::resource::long_running_threads (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -84,6 +82,4 @@ define jboss_admin::resource::long_running_threads (
       server => $server
     }
   }
-
-
 }

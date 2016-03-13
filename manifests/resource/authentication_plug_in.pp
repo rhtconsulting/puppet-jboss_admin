@@ -16,10 +16,9 @@ define jboss_admin::resource::authentication_plug_in (
   $mechanism                      = undef,
   $resource_name                  = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $mechanism != undef and $mechanism != undefined and !($mechanism in ['DIGEST','PLAIN']) {
       fail('The attribute mechanism is not an allowed value: "DIGEST","PLAIN"')
     }
@@ -30,13 +29,12 @@ define jboss_admin::resource::authentication_plug_in (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -45,6 +43,4 @@ define jboss_admin::resource::authentication_plug_in (
       server => $server
     }
   }
-
-
 }

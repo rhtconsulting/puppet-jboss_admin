@@ -28,10 +28,9 @@ define jboss_admin::resource::configuration_access_log (
   $resolve_hosts                  = undef,
   $rotate                         = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $extended != undef and $extended != undefined {
       validate_bool($extended)
     }
@@ -51,13 +50,12 @@ define jboss_admin::resource::configuration_access_log (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -66,6 +64,4 @@ define jboss_admin::resource::configuration_access_log (
       server => $server
     }
   }
-
-
 }

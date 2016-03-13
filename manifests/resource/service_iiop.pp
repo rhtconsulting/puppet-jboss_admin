@@ -16,10 +16,9 @@ define jboss_admin::resource::service_iiop (
   $enable_by_default              = undef,
   $use_qualified_name             = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $enable_by_default != undef and $enable_by_default != undefined {
       validate_bool($enable_by_default)
     }
@@ -33,13 +32,12 @@ define jboss_admin::resource::service_iiop (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -48,6 +46,4 @@ define jboss_admin::resource::service_iiop (
       server => $server
     }
   }
-
-
 }

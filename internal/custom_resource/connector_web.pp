@@ -68,7 +68,7 @@ define jboss_admin::resource::connector_web (
   $socket_binding                 = undef,
   $virtual_server                 = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
 
@@ -87,7 +87,6 @@ define jboss_admin::resource::connector_web (
     if $redirect_port != undef and $redirect_port != undefined and !is_integer($redirect_port) {
       fail('The attribute redirect_port is not an integer')
     }
-
 
     $raw_options = {
       'enable-lookups'               => $enable_lookups,
@@ -108,21 +107,19 @@ define jboss_admin::resource::connector_web (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path,
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

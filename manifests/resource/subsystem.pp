@@ -24,10 +24,9 @@ define jboss_admin::resource::subsystem (
   $management_minor_version       = undef,
   $xml_namespaces                 = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $management_major_version != undef and $management_major_version != undefined and !is_integer($management_major_version) {
       fail('The attribute management_major_version is not an integer')
     }
@@ -49,13 +48,12 @@ define jboss_admin::resource::subsystem (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -64,6 +62,4 @@ define jboss_admin::resource::subsystem (
       server => $server
     }
   }
-
-
 }

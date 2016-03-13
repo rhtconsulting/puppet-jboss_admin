@@ -20,10 +20,9 @@ define jboss_admin::resource::expiration (
   $lifespan                       = undef,
   $max_idle                       = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $interval != undef and $interval != undefined and !is_integer($interval) {
       fail('The attribute interval is not an integer')
     }
@@ -41,13 +40,12 @@ define jboss_admin::resource::expiration (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -56,6 +54,4 @@ define jboss_admin::resource::expiration (
       server => $server
     }
   }
-
-
 }

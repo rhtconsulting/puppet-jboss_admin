@@ -12,10 +12,9 @@ define jboss_admin::resource::authentication_jaspi (
   $server,
   $auth_modules                   = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $auth_modules != undef and $auth_modules != undefined and !is_array($auth_modules) {
       fail('The attribute auth_modules is not an array')
     }
@@ -25,13 +24,12 @@ define jboss_admin::resource::authentication_jaspi (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -40,6 +38,4 @@ define jboss_admin::resource::authentication_jaspi (
       server => $server
     }
   }
-
-
 }

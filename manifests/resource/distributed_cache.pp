@@ -72,10 +72,9 @@ define jboss_admin::resource::distributed_cache (
   $statistics_enabled             = undef,
   $virtual_nodes                  = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $async_marshalling != undef and $async_marshalling != undefined {
       validate_bool($async_marshalling)
     }
@@ -136,13 +135,12 @@ define jboss_admin::resource::distributed_cache (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -151,6 +149,4 @@ define jboss_admin::resource::distributed_cache (
       server => $server
     }
   }
-
-
 }

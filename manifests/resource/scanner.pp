@@ -40,10 +40,9 @@ define jboss_admin::resource::scanner (
   $scan_enabled                   = undef,
   $scan_interval                  = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $auto_deploy_exploded != undef and $auto_deploy_exploded != undefined {
       validate_bool($auto_deploy_exploded)
     }
@@ -75,13 +74,12 @@ define jboss_admin::resource::scanner (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -90,6 +88,4 @@ define jboss_admin::resource::scanner (
       server => $server
     }
   }
-
-
 }

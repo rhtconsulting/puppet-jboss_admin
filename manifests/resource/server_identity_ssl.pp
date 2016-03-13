@@ -36,10 +36,9 @@ define jboss_admin::resource::server_identity_ssl (
   $keystore_relative_to           = undef,
   $protocol                       = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
 
     $raw_options = {
       'alias'                        => $alias,
@@ -52,13 +51,12 @@ define jboss_admin::resource::server_identity_ssl (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -67,6 +65,4 @@ define jboss_admin::resource::server_identity_ssl (
       server => $server
     }
   }
-
-
 }

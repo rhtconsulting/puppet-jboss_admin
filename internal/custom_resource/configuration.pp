@@ -12,33 +12,29 @@ define jboss_admin::resource::configuration (
   $server,
   $entries                        = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
-
     if $entries == undef or $entries == undefined { fail('The attribute entries is undefined but required') }
-
 
     $raw_options = {
       'entries'                      => $entries,
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure => $ensure,
       server => $server
     }
   }
-
-
 }

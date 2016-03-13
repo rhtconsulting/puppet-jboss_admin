@@ -36,14 +36,12 @@ define jboss_admin::resource::async_handler (
   $queue_length                   = undef,
   $subhandlers                    = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
-
     if $queue_length != undef and $queue_length != undefined and !is_integer($queue_length) {
       fail('The attribute queue_length is not an integer')
     }
-
 
     $raw_options = {
       'filter'                       => $filter,
@@ -56,21 +54,19 @@ define jboss_admin::resource::async_handler (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path,
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

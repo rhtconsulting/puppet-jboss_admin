@@ -84,10 +84,9 @@ define jboss_admin::resource::configuration_jsp_configuration (
   $trim_spaces                    = undef,
   $x_powered_by                   = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $check_interval != undef and $check_interval != undefined and !is_integer($check_interval) {
       fail('The attribute check_interval is not an integer')
     }
@@ -157,13 +156,12 @@ define jboss_admin::resource::configuration_jsp_configuration (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -172,6 +170,4 @@ define jboss_admin::resource::configuration_jsp_configuration (
       server => $server
     }
   }
-
-
 }

@@ -24,14 +24,12 @@ define jboss_admin::resource::bundle (
   $symbolic_name                  = undef,
   $version                        = undef,
   $ensure                         = present,
-  $path                           = $name
+  $cli_path                       = $name
 ) {
   if $ensure == present {
-
     if $startlevel != undef and $startlevel != undefined and !is_integer($startlevel) {
       fail('The attribute startlevel is not an integer')
     }
-
 
     $raw_options = {
       'id'                           => $id,
@@ -41,21 +39,19 @@ define jboss_admin::resource::bundle (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
-    jboss_resource { $path:
-      ensure => $ensure,
-      server => $server
+    jboss_resource { $name:
+      address => $cli_path,
+      ensure  => $ensure,
+      server  => $server
     }
   }
-
-
 }

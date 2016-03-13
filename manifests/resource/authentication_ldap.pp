@@ -36,10 +36,9 @@ define jboss_admin::resource::authentication_ldap (
   $user_dn                        = undef,
   $username_attribute             = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $allow_empty_passwords != undef and $allow_empty_passwords != undefined {
       validate_bool($allow_empty_passwords)
     }
@@ -58,13 +57,12 @@ define jboss_admin::resource::authentication_ldap (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -73,6 +71,4 @@ define jboss_admin::resource::authentication_ldap (
       server => $server
     }
   }
-
-
 }

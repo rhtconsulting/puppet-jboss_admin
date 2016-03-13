@@ -108,10 +108,9 @@ define jboss_admin::resource::mod_cluster_config (
   $ttl                            = undef,
   $worker_timeout                 = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $advertise != undef and $advertise != undefined {
       validate_bool($advertise)
     }
@@ -193,13 +192,12 @@ define jboss_admin::resource::mod_cluster_config (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -208,6 +206,4 @@ define jboss_admin::resource::mod_cluster_config (
       server => $server
     }
   }
-
-
 }

@@ -24,10 +24,9 @@ define jboss_admin::resource::applies_to (
   $entire_resource                = undef,
   $operations                     = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $attributes != undef and $attributes != undefined and !is_array($attributes) {
       fail('The attribute attributes is not an array')
     }
@@ -46,13 +45,12 @@ define jboss_admin::resource::applies_to (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -61,6 +59,4 @@ define jboss_admin::resource::applies_to (
       server => $server
     }
   }
-
-
 }

@@ -68,10 +68,9 @@ define jboss_admin::resource::root_resource (
   $schema_locations               = undef,
   $server_state                   = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $launch_type != undef and $launch_type != undefined and !($launch_type in ['DOMAIN','STANDALONE','EMBEDDED','APPCLIENT']) {
       fail('The attribute launch_type is not an allowed value: "DOMAIN","STANDALONE","EMBEDDED","APPCLIENT"')
     }
@@ -107,13 +106,12 @@ define jboss_admin::resource::root_resource (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -122,6 +120,4 @@ define jboss_admin::resource::root_resource (
       server => $server
     }
   }
-
-
 }

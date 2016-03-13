@@ -16,10 +16,9 @@ define jboss_admin::resource::configuration_container (
   $mime_mapping                   = undef,
   $welcome_file                   = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $welcome_file != undef and $welcome_file != undefined and !is_array($welcome_file) {
       fail('The attribute welcome_file is not an array')
     }
@@ -30,13 +29,12 @@ define jboss_admin::resource::configuration_container (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -45,6 +43,4 @@ define jboss_admin::resource::configuration_container (
       server => $server
     }
   }
-
-
 }

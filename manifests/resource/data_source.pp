@@ -200,10 +200,9 @@ define jboss_admin::resource::data_source (
   $valid_connection_checker_properties = undef,
   $validate_on_match              = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $allocation_retry != undef and $allocation_retry != undefined and !is_integer($allocation_retry) {
       fail('The attribute allocation_retry is not an integer')
     }
@@ -335,13 +334,12 @@ define jboss_admin::resource::data_source (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -350,6 +348,4 @@ define jboss_admin::resource::data_source (
       server => $server
     }
   }
-
-
 }

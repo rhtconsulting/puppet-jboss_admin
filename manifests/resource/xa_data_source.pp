@@ -232,10 +232,9 @@ define jboss_admin::resource::xa_data_source (
   $xa_datasource_class            = undef,
   $xa_resource_timeout            = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $allocation_retry != undef and $allocation_retry != undefined and !is_integer($allocation_retry) {
       fail('The attribute allocation_retry is not an integer')
     }
@@ -390,13 +389,12 @@ define jboss_admin::resource::xa_data_source (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -405,6 +403,4 @@ define jboss_admin::resource::xa_data_source (
       server => $server
     }
   }
-
-
 }

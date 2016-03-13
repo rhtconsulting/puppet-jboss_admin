@@ -88,10 +88,9 @@ define jboss_admin::resource::interface (
   $up                             = undef,
   $virtual                        = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $any_address != undef and $any_address != undefined {
       validate_bool($any_address)
     }
@@ -150,13 +149,12 @@ define jboss_admin::resource::interface (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -165,6 +163,4 @@ define jboss_admin::resource::interface (
       server => $server
     }
   }
-
-
 }

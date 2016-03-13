@@ -24,10 +24,9 @@ define jboss_admin::resource::blocking_queueless_thread_pool (
   $resource_name                  = undef,
   $thread_factory                 = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $max_threads != undef and $max_threads != undefined and !is_integer($max_threads) {
       fail('The attribute max_threads is not an integer')
     }
@@ -40,13 +39,12 @@ define jboss_admin::resource::blocking_queueless_thread_pool (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -55,6 +53,4 @@ define jboss_admin::resource::blocking_queueless_thread_pool (
       server => $server
     }
   }
-
-
 }

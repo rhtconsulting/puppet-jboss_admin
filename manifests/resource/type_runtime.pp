@@ -72,10 +72,9 @@ define jboss_admin::resource::type_runtime (
   $vm_vendor                      = undef,
   $vm_version                     = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $boot_class_path_supported != undef and $boot_class_path_supported != undefined {
       validate_bool($boot_class_path_supported)
     }
@@ -106,13 +105,12 @@ define jboss_admin::resource::type_runtime (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -121,6 +119,4 @@ define jboss_admin::resource::type_runtime (
       server => $server
     }
   }
-
-
 }

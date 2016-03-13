@@ -16,10 +16,9 @@ define jboss_admin::resource::cache (
   $aliases                        = undef,
   $passivation_store              = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $aliases != undef and $aliases != undefined and !is_array($aliases) {
       fail('The attribute aliases is not an array')
     }
@@ -30,13 +29,12 @@ define jboss_admin::resource::cache (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -45,6 +43,4 @@ define jboss_admin::resource::cache (
       server => $server
     }
   }
-
-
 }

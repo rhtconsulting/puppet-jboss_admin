@@ -12,10 +12,9 @@ define jboss_admin::resource::core_service_module_loading (
   $server,
   $module_roots                   = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $module_roots != undef and $module_roots != undefined and !is_array($module_roots) {
       fail('The attribute module_roots is not an array')
     }
@@ -25,13 +24,12 @@ define jboss_admin::resource::core_service_module_loading (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -40,6 +38,4 @@ define jboss_admin::resource::core_service_module_loading (
       server => $server
     }
   }
-
-
 }

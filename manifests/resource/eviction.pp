@@ -16,10 +16,9 @@ define jboss_admin::resource::eviction (
   $max_entries                    = undef,
   $strategy                       = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $max_entries != undef and $max_entries != undefined and !is_integer($max_entries) {
       fail('The attribute max_entries is not an integer')
     }
@@ -33,13 +32,12 @@ define jboss_admin::resource::eviction (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -48,6 +46,4 @@ define jboss_admin::resource::eviction (
       server => $server
     }
   }
-
-
 }

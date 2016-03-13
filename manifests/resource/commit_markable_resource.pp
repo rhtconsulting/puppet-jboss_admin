@@ -24,10 +24,9 @@ define jboss_admin::resource::commit_markable_resource (
   $jndi_name                      = undef,
   $resource_name                  = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $batch_size != undef and $batch_size != undefined and !is_integer($batch_size) {
       fail('The attribute batch_size is not an integer')
     }
@@ -43,13 +42,12 @@ define jboss_admin::resource::commit_markable_resource (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -58,6 +56,4 @@ define jboss_admin::resource::commit_markable_resource (
       server => $server
     }
   }
-
-
 }

@@ -20,10 +20,9 @@ define jboss_admin::resource::strict_max_bean_instance_pool (
   $timeout                        = undef,
   $timeout_unit                   = undef,
   $ensure                         = present,
-  $cli_path                       = $name
+  $cli_path                       = $name,
 ) {
   if $ensure == present {
-
     if $max_pool_size != undef and $max_pool_size != undefined and !is_integer($max_pool_size) {
       fail('The attribute max_pool_size is not an integer')
     }
@@ -41,13 +40,12 @@ define jboss_admin::resource::strict_max_bean_instance_pool (
     }
     $options = delete_undef_values($raw_options)
 
-    jboss_resource { $cli_path:
+    jboss_resource { $name:
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
     }
-
-
   }
 
   if $ensure == absent {
@@ -56,6 +54,4 @@ define jboss_admin::resource::strict_max_bean_instance_pool (
       server => $server
     }
   }
-
-
 }
