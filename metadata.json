@@ -1,12 +1,12 @@
 {
-  "name": "cpitman-jboss_admin",
+  "name": "rhtconsulting-jboss_admin",
   "version": "1.0.1",
   "author": "Chris Pitman",
   "license": "MIT",
   "summary": "A module for managing resources internal to JBoss AS and EAP at runtime",
-  "source": "https://github.com/cpitman/puppet-jboss_admin",
-  "project_page": "https://github.com/cpitman/puppet-jboss_admin",
-  "issues_url": "https://github.com/cpitman/puppet-jboss_admin/issues",
+  "source": "https://github.com/rhtconsulting/puppet-jboss_admin",
+  "project_page": "https://github.com/rhtconsulting/puppet-jboss_admin",
+  "issues_url": "https://github.com/rhtconsulting/puppet-jboss_admin/issues",
   "tags": ["jboss", "jboss-as", "jboss-eap", "wildfly"],
   "operatingsystem_support": [
     {
