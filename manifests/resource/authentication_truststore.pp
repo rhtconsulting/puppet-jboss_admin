@@ -40,7 +40,7 @@ define jboss_admin::resource::authentication_truststore (
 
   if $ensure == absent {
     jboss_resource { $name:
-      address => $cli_path
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server
     }

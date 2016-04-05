@@ -51,7 +51,7 @@ define jboss_admin::resource::transport (
     $options = delete_undef_values($raw_options)
 
     jboss_resource { $name:
-      address => $cli_path
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server,
       options => $options
@@ -60,7 +60,7 @@ define jboss_admin::resource::transport (
 
   if $ensure == absent {
     jboss_resource { $name:
-      address => $cli_path
+      address => $cli_path,
       ensure  => $ensure,
       server  => $server
     }
