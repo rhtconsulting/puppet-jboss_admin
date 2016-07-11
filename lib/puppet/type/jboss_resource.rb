@@ -17,7 +17,7 @@ Puppet::Type.newtype(:jboss_resource) do
     desc "The Server instance that this resource should be managed in"
   end
 
-  newparam(:address, :namevar=>true) do
+  newparam(:address) do
     desc "The address of the resource, given in CLI format"
   end
 
