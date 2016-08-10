@@ -1,6 +1,6 @@
 {
   "name": "rhtconsulting-jboss_admin",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "author": "Chris Pitman",
   "license": "MIT",
   "summary": "A module for managing resources internal to JBoss AS and EAP at runtime",
