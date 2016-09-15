@@ -4,7 +4,7 @@ Jboss Admin Puppet Module
 This module manages the resources within a running Jboss Wildfly (>= 7) or EAP 
 (>= 6) container. For now it does not install the container, please refer to 
 [example42/puppet-jboss](https://github.com/example42/puppet-jboss) for a
-puppet module which handles initial Jboss installation.
+puppet module which handles initial JBoss installation.
 
 This module can be used to configure any resource which can be managed from the
 Jboss CLI, including but not limited to:
@@ -19,8 +19,7 @@ Jboss CLI, including but not limited to:
 Status
 ------
 
-This module is currently in **beta**. This module has been used in a large
-scale implementation, and in general is functional.
+This project is not officially supported by anyone but the community that developes it. That being said, this module has been used in a large scale production deployments.
 
 Please reference the issues for this project to understand the current defects
 and functionality under implementation.
