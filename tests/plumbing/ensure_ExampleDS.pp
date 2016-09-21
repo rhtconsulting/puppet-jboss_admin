@@ -1,4 +1,4 @@
-jboss_admin::server {'main':
+jboss_admin::server {'foo':
   base_path => '/opt/jboss'
 }
 

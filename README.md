@@ -213,18 +213,21 @@ To set up your system to be able to generate the resources  then perform the fol
 To regenerate resources, execute `rake resource:generate` within the project 
 folder.
 
-Developer Setup
----------------
+Development
+-----------
 
 This project is provided with a [Vagrant](www.vagrantup.com) setup for 
-development of the module. The created VM has a running Jboss AS 7 instance
-at `/opt/jboss` for testing purposes.
+development of the module. The created VM has a running WildFily 7.x or
+JBoss EAP 6.x instance at `/opt/jboss` for testing purposes.
 
-To execute a test manifest, first execute `bundle` within the vagrant 
-directory, then use the following pattern:
+### Setup
+See [vagrant/README.md](vagrant/README.md).
 
-    sudo puppet apply tests/enable_ExampleDS2.pp --modulepath=/modules
-    
+### Testing
+Assuming that the [Setup](#Setup) has been completed then the following can be executed within the Vagrant development instance.
+
+    > sudo puppet apply /modules/jboss_admin/tests/plumbing/enable_ExampleDS.pp --modulepath=/modules/
+
 The server is setup for local authentication, and can be accessed with:
 
     sudo -u jboss /opt/jboss/bin/jboss-cli.sh --connect

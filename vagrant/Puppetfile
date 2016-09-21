@@ -1,0 +1,13 @@
+forge "https://forge.puppetlabs.com"
+
+mod 'stdlib',
+  :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
+  :tag => '4.12.0'
+
+mod 'jboss',
+  :git => 'https://github.com/example42/puppet-jboss.git',
+  :tag => 'v2.0.14'
+     
+mod 'puppi',
+  :git => 'https://github.com/example42/puppi.git',
+  :tag => 'v2.1.13'
