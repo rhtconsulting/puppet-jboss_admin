@@ -61,18 +61,18 @@ porcelain types:
 * archive-validation
 * async-handler
 * audit
-* authentication_classic
-* authentication_jaas
-* authentication_jaspi
-* authentication_ldap
-* authentication_properties
-* authentication_truststore
-* authorization_classic
-* authorization_properties 
+* authentication\_classic
+* authentication\_jaas
+* authentication\_jaspi
+* authentication\_ldap
+* authentication\_properties
+* authentication\_truststore
+* authorization\_classic
+* authorization\_properties 
 
 There is currently one pattern type:
 
-* security_domain_with_authentication_classic
+* security\_domain\_with\_authentication\_classic
 
 ###Dependency Ordering###
 
@@ -81,10 +81,10 @@ needed by automatically requiring ancestor resources for any type. For example,
 `/subsystem=datasources` will always be configured before 
 `/subsystem=datasources/data-source=ExampleDS`. 
 
-Similarly, any `jboss_exec` is
+Similarly, any `jboss\_exec` is
 only executed after the resource it is being executed against has been 
 configured. This can be seen in the plumbing example below, where 
-`Jboss_exec[Enable Data Source]` will always run after the data source has been
+`Jboss\_exec[Enable Data Source]` will always run after the data source has been
 created.
 
 An explicit dependency must be declared when two resources that are not an
@@ -103,7 +103,6 @@ instead of causing an error while applying to the container. I would suggest
 using the porcelain types when possible.
 
 ###Porcelain Types###
-
 ```Puppet
 jboss_admin::server {'main':
   base_path => '/opt/jboss'
@@ -129,6 +128,11 @@ jboss_exec {'Enable Data Source':
 
 ###Plumbing Types###
 
+The following examples all show acheiving the same result using different mechinisums.
+This is also the same example given in the Porcelain Types example.
+
+####Example 1####
+Using jboss_resource and jboss_exec.
 ```Puppet
 jboss_admin::server {'main':
   base_path => '/opt/jboss'
@@ -152,7 +156,11 @@ jboss_exec {'Enable Data Source':
   unless  => '(result == true) of /subsystem=datasources/data-source=ExampleDS:read-attribute(name=enabled)',
   server  => main
 }
+```
 
+####Example 2####
+Using jboss_batch with a resource definition.
+```Puppet
 jboss_batch { "Datasource Batch":
   batch  => [
     { address => '/subsystem=datasources/data-source=ExampleDS',
@@ -165,11 +173,18 @@ jboss_batch { "Datasource Batch":
         'password'       => 'sa'
       },  
       ensure  => present
-    }   
+    },
+    { command => '/subsystem=datasources/data-source=ExampleDS:enable',
+      unless  => '(result == true) of /subsystem=datasources/data-source=ExampleDS:read-attribute(name=enabled)'
+    }
   ],  
   server => main,
 }
+```
 
+####Example 3####
+Using jboss_batch with an exec definition.
+```Puppet
 jboss_batch { "Datasource Batch":
   batch  => [
     { command => '/subsystem=datasources/data-source=ExampleDS:add',
@@ -182,7 +197,10 @@ jboss_batch { "Datasource Batch":
         'password'       => 'sa'
       },  
       ensure  => present
-    }   
+    },
+    { command => '/subsystem=datasources/data-source=ExampleDS:enable',
+      unless  => '(result == true) of /subsystem=datasources/data-source=ExampleDS:read-attribute(name=enabled)'
+    }
   ],  
   server => main,
 }
