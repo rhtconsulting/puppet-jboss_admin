@@ -4,15 +4,15 @@ require 'json'
 require 'erb'
 require 'backports/1.9.1/symbol/comparison'
 
-def generate_from_schema schema_path, output_dir
+def generate_from_json_resource_descriptions(resource_descriptions_json_path, output_dir)
 
-  schema_text = IO.read(schema_path)
-  schema = JSON.parse schema_text, :symbolize_names => true
+  resource_descriptions_text = File.read(resource_descriptions_json_path)
+  resource_descriptions_json = JSON.parse resource_descriptions_text, :symbolize_names => true
 
   manifest_template_text = IO.read(File.expand_path('../manifest.erb', __FILE__))
   manifest_template = ERB.new(manifest_template_text, safe_mode = nil, trim_mode = '-')
 
-  all_types = collect_types('', 'root_resource', schema[:result])
+  all_types = collect_types('', 'root_resource', resource_descriptions_json[:result])
 
   types_with_write = all_types.select{|t| read_write_attributes(t).count > 0 }
 
@@ -86,8 +86,6 @@ def read_write_attributes(type)
   Hash[type[:attributes].select{|key, attr| attr[:'access-type'] != 'metric'}]
 end
 
-
-
 # File actionview/lib/action_view/helpers/text_helper.rb, line 223
 def word_wrap(text, options = {})
   line_width = options.fetch(:line_width, 80)
@@ -96,5 +94,3 @@ def word_wrap(text, options = {})
     line.length > line_width ? line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip : line
   end * "\n"
 end
-
-
