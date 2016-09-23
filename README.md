@@ -1,4 +1,4 @@
-Jboss Admin Puppet Module
+jboss-admin Puppet Module
 =========================
 
 This module manages the resources within a running Jboss Wildfly (>= 7) or EAP 
